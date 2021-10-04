@@ -1,0 +1,50 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<#include "/adminPage/common.html"/>
+
+</head>
+<body>
+		<!-- 内容主体区域 -->
+		<div style="padding: 15px">
+			<form action="${ctx}/adminPage/bak" id="searchForm" method="post">
+				<div class="layui-inline">
+					<button type="button" class="layui-btn layui-btn-danger" onclick="delAll()">${bakStr.clear}</button>
+				</div>
+				
+				<input type="hidden" name="curr" value="${page.curr}">
+				<input type="hidden" name="limit" value="${page.limit}">
+			</form>
+
+			<table class="layui-table">
+				<thead>
+					<tr>
+						<th>${commonStr.createTime}</th>
+						<th>${commonStr.operation}</th>
+					</tr>
+				</thead>
+				<tbody>
+					<#list page.records as bak>
+					<tr>
+						<td>${bak.time}</td>
+						<td>
+							<button class="layui-btn layui-btn-sm" onclick="content('${bak.id}')">${bakStr.content}</button>
+							<button class="layui-btn layui-btn-sm layui-btn-normal" onclick="replace('${bak.id}')">${bakStr.restore}</button>
+							<button class="layui-btn layui-btn-sm layui-btn-danger" onclick="del('${bak.id}')">${commonStr.del}</button>
+						</td>
+					</tr>
+					</#list>
+				</tbody>
+			</table>
+			<div id="pageInfo"></div>
+		</div>
+
+
+
+	<#include '/adminPage/script.html'/>
+	<#include '/adminPage/select_preview.html'/>
+	<script src="${ctx}/js/adminPage/bak/index.js?v=${jsrandom}" type="text/javascript"></script>
+</body>
+
+
+</html>
