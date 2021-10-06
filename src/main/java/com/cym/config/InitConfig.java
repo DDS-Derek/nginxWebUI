@@ -55,7 +55,7 @@ public class InitConfig {
 	public void setHome(String home) {
 
 		if (SystemTool.isMacOS() && home.equals("/home/nginxWebUI/")) {
-			// 配置mac的home
+			// 配置macos的home
 			home = "~/nginxWebUI/";
 		}
 
@@ -147,17 +147,13 @@ public class InitConfig {
 			String nginxDir = settingService.get("nginxDir");
 
 			logger.info("nginxIsRun:" + NginxUtils.isRun());
-			logger.info("nginxExe:" + nginxExe);
-			logger.info("nginxPath:" + nginxPath);
-			logger.info("nginxDir:" + nginxDir);
-
 			if (!NginxUtils.isRun() && StrUtil.isNotEmpty(nginxExe) && StrUtil.isNotEmpty(nginxPath)) {
 				String cmd = nginxExe + " -c " + nginxPath;
 
 				if (StrUtil.isNotEmpty(nginxDir)) {
 					cmd += " -p " + nginxDir;
 				}
-
+				logger.info("runCmd:" + cmd);
 				RuntimeUtil.execForStr("/bin/sh", "-c", cmd);
 			}
 		}
