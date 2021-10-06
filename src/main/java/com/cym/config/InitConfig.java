@@ -141,11 +141,23 @@ public class InitConfig {
 				// 设置nginx执行文件
 				settingService.set("nginxExe", "nginx");
 			}
-			
+
 			// 尝试启动nginx
 			String nginxExe = settingService.get("nginxExe");
+			String nginxDir = settingService.get("nginxDir");
+
+			logger.info("nginxIsRun:" + NginxUtils.isRun());
+			logger.info("nginxExe:" + nginxExe);
+			logger.info("nginxPath:" + nginxPath);
+			logger.info("nginxDir:" + nginxDir);
+
 			if (!NginxUtils.isRun() && StrUtil.isNotEmpty(nginxExe) && StrUtil.isNotEmpty(nginxPath)) {
 				String cmd = nginxExe + " -c " + nginxPath;
+
+				if (StrUtil.isNotEmpty(nginxDir)) {
+					cmd += " -p " + nginxDir;
+				}
+
 				RuntimeUtil.execForStr("/bin/sh", "-c", cmd);
 			}
 		}
