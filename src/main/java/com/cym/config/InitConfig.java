@@ -55,13 +55,6 @@ public class InitConfig {
 	@Value("${project.home}")
 	public void setHome(String home) {
 
-		if (SystemTool.isMacOS() && home.equals("/home/nginxWebUI/")) {
-			// 获取macos的jar路径
-			ApplicationHome ah = new ApplicationHome(InitConfig.class); 
-			String docStorePath = ah.getSource().getParentFile().toString();
-			home = docStorePath + "/nginxWebUI/";
-		}
-
 		InitConfig.home = home;
 		InitConfig.acmeShDir = home + ".acme.sh/";
 		InitConfig.acmeSh = home + ".acme.sh/acme.sh";
