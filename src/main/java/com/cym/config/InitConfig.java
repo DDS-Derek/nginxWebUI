@@ -11,6 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.system.ApplicationHome;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
@@ -55,8 +56,10 @@ public class InitConfig {
 	public void setHome(String home) {
 
 		if (SystemTool.isMacOS() && home.equals("/home/nginxWebUI/")) {
-			// 配置macos的home
-			home = "~/nginxWebUI/";
+			// 获取macos的jar路径
+			ApplicationHome ah = new ApplicationHome(InitConfig.class); 
+			String docStorePath = ah.getSource().getParentFile().toString();
+			home = docStorePath + "/nginxWebUI/";
 		}
 
 		InitConfig.home = home;
