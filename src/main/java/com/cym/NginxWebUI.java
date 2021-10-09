@@ -54,7 +54,7 @@ public class NginxWebUI {
 					}
 				}
 			}
-		} else {
+		} else if(SystemTool.isLinux()){
 			list = RuntimeUtil.execForLines("ps -ef");
 			for (String line : list) {
 				if (line.contains("java") && line.contains("nginxWebUI") && line.contains(".jar")) {
