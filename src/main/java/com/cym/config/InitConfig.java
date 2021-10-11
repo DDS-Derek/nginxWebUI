@@ -62,6 +62,8 @@ public class InitConfig {
 
 	@PostConstruct
 	public void init() throws IOException {
+		
+		
 		// 初始化base值
 		Long count = sqlHelper.findAllCount(Basic.class);
 		if (count == 0) {
