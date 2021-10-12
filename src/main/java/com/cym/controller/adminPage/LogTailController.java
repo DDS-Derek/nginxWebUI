@@ -22,21 +22,19 @@ import com.cym.utils.TailLogThread;
 
 import cn.craccd.sqlHelper.utils.SqlHelper;
 
-@ServerEndpoint("/adminPage/logTail/{id}")
+@ServerEndpoint("/adminPage/logTail/{id}/{guid}")
 @Controller
 public class LogTailController {
 
 	Map<String, Process> processMap = new HashMap<>();
 	Map<String, InputStream> inputStreamMap = new HashMap<>();
 
-//	private Process process;
-//	private InputStream inputStream;
 
 	/**
 	 * 新的WebSocket请求开启
 	 */
 	@OnOpen
-	public void onOpen(Session session, @PathParam("id") String id) {
+	public void onOpen(Session session, @PathParam("id") String id,  @PathParam("guid") String guid) {
 
 		ApplicationContext act = ApplicationContextRegister.getApplicationContext();
 		SqlHelper sqlHelper = act.getBean(SqlHelper.class);
@@ -55,8 +53,8 @@ public class LogTailController {
 			}
 			inputStream = process.getInputStream();
 
-			processMap.put(id, process);
-			inputStreamMap.put(id, inputStream);
+			processMap.put(guid, process);
+			inputStreamMap.put(guid, inputStream);
 
 			// 一定要启动新的线程，防止InputStream阻塞处理WebSocket的线程
 			TailLogThread thread = new TailLogThread(inputStream, session);
@@ -70,10 +68,10 @@ public class LogTailController {
 	 * WebSocket请求关闭
 	 */
 	@OnClose
-	public void onClose(@PathParam("id") String id) {
+	public void onClose(@PathParam("guid") String guid) {
 		try {
-			InputStream inputStream = inputStreamMap.get(id);
-			Process process = processMap.get(id);
+			InputStream inputStream = inputStreamMap.get(guid);
+			Process process = processMap.get(guid);
 
 			if (inputStream != null) {
 				inputStream.close();
@@ -82,6 +80,9 @@ public class LogTailController {
 			if (process != null) {
 				process.destroy();
 			}
+			
+			inputStreamMap.remove(guid);
+			processMap.remove(guid);
 			
 		} catch (Exception e) {
 			e.printStackTrace();
