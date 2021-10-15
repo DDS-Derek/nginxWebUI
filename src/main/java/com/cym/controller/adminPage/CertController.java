@@ -206,7 +206,7 @@ public class CertController extends BaseController {
 	@RequestMapping("getTxtValue")
 	@ResponseBody
 	public JsonResult getTxtValue(String domain) {
-		String cmd = InitConfig.acmeSh + " --issue -d " + domain + " --yes-I-know-dns-manual-mode-enough-go-ahead-please";
+		String cmd = InitConfig.acmeSh + " --issue --dns -d " + domain + " --yes-I-know-dns-manual-mode-enough-go-ahead-please";
 		System.out.println(cmd);
 		List<String> rs = RuntimeUtil.execForLines("/bin/sh", "-c", cmd);
 		List<Map<String, String>> mapList = new ArrayList<>();
