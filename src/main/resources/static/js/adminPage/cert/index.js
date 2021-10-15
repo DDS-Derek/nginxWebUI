@@ -410,7 +410,7 @@ function getTxtValue(){
 				
 				$("#notice").html(html);
 			}else{
-				layer.msg('生成解析码失败');
+				layer.msg(certStr.fail);
 			}
 		},
 		error: function() {

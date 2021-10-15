@@ -63,6 +63,9 @@
 								</#if> <#if cert.type==0>
 									${certStr.byApply}
 								</#if>
+								</#if> <#if cert.type==2>
+									${certStr.byDns}
+								</#if>
 							</td>
 
 							<td>	
@@ -124,7 +127,7 @@
 				<div class="layui-form-item">
 					<label class="layui-form-label">${certStr.domain}</label>
 					<div class="layui-input-block">
-						<input type="text" name="domain" id="domain" class="layui-input" placeholder="支持*.domain.cn泛域名">
+						<input type="text" name="domain" id="domain" class="layui-input" placeholder="${certStr.support}">
 					</div>
 				</div>
 
@@ -135,7 +138,7 @@
 						<select name="type" id="type" lay-filter='type'>
 							<option value="0">${certStr.byApply}</option>
 							<option value="1">${certStr.manualUp}</option>
-							<option value="2">DNS解析验证</option>
+							<option value="2">${certStr.byDns}</option>
 						</select>
 					</div>
 				</div>
@@ -168,8 +171,7 @@
 						<div class="layui-form-item">
 							<label class="layui-form-label">Ali_Secret</label>
 							<div class="layui-input-block">
-								<input type="text" name="aliSecret" id="aliSecret"
-									class="layui-input">
+								<input type="text" name="aliSecret" id="aliSecret" class="layui-input">
 							</div>
 						</div>
 					</div>
@@ -195,8 +197,7 @@
 						<div class="layui-form-item">
 							<label class="layui-form-label">CF_Email</label>
 							<div class="layui-input-block">
-								<input type="text" name="cfEmail" id="cfEmail"
-									class="layui-input">
+								<input type="text" name="cfEmail" id="cfEmail" class="layui-input">
 							</div>
 						</div>
 
@@ -219,8 +220,7 @@
 						<div class="layui-form-item">
 							<label class="layui-form-label">GD_Secret</label>
 							<div class="layui-input-block">
-								<input type="text" name="gdSecret" id="gdSecret"
-									class="layui-input">
+								<input type="text" name="gdSecret" id="gdSecret" class="layui-input">
 							</div>
 						</div>
 					</div>
@@ -230,24 +230,21 @@
 						<div class="layui-form-item">
 							<label class="layui-form-label">HW_Username</label>
 							<div class="layui-input-block">
-								<input type="text" name="hwUsername" id="hwUsername"
-									class="layui-input">
+								<input type="text" name="hwUsername" id="hwUsername" class="layui-input">
 							</div>
 						</div>
 
 						<div class="layui-form-item">
 							<label class="layui-form-label">HW_Password</label>
 							<div class="layui-input-block">
-								<input type="text" name="hwPassword" id="hwPassword"
-									class="layui-input">
+								<input type="text" name="hwPassword" id="hwPassword" class="layui-input">
 							</div>
 						</div>
 
 						<div class="layui-form-item">
 							<label class="layui-form-label">HW_ProjectID</label>
 							<div class="layui-input-block">
-								<input type="text" name="hwProjectID" id="hwProjectID"
-									class="layui-input">
+								<input type="text" name="hwProjectID" id="hwProjectID" class="layui-input">
 							</div>
 						</div>
 					</div>
@@ -257,13 +254,9 @@
 					<div class="layui-form-item">
 						<label class="layui-form-label">pem ${commonStr.file}</label>
 						<div class="layui-input-block">
-							<button type="button" class="layui-btn layui-btn-sm liteBtn"
-								style="width: 90px;" id="pemBtn">${commonStr.upload}
-								pem</button>
+							<button type="button" class="layui-btn layui-btn-sm liteBtn" style="width: 90px;" id="pemBtn">${commonStr.upload} pem</button>
 
-							<button type="button"
-								class="layui-btn layui-btn-sm layui-btn-normal liteBtn"
-								onclick="selectPem()">${commonStr.selectPath}</button>
+							<button type="button" class="layui-btn layui-btn-sm layui-btn-normal liteBtn" onclick="selectPem()">${commonStr.selectPath}</button>
 
 							<input type="hidden" name="pem" id="pem" class="layui-input">
 							<div class="layui-form-mid layui-word-aux" id="pemPath"></div>
@@ -273,13 +266,9 @@
 					<div class="layui-form-item">
 						<label class="layui-form-label">key ${commonStr.file}</label>
 						<div class="layui-input-block">
-							<button type="button" class="layui-btn layui-btn-sm liteBtn"
-								style="width: 90px;" id="keyBtn">${commonStr.upload}
-								key</button>
+							<button type="button" class="layui-btn layui-btn-sm liteBtn" style="width: 90px;" id="keyBtn">${commonStr.upload} key</button>
 
-							<button type="button"
-								class="layui-btn layui-btn-sm layui-btn-normal liteBtn"
-								onclick="selectKey()">${commonStr.selectPath}</button>
+							<button type="button" class="layui-btn layui-btn-sm layui-btn-normal liteBtn" onclick="selectKey()">${commonStr.selectPath}</button>
 
 							<input type="hidden" name="key" id="key" class="layui-input">
 							<div class="layui-form-mid layui-word-aux" id="keyPath"></div>
@@ -292,21 +281,20 @@
 					<div class="layui-form-item">
 						<label class="layui-form-label"> &nbsp; </label>
 						<div class="layui-input-block">
-							<button type="button" class="layui-btn layui-btn-sm"
-								onclick="getTxtValue()">生成解析码</button>
+							<button type="button" class="layui-btn layui-btn-sm" onclick="getTxtValue()">${certStr.generateCode}</button>
 						</div>
 					</div>
 
 					<div class="layui-form-item">
 						<label class="layui-form-label"> &nbsp; </label>
 						<div class="layui-input-block">
-							<div>请在DNS服务商处添加以下解析，并等待30秒后再进行申请操作:</div>
+							<div>${certStr.dnsDescr}</div>
 							<table class="layui-table layui-form">
 								<thead>
 									<tr>
-										<th>主机记录</th>
-										<th>记录类型</th>
-										<th>记录值</th>
+										<th>${certStr.hostRecords}</th>
+										<th>${certStr.recordsType}</th>
+										<th>${certStr.recordsValue}</th>
 									</tr>
 								</thead>
 								<tbody id="notice">
@@ -319,8 +307,7 @@
 				</div>
 
 				<div class="layui-form-item center">
-					<button type="button" class="layui-btn layui-btn-normal"
-						onclick="addOver()">${commonStr.submit}</button>
+					<button type="button" class="layui-btn layui-btn-normal" onclick="addOver()">${commonStr.submit}</button>
 					<button type="button" class="layui-btn" onclick="layer.closeAll()">${commonStr.close}</button>
 				</div>
 			</form>
@@ -330,8 +317,7 @@
 
 	<#include '/adminPage/script.html'/>
 	<#include '/adminPage/select_root.html'/>
-	<script src="${ctx}/js/adminPage/cert/index.js?v=${jsrandom}"
-		type="text/javascript"></script>
+	<script src="${ctx}/js/adminPage/cert/index.js?v=${jsrandom}" type="text/javascript"></script>
 </body>
 
 

@@ -135,7 +135,6 @@ public class CertController extends BaseController {
 				}
 
 				cmd = InitConfig.acmeSh + " --issue --dns " + dnsType + " -d " + cert.getDomain() + " --server letsencrypt";
-
 			} else if (cert.getType() == 2) {
 				cmd = InitConfig.acmeSh + " --renew -d " + cert.getDomain() + " --server letsencrypt --yes-I-know-dns-manual-mode-enough-go-ahead-please";
 			}
@@ -222,7 +221,7 @@ public class CertController extends BaseController {
 				
 				map2 = new HashMap<>();
 				map2.put("domain", map1.get("domain").replace("_acme-challenge.", ""));
-				map2.put("type", "任意");
+				map2.put("type", m.get("certStr.any"));
 				
 			}
 
@@ -230,7 +229,7 @@ public class CertController extends BaseController {
 				map1.put("value", str.split("'")[1]);
 				mapList.add(map1);
 				
-				map2.put("value", "任意");
+				map2.put("value", m.get("certStr.any"));
 				mapList.add(map2);
 			}
 		}
