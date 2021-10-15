@@ -397,7 +397,7 @@ function getTxtValue(){
 			if (data.success) {
 				var html = ``;
 			
-				for(let i=0;i=data.obj.length;i++){
+				for(let i=0;i<=data.obj.length;i++){
 					var txt = data.obj[i]
 					html += `
 						<tr>
