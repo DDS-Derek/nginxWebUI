@@ -220,7 +220,7 @@ public class CertController extends BaseController {
 				map1.put("domain", str.split("'")[1]);
 				map1.put("type", "TXT");
 				
-				map2.put("domain", str.split("'")[1].replace("_acme-challenge.", ""));
+				map2.put("domain", map1.get("domain").replace("_acme-challenge.", ""));
 				map2.put("type", "任意");
 				
 			}
