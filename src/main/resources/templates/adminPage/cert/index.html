@@ -60,10 +60,11 @@
 							<td>
 								<#if cert.type==1>
 									${certStr.manualUp}
-								</#if> <#if cert.type==0>
+								</#if> 
+								<#if cert.type==0>
 									${certStr.byApply}
 								</#if>
-								</#if> <#if cert.type==2>
+								<#if cert.type==2>
 									${certStr.byDns}
 								</#if>
 							</td>
