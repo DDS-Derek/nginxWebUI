@@ -57,29 +57,38 @@
 						<#list page.records as cert>
 						<tr>
 							<td>${cert.domain}</td>
-							<td><#if cert.type==1>
+							<td>
+								<#if cert.type==1>
 									${certStr.manualUp}
 								</#if> <#if cert.type==0>
 									${certStr.byApply}
-								</#if></td>
+								</#if>
+							</td>
 
-							<td><#if cert.type==0>
+							<td>	
+								<#if cert.type==0>
 									<#if cert.dnsType=='dp'> ${certStr.dnsPod} </#if> 
 									<#if cert.dnsType=='ali'> ${certStr.aliDns} </#if>
 									<#if cert.dnsType=='cf'> Cloudflare </#if>
 									<#if cert.dnsType=='gd'> Godaddy </#if>
-								</#if></td>
+								</#if>
+							</td>
 
 
-							<td><#if cert.makeTime!=null>
-								${cert.makeTime?number_to_datetime?string('yyyy-MM-dd
-								HH:mm:ss')} </#if></td>
+							<td>
+								<#if cert.makeTime!=null>
+									${cert.makeTime?number_to_datetime?string('yyyy-MM-dd HH:mm:ss')} 
+								</#if>
+							</td>
 							<td>pem: ${cert.pem} <br> key: ${cert.key}
 							</td>
-							<td><#if cert.type==0>
+							<td>
+								<#if cert.type==0>
 									<input type="checkbox" name="switch" lay-filter="autoRenew" value="${cert.id}" lay-text="ON|OFF" lay-skin="switch" ${(cert.autoRenew==1)?string('checked','')}>
-								</#if></td>
-							<td><#if cert.type==0>
+								</#if>
+							</td>
+							<td>
+								<#if cert.type==0>
 									<#if cert.pem == null || cert.pem == "">
 									<button class="layui-btn layui-btn-sm" onclick="issue('${cert.id}')">${commonStr.apply}</button>
 									</#if>
