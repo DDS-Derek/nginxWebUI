@@ -83,12 +83,12 @@
 							<td>pem: ${cert.pem} <br> key: ${cert.key}
 							</td>
 							<td>
-								<#if cert.type==0>
+								<#if cert.type==0 || cert.type==2>
 									<input type="checkbox" name="switch" lay-filter="autoRenew" value="${cert.id}" lay-text="ON|OFF" lay-skin="switch" ${(cert.autoRenew==1)?string('checked','')}>
 								</#if>
 							</td>
 							<td>
-								<#if cert.type==0>
+								<#if cert.type==0 || cert.type==2>
 									<#if cert.pem == null || cert.pem == "">
 									<button class="layui-btn layui-btn-sm" onclick="issue('${cert.id}')">${commonStr.apply}</button>
 									</#if>
