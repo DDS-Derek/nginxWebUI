@@ -398,12 +398,12 @@ function getTxtValue(){
 				var html = ``;
 			
 				for(let i=0;i<data.obj.length;i++){
-					var txt = data.obj[i]
+					var map = data.obj[i]
 					html += `
 						<tr>
-							<td>${txt.domain}</td>
-							<td>TXT</td>
-							<td>${txt.txt}</td>
+							<td>${map.domain}</td>
+							<td>${map.type}</td>
+							<td>${map.value}</td>
 						</tr>
 					`;
 				}	

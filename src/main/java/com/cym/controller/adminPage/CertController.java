@@ -211,17 +211,26 @@ public class CertController extends BaseController {
 		List<String> rs = RuntimeUtil.execForLines("/bin/sh", "-c", cmd);
 		List<Map<String, String>> mapList = new ArrayList<>();
 
-		Map<String, String> map = null;
+		Map<String, String> map1 = null;
+		Map<String, String> map2 = null;
 		for (String str : rs) {
 			System.out.println(str);
 			if (str.contains("Domain:")) {
-				map = new HashMap<>();
-				map.put("domain", str.split("'")[1]);
+				map1 = new HashMap<>();
+				map1.put("domain", str.split("'")[1]);
+				map1.put("type", "TXT");
+				
+				map2.put("domain", str.split("'")[1].replace("_acme-challenge.", ""));
+				map2.put("type", "任意");
+				
 			}
 
 			if (str.contains("TXT value:")) {
-				map.put("txt", str.split("'")[1]);
-				mapList.add(map);
+				map1.put("value", str.split("'")[1]);
+				mapList.add(map1);
+				
+				map2.put("value", "任意");
+				mapList.add(map2);
 			}
 		}
 
