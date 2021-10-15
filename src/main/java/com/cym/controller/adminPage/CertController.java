@@ -5,9 +5,10 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.nio.charset.Charset;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -25,13 +26,12 @@ import com.cym.model.Cert;
 import com.cym.service.CertService;
 import com.cym.service.SettingService;
 import com.cym.utils.BaseController;
-import com.cym.utils.TimeExeUtils;
 import com.cym.utils.JsonResult;
 import com.cym.utils.SystemTool;
+import com.cym.utils.TimeExeUtils;
 
 import cn.craccd.sqlHelper.bean.Page;
 import cn.hutool.core.io.FileUtil;
-import cn.hutool.core.lang.UUID;
 import cn.hutool.core.util.RuntimeUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.core.util.ZipUtil;
@@ -118,25 +118,35 @@ public class CertController extends BaseController {
 		String[] env = getEnv(cert);
 
 		if (type.equals("issue") || StrUtil.isEmpty(cert.getPem())) {
-			// 申请
-			String dnsType = "";
-			if (cert.getDnsType().equals("ali")) {
-				dnsType = "dns_ali";
-			} else if (cert.getDnsType().equals("dp")) {
-				dnsType = "dns_dp";
-			} else if (cert.getDnsType().equals("cf")) {
-				dnsType = "dns_cf";
-			} else if (cert.getDnsType().equals("gd")) {
-				dnsType = "dns_gd";
-			} else if (cert.getDnsType().equals("hw")) {
-				dnsType = "dns_huaweicloud";
-			}
 
-			cmd = InitConfig.acmeSh + " --issue --dns " + dnsType + " -d " + cert.getDomain() + " --server letsencrypt";
+			// 申请
+			if (cert.getType() == 0) {
+				String dnsType = "";
+				if (cert.getDnsType().equals("ali")) {
+					dnsType = "dns_ali";
+				} else if (cert.getDnsType().equals("dp")) {
+					dnsType = "dns_dp";
+				} else if (cert.getDnsType().equals("cf")) {
+					dnsType = "dns_cf";
+				} else if (cert.getDnsType().equals("gd")) {
+					dnsType = "dns_gd";
+				} else if (cert.getDnsType().equals("hw")) {
+					dnsType = "dns_huaweicloud";
+				}
+
+				cmd = InitConfig.acmeSh + " --issue --dns " + dnsType + " -d " + cert.getDomain() + " --server letsencrypt";
+
+			} else if (cert.getType() == 2) {
+				cmd = InitConfig.acmeSh + " --renew -d " + cert.getDomain() + " --server letsencrypt --yes-I-know-dns-manual-mode-enough-go-ahead-please";
+			}
 		} else if (type.equals("renew")) {
 			// 续签,以第一个域名为证书名
-			String domain = cert.getDomain().split(",")[0];
-			cmd = InitConfig.acmeSh + " --renew --force -d " + domain;
+			if (cert.getType() == 0) {
+				String domain = cert.getDomain().split(",")[0];
+				cmd = InitConfig.acmeSh + " --renew --force -d " + domain;
+			} else if (cert.getType() == 2) {
+				cmd = InitConfig.acmeSh + " --renew -d " + cert.getDomain() + " --server letsencrypt --yes-I-know-dns-manual-mode-enough-go-ahead-please";
+			}
 		}
 		logger.info(cmd);
 
@@ -191,6 +201,30 @@ public class CertController extends BaseController {
 		}
 
 		return list.toArray(new String[] {});
+	}
+
+	@RequestMapping("getTxtValue")
+	@ResponseBody
+	public JsonResult getTxtValue(String domain) {
+		String cmd = InitConfig.acmeSh + " --issue -d " + domain + " --yes-I-know-dns-manual-mode-enough-go-ahead-please";
+
+		List<String> rs = RuntimeUtil.execForLines("/bin/sh", "-c", cmd);
+		List<Map<String, String>> mapList = new ArrayList<>();
+
+		Map<String, String> map = null;
+		for (String str : rs) {
+			if (str.contains("Domain:")) {
+				map = new HashMap<>();
+				map.put("domain", str.split("'")[1]);
+			}
+
+			if (str.contains("TXT value:")) {
+				map.put("txt", str.split("'")[1]);
+				mapList.add(map);
+			}
+		}
+
+		return renderSuccess(mapList);
 	}
 
 	@RequestMapping("download")

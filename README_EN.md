@@ -10,6 +10,10 @@ Email: cym1102@qq.com
 
 official website: http://www.nginxwebui.cn
 
+WeChat Donate: 
+
+<img src="http://www.nginxwebui.cn/img/weixin.png"  height="200" width="200">
+
 #### Function description
 
 NginxWebuUI is a graphical management tool for nginx configuration. You can use web pages to quickly configure various functions of nginx, including HTTP forwarding, TCP forwarding, reverse proxy, load balancing, static HTML server, SSL certificate automatic application, renewal, configuration, etc.  Nginx. conf file can be generated after configuration, and nginx can be controlled to use this file for startup and reload, complete the graphical control of nginx closed loop.  
@@ -288,6 +292,4 @@ select * from admin;
 .quit
 ```
 
-#### Qr code for donation
 
-<img src="http://www.nginxwebui.cn/img/weixin.png"  height="300" width="300">

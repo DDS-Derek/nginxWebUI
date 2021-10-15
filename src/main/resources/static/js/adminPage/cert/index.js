@@ -80,13 +80,18 @@ function checkDnsType(value) {
 }
 
 function checkType(value) {
+	$("#type0").hide();
+	$("#type1").hide();
+	$("#type2").hide();
+	
 	if (value == 0) {
 		$("#type0").show();
-		$("#type1").hide();
 	}
 	if (value == 1) {
-		$("#type0").hide();
 		$("#type1").show();
+	}
+	if (value == 2) {
+		$("#type2").show();
 	}
 }
 
@@ -112,6 +117,9 @@ function add() {
 	$("#key").val("");
 	$("#pemPath").html("");
 	$("#keyPath").html("");
+	
+	$("#notice").html("");
+	
 	checkType(0);
 	checkDnsType('ali');
 
@@ -122,7 +130,8 @@ function add() {
 
 function edit(id, clone) {
 	$("#id").val(id);
-
+	$("#notice").html("");
+	
 	$.ajax({
 		type: 'GET',
 		url: ctx + '/adminPage/cert/detail',
@@ -182,7 +191,7 @@ function showWindow(title) {
 	layer.open({
 		type: 1,
 		title: title,
-		area: ['700px', '500px'], // 宽高
+		area: ['800px', '500px'], // 宽高
 		content: $('#windowDiv')
 	});
 }
@@ -366,4 +375,45 @@ function clone(id){
 	if (confirm(serverStr.confirmClone)) {
 		edit(id, true);
 	}
+}
+
+var load;
+function getTxtValue(){
+	if ($("#domain").val() == "") {
+		layer.msg(certStr.error1);
+		return;
+	}
+	
+	load = layer.load();
+	$.ajax({
+		type: 'POST',
+		url: ctx + '/adminPage/cert/getTxtValue',
+		data: {
+			domain: $("#domain").val()
+		},
+		dataType: 'json',
+		success: function(data) {
+			layer.close(load);
+			if (data.success) {
+				var html = ``;
+			
+				for(let i=0;i=data.obj.length;i++){
+					var txt = data.obj[i]
+					html += `
+						<tr>
+							<td>${txt.domain}</td>
+							<td>TXT</td>
+							<td>${txt.txt}</td>
+						</tr>
+					`;
+				}	
+				
+				$("#notice").html(html);
+			}
+		},
+		error: function() {
+			layer.closeAll();
+			layer.alert(commonStr.errorInfo);
+		}
+	});
 }

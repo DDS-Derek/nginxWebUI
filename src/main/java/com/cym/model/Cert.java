@@ -17,7 +17,7 @@ public class Cert extends BaseModel {
 	@ApiModelProperty("key文件路径")
 	String key;
 
-	@ApiModelProperty("获取方式 0 申请证书 1 手动上传")
+	@ApiModelProperty("获取方式 0 申请证书 1 手动上传 2 DNS验证")
 	@InitValue("0")
 	Integer type; 
 
