@@ -210,14 +210,14 @@ public class CertController extends BaseController {
 		}
 		
 		String cmd = InitConfig.acmeSh + " --issue --force --dns -d " + domain + " --server letsencrypt --yes-I-know-dns-manual-mode-enough-go-ahead-please";
-		System.out.println(cmd);
+		logger.info(cmd);
 		List<String> rs = RuntimeUtil.execForLines("/bin/sh", "-c", cmd);
 		List<Map<String, String>> mapList = new ArrayList<>();
 
 		Map<String, String> map1 = null;
 		Map<String, String> map2 = null;
 		for (String str : rs) {
-			System.out.println(str);
+			logger.info(str);
 			if (str.contains("Domain:")) {
 				map1 = new HashMap<>();
 				map1.put("domain", str.split("'")[1]);
