@@ -54,7 +54,7 @@ public class TimeExeUtils {
 						process.exitValue();
 						break;
 					} catch (IllegalThreadStateException e) {
-						e.printStackTrace();
+						logger.info(e.getMessage());
 					}
 				}
 
