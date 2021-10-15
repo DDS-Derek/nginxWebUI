@@ -213,6 +213,7 @@ public class CertController extends BaseController {
 
 		Map<String, String> map = null;
 		for (String str : rs) {
+			System.out.println(str);
 			if (str.contains("Domain:")) {
 				map = new HashMap<>();
 				map.put("domain", str.split("'")[1]);
