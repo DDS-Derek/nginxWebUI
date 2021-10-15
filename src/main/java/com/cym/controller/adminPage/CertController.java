@@ -169,31 +169,29 @@ public class CertController extends BaseController {
 	private String[] getEnv(Cert cert) {
 		List<String> list = new ArrayList<>();
 		if (cert.getDnsType().equals("ali")) {
-			list.add("Ali_Key='" + cert.getAliKey() + "'");
-			list.add("Ali_Secret='" + cert.getAliSecret() + "'");
+			list.add("Ali_Key=" + cert.getAliKey());
+			list.add("Ali_Secret=" + cert.getAliSecret());
 		}
 		if (cert.getDnsType().equals("dp")) {
-			list.add("DP_Id='" + cert.getDpId() + "'");
-			list.add("DP_Key='" + cert.getDpKey() + "'");
+			list.add("DP_Id=" + cert.getDpId());
+			list.add("DP_Key=" + cert.getDpKey());
 		}
 		if (cert.getDnsType().equals("cf")) {
-			list.add("CF_Email='" + cert.getCfEmail() + "'");
-			list.add("CF_Key='" + cert.getCfKey() + "'");
+			list.add("CF_Email=" + cert.getCfEmail());
+			list.add("CF_Key=" + cert.getCfKey());
 		}
 		if (cert.getDnsType().equals("gd")) {
-			list.add("GD_Key='" + cert.getGdKey() + "'");
-			list.add("GD_Secret='" + cert.getGdSecret() + "'");
+			list.add("GD_Key=" + cert.getGdKey());
+			list.add("GD_Secret=" + cert.getGdSecret());
 		}
 		if (cert.getDnsType().equals("hw")) {
-			list.add("HUAWEICLOUD_Username='" + cert.getHwUsername() + "'");
-			list.add("HUAWEICLOUD_Password='" + cert.getHwPassword() + "'");
-			list.add("HUAWEICLOUD_ProjectID='" + cert.getHwProjectID() + "'");
+			list.add("HUAWEICLOUD_Username=" + cert.getHwUsername());
+			list.add("HUAWEICLOUD_Password=" + cert.getHwPassword());
+			list.add("HUAWEICLOUD_ProjectID=" + cert.getHwProjectID());
 		}
-		
+
 		return list.toArray(new String[] {});
 	}
-	
-	
 
 	@RequestMapping("download")
 	public void download(String id, HttpServletResponse response) throws IOException {
