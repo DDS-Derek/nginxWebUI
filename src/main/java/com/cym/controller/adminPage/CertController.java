@@ -145,7 +145,7 @@ public class CertController extends BaseController {
 				String domain = cert.getDomain().split(",")[0];
 				cmd = InitConfig.acmeSh + " --renew --force -d " + domain;
 			} else if (cert.getType() == 2) {
-				cmd = InitConfig.acmeSh + " --renew -d " + cert.getDomain() + " --server letsencrypt --yes-I-know-dns-manual-mode-enough-go-ahead-please";
+				cmd = InitConfig.acmeSh + " --renew --force -d " + cert.getDomain() + " --server letsencrypt --yes-I-know-dns-manual-mode-enough-go-ahead-please";
 			}
 		}
 		logger.info(cmd);
