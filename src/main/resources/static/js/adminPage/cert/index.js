@@ -191,7 +191,7 @@ function showWindow(title) {
 	layer.open({
 		type: 1,
 		title: title,
-		area: ['800px', '500px'], // 宽高
+		area: ['1000px', '500px'], // 宽高
 		content: $('#windowDiv')
 	});
 }
@@ -409,6 +409,8 @@ function getTxtValue(){
 				}	
 				
 				$("#notice").html(html);
+			}else{
+				layer.msg('生成解析码失败');
 			}
 		},
 		error: function() {
