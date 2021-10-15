@@ -205,6 +205,10 @@ public class CertController extends BaseController {
 	@RequestMapping("getTxtValue")
 	@ResponseBody
 	public JsonResult getTxtValue(String domain) {
+		if (!SystemTool.isLinux()) {
+			return renderError(m.get("certStr.error2"));
+		}
+		
 		String cmd = InitConfig.acmeSh + " --issue --force --dns -d " + domain + " --server letsencrypt --yes-I-know-dns-manual-mode-enough-go-ahead-please";
 		System.out.println(cmd);
 		List<String> rs = RuntimeUtil.execForLines("/bin/sh", "-c", cmd);
