@@ -168,36 +168,29 @@ public class CertController extends BaseController {
 
 	private String[] getEnv(Cert cert) {
 		List<String> list = new ArrayList<>();
-//		list.add("UPGRADE_HASH='" + UUID.randomUUID().toString().replace("-", "") + "'");
 		if (cert.getDnsType().equals("ali")) {
-			list.add("SAVED_Ali_Key='" + cert.getAliKey() + "'");
-			list.add("SAVED_Ali_Secret='" + cert.getAliSecret() + "'");
+			list.add("Ali_Key='" + cert.getAliKey() + "'");
+			list.add("Ali_Secret='" + cert.getAliSecret() + "'");
 		}
 		if (cert.getDnsType().equals("dp")) {
-			list.add("SAVED_DP_Id='" + cert.getDpId() + "'");
-			list.add("SAVED_DP_Key='" + cert.getDpKey() + "'");
+			list.add("DP_Id='" + cert.getDpId() + "'");
+			list.add("DP_Key='" + cert.getDpKey() + "'");
 		}
 		if (cert.getDnsType().equals("cf")) {
-			list.add("SAVED_CF_Email='" + cert.getCfEmail() + "'");
-			list.add("SAVED_CF_Key='" + cert.getCfKey() + "'");
+			list.add("CF_Email='" + cert.getCfEmail() + "'");
+			list.add("CF_Key='" + cert.getCfKey() + "'");
 		}
 		if (cert.getDnsType().equals("gd")) {
-			list.add("SAVED_GD_Key='" + cert.getGdKey() + "'");
-			list.add("SAVED_GD_Secret='" + cert.getGdSecret() + "'");
+			list.add("GD_Key='" + cert.getGdKey() + "'");
+			list.add("GD_Secret='" + cert.getGdSecret() + "'");
 		}
 		if (cert.getDnsType().equals("hw")) {
-			list.add("SAVED_HUAWEICLOUD_Username='" + cert.getHwUsername() + "'");
-			list.add("SAVED_HUAWEICLOUD_Password='" + cert.getHwPassword() + "'");
-			list.add("SAVED_HUAWEICLOUD_ProjectID='" + cert.getHwProjectID() + "'");
+			list.add("HUAWEICLOUD_Username='" + cert.getHwUsername() + "'");
+			list.add("HUAWEICLOUD_Password='" + cert.getHwPassword() + "'");
+			list.add("HUAWEICLOUD_ProjectID='" + cert.getHwProjectID() + "'");
 		}
 		
 		return list.toArray(new String[] {});
-		
-//		list.add("USER_PATH='/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin'");
-//		FileUtil.writeLines(list, new File(InitConfig.acmeSh.replace("/acme.sh", "/account.conf")), Charset.defaultCharset());
-		
-		
-		
 	}
 	
 	
