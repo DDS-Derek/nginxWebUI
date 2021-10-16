@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.cym.config.InitConfig;
+import com.cym.ext.CertExt;
 import com.cym.model.Cert;
 import com.cym.service.CertService;
 import com.cym.service.SettingService;
@@ -61,12 +62,13 @@ public class CertController extends BaseController {
 
 	@RequestMapping("addOver")
 	@ResponseBody
-	public JsonResult addOver(Cert cert) {
+	public JsonResult addOver(Cert cert, String[] domain, String[] type, String[] value) {
 		if (certService.hasSame(cert)) {
 			return renderError(m.get("certStr.same"));
 		}
 
-		sqlHelper.insertOrUpdate(cert);
+		certService.insertOrUpdate(cert, domain, type, value);
+		
 		return renderSuccess();
 	}
 
@@ -80,7 +82,10 @@ public class CertController extends BaseController {
 	@RequestMapping("detail")
 	@ResponseBody
 	public JsonResult detail(String id) {
-		return renderSuccess(sqlHelper.findById(id, Cert.class));
+		CertExt certExt = new CertExt();
+		certExt.setCert(sqlHelper.findById(id, Cert.class));
+		certExt.setCertCodes(certService.getCertCodes(id));
+		return renderSuccess(certExt);
 	}
 
 	@RequestMapping("del")
@@ -208,7 +213,7 @@ public class CertController extends BaseController {
 		if (!SystemTool.isLinux()) {
 			return renderError(m.get("certStr.error2"));
 		}
-		
+
 		String cmd = InitConfig.acmeSh + " --issue --force --dns -d " + domain + " --server letsencrypt --yes-I-know-dns-manual-mode-enough-go-ahead-please";
 		logger.info(cmd);
 		List<String> rs = RuntimeUtil.execForLines("/bin/sh", "-c", cmd);
@@ -222,17 +227,17 @@ public class CertController extends BaseController {
 				map1 = new HashMap<>();
 				map1.put("domain", str.split("'")[1]);
 				map1.put("type", "TXT");
-				
+
 				map2 = new HashMap<>();
 				map2.put("domain", map1.get("domain").replace("_acme-challenge.", ""));
 				map2.put("type", m.get("certStr.any"));
-				
+
 			}
 
 			if (str.contains("TXT value:")) {
 				map1.put("value", str.split("'")[1]);
 				mapList.add(map1);
-				
+
 				map2.put("value", m.get("certStr.any"));
 				mapList.add(map2);
 			}

@@ -28,12 +28,6 @@ public class Cert extends BaseModel {
 	@InitValue("0")
 	Integer autoRenew; 
 
-//	@ApiModelProperty("pem文件内容")
-//	String pemStr;
-//	
-//	@ApiModelProperty("key文件内容")
-//	String keyStr;
-
 	@ApiModelProperty("dns提供商 ali:阿里云  dp:腾讯云  cf:Cloudflare  gd:Godaddy")
 	String dnsType; 
 	@ApiModelProperty("dpId(腾讯云需要的参数)")

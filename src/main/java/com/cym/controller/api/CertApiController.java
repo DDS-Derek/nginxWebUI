@@ -54,24 +54,33 @@ public class CertApiController extends BaseController {
 		if (StrUtil.isEmpty(cert.getDnsType())) {
 			return renderError("dns提供商为空");
 		}
-		if(cert.getDnsType().equals("ali") && (StrUtil.isEmpty(cert.getAliKey()) || StrUtil.isEmpty(cert.getAliSecret()))) {
+		if (cert.getDnsType().equals("ali") && (StrUtil.isEmpty(cert.getAliKey()) || StrUtil.isEmpty(cert.getAliSecret()))) {
 			return renderError("aliKey 或 aliSecret为空");
 		}
-		if(cert.getDnsType().equals("dp") && (StrUtil.isEmpty(cert.getDpId()) || StrUtil.isEmpty(cert.getDpKey()))) {
+		if (cert.getDnsType().equals("dp") && (StrUtil.isEmpty(cert.getDpId()) || StrUtil.isEmpty(cert.getDpKey()))) {
 			return renderError("dpId 或 dpKey为空");
 		}
-		if(cert.getDnsType().equals("cf") && (StrUtil.isEmpty(cert.getCfEmail()) || StrUtil.isEmpty(cert.getCfKey()))) {
+		if (cert.getDnsType().equals("cf") && (StrUtil.isEmpty(cert.getCfEmail()) || StrUtil.isEmpty(cert.getCfKey()))) {
 			return renderError("cfEmail 或 cfKey为空");
 		}
-		if(cert.getDnsType().equals("gd") && (StrUtil.isEmpty(cert.getGdKey()) || StrUtil.isEmpty(cert.getGdSecret()))) {
+		if (cert.getDnsType().equals("gd") && (StrUtil.isEmpty(cert.getGdKey()) || StrUtil.isEmpty(cert.getGdSecret()))) {
 			return renderError("gdKey 或 gdSecret为空");
 		}
-		return certController.addOver(cert);
+		return certController.addOver(cert, null, null, null);
 	}
+	
+	@ApiOperation("获取域名解析码")
+	@PostMapping("getTxtValue")
+	public JsonResult getTxtValue(String id) {
+		Cert cert = sqlHelper.findById(id, Cert.class);
+		
+		return certController.getTxtValue(cert.getDomain());
+	}
+	
 
 	@ApiOperation("设置证书自动续签")
 	@PostMapping("setAutoRenew")
-	public JsonResult setAutoRenew(@ApiParam("主键id")String id, @ApiParam("是否自动续签:0否 1是")Integer autoRenew) {
+	public JsonResult setAutoRenew(@ApiParam("主键id") String id, @ApiParam("是否自动续签:0否 1是") Integer autoRenew) {
 		Cert cert = new Cert();
 		cert.setId(id);
 		cert.setAutoRenew(autoRenew);
@@ -88,14 +97,14 @@ public class CertApiController extends BaseController {
 
 	@ApiOperation("执行申请")
 	@PostMapping("apply")
-	public JsonResult apply(@ApiParam("主键id") String id,@ApiParam("申请类型 issue:申请 renew:续签") String type) {
+	public JsonResult apply(@ApiParam("主键id") String id, @ApiParam("申请类型 issue:申请 renew:续签") String type) {
 
 		return certController.apply(id, type);
 	}
 
 	@ApiOperation("下载证书文件")
 	@PostMapping("download")
-	public void download(@ApiParam("主键id")String id, HttpServletResponse response) throws IOException {
+	public void download(@ApiParam("主键id") String id, HttpServletResponse response) throws IOException {
 		certController.download(id, response);
 	}
 }
