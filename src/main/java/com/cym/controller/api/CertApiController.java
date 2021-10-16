@@ -74,8 +74,8 @@ public class CertApiController extends BaseController {
 
 	@ApiOperation("获取域名解析码")
 	@PostMapping("getTxtValue")
-	public JsonResult getTxtValue(String id) {
-		Cert cert = sqlHelper.findById(id, Cert.class);
+	public JsonResult getTxtValue(String certId) {
+		Cert cert = sqlHelper.findById(certId, Cert.class);
 
 		JsonResult jsonResult = certController.getTxtValue(cert.getDomain());
 
