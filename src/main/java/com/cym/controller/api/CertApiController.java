@@ -1,6 +1,9 @@
 package com.cym.controller.api;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -68,15 +71,31 @@ public class CertApiController extends BaseController {
 		}
 		return certController.addOver(cert, null, null, null);
 	}
-	
+
 	@ApiOperation("获取域名解析码")
 	@PostMapping("getTxtValue")
 	public JsonResult getTxtValue(String id) {
 		Cert cert = sqlHelper.findById(id, Cert.class);
-		
-		return certController.getTxtValue(cert.getDomain());
+
+		JsonResult jsonResult = certController.getTxtValue(cert.getDomain());
+
+		List<String> domains = new ArrayList<>();
+		List<String> types = new ArrayList<>();
+		List<String> values = new ArrayList<>();
+
+		List<Map<String, String>> list = (List<Map<String, String>>) jsonResult.getObj();
+		if (list != null && list.size() > 0) {
+			for(Map<String, String> map:list) {
+				domains.add(map.get("domain"));
+				types.add(map.get("type"));
+				values.add(map.get("value"));
+			}
+		}
+
+		certService.insertOrUpdate(cert, domains.toArray(new String[] {}), types.toArray(new String[] {}), values.toArray(new String[] {}));
+
+		return jsonResult;
 	}
-	
 
 	@ApiOperation("设置证书自动续签")
 	@PostMapping("setAutoRenew")
