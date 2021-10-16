@@ -62,12 +62,12 @@ public class CertController extends BaseController {
 
 	@RequestMapping("addOver")
 	@ResponseBody
-	public JsonResult addOver(Cert cert, String[] domain, String[] type, String[] value) {
+	public JsonResult addOver(Cert cert, String[] domains, String[] types, String[] values) {
 		if (certService.hasSame(cert)) {
 			return renderError(m.get("certStr.same"));
 		}
 
-		certService.insertOrUpdate(cert, domain, type, value);
+		certService.insertOrUpdate(cert, domains, types, values);
 		
 		return renderSuccess();
 	}

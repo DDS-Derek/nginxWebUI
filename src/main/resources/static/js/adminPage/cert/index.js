@@ -178,9 +178,9 @@ function edit(id, clone) {
 						var map = data.obj.certCodes[i]
 						html += `
 						<tr>
-							<td>${map.domain} <input type="hidden" name="domain" value="${map.domain}"> </td>
-							<td>${map.type} <input type="hidden" name="type" value="${map.type}"> </td>
-							<td>${map.value} <input type="hidden" name="value" value="${map.value}"> </td>
+							<td>${map.domain} <input type="hidden" name="domains" value="${map.domain}"> </td>
+							<td>${map.type} <input type="hidden" name="types" value="${map.type}"> </td>
+							<td>${map.value} <input type="hidden" name="values" value="${map.value}"> </td>
 						</tr>
 					`;
 					}
@@ -418,9 +418,9 @@ function getTxtValue() {
 					var map = data.obj[i]
 					html += `
 						<tr>
-							<td>${map.domain} <input type="hidden" name="domain" value="${map.domain}"> </td>
-							<td>${map.type} <input type="hidden" name="type" value="${map.type}"> </td>
-							<td>${map.value} <input type="hidden" name="value" value="${map.value}"> </td>
+							<td>${map.domain} <input type="hidden" name="domains" value="${map.domain}"> </td>
+							<td>${map.type} <input type="hidden" name="types" value="${map.type}"> </td>
+							<td>${map.value} <input type="hidden" name="values" value="${map.value}"> </td>
 						</tr>
 					`;
 				}
