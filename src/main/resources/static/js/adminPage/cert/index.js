@@ -427,7 +427,7 @@ function getTxtValue() {
 
 				$("#notice").html(html);
 			} else {
-				layer.msg(certStr.fail);
+				layer.msg(data.msg);
 			}
 		},
 		error: function() {

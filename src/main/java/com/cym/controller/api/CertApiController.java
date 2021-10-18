@@ -18,6 +18,7 @@ import com.cym.model.Cert;
 import com.cym.service.CertService;
 import com.cym.utils.BaseController;
 import com.cym.utils.JsonResult;
+import com.cym.utils.SystemTool;
 
 import cn.craccd.sqlHelper.bean.Page;
 import cn.hutool.core.util.StrUtil;
@@ -75,6 +76,10 @@ public class CertApiController extends BaseController {
 	@ApiOperation("获取域名解析码")
 	@PostMapping("getTxtValue")
 	public JsonResult getTxtValue(String certId) {
+		if (!SystemTool.isLinux()) {
+			return renderError(m.get("certStr.error2"));
+		}
+
 		Cert cert = sqlHelper.findById(certId, Cert.class);
 
 		JsonResult jsonResult = certController.getTxtValue(cert.getDomain());
