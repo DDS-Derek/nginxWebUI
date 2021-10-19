@@ -12,8 +12,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import com.cym.NginxWebUI;
 import com.cym.controller.adminPage.ConfController;
-import com.cym.utils.TimeExeUtils;
 import com.cym.utils.MessageUtils;
+import com.cym.utils.TimeExeUtils;
 
 import cn.craccd.sqlHelper.utils.SqlHelper;
 import cn.hutool.core.util.RuntimeUtil;
@@ -43,12 +43,41 @@ public class MainTest {
 				pids.add(pid);
 			}
 		}
-		
+
 		for (String pid : pids) {
 			logger.info("杀掉进程:" + pid);
 			RuntimeUtil.exec("taskkill /im " + pid + " /f");
 		}
-		
+
 	}
+
+//	public static void main(String[] args) {
+//		try {
+//			// 实例化一个认证对象，入参需要传入腾讯云账户secretId，secretKey,此处还需注意密钥对的保密
+//			// 密钥可前往https://console.cloud.tencent.com/cam/capi网站进行获取
+//			Credential cred = new Credential("AKIDV2RipjPq47xb3HNEvyvhFi2GRZoyxjIe", "EI7k8G9oDWdfXOFxV1Tn4KUhopiZK0fM");
+//			// 实例化一个http选项，可选的，没有特殊需求可以跳过
+//			HttpProfile httpProfile = new HttpProfile();
+//			httpProfile.setEndpoint("dnspod.tencentcloudapi.com");
+//			// 实例化一个client选项，可选的，没有特殊需求可以跳过
+//			ClientProfile clientProfile = new ClientProfile();
+//			clientProfile.setHttpProfile(httpProfile);
+//			// 实例化要请求产品的client对象,clientProfile是可选的
+//			DnspodClient client = new DnspodClient(cred, "", clientProfile);
+//			// 实例化一个请求对象,每个接口都会对应一个request对象
+//			CreateRecordRequest req = new CreateRecordRequest();
+//			req.setDomain("scaeme.cn");
+//			req.setSubDomain("acme");
+//			req.setRecordType("TXT");
+//			req.setRecordLine("默认");
+//			req.setValue("EI7k8G9oDWdfXOFxV1Tn4KUhopiZK0fM");
+//			// 返回的resp是一个CreateRecordResponse的实例，与请求对象对应
+//			CreateRecordResponse resp = client.CreateRecord(req);
+//			// 输出json格式的字符串回包
+//			System.out.println(CreateRecordResponse.toJsonString(resp));
+//		} catch (TencentCloudSDKException e) {
+//			System.out.println(e.toString());
+//		}
+//	}
 
 }
