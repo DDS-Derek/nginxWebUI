@@ -67,17 +67,6 @@ public class CertController extends BaseController {
 			return renderError(m.get("certStr.same"));
 		}
 		
-		// 编辑时, 删除之前的域名文件夹
-		if(StrUtil.isNotEmpty(cert.getId())) {
-			Cert orgCert = sqlHelper.findById(cert.getId(), Cert.class);
-			if(!orgCert.getDomain().equals(cert.getDomain())) {
-				String path = InitConfig.acmeShDir + orgCert.getDomain();
-				if (FileUtil.exist(path)) {
-					FileUtil.del(path);
-				}
-			}
-		}
-
 		certService.insertOrUpdate(cert, domains, types, values);
 		
 		return renderSuccess();
