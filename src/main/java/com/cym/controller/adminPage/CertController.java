@@ -69,7 +69,7 @@ public class CertController extends BaseController {
 		
 		certService.insertOrUpdate(cert, domains, types, values);
 		
-		return renderSuccess();
+		return renderSuccess(cert);
 	}
 
 	@RequestMapping("setAutoRenew")
