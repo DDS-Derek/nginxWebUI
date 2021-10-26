@@ -36,16 +36,16 @@ public class CertApiController extends BaseController {
 	@Autowired
 	CertService certService;
 
-	@SuppressWarnings("unchecked")
 	@ApiOperation("获取证书分页列表")
 	@PostMapping("getPage")
 	public JsonResult<Page<Cert>> getPage(@ApiParam("当前页数(从1开始)") @RequestParam(defaultValue = "1") Integer current, //
-			@ApiParam("每页数量(默认为10)") @RequestParam(defaultValue = "10") Integer limit) {
+			@ApiParam("每页数量(默认为10)") @RequestParam(defaultValue = "10") Integer limit, //
+			@ApiParam("查询关键字") String keywords) {
 		Page page = new Page();
 		page.setCurr(current);
 		page.setLimit(limit);
-		page = sqlHelper.findPage(page, Cert.class);
-
+		page = certService.getPage(keywords, page);
+				
 		return renderSuccess(page);
 	}
 
@@ -60,7 +60,7 @@ public class CertApiController extends BaseController {
 			if (StrUtil.isEmpty(cert.getDnsType())) {
 				return renderError("dns提供商为空");
 			}
-			
+
 			if (cert.getDnsType().equals("ali") && (StrUtil.isEmpty(cert.getAliKey()) || StrUtil.isEmpty(cert.getAliSecret()))) {
 				return renderError("aliKey 或 aliSecret为空");
 			}
