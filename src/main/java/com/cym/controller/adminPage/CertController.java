@@ -55,6 +55,7 @@ public class CertController extends BaseController {
 	public ModelAndView index(HttpSession httpSession, ModelAndView modelAndView, Page page, String keywords) {
 		page = certService.getPage(keywords, page);
 
+		modelAndView.addObject("keywords", keywords);
 		modelAndView.addObject("page", page);
 		modelAndView.setViewName("/adminPage/cert/index");
 		return modelAndView;
