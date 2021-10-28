@@ -47,24 +47,36 @@ Take the Ubuntu operating system, for example.
 
 1.Install the Java runtime environment and Nginx
 
-ubuntu:
+Ubuntu:
 
 ```
 apt install openjdk-11-jdk
 apt install nginx
 ```
 
-centos:
+Centos:
 
 ```
 yum install java-11-openjdk
 yum install nginx
 ```
 
+Windows:
+
+```
+Download the JDK installation package https://www.oracle.com/java/technologies/downloads/
+Configure the JAVA runtime environment 
+JAVA_HOME : JDK installation directory
+Path : JDK installation directory\bin
+reboot
+```
+
 2.Download the latest release of the distribution jar
 
 ```
-wget -O /home/nginxWebUI/nginxWebUI.jar http://file.nginxwebui.cn/nginxWebUI-2.7.6.jar
+Linux: wget -O /home/nginxWebUI/nginxWebUI.jar http://file.nginxwebui.cn/nginxWebUI-2.7.6.jar
+
+Windows: Download directly from your browser http://file.nginxwebui.cn/nginxWebUI-2.7.6.jar
 ```
 
 With a new version, you just need to change the version in the path
@@ -72,7 +84,9 @@ With a new version, you just need to change the version in the path
 3.Start program
 
 ```
-nohup java -jar -Xmx64m /home/nginxWebUI/nginxWebUI.jar --server.port=8080 --project.home=/home/nginxWebUI/ > /dev/null &
+Linux: nohup java -jar -Xmx64m /home/nginxWebUI/nginxWebUI.jar --server.port=8080 --project.home=/home/nginxWebUI/ > /dev/null &
+
+Windows: java -jar -Xmx64m D:/home/nginxWebUI/nginxWebUI.jar --server.port=8080 --project.home=D:/home/nginxWebUI/
 ```
 
 Parameter description (both non-required)
