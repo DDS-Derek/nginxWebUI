@@ -140,7 +140,12 @@ public class CertController extends BaseController {
 
 				cmd = InitConfig.acmeSh + " --issue --force --dns " + dnsType + " -d " + cert.getDomain() + " --server letsencrypt";
 			} else if (cert.getType() == 2) {
-				cmd = InitConfig.acmeSh + " --issue --force --dns -d " + cert.getDomain() + " --server letsencrypt --yes-I-know-dns-manual-mode-enough-go-ahead-please";
+				if (certService.hasCode(cert.getId())) {
+					cmd = InitConfig.acmeSh + " --renew --force --dns -d " + cert.getDomain() + " --server letsencrypt --yes-I-know-dns-manual-mode-enough-go-ahead-please";
+				} else {
+					cmd = InitConfig.acmeSh + " --issue --force --dns -d " + cert.getDomain() + " --server letsencrypt --yes-I-know-dns-manual-mode-enough-go-ahead-please";
+				}
+
 			}
 		} else if (type.equals("renew")) {
 			// 续签,以第一个域名为证书名
@@ -238,7 +243,7 @@ public class CertController extends BaseController {
 	@RequestMapping("getTxtValue")
 	@ResponseBody
 	public JsonResult getTxtValue(String id) {
-	
+
 		List<CertCode> certCodes = certService.getCertCodes(id);
 		return renderSuccess(certCodes);
 	}

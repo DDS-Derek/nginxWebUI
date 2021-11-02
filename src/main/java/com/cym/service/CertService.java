@@ -68,11 +68,15 @@ public class CertService {
 	}
 
 	public void saveCertCode(String certId, List<CertCode> mapList) {
-		sqlHelper.deleteByQuery(new ConditionAndWrapper().eq(CertCode::getCertId, certId),CertCode.class);
-		for(CertCode certCode:mapList) {
+		sqlHelper.deleteByQuery(new ConditionAndWrapper().eq(CertCode::getCertId, certId), CertCode.class);
+		for (CertCode certCode : mapList) {
 			certCode.setCertId(certId);
 			sqlHelper.insert(certCode);
 		}
-		
+
+	}
+
+	public boolean hasCode(String certId) {
+		return sqlHelper.findCountByQuery(new ConditionAndWrapper().eq(CertCode::getCertId, certId), CertCode.class) > 0;
 	}
 }
