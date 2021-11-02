@@ -32,7 +32,7 @@ public class MainTest {
 
 	@Test
 	public void testStartUp() throws InterruptedException, IOException {
-
+		String code = "Wb7cQZCHt3oXYXpCLG9V7nifzqAOdf5jnhJoTOCT8vk";
 	}
 
 }

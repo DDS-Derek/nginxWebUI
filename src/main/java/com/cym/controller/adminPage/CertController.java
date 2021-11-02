@@ -200,6 +200,7 @@ public class CertController extends BaseController {
 				}
 			}
 			certService.saveCertCode(id, mapList);
+			isInApply = false;
 			return renderSuccess(mapList);
 		} else {
 			isInApply = false;
