@@ -118,7 +118,10 @@ function add() {
 	$("#pemPath").html("");
 	$("#keyPath").html("");
 
-
+	$("#domain").attr("disabled", false);
+	$("#domain").removeClass("disabled");
+	$("#type").attr("disabled", false);
+					
 	checkType(0);
 	checkDnsType('ali');
 
@@ -141,16 +144,8 @@ function edit(id, clone) {
 		success: function(data) {
 			if (data.success) {
 
-				var cert = data.obj.cert;
-				if (!clone) {
-					$("#id").val(cert.id);
-					$("#pem").val(cert.pem);
-					$("#key").val(cert.key);
-				} else {
-					$("#id").val("");
-					$("#pem").val("");
-					$("#key").val("");
-				}
+				var cert = data.obj;
+				
 				$("#domain").val(cert.domain);
 				$("#type").val(cert.type);
 				$("#dnsType").val(cert.dnsType != null ? cert.dnsType : 'ali');
@@ -169,7 +164,26 @@ function edit(id, clone) {
 
 				$("#pemPath").html(cert.pem);
 				$("#keyPath").html(cert.key);
-
+				
+				$("#domain").attr("disabled", true);
+				$("#domain").addClass("disabled");
+				
+				if(cert.pem!=null && cert.pem!='' && cert.key!=null&& cert.key!=''){
+					$("#type").attr("disabled", true);
+				} else {
+					$("#type").attr("disabled", false);
+				}
+				if (!clone) {
+					$("#id").val(cert.id);
+					$("#pem").val(cert.pem);
+					$("#key").val(cert.key);
+				} else {
+					$("#id").val("");
+					$("#pem").val("");
+					$("#key").val("");
+					$("#type").attr("disabled", false);
+				}
+				
 				checkType(cert.type);
 				checkDnsType(cert.dnsType != null ? cert.dnsType : 'ali');
 
@@ -315,7 +329,7 @@ function issue(id) {
 						layer.open({
 							type: 1,
 							title: "解析码",
-							area: ['1000px', '400px'], // 宽高
+							area: ['900px', '400px'], // 宽高
 							content: $('#txtDiv')
 						});
 						
@@ -412,7 +426,6 @@ function getTxtValue(id) {
 		},
 		dataType: 'json',
 		success: function(data) {
-			layer.close(load);
 			if (data.success) {
 				var html = ``;
 
@@ -432,7 +445,7 @@ function getTxtValue(id) {
 				layer.open({
 					type: 1,
 					title: "解析码",
-					area: ['1000px', '400px'], // 宽高
+					area: ['900px', '400px'], // 宽高
 					content: $('#txtDiv')
 				});
 			} else {
