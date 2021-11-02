@@ -328,7 +328,7 @@ function issue(id) {
 						
 						layer.open({
 							type: 1,
-							title: "解析码",
+							title: certStr.hostRecords,
 							area: ['900px', '400px'], // 宽高
 							content: $('#txtDiv')
 						});
@@ -444,7 +444,7 @@ function getTxtValue(id) {
 				
 				layer.open({
 					type: 1,
-					title: "解析码",
+					title: certStr.hostRecords,
 					area: ['900px', '400px'], // 宽高
 					content: $('#txtDiv')
 				});
