@@ -214,6 +214,12 @@ public class CertController extends BaseController {
 		if (!SystemTool.isLinux()) {
 			return renderError(m.get("certStr.error2"));
 		}
+		
+		// 先删除acme.sh内的域名文件夹
+		String path = InitConfig.acmeShDir + domain;
+		if (FileUtil.exist(path)) {
+			FileUtil.del(path);
+		}
 
 		String cmd = InitConfig.acmeSh + " --issue --force --dns -d " + domain + " --server letsencrypt --yes-I-know-dns-manual-mode-enough-go-ahead-please";
 		logger.info(cmd);
