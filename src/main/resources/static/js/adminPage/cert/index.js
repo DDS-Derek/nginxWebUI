@@ -68,7 +68,7 @@ $(function() {
 	});
 })
 
-function search(){
+function search() {
 	$("#searchForm").submit();
 }
 
@@ -85,7 +85,6 @@ function checkDnsType(value) {
 function checkType(value) {
 	$("#type0").hide();
 	$("#type1").hide();
-	$("#type2").hide();
 
 	if (value == 0) {
 		$("#type0").show();
@@ -93,9 +92,7 @@ function checkType(value) {
 	if (value == 1) {
 		$("#type1").show();
 	}
-	if (value == 2) {
-		$("#type2").show();
-	}
+
 }
 
 function add() {
@@ -121,10 +118,6 @@ function add() {
 	$("#pemPath").html("");
 	$("#keyPath").html("");
 
-	$("#notice").html("");
-
-	$("#domain").attr("disabled", false);
-	$("#domain").removeClass("disabled");
 
 	checkType(0);
 	checkDnsType('ali');
@@ -176,25 +169,6 @@ function edit(id, clone) {
 
 				$("#pemPath").html(cert.pem);
 				$("#keyPath").html(cert.key);
-
-				$("#domain").attr("disabled", true);
-				$("#domain").addClass("disabled");
-
-				var html = ``;
-				if (data.obj.certCodes != null) {
-					for (let i = 0; i < data.obj.certCodes.length; i++) {
-						var map = data.obj.certCodes[i]
-						html += `
-						<tr>
-							<td>${map.domain} <input type="hidden" name="domains" value="${map.domain}"> </td>
-							<td>${map.type} <input type="hidden" name="types" value="${map.type}"> </td>
-							<td>${map.value} <input type="hidden" name="values" value="${map.value}"> </td>
-						</tr>
-					`;
-					}
-				}
-				$("#notice").html(html);
-
 
 				checkType(cert.type);
 				checkDnsType(cert.dnsType != null ? cert.dnsType : 'ali');
@@ -319,10 +293,33 @@ function issue(id) {
 			success: function(data) {
 				layer.closeAll();
 				if (data.success) {
-					layer.alert(certStr.applySuccess, function(index) {
-						layer.close(index);
-						location.reload();
-					});
+					if (data.obj == null) {
+						layer.alert(certStr.applySuccess, function(index) {
+							layer.close(index);
+							location.reload();
+						});
+					} else {
+						var html = ``;
+						for (let i = 0; i < data.obj.length; i++) {
+							var map = data.obj[i]
+							html += `
+								<tr>
+									<td>${map.domain} <input type="hidden" name="domains" value="${map.domain}"> </td>
+									<td>${map.type} <input type="hidden" name="types" value="${map.type}"> </td>
+									<td>${map.value} <input type="hidden" name="values" value="${map.value}"> </td>
+								</tr>
+							`;
+						}
+						$("#notice").html(html);
+						
+						layer.open({
+							type: 1,
+							title: "解析码",
+							area: ['1000px', '400px'], // 宽高
+							content: $('#txtDiv')
+						});
+						
+					}
 
 				} else {
 					layer.open({
@@ -402,19 +399,16 @@ function clone(id) {
 	}
 }
 
-var load;
-function getTxtValue() {
-	if ($("#domain").val() == "") {
-		layer.msg(certStr.error1);
-		return;
-	}
 
-	load = layer.load();
+
+
+function getTxtValue(id) {
+	
 	$.ajax({
 		type: 'POST',
 		url: ctx + '/adminPage/cert/getTxtValue',
 		data: {
-			domain: $("#domain").val()
+			id: id
 		},
 		dataType: 'json',
 		success: function(data) {
@@ -434,6 +428,13 @@ function getTxtValue() {
 				}
 
 				$("#notice").html(html);
+				
+				layer.open({
+					type: 1,
+					title: "解析码",
+					area: ['1000px', '400px'], // 宽高
+					content: $('#txtDiv')
+				});
 			} else {
 				layer.msg(data.msg);
 			}
