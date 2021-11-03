@@ -183,10 +183,11 @@
 					<table class="layui-table">
 						<thead>
 							<tr>
-								<th>ip</th>
-								<th>${upstreamStr.port}</th>
+								<th>ip <span class="red">*</span></th>
+								<th>${upstreamStr.port} <span class="red">*</span></th>
 								<th>${upstreamStr.weight}</th>
 								<th>${upstreamStr.maxFail}</th>
+								<th>${upstreamStr.maxConns}</th>
 								<th>${upstreamStr.failWait}</th>
 								<th>${upstreamStr.status}</th>
 								<th>${commonStr.operation}</th>
