@@ -79,11 +79,6 @@ function addOver() {
 			over = false;
 		}
 	})
-	/*$("input[name='weight']").each(function() {
-		if ($(this).val().trim() == '') {
-			over = false;
-		}
-	})*/
 
 	if (!over) {
 		layer.msg(upstreamStr.noFill);
