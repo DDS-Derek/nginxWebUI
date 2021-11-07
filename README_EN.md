@@ -65,6 +65,7 @@ Windows:
 
 ```
 Download the JDK installation package https://www.oracle.com/java/technologies/downloads/
+Download the nginx http://nginx.org/en/download.html
 Configure the JAVA runtime environment 
 JAVA_HOME : JDK installation directory
 Path : JDK installation directory\bin

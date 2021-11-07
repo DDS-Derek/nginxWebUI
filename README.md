@@ -71,6 +71,7 @@ Windows:
 
 ```
 下载JDK安装包 https://www.oracle.com/java/technologies/downloads/
+下载nginx http://nginx.org/en/download.html
 配置JAVA运行环境 
 JAVA_HOME : JDK安装目录
 Path : JDK安装目录\bin
