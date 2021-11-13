@@ -201,7 +201,10 @@ public class AdminInterceptor implements HandlerInterceptor {
 		if (admin != null && admin.getType() == 0) {
 			showAdmin = "true";
 		}
-		return url + "?jsrandom=" + System.currentTimeMillis() + "&protocol=" + remote.getProtocol() + "&showAdmin=" + showAdmin + "&ctx=" + Base64.encode(ctx); 
+		return url + "?jsrandom=" + System.currentTimeMillis() + //
+				"&protocol=" + remote.getProtocol() + //
+				"&showAdmin=" + showAdmin + //
+				"&ctx=" + Base64.encode(ctx);
 	}
 
 	public static String getCtx(String httpHost, String host, String realPort) {

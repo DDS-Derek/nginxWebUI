@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.cym.config.AdminInterceptor;
 import com.cym.config.ScheduleTask;
 import com.cym.model.Log;
 import com.cym.service.LogService;
@@ -91,13 +92,13 @@ public class LogController extends BaseController {
 			}
 		}
 
-		String ctxRemote = (String) request.getAttribute("ctx");
-		if (StrUtil.isNotEmpty(ctxRemote)) {
-			ctxRemote = Base64.encode(ctxRemote);
-			modelAndView.addObject("ctxRemote", ctxRemote);
-			System.out.println(ctxRemote);
-		}
+		String httpHost = request.getHeader("X-Forwarded-Host");
+		String realPort = request.getHeader("X-Forwarded-Port");
+		String host = request.getHeader("Host");
 
+		String ctxWs = AdminInterceptor.getCtx(httpHost, host, realPort);
+		modelAndView.addObject("ctxWs", ctxWs);
+		
 		modelAndView.setViewName("/adminPage/log/tail");
 		return modelAndView;
 	}
