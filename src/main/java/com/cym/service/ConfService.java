@@ -388,7 +388,7 @@ public class ConfService {
 
 					if (location.getWebsocket() == 1) { // 设置header
 						ngxParam = new NgxParam();
-						ngxParam.addValue("proxy_http_version 1.1");
+						ngxParam.addValue("proxy_http_version 2.0");
 						ngxBlockLocation.addEntry(ngxParam);
 
 						ngxParam = new NgxParam();
