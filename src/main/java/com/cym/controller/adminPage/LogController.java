@@ -84,10 +84,10 @@ public class LogController extends BaseController {
 		// 获取远程机器的协议
 		if (StrUtil.isNotEmpty(protocol)) {
 			if(protocol.equals("https")) {
-				modelAndView.addObject("protocol", "wss");
+				modelAndView.addObject("protocol", "wss:");
 			}
 			if(protocol.equals("http")) {
-				modelAndView.addObject("protocol", "ws");
+				modelAndView.addObject("protocol", "ws:");
 			}
 		}
 
