@@ -88,7 +88,12 @@ public class AdminInterceptor implements HandlerInterceptor {
 		}
 
 		String localType = (String) request.getSession().getAttribute("localType");
-		if (localType != null && localType.equals("remote") && !request.getRequestURL().toString().contains("adminPage/remote")) {
+		if (localType != null //
+				&& localType.equals("remote") //
+				&& !request.getRequestURL().toString().contains("adminPage/remote") //
+				&& !request.getRequestURL().toString().contains("adminPage/admin") //
+				&& !request.getRequestURL().toString().contains("adminPage/abort") //
+		) {
 			// 转发到远程服务器
 			Remote remote = (Remote) request.getSession().getAttribute("remote");
 			String url = buildUrl(ctx, request, remote);
@@ -178,13 +183,18 @@ public class AdminInterceptor implements HandlerInterceptor {
 	}
 
 	private String buildUrl(String ctx, HttpServletRequest request, Remote remote) {
-		String url = request.getRequestURL().toString().replace(ctx,  "//" + remote.getIp() + ":" + remote.getPort() + "/");
+		String url = request.getRequestURL().toString().replace(ctx, "//" + remote.getIp() + ":" + remote.getPort() + "/");
 
 		if (!url.startsWith("http")) {
 			url = remote.getProtocol() + ":" + url;
 		}
 
-		return url + "?jsrandom=" + System.currentTimeMillis();
+		Admin admin = (Admin) request.getSession().getAttribute("admin");
+		String showAdmin = "false";
+		if (admin != null && admin.getType() == 0) {
+			showAdmin = "true";
+		}
+		return url + "?jsrandom=" + System.currentTimeMillis() + "&protocol=" + remote.getProtocol() + "&showAdmin=" + showAdmin;
 	}
 
 	public static String getCtx(String httpHost, String host, String realPort) {

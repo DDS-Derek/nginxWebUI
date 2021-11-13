@@ -26,7 +26,7 @@ public class NginxWebUI {
 	public static void main(String[] args) {
 		try {
 			// 尝试杀掉旧版本
-			killSelf();
+//			killSelf();
 
 			// 删掉多余的jar
 			removeJar();

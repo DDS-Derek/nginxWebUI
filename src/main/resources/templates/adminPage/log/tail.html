@@ -15,19 +15,26 @@
 	</div>
 
 	<#include '/adminPage/script.html'/>
-
+	<script src="${ctx}/lib/base64/base64.js" type="text/javascript"></script>
+	
 	<script>
 		var run = true;
 		$(document).ready(function() {
 			// 指定websocket路径
-			//debugger
-			if (window.location.protocol == 'https:') {
-				var protocol = 'wss:';
-			} else {
-				var protocol = 'ws:';
+			var protocol = `${protocol}`;
+			if(protocol == ''){
+				if (window.location.protocol == 'https:') {
+					var protocol = 'wss:';
+				} else {
+					var protocol = 'ws:';
+				}
 			}
+			
+			var ctxRemote = `${ctxRemote}`;
+			var ctx = Base64.decode(ctxRemote);
+			
 			var guid = Math.random();
-			var websocket = new WebSocket(protocol + `${ctx}/adminPage/logTail/${id}/` + guid);
+			var websocket = new WebSocket(protocol + ctx + `/adminPage/logTail/${id}/` + guid);
 			websocket.onmessage = function(event) {
 				if(run){
 					// 接收服务端的实时日志并添加到HTML页面中
