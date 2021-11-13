@@ -107,7 +107,7 @@
 
 	</dependencies>
 
-	<repositories>
+	<!-- <repositories>
 		<repository>
 			<id>nexus-aliyun</id>
 			<name>nexus-aliyun</name>
@@ -133,7 +133,7 @@
 				<enabled>false</enabled>
 			</snapshots>
 		</pluginRepository>
-	</pluginRepositories>
+	</pluginRepositories> -->
 	
 	<build>
 		<plugins>
