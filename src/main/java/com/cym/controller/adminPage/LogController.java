@@ -83,15 +83,21 @@ public class LogController extends BaseController {
 		modelAndView.addObject("id", id);
 		// 获取远程机器的协议
 		if (StrUtil.isNotEmpty(protocol)) {
-			if(protocol.equals("https")) {
+			if (protocol.equals("https")) {
 				modelAndView.addObject("protocol", "wss:");
 			}
-			if(protocol.equals("http")) {
+			if (protocol.equals("http")) {
 				modelAndView.addObject("protocol", "ws:");
 			}
 		}
 
-		modelAndView.addObject("ctxRemote", Base64.encode((String) request.getAttribute("ctx")));
+		String ctxRemote = (String) request.getAttribute("ctx");
+		if (StrUtil.isNotEmpty(ctxRemote)) {
+			ctxRemote = Base64.encode(ctxRemote);
+			modelAndView.addObject("ctxRemote", ctxRemote);
+			System.out.println(ctxRemote);
+		}
+
 		modelAndView.setViewName("/adminPage/log/tail");
 		return modelAndView;
 	}
