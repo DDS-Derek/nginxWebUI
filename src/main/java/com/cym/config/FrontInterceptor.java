@@ -22,6 +22,7 @@ import com.cym.service.SettingService;
 import com.cym.utils.MessageUtils;
 import com.cym.utils.PropertiesUtils;
 
+import cn.hutool.core.codec.Base64;
 import cn.hutool.core.util.StrUtil;
 
 @Component
@@ -71,7 +72,7 @@ public class FrontInterceptor implements HandlerInterceptor {
 
 		String ctx = AdminInterceptor.getCtx(httpHost, host, realPort);
 		if (StrUtil.isNotEmpty(request.getParameter("ctx"))) {
-			ctx = request.getParameter("ctx");
+			ctx = Base64.decodeStr(request.getParameter("ctx"));
 		}
 
 		request.setAttribute("ctx", ctx);
