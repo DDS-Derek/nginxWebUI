@@ -76,6 +76,8 @@ public class FrontInterceptor implements HandlerInterceptor {
 		request.setAttribute("currentVersion", currentVersion);
 		request.setAttribute("projectName", projectName);
 
+		request.setAttribute("showAdmin", request.getParameter("showAdmin"));
+		
 		// 显示版本更新
 		if (versionConfig.getVersion() != null) {
 			request.setAttribute("newVersion", versionConfig.getVersion());
