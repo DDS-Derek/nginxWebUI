@@ -112,7 +112,7 @@ Note that the command ends with an & to indicate that the project is running in 
 
 #### docker installation instructions 
 
-Note that an & sign is added at the end of the command, indicating that the docker image of this project has been produced by the background operation of the project, including nginx and nginxWebUI, for integrated management and operation of Nginx.
+Docker image supports AMD64 / ARM64 / ARMV7 platforms. Note that an & sign is added at the end of the command, indicating that the docker image of this project has been produced by the background operation of the project, including nginx and nginxWebUI, for integrated management and operation of Nginx.
 
 1.Install the Docker environment
 
@@ -137,7 +137,7 @@ docker pull cym1102/nginxwebui:latest
 3.start container
 
 ```
-docker run -itd -v /home/nginxWebUI:/home/nginxWebUI -e BOOT_OPTIONS="--server.port=8080" --privileged=true --net=host  cym1102/nginxwebui:latest /bin/bash
+docker run -itd -v /home/nginxWebUI:/home/nginxWebUI -e BOOT_OPTIONS="--server.port=8080" --privileged=true --net=host  cym1102/nginxwebui:latest
 ```
 
 notice: 
@@ -172,16 +172,10 @@ services:
 
 #### Compile 
 
-1. Compile the package with Maven
+Compile the package with Maven
 
 ```
 mvn clean package
-```
-
-2. Compile the image with Docker
-
-```
-docker build -t nginxwebui:latest .
 ```
 
 #### Add boot up run
@@ -283,7 +277,7 @@ Note: In the parameter description, all fields with * prefix are required.
 
 If you forget your login password, follow the following tutorial to retrieve it
 
-1. install sqlite3
+1. install sqlite3 (docker image has already included)
 
 ```
 apt install sqlite3

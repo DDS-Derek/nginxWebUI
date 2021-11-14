@@ -119,7 +119,7 @@ Windows: java -jar -Xmx64m D:/home/nginxWebUI/nginxWebUI.jar --server.port=8080 
 
 #### docker安装说明
 
-本项目制作了docker镜像, 同时包含nginx和nginxWebUI在内, 一体化管理与运行nginx. 
+本项目制作了docker镜像, 支持 amd64/arm64/armv7 三大平台，同时包含nginx和nginxWebUI在内, 一体化管理与运行nginx. 
 
 1.安装docker容器环境
 
@@ -144,7 +144,7 @@ docker pull cym1102/nginxwebui:latest
 3.启动容器: 
 
 ```
-docker run -itd -v /home/nginxWebUI:/home/nginxWebUI -e BOOT_OPTIONS="--server.port=8080" --privileged=true --net=host  cym1102/nginxwebui:latest /bin/bash
+docker run -itd -v /home/nginxWebUI:/home/nginxWebUI -e BOOT_OPTIONS="--server.port=8080" --privileged=true --net=host cym1102/nginxwebui:latest
 ```
 
 注意: 
@@ -179,16 +179,10 @@ services:
 
 #### 编译说明
 
-1. 使用maven编译打包
+使用maven编译打包
 
 ```
 mvn clean package
-```
-
-2. 使用docker构建镜像
-
-```
-docker build -t nginxwebui:latest .
 ```
 
 #### 添加开机启动
@@ -290,7 +284,7 @@ systemctl start nginxwebui.service
 
 如果忘记了登录密码，可按如下教程找回密码
 
-1. 安装sqlite3命令
+1. 安装sqlite3命令（Docker镜像已经安装好了）
 
 ```
 apt install sqlite3
