@@ -165,7 +165,7 @@ docker run -itd -v /home/nginxWebUI:/home/nginxWebUI -e BOOT_OPTIONS="--server.p
 version: "3.2"
 services:
   nginxWebUi-server:
-    image: cym1102/nginxwebui:2.7.9
+    image: cym1102/nginxwebui:latest
     volumes:
       - type: bind
         source: "/home/nginxWebUI"
@@ -188,7 +188,7 @@ mvn clean package
 2. 使用docker构建镜像
 
 ```
-docker build -t nginxwebui:2.7.9 .
+docker build -t nginxwebui:latest .
 ```
 
 #### 添加开机启动
