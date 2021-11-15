@@ -53,7 +53,7 @@ public class LogTailController {
 			if (SystemTool.isWindows()) {
 				process = Runtime.getRuntime().exec("powershell Get-Content " + log.getPath() + " -Tail 20");
 			} else {
-				process = Runtime.getRuntime().exec("tail -f " + log.getPath() + " --line 20");
+				process = Runtime.getRuntime().exec("tail -f " + log.getPath() + " -n 20");
 			}
 			inputStream = process.getInputStream();
 
