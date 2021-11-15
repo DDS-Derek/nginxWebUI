@@ -80,9 +80,9 @@ public class NetWorkUtil {
 				
 				while ((line = input.readLine()) != null) {
 					if (line.indexOf("RX packets") >= 0) {
-						rx += Long.parseLong(line.split("packets")[1].split("bytes")[0].trim()) * 1024;
+						rx += formatLong(line);
 					} else if (line.indexOf("TX packets") >= 0) {
-						tx += Long.parseLong(line.split("packets")[1].split("bytes")[0].trim()) * 1024;
+						tx += formatLong(line);
 					}
 				}
 				
@@ -104,12 +104,17 @@ public class NetWorkUtil {
 		return arr;
 	}
 
+	private static long formatLong(String line) {
+		line = line.replace("RX packets", "").replace("TX packets", "").replace(":", "").trim().split(" ")[0];
+		return Long.parseLong(line) * 1024;
+	}
+
 	private static Double formatNumber(double f) {
 		return Double.parseDouble(new Formatter().format("%.2f", f).toString());
 	}
 
 	public static void main(String[] args) {
-		String line = "      RX packets 0  bytes 0 (0.0 B)";
-		System.out.println(Long.parseLong(line.split("packets")[1].split("bytes")[0].trim()));
+		String line = "RX packets:8889 errors:0 dropped:0 overruns:0 frame:0";
+		System.out.println(formatLong(line));
 	}
 }
