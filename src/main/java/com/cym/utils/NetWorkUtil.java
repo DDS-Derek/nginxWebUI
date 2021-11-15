@@ -9,13 +9,17 @@ import java.util.Optional;
 import java.util.Properties;
 import java.util.StringTokenizer;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.cym.NginxWebUI;
 import com.cym.ext.NetworkInfo;
 
 import cn.hutool.core.date.DateUtil;
 
 public class NetWorkUtil {
 	private static final int SLEEP_TIME = 2 * 1000;
-
+	static Logger logger = LoggerFactory.getLogger(NetWorkUtil.class);
 	// 获取网络上行下行速度
 	public static NetworkInfo getNetworkDownUp() {
 		Properties props = System.getProperties();
@@ -48,13 +52,13 @@ public class NetWorkUtil {
 				networkInfo.setSend(0 - networkInfo.getSend());
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.error(e.getMessage(), e);
 		} finally {
 			if (input != null) {
 				try {
 					input.close();
 				} catch (IOException e) {
-					e.printStackTrace();
+					logger.error(e.getMessage(), e);
 				}
 			}
 			Optional.ofNullable(pro).ifPresent(p -> p.destroy());
@@ -99,7 +103,7 @@ public class NetWorkUtil {
 				arr[1] = Long.parseLong(tokenStat.nextToken());
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.error(e.getMessage(), e);
 		}
 		return arr;
 	}
