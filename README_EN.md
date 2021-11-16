@@ -112,7 +112,7 @@ Note that the command ends with an & to indicate that the project is running in 
 
 #### docker installation instructions 
 
-Docker image supports AMD64 / ARM64 / ARMV7 platforms. Note that an & sign is added at the end of the command, indicating that the docker image of this project has been produced by the background operation of the project, including nginx and nginxWebUI, for integrated management and operation of Nginx.
+Docker image supports x86/x86_64/arm64/arm v7/arm v6/ppc64 platforms. Note that an & sign is added at the end of the command, indicating that the docker image of this project has been produced by the background operation of the project, including nginx and nginxWebUI, for integrated management and operation of Nginx.
 
 1.Install the Docker environment
 
