@@ -1,4 +1,4 @@
-FROM ubuntu
+FROM debian:11-slim
 ARG DEBIAN_FRONTEND=noninteractive
 ENV LANG=zh_CN.UTF-8 \
     TZ=Asia/Shanghai \
@@ -11,7 +11,7 @@ RUN apt update \
        net-tools \
        curl \
        wget \
-       ttf-dejavu \
+       fonts-dejavu \
        fontconfig \
        tzdata \
        tini \
