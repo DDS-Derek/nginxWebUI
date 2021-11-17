@@ -1,29 +1,25 @@
-FROM debian:11-slim
-ARG DEBIAN_FRONTEND=noninteractive
+FROM alpine:3.14
 ENV LANG=zh_CN.UTF-8 \
     TZ=Asia/Shanghai \
     PS1="\u@\h:\w \$ "
-RUN apt update \
-    && apt install -y --no-install-recommends \
+RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories \
+    && apk add --update --no-cache \
        nginx \
-       libnginx-mod-stream \
-       openjdk-11-jre \
+       nginx-mod-stream \
+       openjdk8-jre \
        net-tools \
        curl \
        wget \
-       fonts-dejavu \
+       ttf-dejavu \
        fontconfig \
        tzdata \
        tini \
-       sqlite3 \
+       acme.sh \
+       sqlite \
     && fc-cache -f -v \
     && ln -sf /usr/share/zoneinfo/${TZ} /etc/localtime \
     && echo "${TZ}" > /etc/timezone \
-    && apt autoclean -y \
-    && rm -rf \
-       /tmp/* \
-       /var/lib/apt/lists/* \
-       /var/tmp/*
+    && rm -rf /var/cache/apk/* /tmp/*
 COPY target/nginxWebUI-*.jar /home/nginxWebUI.jar
 COPY entrypoint.sh /usr/local/bin/entrypoint.sh
 VOLUME ["/home/nginxWebUI"]
