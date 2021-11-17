@@ -1,4 +1,4 @@
-FROM alpine:s6-overlay
+FROM alpine-s6:3.14
 ENV LANG=zh_CN.UTF-8 \
     TZ=Asia/Shanghai \
     PS1="\u@\h:\w \$ "
