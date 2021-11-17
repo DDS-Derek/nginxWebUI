@@ -6,7 +6,7 @@
 ## Dockerfile同目录下运行此脚本
 
 ## 基本信息
-repo="{$1:-cym1102}/nginxwebui"
+repo="${1:-cym1102}/nginxwebui"
 arch="linux/386,linux/amd64,linux/arm64,linux/arm/v7,linux/arm/v6,linux/ppc64le,linux/s390x"
 ver=$(cat pom.xml | grep -A1 nginxWebUI | grep version | grep -oP "\d+\.\d+\.\d+")
 echo "构建镜像：$repo"
