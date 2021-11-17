@@ -1,4 +1,4 @@
-FROM alpine-s6:3.14
+FROM alpine:3.14
 ENV LANG=zh_CN.UTF-8 \
     TZ=Asia/Shanghai \
     PS1="\u@\h:\w \$ "
@@ -13,7 +13,7 @@ RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories
        ttf-dejavu \
        fontconfig \
        tzdata \
-       tini \
+       s6-overlay \
        acme.sh \
        sqlite \
     && fc-cache -f -v \
@@ -21,7 +21,7 @@ RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories
     && echo "${TZ}" > /etc/timezone \
     && rm -rf /var/cache/apk/* /tmp/*
 COPY target/nginxWebUI-*.jar /home/nginxWebUI.jar
-COPY entrypoint.sh /usr/local/bin/entrypoint.sh
+COPY s6-overlay /
 VOLUME ["/home/nginxWebUI"]
-ENTRYPOINT ["tini", "entrypoint.sh"]
+ENTRYPOINT ["/init"]
        
