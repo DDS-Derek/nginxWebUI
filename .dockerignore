@@ -1,4 +1,4 @@
 *
 !target/nginxWebUI-*.jar
 !Dockerfile
-!s6-overlay
+!entrypoint.sh
