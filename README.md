@@ -185,6 +185,12 @@ services:
 mvn clean package
 ```
 
+使用docker构建镜像
+
+```
+docker build -t nginxwebui:latest .
+```
+
 #### 添加开机启动
 
 

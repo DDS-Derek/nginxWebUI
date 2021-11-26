@@ -178,6 +178,13 @@ Compile the package with Maven
 mvn clean package
 ```
 
+Compile the image with Docker
+
+```
+docker build -t nginxwebui:latest .
+```
+
+
 #### Add boot up run
 
 1. Edit service file
