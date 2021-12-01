@@ -640,9 +640,13 @@ public class ConfService {
 	}
 
 	@Transactional
-	public void replace(String nginxPath, String nginxContent, List<String> subContent, List<String> subName, Boolean isBak, String adminName) {
-		// 先读取之前的配置
-		String beforeConf = FileUtil.readString(nginxPath, StandardCharsets.UTF_8);
+	public void replace(String nginxPath, String nginxContent, List<String> subContent, List<String> subName, Boolean isReplace, String adminName) {
+		
+		String beforeConf = null;
+		if (isReplace) {
+			// 先读取已有的配置
+			beforeConf = FileUtil.readString(nginxPath, StandardCharsets.UTF_8);
+		}
 
 		String confd = new File(nginxPath).getParent().replace("\\", "/") + "/conf.d/";
 		// 删除conf.d下全部文件
@@ -664,7 +668,7 @@ public class ConfService {
 		}
 
 		// 备份文件
-		if (isBak) {
+		if (isReplace) {
 			Bak bak = new Bak();
 			bak.setTime(DateUtil.format(new Date(), "yyyy-MM-dd HH:mm:ss"));
 			bak.setContent(nginxContent);
@@ -677,7 +681,7 @@ public class ConfService {
 
 				bakSub.setName(subName.get(i));
 				bakSub.setContent(subContent.get(i));
-				sqlHelper.insert(bakSub); 
+				sqlHelper.insert(bakSub);
 			}
 
 			// 写入操作日志
