@@ -1,6 +1,7 @@
 package com.cym.service;
 
 import java.io.File;
+import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -642,10 +643,26 @@ public class ConfService {
 	public void replace(String nginxPath, String nginxContent, List<String> subContent, List<String> subName, Boolean isBak, String adminName) {
 		String confd = new File(nginxPath).getParent().replace("\\", "/") + "/conf.d/";
 
+		// 删除conf.d下全部文件
+		FileUtil.del(confd);
+		FileUtil.mkdir(confd);
+
+		// 写入主文件
+		FileUtil.writeString(nginxContent, nginxPath.replace(" ", "_"), StandardCharsets.UTF_8);
+		String decompose = settingService.get("decompose");
+
+		if ("true".equals(decompose)) {
+			// 写入conf.d文件
+			if (subContent != null) {
+				for (int i = 0; i < subContent.size(); i++) {
+					String tagert = (new File(nginxPath).getParent().replace("\\", "/") + "/conf.d/" + subName.get(i)).replace(" ", "_");
+					FileUtil.writeString(subContent.get(i), tagert, StandardCharsets.UTF_8); // 清空
+				}
+			}
+		}
+
 		// 备份文件
 		if (isBak) {
-			FileUtil.mkdir(InitConfig.home + "bak");
-
 			Bak bak = new Bak();
 			bak.setTime(DateUtil.format(new Date(), "yyyy-MM-dd HH:mm:ss"));
 
@@ -669,30 +686,10 @@ public class ConfService {
 
 			// 写入操作日志
 			if (StrUtil.isNotEmpty(adminName)) {
-				String beforeConf = FileUtil.readString(nginxPath, "UTF-8");
+				String beforeConf = FileUtil.readString(nginxPath, StandardCharsets.UTF_8);
 				operateLogService.addLog(beforeConf, nginxContent, adminName);
 			}
-
 		}
-
-		// 删除conf.d下全部文件
-		FileUtil.del(confd);
-		FileUtil.mkdir(confd);
-
-		// 写入主文件
-		FileUtil.writeString(nginxContent, nginxPath.replace(" ", "_"), StandardCharsets.UTF_8);
-		String decompose = settingService.get("decompose");
-
-		if ("true".equals(decompose)) {
-			// 写入conf.d文件
-			if (subContent != null) {
-				for (int i = 0; i < subContent.size(); i++) {
-					String tagert = (new File(nginxPath).getParent().replace("\\", "/") + "/conf.d/" + subName.get(i)).replace(" ", "_");
-					FileUtil.writeString(subContent.get(i), tagert, StandardCharsets.UTF_8); // 清空
-				}
-			}
-		}
-
 	}
 
 	public AsycPack getAsycPack(String[] asycData) {
@@ -746,7 +743,6 @@ public class ConfService {
 			asycPack.setTemplateList(sqlHelper.findAll(Template.class));
 			asycPack.setParamList(sqlHelper.findAll(Param.class));
 		}
-
 
 		return asycPack;
 	}
@@ -811,7 +807,6 @@ public class ConfService {
 					}
 				}
 			}
-
 
 		} catch (Exception e) {
 			logger.error(e.getMessage(), e);
