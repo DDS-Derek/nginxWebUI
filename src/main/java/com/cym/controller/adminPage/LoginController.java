@@ -81,16 +81,16 @@ public class LoginController extends BaseController {
 	public JsonResult submitLogin(String name, String pass, String code, String authCode, String remember, HttpSession httpSession, HttpServletRequest httpServletRequest) {
 		// 解码
 		if (StrUtil.isNotEmpty(name)) {
-			name = Base64.decodeStr(name);
+			name = Base64.decodeStr(Base64.decodeStr(name));
 		}
 		if (StrUtil.isNotEmpty(pass)) {
-			pass = Base64.decodeStr(pass);
+			pass = Base64.decodeStr(Base64.decodeStr(pass));
 		}
 		if (StrUtil.isNotEmpty(code)) {
-			code = Base64.decodeStr(code);
+			code = Base64.decodeStr(Base64.decodeStr(code));
 		}
 		if (StrUtil.isNotEmpty(authCode)) {
-			authCode = Base64.decodeStr(authCode);
+			authCode = Base64.decodeStr(Base64.decodeStr(authCode));
 		}
 			
 		
@@ -152,13 +152,13 @@ public class LoginController extends BaseController {
 
 		// 解码
 		if (StrUtil.isNotEmpty(name)) {
-			name = Base64.decodeStr(name);
+			name = Base64.decodeStr(Base64.decodeStr(name));
 		}
 		if (StrUtil.isNotEmpty(pass)) {
-			pass = Base64.decodeStr(pass);
+			pass = Base64.decodeStr(Base64.decodeStr(pass));
 		}
 		if (StrUtil.isNotEmpty(code)) {
-			code = Base64.decodeStr(code);
+			code = Base64.decodeStr(Base64.decodeStr(code));
 		}
 
 		// 验证码
@@ -186,13 +186,13 @@ public class LoginController extends BaseController {
 	public JsonResult getCredit(String name, String pass, String code, String auth) {
 		// 解码
 		if (StrUtil.isNotEmpty(name)) {
-			name = Base64.decodeStr(name);
+			name = Base64.decodeStr(Base64.decodeStr(name));
 		}
 		if (StrUtil.isNotEmpty(pass)) {
-			pass = Base64.decodeStr(pass);
+			pass = Base64.decodeStr(Base64.decodeStr(pass));
 		}
 		if (StrUtil.isNotEmpty(code)) {
-			code = Base64.decodeStr(code);
+			code = Base64.decodeStr(Base64.decodeStr(code));
 		}
 
 		// 用户名密码

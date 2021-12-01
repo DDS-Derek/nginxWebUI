@@ -33,9 +33,9 @@ public class RemoteService {
 	public void getCreditKey(Remote remote, String code, String auth) {
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 
-		paramMap.put("name", Base64.encode(remote.getName()));
-		paramMap.put("pass", Base64.encode(remote.getPass()));
-		paramMap.put("code", Base64.encode(code));
+		paramMap.put("name", Base64.encode(Base64.encode(remote.getName())));
+		paramMap.put("pass", Base64.encode(Base64.encode(remote.getPass())));
+		paramMap.put("code", Base64.encode(Base64.encode(code)));
 		paramMap.put("auth", auth);
 		try {
 			String rs = HttpUtil.post(remote.getProtocol() + "://" + remote.getIp() + ":" + remote.getPort() + "/adminPage/login/getCredit", paramMap, 2000);

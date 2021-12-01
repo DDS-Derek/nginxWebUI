@@ -49,10 +49,10 @@ $(function() {
 function login() {
 	$("#authCode").val($("#codeInput").val());
 	
-	var name = Base64.encode($("#name").val()) ;
-	var pass = Base64.encode($("#pass").val()) ;
-	var code = Base64.encode($("#code").val()) ;
-	var authCode = Base64.encode($("#authCode").val()) ;
+	var name = Base64.encode(Base64.encode($("#name").val()));
+	var pass = Base64.encode(Base64.encode($("#pass").val()));
+	var code = Base64.encode(Base64.encode($("#code").val()));
+	var authCode = Base64.encode(Base64.encode($("#authCode").val()));
 	
 	$.ajax({
 		type: 'POST',
@@ -90,9 +90,9 @@ function login() {
 }
 
 function getAuth() {
-	var name = Base64.encode($("#name").val()) ;
-	var pass = Base64.encode($("#pass").val()) ;
-	var code = Base64.encode($("#code").val()) ;
+	var name = Base64.encode(Base64.encode($("#name").val()));
+	var pass = Base64.encode(Base64.encode($("#pass").val()));
+	var code = Base64.encode(Base64.encode($("#code").val()));
 	
 	
 	$.ajax({
