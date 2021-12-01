@@ -641,8 +641,10 @@ public class ConfService {
 
 	@Transactional
 	public void replace(String nginxPath, String nginxContent, List<String> subContent, List<String> subName, Boolean isBak, String adminName) {
-		String confd = new File(nginxPath).getParent().replace("\\", "/") + "/conf.d/";
+		// 先读取之前的配置
+		String beforeConf = FileUtil.readString(nginxPath, StandardCharsets.UTF_8);
 
+		String confd = new File(nginxPath).getParent().replace("\\", "/") + "/conf.d/";
 		// 删除conf.d下全部文件
 		FileUtil.del(confd);
 		FileUtil.mkdir(confd);
@@ -665,28 +667,21 @@ public class ConfService {
 		if (isBak) {
 			Bak bak = new Bak();
 			bak.setTime(DateUtil.format(new Date(), "yyyy-MM-dd HH:mm:ss"));
-
-			if (FileUtil.exist(nginxPath)) {
-				bak.setContent(FileUtil.readString(nginxPath, StandardCharsets.UTF_8));
-			}
+			bak.setContent(nginxContent);
 			sqlHelper.insert(bak);
 
-			// 备份conf.d文件夹
-			if (FileUtil.exist(confd)) {
-				List<String> list = FileUtil.listFileNames(confd);
-				for (String name : list) {
-					BakSub bakSub = new BakSub();
-					bakSub.setBakId(bak.getId());
+			// 备份子文件
+			for (int i = 0; i < subContent.size(); i++) {
+				BakSub bakSub = new BakSub();
+				bakSub.setBakId(bak.getId());
 
-					bakSub.setName(name);
-					bakSub.setContent(FileUtil.readString(confd + name, StandardCharsets.UTF_8));
-					sqlHelper.insert(bakSub);
-				}
+				bakSub.setName(subName.get(i));
+				bakSub.setContent(subContent.get(i));
+				sqlHelper.insert(bakSub); 
 			}
 
 			// 写入操作日志
 			if (StrUtil.isNotEmpty(adminName)) {
-				String beforeConf = FileUtil.readString(nginxPath, StandardCharsets.UTF_8);
 				operateLogService.addLog(beforeConf, nginxContent, adminName);
 			}
 		}
