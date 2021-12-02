@@ -21,7 +21,7 @@ RUN sed -i s@/archive.ubuntu.com/@/mirrors.aliyun.com/@g /etc/apt/sources.list \
     && fc-cache -f -v \
     && ln -sf /usr/share/zoneinfo/${TZ} /etc/localtime \
     && echo "${TZ}" > /etc/timezone \
-    && rm -rf /var/cache/apk/* /tmp/*
+    && rm -rf /tmp/* /var/lib/apt/lists/* /var/tmp/*
 COPY target/nginxWebUI-*.jar /home/nginxWebUI.jar
 COPY entrypoint.sh /usr/local/bin/entrypoint.sh
 VOLUME ["/home/nginxWebUI"]
