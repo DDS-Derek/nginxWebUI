@@ -1,12 +1,14 @@
-FROM alpine:3.14
+FROM ubuntu
+ARG DEBIAN_FRONTEND=noninteractive
 ENV LANG=zh_CN.UTF-8 \
     TZ=Asia/Shanghai \
     PS1="\u@\h:\w \$ "
-RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories \
-    && apk add --update --no-cache \
+RUN sed -i s@/archive.ubuntu.com/@/mirrors.aliyun.com/@g /etc/apt/sources.list \
+	&& apt update \
+    && apt install -y --no-install-recommends \
        nginx \
-       nginx-mod-stream \
-       openjdk8-jre \
+       libnginx-mod-stream \
+       openjdk-8-jre \
        net-tools \
        curl \
        wget \
@@ -14,11 +16,7 @@ RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories
        fontconfig \
        tzdata \
        tini \
-       acme.sh \
-       sqlite \
-       sqlite-libs \
-       sqlite-static \
-       sqlite-tcl \
+       sqlite3 \
     && fc-cache -f -v \
     && ln -sf /usr/share/zoneinfo/${TZ} /etc/localtime \
     && echo "${TZ}" > /etc/timezone \
