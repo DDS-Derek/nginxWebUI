@@ -6,7 +6,7 @@ RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories
     && apk add --update --no-cache \
        nginx \
        nginx-mod-stream \
-       openjdk11 \
+       openjdk11-jre \
        net-tools \
        curl \
        wget \
