@@ -20,6 +20,9 @@
 				<thead>
 					<tr>
 						<th>${commonStr.createTime}</th>
+						<th>版本号</th>
+						<th>审批编号</th>
+						<th>状态</th>
 						<th>${commonStr.operation}</th>
 					</tr>
 				</thead>
@@ -27,6 +30,14 @@
 					<#list page.records as bak>
 					<tr>
 						<td>${bak.time}</td>
+						<td>${bak.version}</td>
+						<td>${bak.applyNumber}</td>
+						
+						<td>
+							<#if bak.status == 0>未审批</#if>
+							<#if bak.status == 1>已审批</#if>
+							<#if bak.status == 2>未审批</#if>
+						</td>
 						<td>
 							<button class="layui-btn layui-btn-sm" onclick="content('${bak.id}')">${bakStr.content}</button>
 							<button class="layui-btn layui-btn-sm" onclick="compare('${bak.id}')">${bakStr.compare}</button>

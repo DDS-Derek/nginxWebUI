@@ -132,7 +132,11 @@ public class ConfController extends BaseController {
 				adminName = admin.getName();
 			}
 			
-			confService.replace(nginxPath, nginxContent, subContent, subName, true, adminName); 
+			String version = jsonObject.getStr("version");
+			String applyNumber = jsonObject.getStr("applyNumber");
+			String changeContent = jsonObject.getStr("changeContent");
+			
+			confService.replaceApply(nginxContent, subContent, subName, adminName, version, applyNumber, changeContent); 
 			return renderSuccess(m.get("confStr.replaceSuccess"));
 		} catch (Exception e) {
 			logger.error(e.getMessage(), e);

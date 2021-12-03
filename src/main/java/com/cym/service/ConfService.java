@@ -639,9 +639,28 @@ public class ConfService {
 		return ToolUtils.handleConf(new NgxDumper(ngxConfig).dump());
 	}
 
+	public void replaceApply(String nginxContent, List<String> subContent, List<String> subName, String adminName, String version, String applyNumber, String changeContent) {
+		Bak bak = new Bak();
+		bak.setTime(DateUtil.format(new Date(), "yyyy-MM-dd HH:mm:ss"));
+		bak.setContent(nginxContent);
+		bak.setVersion(version);
+		bak.setApplyNumber(applyNumber);
+		bak.setChangeContent(changeContent);
+		sqlHelper.insert(bak);
+
+		// 子文件
+		for (int i = 0; i < subContent.size(); i++) {
+			BakSub bakSub = new BakSub();
+			bakSub.setBakId(bak.getId());
+			bakSub.setName(subName.get(i));
+			bakSub.setContent(subContent.get(i));
+			sqlHelper.insert(bakSub);
+		}
+	}
+
 	@Transactional
 	public void replace(String nginxPath, String nginxContent, List<String> subContent, List<String> subName, Boolean isReplace, String adminName) {
-		
+
 		String beforeConf = null;
 		if (isReplace) {
 			// 先读取已有的配置

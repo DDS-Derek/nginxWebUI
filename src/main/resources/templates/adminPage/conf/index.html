@@ -13,8 +13,8 @@
 .title {
 	margin-top: 5px;
 	margin-bottom: 5px;
-	height:30px;
-	line-height:30px;
+	height: 30px;
+	line-height: 30px;
 	cursor: pointer;
 }
 
@@ -22,20 +22,17 @@ table.diff {
 	width: 100%;
 }
 
-
-.long{
-	width: 150px!important;
+.long {
+	width: 150px !important;
 }
 
-
-.layui-form-radio{
+.layui-form-radio {
 	width: 700px;
 }
 
-input[type='radio']{
+input[type='radio'] {
 	width: 1000px;
 }
-
 </style>
 </head>
 <body class="layui-layout-body">
@@ -78,20 +75,20 @@ input[type='radio']{
 							<div class="layui-inline">
 								<button type="button" class="layui-btn" onclick="diffUsingJS()">${confStr.compare}</button>
 							</div>
-							
+
 							<div class="layui-inline">
 								<button type="button" class="layui-btn layui-btn-normal" onclick="check()">${confStr.verifyFile}</button>
 							</div>
-							
+
 							<div class="layui-inline">
 								<button type="button" class="layui-btn layui-btn-normal" onclick="replace()">${confStr.replaceFile}</button>
 							</div>
-							
+
 							<div class="layui-inline">
 								<button type="button" class="layui-btn layui-btn-normal" onclick="reload()">${confStr.reload}</button>
 							</div>
 
-							
+
 							<div class="layui-inline">
 								<label class="layui-form-label" style="width: 120px;">${confStr.decompose}</label>
 							</div>
@@ -118,18 +115,18 @@ input[type='radio']{
 					<div class="layui-form" style="margin-top: 10px; display: flex;">
 
 						<div style="width: 47%;">
-							<div class="layui-inline" style="padding-bottom: 5px;width: 100%;">
-								<label class="layui-form-label ellipsis" style="width: 80%;text-align: left;">${confStr.build}：${tmp}</label>
+							<div class="layui-inline" style="padding-bottom: 5px; width: 100%;">
+								<label class="layui-form-label ellipsis" style="width: 80%; text-align: left;">${confStr.build}：${tmp}</label>
 							</div>
 							<textarea class="layui-textarea conf" id="nginxContent" name="nginxContent" style="height: 500px; resize: none;" spellcheck="false"></textarea>
-							
+
 							<div id="nginxContentOther"></div>
 						</div>
 
 
 						<div style="width: 47%;">
 							<div class="layui-inline" style="padding-bottom: 5px;">
-								<label class="layui-form-label" style="width: 110px;text-align: left;"><span class="red">*</span>${confStr.target}：</label>
+								<label class="layui-form-label" style="width: 110px; text-align: left;"><span class="red">*</span>${confStr.target}：</label>
 								<div class="layui-input-inline">
 									<input type="text" id="nginxPath" class="layui-input" name="nginxPath" style="width: 300px;" value="${nginxPath}" oninput="saveCmd()">
 								</div>
@@ -137,8 +134,8 @@ input[type='radio']{
 									<i class="layui-icon layui-icon-export" onclick="selectRootCustom('nginxPath')"></i>
 								</div>
 							</div>
-							
-							<textarea class="layui-textarea org" id="org" name="org" style="height: 500px; margin-left: 10px;resize: none; background-color: #ededed;" readonly="readonly" spellcheck="false"></textarea>
+
+							<textarea class="layui-textarea org" id="org" name="org" style="height: 500px; margin-left: 10px; resize: none; background-color: #ededed;" readonly="readonly" spellcheck="false"></textarea>
 
 							<div id="orgOther"></div>
 						</div>
@@ -151,25 +148,22 @@ input[type='radio']{
 	<div style="height: 0px; width: 0px; overflow: hidden;">
 		<div id="diffoutput"></div>
 
-		<div id="cmdForm" style="padding: 15px;display: none;">
+		<div id="cmdForm" style="padding: 15px; display: none;">
 			<div class="layui-form">
 				<div class="layui-form-item" id="nginxStop">
 					<div class="layui-input-inline">
-						<input type="radio" name="cmd" lang="cmdStop" id="stopNormal" title=""><br>
-						<input type="radio" name="cmd" lang="cmdStop" title="pkill nginx"><br>
-						<input type="radio" name="cmd" lang="cmdStop" title="taskkill /f /im nginx.exe"><br>
-						<input type="radio" name="cmd" lang="cmdStop" title="systemctl stop nginx"><br>
-						<input type="radio" name="cmd" lang="cmdStop" title="service nginx stop"><br>
-						
+						<input type="radio" name="cmd" lang="cmdStop" id="stopNormal" title=""><br> <input type="radio" name="cmd" lang="cmdStop" title="pkill nginx"><br> <input type="radio"
+							name="cmd" lang="cmdStop" title="taskkill /f /im nginx.exe"><br> <input type="radio" name="cmd" lang="cmdStop" title="systemctl stop nginx"><br> <input type="radio"
+							name="cmd" lang="cmdStop" title="service nginx stop"><br>
+
 					</div>
 				</div>
-				
+
 				<div class="layui-form-item" id="nginxStart">
 					<div class="layui-input-inline">
-						<input type="radio" name="cmd" lang="cmdStart" id="startNormal" title=""><br>
-						<input type="radio" name="cmd" lang="cmdStart" title="systemctl start nginx"><br>
-						<input type="radio" name="cmd" lang="cmdStart" title="service nginx start"><br>
-						
+						<input type="radio" name="cmd" lang="cmdStart" id="startNormal" title=""><br> <input type="radio" name="cmd" lang="cmdStart" title="systemctl start nginx"><br> <input
+							type="radio" name="cmd" lang="cmdStart" title="service nginx start"><br>
+
 					</div>
 				</div>
 
@@ -179,17 +173,46 @@ input[type='radio']{
 				</div>
 			</div>
 		</div>
-	</div>
+
+
+		<div id="applyForm" class="layui-form" style="padding: 15px; display: none;">
+			<div class="layui-form-item">
+				<label class="layui-form-label">版本号</label>
+				<div class="layui-input-block">
+					<input type="text" name="version" id="version" class="layui-input">
+				</div>
+			</div>
+			
+			<div class="layui-form-item">
+				<label class="layui-form-label">审批编号</label>
+				<div class="layui-input-block">
+					<input type="text" name="applyNumber" id="applyNumber" class="layui-input">
+				</div>
+			</div>
+
+			<div class="layui-form-item">
+				<label class="layui-form-label">变更内容</label>
+				<div class="layui-input-block">
+					<textarea name="changeContent" id="changeContent" class="layui-textarea"></textarea>
+				</div>
+			</div>
+
+
+			<div class="layui-form-item center">
+				<button type="button" class="layui-btn layui-btn-normal" onclick="replaceOver()">${commonStr.submit}</button>
+				<button type="button" class="layui-btn" onclick="layer.closeAll()">${commonStr.close}</button>
+			</div>
+		</div>
 
 
 
-	<#include '/adminPage/script.html'/>
-	<#include '/adminPage/select_root.html'/>
-	<script src="${ctx}/lib/auto-line-number/auto-line-number.js" type="text/javascript"></script>
-	<script src="${ctx}/lib/jsdifflib/difflib.js" type="text/javascript"></script>
-	<script src="${ctx}/lib/jsdifflib/diffview.js" type="text/javascript"></script>
-	<script src="${ctx}/lib/base64/base64.js" type="text/javascript"></script>
-	<script src="${ctx}/js/adminPage/conf/index.js?v=${jsrandom}" type="text/javascript"></script>
+		<#include '/adminPage/script.html'/>
+		<#include '/adminPage/select_root.html'/>
+		<script src="${ctx}/lib/auto-line-number/auto-line-number.js" type="text/javascript"></script>
+		<script src="${ctx}/lib/jsdifflib/difflib.js" type="text/javascript"></script>
+		<script src="${ctx}/lib/jsdifflib/diffview.js" type="text/javascript"></script>
+		<script src="${ctx}/lib/base64/base64.js" type="text/javascript"></script>
+		<script src="${ctx}/js/adminPage/conf/index.js?v=${jsrandom}" type="text/javascript"></script>
 </body>
 
 

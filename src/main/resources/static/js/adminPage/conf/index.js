@@ -60,13 +60,43 @@ function buildJson(){
 	return json;
 }
 
-function replace() {
+function replaceApply() {
+	$("#version").val("");
+	$("#applyNumber").val("");
+	$("#changeContent").val("");
+	
+	layer.open({
+		type : 1,
+		title : title,
+		area : [ '450px', '600px' ], // 宽高
+		content : $('#applyForm')
+	});
+}
+
+
+function replaceOver() {
 	if ($("#nginxPath").val() == '') {
 		layer.msg(confStr.jserror2);
 		return;
 	}
+	
+	if ($("#applyNumber").val() == '') {
+		layer.msg("未填写审批编号");
+		return;
+	}
+	if ($("#version").val() == '') {
+		layer.msg("未填写版本号");
+		return;
+	}
+	if ($("#changeContent").val() == '') {
+		layer.msg("未填写变更内容");
+		return;
+	}
 
 	var json = buildJson();
+	json.version = $("#version").val();
+	json.applyNumber = $("#applyNumber").val();
+	json.changeContent = $("#changeContent").val();
 	
 	$.ajax({
 		type : 'POST',
