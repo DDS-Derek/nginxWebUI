@@ -62,7 +62,6 @@ function buildJson(){
 
 function replaceApply() {
 	$("#version").val("");
-	$("#applyNumber").val("");
 	$("#changeContent").val("");
 	
 	layer.open({
@@ -80,10 +79,6 @@ function replaceOver() {
 		return;
 	}
 	
-	if ($("#applyNumber").val() == '') {
-		layer.msg("未填写审批编号");
-		return;
-	}
 	if ($("#version").val() == '') {
 		layer.msg("未填写版本号");
 		return;

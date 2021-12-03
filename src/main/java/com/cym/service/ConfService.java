@@ -641,12 +641,11 @@ public class ConfService {
 		return ToolUtils.handleConf(new NgxDumper(ngxConfig).dump());
 	}
 
-	public void replaceApply(String nginxContent, List<String> subContent, List<String> subName, String adminName, String version, String applyNumber, String changeContent) {
+	public void replaceApply(String nginxContent, List<String> subContent, List<String> subName, String adminName, String version, String changeContent) {
 		Bak bak = new Bak();
 		bak.setTime(DateUtil.format(new Date(), "yyyy-MM-dd HH:mm:ss"));
 		bak.setContent(nginxContent);
 		bak.setVersion(version);
-		bak.setApplyNumber(applyNumber);
 		bak.setChangeContent(changeContent);
 		sqlHelper.insert(bak);
 
@@ -661,8 +660,11 @@ public class ConfService {
 	}
 
 	public void replaceApplyOver(String applyNumber, Integer status, String adminName) {
-		Bak bak = sqlHelper.findOneByQuery(new ConditionAndWrapper().eq(Bak::getApplyNumber, applyNumber), Bak.class);
+		Bak bak = sqlHelper.findOneByQuery(new ConditionAndWrapper().eq(Bak::getStatus, 0), Bak.class);
 		if (bak != null) {
+			bak.setApplyNumber(applyNumber);
+			sqlHelper.updateById(bak); 
+			
 			List<BakSub> subList = bakService.getSubList(bak.getId());
 			List<String> subName = new ArrayList<>();
 			List<String> subContent = new ArrayList<>();

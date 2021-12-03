@@ -52,4 +52,8 @@ public class BakService {
 		return sqlHelper.findCountByQuery(new ConditionAndWrapper().eq(Bak::getVersion, version), Bak.class) > 0;
 	}
 
+	public Boolean isApplying() {
+		return sqlHelper.findCountByQuery(new ConditionAndWrapper().eq(Bak::getStatus, 0), Bak.class) > 0;
+	}
+
 }

@@ -81,7 +81,10 @@ input[type='radio'] {
 							</div>
 
 							<div class="layui-inline">
-								<button type="button" class="layui-btn layui-btn-normal" onclick="replaceApply()">${confStr.replaceFile}</button>
+								<button type="button" class="layui-btn layui-btn-normal" onclick="replaceApply()">
+								<#if applying>等待审核</#if>
+								<#if !applying>提交变更</#if>
+								</button>
 							</div>
 
 							<div class="layui-inline">
@@ -180,13 +183,6 @@ input[type='radio'] {
 				<label class="layui-form-label">版本号</label>
 				<div class="layui-input-block">
 					<input type="text" name="version" id="version" class="layui-input">
-				</div>
-			</div>
-			
-			<div class="layui-form-item">
-				<label class="layui-form-label">审批编号</label>
-				<div class="layui-input-block">
-					<input type="text" name="applyNumber" id="applyNumber" class="layui-input">
 				</div>
 			</div>
 

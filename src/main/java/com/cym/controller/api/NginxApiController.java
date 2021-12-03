@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.cym.controller.adminPage.ConfController;
 import com.cym.model.Admin;
 import com.cym.service.AdminService;
+import com.cym.service.BakService;
 import com.cym.service.ConfService;
 import com.cym.service.SettingService;
 import com.cym.utils.BaseController;
@@ -39,6 +40,8 @@ public class NginxApiController extends BaseController {
 	SettingService settingService;
 	@Autowired
 	ConfService confService;
+	@Autowired
+	BakService bakService;
 
 	@ApiOperation("获取nginx状态")
 	@PostMapping("nginxStatus")
@@ -52,16 +55,19 @@ public class NginxApiController extends BaseController {
 
 	@ApiOperation("下发审批结果")
 	@PostMapping("applyResult")
-	public JsonResult<?> applyResult(@RequestHeader String token, HttpServletRequest request,//
+	public JsonResult<?> applyResult(@RequestHeader String token, HttpServletRequest request, //
 			@RequestParam @ApiParam("审批编号") String applyNumber, //
 			@RequestParam @ApiParam("审批结果 1已通过 2未通过") Integer status) {
+		if (!bakService.isApplying()) {
+			return renderError("当前没有申请中的更改");
+		}
+
 		Admin admin = getAdmin(request);
-		confService.replaceApplyOver(applyNumber, status,admin.getName());
-		
+		confService.replaceApplyOver(applyNumber, status, admin.getName());
+
 		return renderSuccess("下发成功");
 	}
-	
-	
+
 //	@ApiOperation("替换conf文件")
 //	@PostMapping("replace")
 //	public JsonResult<?> replace(@RequestHeader String token, HttpServletRequest request) {
@@ -72,8 +78,7 @@ public class NginxApiController extends BaseController {
 //			return renderError("替换失败");
 //		}
 //	}
-	
-	
+
 	@ApiOperation("效验conf文件")
 	@PostMapping("check")
 	public JsonResult<?> checkBase() {

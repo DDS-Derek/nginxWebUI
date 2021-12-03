@@ -81,6 +81,9 @@ public class ConfController extends BaseController {
 		String decompose = settingService.get("decompose");
 		modelAndView.addObject("decompose", decompose);
 
+		Boolean applying = bakService.isApplying();
+		modelAndView.addObject("applying", applying);
+		
 		modelAndView.addObject("tmp", InitConfig.home + "temp/nginx.conf");
 
 		modelAndView.setViewName("/adminPage/conf/index");
@@ -101,7 +104,11 @@ public class ConfController extends BaseController {
 	@RequestMapping(value = "replace")
 	@ResponseBody
 	public JsonResult replace(String json, HttpServletRequest request, String adminName) {
-
+		
+		if(bakService.isApplying()) {
+			return renderError("已有变更正在审批中,请稍后再试");
+		}
+		
 		if (StrUtil.isEmpty(json)) {
 			json = getReplaceJson();
 		}
@@ -136,17 +143,13 @@ public class ConfController extends BaseController {
 			}
 			
 			String version = jsonObject.getStr("version");
-			String applyNumber = jsonObject.getStr("applyNumber");
 			String changeContent = jsonObject.getStr("changeContent");
 			
-			if(bakService.hasApplyNumber(applyNumber)) {
-				return renderError("该审批编号已存在");
-			}
 			if(bakService.hasVersion(version)) {
 				return renderError("该版本号已存在");
 			}
 			
-			confService.replaceApply(nginxContent, subContent, subName, adminName, version, applyNumber, changeContent); 
+			confService.replaceApply(nginxContent, subContent, subName, adminName, version, changeContent); 
 			return renderSuccess();
 		} catch (Exception e) {
 			logger.error(e.getMessage(), e);

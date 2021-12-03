@@ -21,7 +21,7 @@ public class Bak extends BaseModel {
 	@ApiModelProperty("变更内容")
 	String changeContent;
 	@InitValue("0")
-	@ApiModelProperty("状态 0未审批 1已通过 2未通过")
+	@ApiModelProperty("状态 0审批中 1已通过 2未通过")
 	Integer status;
 
 	
