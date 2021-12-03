@@ -663,6 +663,7 @@ public class ConfService {
 		Bak bak = sqlHelper.findOneByQuery(new ConditionAndWrapper().eq(Bak::getStatus, 0), Bak.class);
 		if (bak != null) {
 			bak.setApplyNumber(applyNumber);
+			bak.setStatus(status);
 			sqlHelper.updateById(bak); 
 			
 			List<BakSub> subList = bakService.getSubList(bak.getId());
@@ -681,11 +682,11 @@ public class ConfService {
 	@Transactional
 	public void replace(String nginxPath, String nginxContent, List<String> subContent, List<String> subName, Boolean isReplace, String adminName) {
 
-		String beforeConf = null;
-		if (isReplace) {
-			// 先读取已有的配置
-			beforeConf = FileUtil.readString(nginxPath, StandardCharsets.UTF_8);
-		}
+//		String beforeConf = null;
+//		if (isReplace) {
+//			// 先读取已有的配置
+//			beforeConf = FileUtil.readString(nginxPath, StandardCharsets.UTF_8);
+//		}
 
 		String confd = new File(nginxPath).getParent().replace("\\", "/") + "/conf.d/";
 		// 删除conf.d下全部文件
@@ -707,27 +708,27 @@ public class ConfService {
 		}
 
 		// 备份文件
-		if (isReplace) {
-			Bak bak = new Bak();
-			bak.setTime(DateUtil.format(new Date(), "yyyy-MM-dd HH:mm:ss"));
-			bak.setContent(nginxContent);
-			sqlHelper.insert(bak);
-
-			// 备份子文件
-			for (int i = 0; i < subContent.size(); i++) {
-				BakSub bakSub = new BakSub();
-				bakSub.setBakId(bak.getId());
-
-				bakSub.setName(subName.get(i));
-				bakSub.setContent(subContent.get(i));
-				sqlHelper.insert(bakSub);
-			}
-
-			// 写入操作日志
-			if (StrUtil.isNotEmpty(adminName)) {
-				operateLogService.addLog(beforeConf, nginxContent, adminName);
-			}
-		}
+//		if (isReplace) {
+//			Bak bak = new Bak();
+//			bak.setTime(DateUtil.format(new Date(), "yyyy-MM-dd HH:mm:ss"));
+//			bak.setContent(nginxContent);
+//			sqlHelper.insert(bak);
+//
+//			// 备份子文件
+//			for (int i = 0; i < subContent.size(); i++) {
+//				BakSub bakSub = new BakSub();
+//				bakSub.setBakId(bak.getId());
+//
+//				bakSub.setName(subName.get(i));
+//				bakSub.setContent(subContent.get(i));
+//				sqlHelper.insert(bakSub);
+//			}
+//
+//			// 写入操作日志
+//			if (StrUtil.isNotEmpty(adminName)) {
+//				operateLogService.addLog(beforeConf, nginxContent, adminName);
+//			}
+//		}
 	}
 
 	public AsycPack getAsycPack(String[] asycData) {

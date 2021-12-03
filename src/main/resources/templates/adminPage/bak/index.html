@@ -36,8 +36,8 @@
 						<td>${bak.changeContent}</td>
 						<td>
 							<#if bak.status == 0>审批中</#if>
-							<#if bak.status == 1>已审批</#if>
-							<#if bak.status == 2>未审批</#if>
+							<#if bak.status == 1>已通过</#if>
+							<#if bak.status == 2>未通过</#if>
 						</td>
 						<td>
 							<button class="layui-btn layui-btn-sm" onclick="content('${bak.id}')">${bakStr.content}</button>
