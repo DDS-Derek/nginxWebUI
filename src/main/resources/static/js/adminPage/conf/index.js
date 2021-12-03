@@ -486,7 +486,7 @@ function showBak(){
 	layer.open({
 		  type: 2, 
 		  title: bakStr.bakFile,
-		  area : [ '900px', '90%' ],
+		  area : [ '80%', '90%' ],
 		  content: ctx + "/adminPage/bak"
 	});
 }

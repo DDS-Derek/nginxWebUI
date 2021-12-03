@@ -22,6 +22,7 @@
 						<th>${commonStr.createTime}</th>
 						<th>版本号</th>
 						<th>审批编号</th>
+						<th>变更内容</th>
 						<th>状态</th>
 						<th>${commonStr.operation}</th>
 					</tr>
@@ -32,7 +33,7 @@
 						<td>${bak.time}</td>
 						<td>${bak.version}</td>
 						<td>${bak.applyNumber}</td>
-						
+						<td>${bak.changeContent}</td>
 						<td>
 							<#if bak.status == 0>未审批</#if>
 							<#if bak.status == 1>已审批</#if>
