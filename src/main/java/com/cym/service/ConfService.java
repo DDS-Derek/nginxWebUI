@@ -65,6 +65,8 @@ public class ConfService {
 	TemplateService templateService;
 	@Autowired
 	OperateLogService operateLogService;
+	@Autowired
+	BakService bakService;
 
 	public synchronized ConfExt buildConf(Boolean decompose, Boolean check) {
 		ConfExt confExt = new ConfExt();
@@ -655,6 +657,22 @@ public class ConfService {
 			bakSub.setName(subName.get(i));
 			bakSub.setContent(subContent.get(i));
 			sqlHelper.insert(bakSub);
+		}
+	}
+
+	public void replaceApplyOver(String applyNumber, Integer status, String adminName) {
+		Bak bak = sqlHelper.findOneByQuery(new ConditionAndWrapper().eq(Bak::getApplyNumber, applyNumber), Bak.class);
+		if (bak != null) {
+			List<BakSub> subList = bakService.getSubList(bak.getId());
+			List<String> subName = new ArrayList<>();
+			List<String> subContent = new ArrayList<>();
+			for (BakSub bakSub : subList) {
+				subName.add(bakSub.getName());
+				subContent.add(bakSub.getContent());
+			}
+
+			String nginxPath = settingService.get("nginxPath");
+			replace(nginxPath, bak.getContent(), subContent, subName, true, adminName);
 		}
 	}
 

@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cym.controller.adminPage.ConfController;
+import com.cym.model.Admin;
 import com.cym.service.AdminService;
+import com.cym.service.ConfService;
 import com.cym.service.SettingService;
 import com.cym.utils.BaseController;
 import com.cym.utils.JsonResult;
@@ -35,6 +37,8 @@ public class NginxApiController extends BaseController {
 	AdminService adminService;
 	@Autowired
 	SettingService settingService;
+	@Autowired
+	ConfService confService;
 
 	@ApiOperation("获取nginx状态")
 	@PostMapping("nginxStatus")
@@ -46,17 +50,30 @@ public class NginxApiController extends BaseController {
 		}
 	}
 
-	@ApiOperation("替换conf文件")
-	@PostMapping("replace")
-	public JsonResult<?> replace(@RequestHeader String token, HttpServletRequest request) {
-		JsonResult jsonResult = confController.replace(confController.getReplaceJson(), request, null);
-		if (jsonResult.isSuccess()) {
-			return renderSuccess("替换成功");
-		} else {
-			return renderError("替换失败");
-		}
+	@ApiOperation("下发审批结果")
+	@PostMapping("applyResult")
+	public JsonResult<?> applyResult(@RequestHeader String token, HttpServletRequest request,//
+			@RequestParam @ApiParam("审批编号") String applyNumber, //
+			@RequestParam @ApiParam("审批结果 1已通过 2未通过") Integer status) {
+		Admin admin = getAdmin(request);
+		confService.replaceApplyOver(applyNumber, status,admin.getName());
+		
+		return renderSuccess("下发成功");
 	}
-
+	
+	
+//	@ApiOperation("替换conf文件")
+//	@PostMapping("replace")
+//	public JsonResult<?> replace(@RequestHeader String token, HttpServletRequest request) {
+//		JsonResult jsonResult = confController.replace(confController.getReplaceJson(), request, null);
+//		if (jsonResult.isSuccess()) {
+//			return renderSuccess("替换成功");
+//		} else {
+//			return renderError("替换失败");
+//		}
+//	}
+	
+	
 	@ApiOperation("效验conf文件")
 	@PostMapping("check")
 	public JsonResult<?> checkBase() {
@@ -127,27 +144,4 @@ public class NginxApiController extends BaseController {
 		return jsonResult;
 	}
 
-//	@ApiOperation("停止nginx")
-//	@PostMapping("stop")
-//	public synchronized JsonResult<?> stop() {
-//		JsonResult jsonResult = confController.stop(null, null);
-//		
-//		if (jsonResult.isSuccess()) {
-//			return renderSuccess("停止成功");
-//		} else {
-//			return renderError("停止失败");
-//		}
-//	}
-//
-//	@ApiOperation("启动nginx")
-//	@PostMapping("start")
-//	public synchronized JsonResult<?> start() {
-//		JsonResult jsonResult = confController.start(null, null, null);
-//		
-//		if (jsonResult.isSuccess()) {
-//			return renderSuccess("启动成功");
-//		} else {
-//			return renderError("启动失败");
-//		}
-//	}
 }

@@ -15,6 +15,7 @@ public class Bak extends BaseModel {
 	String content;
 	@ApiModelProperty("版本号")
 	String version;
+	
 	@ApiModelProperty("审批编号")
 	String applyNumber;
 	@ApiModelProperty("变更内容")

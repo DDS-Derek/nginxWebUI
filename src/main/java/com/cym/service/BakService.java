@@ -44,4 +44,12 @@ public class BakService {
 		return pre;
 	}
 
+	public boolean hasApplyNumber(String applyNumber) {
+		return sqlHelper.findCountByQuery(new ConditionAndWrapper().eq(Bak::getApplyNumber, applyNumber), Bak.class) > 0;
+	}
+
+	public boolean hasVersion(String version) {
+		return sqlHelper.findCountByQuery(new ConditionAndWrapper().eq(Bak::getVersion, version), Bak.class) > 0;
+	}
+
 }

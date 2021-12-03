@@ -21,6 +21,7 @@ import com.cym.config.VersionConfig;
 import com.cym.ext.ConfExt;
 import com.cym.ext.ConfFile;
 import com.cym.model.Admin;
+import com.cym.service.BakService;
 import com.cym.service.ConfService;
 import com.cym.service.ServerService;
 import com.cym.service.SettingService;
@@ -56,6 +57,8 @@ public class ConfController extends BaseController {
 	ConfService confService;
 	@Autowired
 	MainController mainController;
+	@Autowired
+	BakService bakService;
 
 	@Autowired
 	VersionConfig versionConfig;
@@ -135,6 +138,13 @@ public class ConfController extends BaseController {
 			String version = jsonObject.getStr("version");
 			String applyNumber = jsonObject.getStr("applyNumber");
 			String changeContent = jsonObject.getStr("changeContent");
+			
+			if(bakService.hasApplyNumber(applyNumber)) {
+				return renderError("该审批编号已存在");
+			}
+			if(bakService.hasVersion(version)) {
+				return renderError("该版本号已存在");
+			}
 			
 			confService.replaceApply(nginxContent, subContent, subName, adminName, version, applyNumber, changeContent); 
 			return renderSuccess();
