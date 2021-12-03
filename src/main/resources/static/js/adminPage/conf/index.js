@@ -61,6 +61,11 @@ function buildJson(){
 }
 
 function replaceApply() {
+	if($("#replaceApplyBtn").html().trim() == "等待审核"){
+		layer.msg("审批已提交,请等待审核");
+		return;
+	}
+	
 	$("#version").val("");
 	$("#changeContent").val("");
 	
@@ -104,6 +109,7 @@ function replaceOver() {
 			if (data.success) {
 				layer.closeAll();
 				layer.msg("审批已提交,请等待审核");
+				$("#replaceApplyBtn").html("等待审核");
 			} else {
 				layer.alert(data.msg);
 			}
@@ -480,7 +486,7 @@ function showBak(){
 	
 	layer.open({
 		  type: 2, 
-		  title: bakStr.bakFile,
+		  title: '回滚',
 		  area : [ '80%', '90%' ],
 		  content: ctx + "/adminPage/bak"
 	});
