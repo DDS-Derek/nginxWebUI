@@ -67,8 +67,8 @@ function replaceApply() {
 	
 	layer.open({
 		type : 1,
-		title : title,
-		area : [ '450px', '600px' ], // 宽高
+		title : confStr.replaceFile,
+		area : [ '600px', '450px' ], // 宽高
 		content : $('#applyForm')
 	});
 }
@@ -107,9 +107,8 @@ function replaceOver() {
 		dataType : 'json',
 		success : function(data) {
 			if (data.success) {
-				layer.msg(data.obj);
-				loadOrg();
-
+				layer.closeAll();
+				layer.msg("审批已提交,请等待审核");
 			} else {
 				layer.alert(data.msg);
 			}

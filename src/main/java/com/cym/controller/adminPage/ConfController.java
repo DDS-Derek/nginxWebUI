@@ -137,7 +137,7 @@ public class ConfController extends BaseController {
 			String changeContent = jsonObject.getStr("changeContent");
 			
 			confService.replaceApply(nginxContent, subContent, subName, adminName, version, applyNumber, changeContent); 
-			return renderSuccess(m.get("confStr.replaceSuccess"));
+			return renderSuccess();
 		} catch (Exception e) {
 			logger.error(e.getMessage(), e);
 			return renderError(m.get("confStr.error3") + ":" + e.getMessage());
