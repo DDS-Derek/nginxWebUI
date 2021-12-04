@@ -119,7 +119,7 @@ Windows: java -jar -Xmx64m D:/home/nginxWebUI/nginxWebUI.jar --server.port=8080 
 
 #### docker安装说明
 
-本项目制作了docker镜像, 支持 x86/x86_64/arm64/arm v7/arm v6/ppc64 平台，同时包含nginx和nginxWebUI在内, 一体化管理与运行nginx. 
+本项目制作了docker镜像, 支持 x86_64/arm64/arm v7 平台，同时包含nginx和nginxWebUI在内, 一体化管理与运行nginx. 
 
 1.安装docker容器环境
 
