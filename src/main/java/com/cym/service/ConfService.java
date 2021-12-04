@@ -692,7 +692,8 @@ public class ConfService {
 				map.put("applyNumber", applyNumber);
 				map.put("status", status);
 				map.put("creditKey", remote.getCreditKey());
-				HttpUtil.post("http://" + remote.getIp() + ":" + remote.getPort() + "/api/nginx/applyResult", map);
+				String rs = HttpUtil.post("http://" + remote.getIp() + ":" + remote.getPort() + "/api/nginx/applyResult", map);
+				System.out.println(rs);
 			}
 		}
 	}

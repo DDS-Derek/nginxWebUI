@@ -98,7 +98,7 @@ public class RemoteService {
 	}
 
 	public Remote findByName(String remoteName) {
-		return sqlHelper.findOneByQuery(new ConditionAndWrapper().eq(Remote::getName, remoteName), Remote.class);
+		return sqlHelper.findOneByQuery(new ConditionAndWrapper().eq(Remote::getDescr, remoteName), Remote.class);
 	}
 
 }

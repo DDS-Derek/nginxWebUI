@@ -24,6 +24,7 @@ import com.cym.utils.NginxUtils;
 
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.http.HtmlUtil;
+import cn.hutool.http.server.HttpServerRequest;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -55,14 +56,14 @@ public class NginxApiController extends BaseController {
 
 	@ApiOperation("下发审批结果")
 	@PostMapping("applyResult")
-	public JsonResult<?> applyResult(@RequestHeader String token, HttpServletRequest request, //
+	public JsonResult<?> applyResult(HttpServletRequest request,
 			@RequestParam @ApiParam("审批编号") String applyNumber, //
 			@RequestParam @ApiParam("审批结果 1已通过 2未通过") Integer status, //
-			@RequestParam @ApiParam("机器别名（不填为本地）") String remoteName//
+			@RequestParam(required = false) @ApiParam("机器别名（不填为本地）") String remoteName//
 	) {
-		if (!bakService.isApplying()) {
-			return renderError("当前没有申请中的更改");
-		}
+//		if (!bakService.isApplying()) {
+//			return renderError("当前没有申请中的更改");
+//		}
 
 		Admin admin = getAdmin(request);
 		confService.replaceApplyOver(applyNumber, status, admin.getName(), remoteName);

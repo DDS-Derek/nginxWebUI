@@ -48,6 +48,10 @@ public class ApiInterceptor implements HandlerInterceptor {
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object obj) throws Exception {
 		String token = request.getHeader("token");
 		Admin admin = adminService.getByToken(token);
+		if (admin == null) {
+			String creditKey = request.getParameter("creditKey");
+			admin = adminService.getByCreditKey(creditKey);
+		}
 
 		if (admin != null && admin.getApi()) {
 			return true;

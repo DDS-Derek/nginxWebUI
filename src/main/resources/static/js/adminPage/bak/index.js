@@ -116,7 +116,7 @@ function diffUsingJS(pre, bak){
     layer.open({
 		type : 1,
 		title: false,
-		area : [ '90%', '90%' ], //宽高
+		area : [ '1000px', '90%' ], //宽高
 		content : $('#diffoutput')
 	});
 }
