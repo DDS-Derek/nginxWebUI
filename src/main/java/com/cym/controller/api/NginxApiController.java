@@ -57,13 +57,15 @@ public class NginxApiController extends BaseController {
 	@PostMapping("applyResult")
 	public JsonResult<?> applyResult(@RequestHeader String token, HttpServletRequest request, //
 			@RequestParam @ApiParam("审批编号") String applyNumber, //
-			@RequestParam @ApiParam("审批结果 1已通过 2未通过") Integer status) {
+			@RequestParam @ApiParam("审批结果 1已通过 2未通过") Integer status, //
+			@RequestParam @ApiParam("机器别名（不填为本地）") String remoteName//
+	) {
 		if (!bakService.isApplying()) {
 			return renderError("当前没有申请中的更改");
 		}
 
 		Admin admin = getAdmin(request);
-		confService.replaceApplyOver(applyNumber, status, admin.getName());
+		confService.replaceApplyOver(applyNumber, status, admin.getName(), remoteName);
 
 		return renderSuccess("下发成功");
 	}

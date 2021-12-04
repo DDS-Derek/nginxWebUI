@@ -1,12 +1,13 @@
 package com.cym.service;
 
 import java.io.File;
-import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,6 +26,7 @@ import com.cym.model.Http;
 import com.cym.model.Location;
 import com.cym.model.Param;
 import com.cym.model.Password;
+import com.cym.model.Remote;
 import com.cym.model.Server;
 import com.cym.model.Stream;
 import com.cym.model.Template;
@@ -43,8 +45,9 @@ import cn.craccd.sqlHelper.utils.ConditionAndWrapper;
 import cn.craccd.sqlHelper.utils.SqlHelper;
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.io.FileUtil;
+import cn.hutool.core.util.RuntimeUtil;
 import cn.hutool.core.util.StrUtil;
-import cn.hutool.core.util.ZipUtil;
+import cn.hutool.http.HttpUtil;
 
 @Service
 public class ConfService {
@@ -67,6 +70,8 @@ public class ConfService {
 	OperateLogService operateLogService;
 	@Autowired
 	BakService bakService;
+	@Autowired
+	RemoteService remoteService;
 
 	public synchronized ConfExt buildConf(Boolean decompose, Boolean check) {
 		ConfExt confExt = new ConfExt();
@@ -659,23 +664,36 @@ public class ConfService {
 		}
 	}
 
-	public void replaceApplyOver(String applyNumber, Integer status, String adminName) {
-		Bak bak = sqlHelper.findOneByQuery(new ConditionAndWrapper().eq(Bak::getStatus, 0), Bak.class);
-		if (bak != null) {
-			bak.setApplyNumber(applyNumber);
-			bak.setStatus(status);
-			sqlHelper.updateById(bak); 
-			
-			List<BakSub> subList = bakService.getSubList(bak.getId());
-			List<String> subName = new ArrayList<>();
-			List<String> subContent = new ArrayList<>();
-			for (BakSub bakSub : subList) {
-				subName.add(bakSub.getName());
-				subContent.add(bakSub.getContent());
-			}
+	public void replaceApplyOver(String applyNumber, Integer status, String adminName, String remoteName) {
+		if (StrUtil.isEmpty(remoteName)) {
+			// 本地替换
+			Bak bak = sqlHelper.findOneByQuery(new ConditionAndWrapper().eq(Bak::getStatus, 0), Bak.class);
+			if (bak != null) {
+				bak.setApplyNumber(applyNumber);
+				bak.setStatus(status);
+				sqlHelper.updateById(bak);
 
-			String nginxPath = settingService.get("nginxPath");
-			replace(nginxPath, bak.getContent(), subContent, subName, true, adminName);
+				List<BakSub> subList = bakService.getSubList(bak.getId());
+				List<String> subName = new ArrayList<>();
+				List<String> subContent = new ArrayList<>();
+				for (BakSub bakSub : subList) {
+					subName.add(bakSub.getName());
+					subContent.add(bakSub.getContent());
+				}
+
+				String nginxPath = settingService.get("nginxPath");
+				replace(nginxPath, bak.getContent(), subContent, subName, true, adminName);
+			}
+		} else {
+			// 远程替换
+			Remote remote = remoteService.findByName(remoteName);
+			if (remote != null) {
+				Map<String, Object> map = new HashMap<>();
+				map.put("applyNumber", applyNumber);
+				map.put("status", status);
+				map.put("creditKey", remote.getCreditKey());
+				HttpUtil.post("http://" + remote.getIp() + ":" + remote.getPort() + "/api/nginx/applyResult", map);
+			}
 		}
 	}
 
@@ -707,6 +725,20 @@ public class ConfService {
 			}
 		}
 
+		// 重载Nginx
+		String nginxExe = settingService.get("nginxExe");
+		String nginxDir = settingService.get("nginxDir");
+
+		try {
+			String cmd = nginxExe + " -s reload -c " + nginxPath;
+			if (StrUtil.isNotEmpty(nginxDir)) {
+				cmd += " -p " + nginxDir;
+			}
+			RuntimeUtil.execForStr(cmd);
+		} catch (Exception e) {
+			logger.info(e.getMessage(), e);
+		}
+		
 		// 备份文件
 //		if (isReplace) {
 //			Bak bak = new Bak();
