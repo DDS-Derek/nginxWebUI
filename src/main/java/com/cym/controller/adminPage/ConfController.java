@@ -81,7 +81,7 @@ public class ConfController extends BaseController {
 		String decompose = settingService.get("decompose");
 		modelAndView.addObject("decompose", decompose);
 
-		Boolean applying = bakService.isApplying();
+		Boolean applying = bakService.isApplying(null);
 		modelAndView.addObject("applying", applying);
 		
 		modelAndView.addObject("tmp", InitConfig.home + "temp/nginx.conf");
@@ -105,7 +105,7 @@ public class ConfController extends BaseController {
 	@ResponseBody
 	public JsonResult replace(String json, HttpServletRequest request, String adminName) {
 		
-		if(bakService.isApplying()) {
+		if(bakService.isApplying(null)) {
 			return renderError("已有变更正在审批中,请稍后再试");
 		}
 		
