@@ -69,7 +69,7 @@ public class InitConfig {
 	@PostConstruct
 	public void init() throws IOException {
 		if(!FilePermissionUtil.canWrite(new File(home))) {
-			logger.info(home + .get("commonStr.noWrite"));
+			logger.info(home + m.get("commonStr.noWrite"));
 			SpringApplication.exit(applicationContext);
 		}
 		
