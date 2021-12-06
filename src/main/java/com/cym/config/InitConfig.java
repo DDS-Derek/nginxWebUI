@@ -67,12 +67,6 @@ public class InitConfig {
 
 	@PostConstruct
 	public void init() throws IOException {
-		// 判断目录是否有写权限
-		if (!FilePermissionUtil.canWrite(new File(home))) {
-			logger.info(m.get("commonStr.noWrite")); 
-			SpringApplication.exit(applicationContext);
-		}
-
 		// 初始化base值
 		Long count = sqlHelper.findAllCount(Basic.class);
 		if (count == 0) {
