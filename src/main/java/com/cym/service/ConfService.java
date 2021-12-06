@@ -701,11 +701,11 @@ public class ConfService {
 	@Transactional
 	public void replace(String nginxPath, String nginxContent, List<String> subContent, List<String> subName, Boolean isReplace, String adminName) {
 
-//		String beforeConf = null;
-//		if (isReplace) {
-//			// 先读取已有的配置
-//			beforeConf = FileUtil.readString(nginxPath, StandardCharsets.UTF_8);
-//		}
+		String beforeConf = null;
+		if (isReplace) {
+			// 先读取已有的配置
+			beforeConf = FileUtil.readString(nginxPath, StandardCharsets.UTF_8);
+		}
 
 		String confd = new File(nginxPath).getParent().replace("\\", "/") + "/conf.d/";
 		// 删除conf.d下全部文件
@@ -739,7 +739,11 @@ public class ConfService {
 		} catch (Exception e) {
 			logger.info(e.getMessage(), e);
 		}
-		
+
+		if (StrUtil.isNotEmpty(adminName)) {
+			operateLogService.addLog(beforeConf, nginxContent, adminName);
+		}
+
 		// 备份文件
 //		if (isReplace) {
 //			Bak bak = new Bak();
