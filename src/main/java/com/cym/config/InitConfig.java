@@ -69,8 +69,8 @@ public class InitConfig {
 	@PostConstruct
 	public void init() throws IOException {
 		if(!FilePermissionUtil.canWrite(new File(home))) {
-			logger.info(home + " " + "directory does not have writable permission. Please specify it again.");
-			logger.info(home + " " + "目录没有可写权限,请重新指定.");
+			logger.error(home + " " + "directory does not have writable permission. Please specify it again.");
+			logger.error(home + " " + "目录没有可写权限,请重新指定.");
 			SpringApplication.exit(applicationContext);
 		}
 		
