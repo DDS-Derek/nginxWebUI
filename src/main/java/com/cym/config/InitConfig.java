@@ -1,5 +1,6 @@
 package com.cym.config;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -11,7 +12,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.system.ApplicationHome;
+import org.springframework.boot.SpringApplication;
+import org.springframework.context.ApplicationContext;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
@@ -20,6 +22,7 @@ import com.cym.model.Basic;
 import com.cym.model.Http;
 import com.cym.service.BasicService;
 import com.cym.service.SettingService;
+import com.cym.utils.FilePermissionUtil;
 import com.cym.utils.MessageUtils;
 import com.cym.utils.NginxUtils;
 import com.cym.utils.SystemTool;
@@ -51,6 +54,8 @@ public class InitConfig {
 	SqlHelper sqlHelper;
 	@Autowired
 	JdbcTemplate jdbcTemplate;
+	@Autowired
+	ApplicationContext applicationContext;
 
 	@Value("${project.home}")
 	public void setHome(String home) {
@@ -62,8 +67,12 @@ public class InitConfig {
 
 	@PostConstruct
 	public void init() throws IOException {
-		
-		
+		// 判断目录是否有写权限
+		if (!FilePermissionUtil.canWrite(new File(home))) {
+			logger.info(m.get("commonStr.noWrite")); 
+			SpringApplication.exit(applicationContext);
+		}
+
 		// 初始化base值
 		Long count = sqlHelper.findAllCount(Basic.class);
 		if (count == 0) {
