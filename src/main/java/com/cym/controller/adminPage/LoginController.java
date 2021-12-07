@@ -118,7 +118,7 @@ public class LoginController extends BaseController {
 		httpSession.removeAttribute("imgCode"); // 立刻销毁验证码
 
 		// 检查更新
-		versionConfig.getNewVersion();
+//		versionConfig.getNewVersion();
 
 		return renderSuccess(admin);
 	}

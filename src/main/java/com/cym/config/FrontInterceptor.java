@@ -84,13 +84,13 @@ public class FrontInterceptor implements HandlerInterceptor {
 		request.setAttribute("showAdmin", request.getParameter("showAdmin"));
 
 		// 显示版本更新
-		if (versionConfig.getVersion() != null) {
-			request.setAttribute("newVersion", versionConfig.getVersion());
-
-			if (Integer.parseInt(currentVersion.replace(".", "").replace("v", "")) < Integer.parseInt(versionConfig.getVersion().getVersion().replace(".", "").replace("v", ""))) {
-				request.setAttribute("hasNewVersion", 1);
-			}
-		}
+//		if (versionConfig.getVersion() != null) {
+//			request.setAttribute("newVersion", versionConfig.getVersion());
+//
+//			if (Integer.parseInt(currentVersion.replace(".", "").replace("v", "")) < Integer.parseInt(versionConfig.getVersion().getVersion().replace(".", "").replace("v", ""))) {
+//				request.setAttribute("hasNewVersion", 1);
+//			}
+//		}
 
 		// 读取配置文件
 		Properties properties = null;
