@@ -3,25 +3,39 @@ package com.cym.model;
 import cn.craccd.sqlHelper.bean.BaseModel;
 import cn.craccd.sqlHelper.config.InitValue;
 import cn.craccd.sqlHelper.config.Table;
+import io.swagger.annotations.ApiModelProperty;
 
 @Table
 public class Remote extends BaseModel{
+	@ApiModelProperty("访问协议")
 	String protocol;
+	@ApiModelProperty("ip")
 	String ip;
+	@ApiModelProperty("端口")
 	Integer port;
+	@ApiModelProperty("状态 0 掉线 1在线")
 	@InitValue("0")
 	Integer status; // 0 掉线 1在线
+	@ApiModelProperty("授权码")
 	String creditKey;
+	@ApiModelProperty("用户名")
 	String name;
+	@ApiModelProperty("密码")
 	String pass;
+	@ApiModelProperty("版本")
 	String version;
+	@ApiModelProperty("操作系统")
 	String system;
+	@ApiModelProperty("别名")
 	String descr;
+	@ApiModelProperty("是否监控")
 	@InitValue("0")
 	Integer monitor;
-	
+	@ApiModelProperty("父id")
 	String parentId;
+	@ApiModelProperty("类型 0 服务器 1分组")
 	Integer type; //0 服务器 1分组
+	@ApiModelProperty("nginx状态")
 	Integer nginx; //0未运行 1在运行 2未知
 	
 	

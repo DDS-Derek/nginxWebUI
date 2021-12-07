@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.cym.controller.adminPage.ConfController;
 import com.cym.model.Admin;
+import com.cym.model.Remote;
 import com.cym.service.AdminService;
 import com.cym.service.BakService;
 import com.cym.service.ConfService;
@@ -75,6 +76,14 @@ public class NginxApiController extends BaseController {
 	public JsonResult<?> isApplying(HttpServletRequest request) {
 
 		return renderSuccess(bakService.isApplying(null));
+	}
+	
+	
+	@ApiOperation("获取全部远程机器")
+	@PostMapping("getAllRemote")
+	public JsonResult<List<Remote>> getAllRemote(HttpServletRequest request) {
+
+		return renderSuccess(sqlHelper.findAll(Remote.class));
 	}
 
 //	@ApiOperation("替换conf文件")
