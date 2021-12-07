@@ -681,8 +681,11 @@ public class ConfService {
 					subContent.add(bakSub.getContent());
 				}
 
-				String nginxPath = settingService.get("nginxPath");
-				replace(nginxPath, bak.getContent(), subContent, subName, true, adminName);
+				if (status == 1) {
+					// 审批通过, 执行替换
+					String nginxPath = settingService.get("nginxPath");
+					replace(nginxPath, bak.getContent(), subContent, subName, true, adminName);
+				}
 			}
 		} else {
 			// 远程替换
