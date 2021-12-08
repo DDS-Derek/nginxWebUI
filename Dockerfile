@@ -1,4 +1,4 @@
-FROM nevinee/nginxwebui-base
+FROM cym1102/nginxwebui-base
 ENV LANG=zh_CN.UTF-8 \
     TZ=Asia/Shanghai \
     PS1="\u@\h:\w \$ "
