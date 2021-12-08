@@ -1,21 +1,20 @@
-FROM ubuntu
+FROM debian
 ARG DEBIAN_FRONTEND=noninteractive
 ENV LANG=zh_CN.UTF-8 \
     TZ=Asia/Shanghai \
     PS1="\u@\h:\w \$ "
 RUN echo "Install some packages..." \
-    && sed -i "s@/archive.ubuntu.com/@/mirrors.aliyun.com/@g" /etc/apt/sources.list \
-    && sed -i "s@/security.ubuntu.com/@/mirrors.aliyun.com/@g" /etc/apt/sources.list \
-    && sed -i "s@/ports.ubuntu.com/@/mirrors.aliyun.com/@g" /etc/apt/sources.list \
+    && sed -i "s@/deb.debian.org/@/mirrors.aliyun.com/@g" /etc/apt/sources.list \
+    && sed -i "s@/security.debian.org/@/mirrors.aliyun.com/@g" /etc/apt/sources.list \
     && apt update \
     && apt install -y --no-install-recommends \
        nginx \
        libnginx-mod-stream \
-       openjdk-8-jre \
+       openjdk-11-jre \
        net-tools \
        curl \
        wget \
-       ttf-dejavu \
+       fonts-dejavu \
        fontconfig \
        tzdata \
        tini \
