@@ -19,6 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.cym.config.InitConfig;
 import com.cym.model.Remote;
+import com.cym.service.BakService;
 import com.cym.service.SettingService;
 import com.cym.utils.BaseController;
 import com.cym.utils.JsonResult;
@@ -38,6 +39,10 @@ public class MainController extends BaseController {
 	@Autowired
 	SettingService settingService;
 
+	@Autowired
+	BakService bakService;
+	
+	
 	private static final Logger LOG = LoggerFactory.getLogger(MainController.class);
 
 	@RequestMapping("")
@@ -107,4 +112,10 @@ public class MainController extends BaseController {
 		return renderSuccess();
 	}
 
+	
+	@ResponseBody
+	@RequestMapping("/adminPage/main/isApply")
+	public JsonResult isApply() {
+		return renderSuccess(bakService.isApplying(null));
+	}
 }

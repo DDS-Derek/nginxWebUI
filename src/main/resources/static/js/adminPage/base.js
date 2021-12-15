@@ -61,6 +61,22 @@ $(function() {
 	var url = location.pathname + location.search;
 	$("a[href='" + ctx + url.substr(1) + "']").parent().addClass("layui-this");
 
+	// 申请中判断
+	$.ajax({
+		type: 'POST',
+		url: ctx + '/adminPage/main/isApply',
+		dataType: 'json',
+		success: function(data) {
+			if (data.success && data.obj) {
+				$(".apply").attr("href","javascript:");
+				$(".apply").css("color","gray");
+			}
+		},
+		error: function() {
+			layer.alert(commonStr.errorInfo);
+		}
+	});
+
 
 	$.ajax({
 		type: 'POST',
