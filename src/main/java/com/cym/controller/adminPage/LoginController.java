@@ -300,10 +300,5 @@ public class LoginController extends BaseController {
 	}
 	
 	
-	@ResponseBody
-	@RequestMapping("/isApply")
-	public JsonResult isApply() {
-		return renderSuccess(bakService.isApplying(null));
-	}
 	
 }

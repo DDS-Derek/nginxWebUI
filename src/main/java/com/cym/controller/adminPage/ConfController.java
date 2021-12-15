@@ -445,5 +445,7 @@ public class ConfController extends BaseController {
 		settingService.set(key, val);
 		return renderSuccess();
 	}
+	
+	
 
 }

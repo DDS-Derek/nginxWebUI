@@ -38,6 +38,8 @@ public class MainController extends BaseController {
 	UpdateUtils updateUtils;
 	@Autowired
 	SettingService settingService;
+	@Autowired
+	BakService bakService;
 
 	private static final Logger LOG = LoggerFactory.getLogger(MainController.class);
 
@@ -106,5 +108,13 @@ public class MainController extends BaseController {
 
 		return renderSuccess();
 	}
+	
+	
+	@ResponseBody
+	@RequestMapping("/adminPage/main/isApply")
+	public JsonResult isApply() {
+		return renderSuccess(bakService.isApplying(null));
+	}
+	
 
 }

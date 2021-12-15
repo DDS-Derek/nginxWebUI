@@ -65,7 +65,7 @@ $(function() {
 	//申请中判断
 	$.ajax({
 		type: 'POST',
-		url: ctx + '/adminPage/login/isApply',
+		url: ctx + '/adminPage/main/isApply',
 		dataType: 'json',
 		success: function(data) {
 			if (data.success && data.obj) {
@@ -76,7 +76,7 @@ $(function() {
 			}
 		},
 		error: function() {
-			layer.alert(commonStr.errorInfo);
+			//layer.alert(commonStr.errorInfo);
 		}
 	});
 

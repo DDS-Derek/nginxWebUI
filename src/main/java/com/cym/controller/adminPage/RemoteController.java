@@ -134,7 +134,7 @@ public class RemoteController extends BaseController {
 		remoteLocal.setIp("");
 		remoteLocal.setProtocol("");
 		remoteLocal.setParentId("");
-		remoteLocal.setDescr(m.get("remoteStr.local"));
+		remoteLocal.setDescr("control机");
 		Map<String, Object> map = version();
 		remoteLocal.setVersion((String) map.get("version"));
 		remoteLocal.setNginx((Integer) map.get("nginx"));
