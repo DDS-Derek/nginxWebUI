@@ -18,6 +18,7 @@ import com.cym.config.VersionConfig;
 import com.cym.model.Admin;
 import com.cym.model.Remote;
 import com.cym.service.AdminService;
+import com.cym.service.BakService;
 import com.cym.service.CreditService;
 import com.cym.service.SettingService;
 import com.cym.utils.AuthUtils;
@@ -51,7 +52,9 @@ public class LoginController extends BaseController {
 	AuthUtils authUtils;
 	@Value("${project.version}")
 	String currentVersion;
-
+	@Autowired
+	BakService bakService;
+	
 	@Autowired
 	SettingService settingService;
 
@@ -294,6 +297,13 @@ public class LoginController extends BaseController {
 		}
 
 		return renderSuccess();
+	}
+	
+	
+	@ResponseBody
+	@RequestMapping("/isApply")
+	public JsonResult isApply() {
+		return renderSuccess(bakService.isApplying(null));
 	}
 	
 }

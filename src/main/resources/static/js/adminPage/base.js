@@ -61,22 +61,24 @@ $(function() {
 	var url = location.pathname + location.search;
 	$("a[href='" + ctx + url.substr(1) + "']").parent().addClass("layui-this");
 
-	// 申请中判断
+
+	//申请中判断
 	$.ajax({
 		type: 'POST',
-		url: ctx + '/adminPage/main/isApply',
+		url: ctx + '/adminPage/login/isApply',
 		dataType: 'json',
 		success: function(data) {
 			if (data.success && data.obj) {
-				$(".apply").attr("href","javascript:");
+				$(".apply").attr("href","javascript:void(0)");
 				$(".apply").css("color","gray");
+				
+				$(".apply").unbind();
 			}
 		},
 		error: function() {
 			layer.alert(commonStr.errorInfo);
 		}
 	});
-
 
 	$.ajax({
 		type: 'POST',

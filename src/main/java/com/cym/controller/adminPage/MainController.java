@@ -39,10 +39,6 @@ public class MainController extends BaseController {
 	@Autowired
 	SettingService settingService;
 
-	@Autowired
-	BakService bakService;
-	
-	
 	private static final Logger LOG = LoggerFactory.getLogger(MainController.class);
 
 	@RequestMapping("")
@@ -98,8 +94,7 @@ public class MainController extends BaseController {
 		updateUtils.run(path);
 		return renderSuccess();
 	}
-	
-	
+
 	@ResponseBody
 	@RequestMapping("/adminPage/main/changeLang")
 	public JsonResult changeLang() {
@@ -112,10 +107,4 @@ public class MainController extends BaseController {
 		return renderSuccess();
 	}
 
-	
-	@ResponseBody
-	@RequestMapping("/adminPage/main/isApply")
-	public JsonResult isApply() {
-		return renderSuccess(bakService.isApplying(null));
-	}
 }
