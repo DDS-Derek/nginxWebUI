@@ -108,8 +108,9 @@ function replaceOver() {
 		success : function(data) {
 			if (data.success) {
 				layer.closeAll();
-				layer.msg("审批已提交,请等待审核");
-				$("#replaceApplyBtn").html("等待审核");
+				//layer.msg("审批已提交,请等待审核");
+				//$("#replaceApplyBtn").html("等待审核");
+				location.reload();
 			} else {
 				layer.alert(data.msg);
 			}
