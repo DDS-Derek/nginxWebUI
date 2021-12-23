@@ -15,14 +15,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.noear.solon.annotation.Controller;
+import org.noear.solon.annotation.Inject;
+import org.noear.solon.annotation.Mapping;
+import org.noear.solon.core.handle.ModelAndView;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.cym.controller.api.NginxApiController;
 import com.cym.ext.AsycPack;
@@ -47,22 +47,22 @@ import cn.hutool.http.HttpUtil;
 import cn.hutool.json.JSONUtil;
 
 @Controller
-@RequestMapping("/adminPage/remote")
+@Mapping("/adminPage/remote")
 public class RemoteController extends BaseController {
 	Logger logger = LoggerFactory.getLogger(this.getClass());
-	@Autowired
+	@Inject
 	RemoteService remoteService;
-	@Autowired
+	@Inject
 	SettingService settingService;
-	@Autowired
+	@Inject
 	ConfService confService;
-	@Autowired
+	@Inject
 	GroupService groupService;
-	@Autowired
+	@Inject
 	ConfController confController;
-	@Autowired
+	@Inject
 	MainController mainController;
-	@Autowired
+	@Inject
 	NginxApiController nginxApiController;
 
 	@Value("${project.version}")
@@ -70,7 +70,7 @@ public class RemoteController extends BaseController {
 	@Value("${server.port}")
 	Integer port;
 
-	@RequestMapping("version")
+	@Mapping("version")
 	@ResponseBody
 	public Map<String, Object> version() {
 		Map<String, Object> map = new HashMap<>();
@@ -85,7 +85,7 @@ public class RemoteController extends BaseController {
 		return map;
 	}
 
-	@RequestMapping("")
+	@Mapping("")
 	public ModelAndView index(ModelAndView modelAndView, HttpSession httpSession) {
 
 		JsonResult<List<String>> jsonResult = nginxApiController.getNginxStartCmd();
@@ -100,7 +100,7 @@ public class RemoteController extends BaseController {
 		return modelAndView;
 	}
 
-	@RequestMapping("allTable")
+	@Mapping("allTable")
 	@ResponseBody
 	public List<Remote> allTable(HttpServletRequest request) {
 		Admin admin = getAdmin(request);
@@ -179,7 +179,7 @@ public class RemoteController extends BaseController {
 		return "";
 	}
 
-	@RequestMapping("addGroupOver")
+	@Mapping("addGroupOver")
 	@ResponseBody
 	public JsonResult addGroupOver(Group group) {
 		if (StrUtil.isNotEmpty(group.getParentId()) && StrUtil.isNotEmpty(group.getId()) && group.getId().equals(group.getParentId())) {
@@ -190,13 +190,13 @@ public class RemoteController extends BaseController {
 		return renderSuccess();
 	}
 
-	@RequestMapping("groupDetail")
+	@Mapping("groupDetail")
 	@ResponseBody
 	public JsonResult groupDetail(String id) {
 		return renderSuccess(sqlHelper.findById(id, Group.class));
 	}
 
-	@RequestMapping("delGroup")
+	@Mapping("delGroup")
 	@ResponseBody
 	public JsonResult delGroup(String id) {
 
@@ -204,7 +204,7 @@ public class RemoteController extends BaseController {
 		return renderSuccess();
 	}
 
-	@RequestMapping("getGroupTree")
+	@Mapping("getGroupTree")
 	@ResponseBody
 	public JsonResult getGroupTree(HttpServletRequest request) {
 		Admin admin = getAdmin(request);
@@ -247,7 +247,7 @@ public class RemoteController extends BaseController {
 		return false;
 	}
 
-	@RequestMapping("getCmdRemote")
+	@Mapping("getCmdRemote")
 	@ResponseBody
 	public JsonResult getCmdRemote(HttpServletRequest request) {
 		Admin admin = getAdmin(request);
@@ -294,7 +294,7 @@ public class RemoteController extends BaseController {
 
 	}
 
-	@RequestMapping("cmdOver")
+	@Mapping("cmdOver")
 	@ResponseBody
 	public JsonResult cmdOver(String[] remoteId, String cmd, Integer interval, HttpServletRequest request) {
 		if (remoteId == null || remoteId.length == 0) {
@@ -370,7 +370,7 @@ public class RemoteController extends BaseController {
 		return renderSuccess(rs.toString());
 	}
 
-	@RequestMapping("asyc")
+	@Mapping("asyc")
 	@ResponseBody
 	public JsonResult asyc(String fromId, String[] remoteId, String[] asycData, HttpServletRequest request) {
 		if (StrUtil.isEmpty(fromId) || remoteId == null || remoteId.length == 0) {
@@ -414,7 +414,7 @@ public class RemoteController extends BaseController {
 		return renderSuccess();
 	}
 
-	@RequestMapping("getAsycPack")
+	@Mapping("getAsycPack")
 	@ResponseBody
 	public String getAsycPack(String[] asycData) {
 		AsycPack asycPack = confService.getAsycPack(asycData);
@@ -422,7 +422,7 @@ public class RemoteController extends BaseController {
 		return JSONUtil.toJsonPrettyStr(asycPack);
 	}
 
-	@RequestMapping("setAsycPack")
+	@Mapping("setAsycPack")
 	@ResponseBody
 	public JsonResult setAsycPack(String json, HttpServletRequest request, String adminName) {
 		AsycPack asycPack = JSONUtil.toBean(json, AsycPack.class);
@@ -435,7 +435,7 @@ public class RemoteController extends BaseController {
 		return renderSuccess();
 	}
 
-	@RequestMapping("addOver")
+	@Mapping("addOver")
 	@ResponseBody
 	public JsonResult addOver(Remote remote, String code, String auth) {
 		remote.setIp(remote.getIp().trim());
@@ -455,7 +455,7 @@ public class RemoteController extends BaseController {
 
 	}
 
-	@RequestMapping("getAuth")
+	@Mapping("getAuth")
 	@ResponseBody
 	public JsonResult getAuth(Remote remote) {
 		try {
@@ -482,13 +482,13 @@ public class RemoteController extends BaseController {
 		}
 	}
 
-	@RequestMapping("detail")
+	@Mapping("detail")
 	@ResponseBody
 	public JsonResult detail(String id) {
 		return renderSuccess(sqlHelper.findById(id, Remote.class));
 	}
 
-	@RequestMapping("del")
+	@Mapping("del")
 	@ResponseBody
 	public JsonResult del(String id) {
 		sqlHelper.deleteById(id, Remote.class);
@@ -496,7 +496,7 @@ public class RemoteController extends BaseController {
 		return renderSuccess();
 	}
 
-	@RequestMapping("content")
+	@Mapping("content")
 	@ResponseBody
 	public JsonResult content(String id) {
 
@@ -507,7 +507,7 @@ public class RemoteController extends BaseController {
 		return renderSuccess(rs);
 	}
 
-	@RequestMapping("readContent")
+	@Mapping("readContent")
 	@ResponseBody
 	public String readContent() {
 
@@ -521,7 +521,7 @@ public class RemoteController extends BaseController {
 
 	}
 
-	@RequestMapping("change")
+	@Mapping("change")
 	@ResponseBody
 	public JsonResult change(String id, HttpSession httpSession) {
 		Remote remote = sqlHelper.findById(id, Remote.class);
@@ -537,7 +537,7 @@ public class RemoteController extends BaseController {
 		return renderSuccess();
 	}
 
-	@RequestMapping("nginxStatus")
+	@Mapping("nginxStatus")
 	@ResponseBody
 	public JsonResult nginxStatus(HttpSession httpSession) {
 		Map<String, String> map = new HashMap<>();
@@ -549,7 +549,7 @@ public class RemoteController extends BaseController {
 		return renderSuccess(map);
 	}
 
-	@RequestMapping("nginxOver")
+	@Mapping("nginxOver")
 	@ResponseBody
 	public JsonResult nginxOver(String mail, String nginxMonitor) {
 		settingService.set("mail", mail);
@@ -558,7 +558,7 @@ public class RemoteController extends BaseController {
 		return renderSuccess();
 	}
 
-	@RequestMapping("setMonitor")
+	@Mapping("setMonitor")
 	@ResponseBody
 	public JsonResult setMonitor(String id, Integer monitor) {
 		if (!"local".equals(id)) {
@@ -573,7 +573,7 @@ public class RemoteController extends BaseController {
 		return renderSuccess();
 	}
 
-	@RequestMapping("/src")
+	@Mapping("/src")
 	public void src(HttpServletRequest httpServletRequest, HttpServletResponse response, String url) throws Exception {
 
 //		response.addHeader("Content-Type", "image/jpeg");

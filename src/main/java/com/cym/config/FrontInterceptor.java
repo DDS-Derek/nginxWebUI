@@ -31,18 +31,18 @@ public class FrontInterceptor implements HandlerInterceptor {
 	@Value("${spring.application.name}")
 	String projectName;
 
-	@Autowired
+	@Inject
 	VersionConfig versionConfig;
 
 	@Value("${project.version}")
 	String currentVersion;
 
-	@Autowired
+	@Inject
 	PropertiesUtils propertiesUtils;
 
-	@Autowired
+	@Inject
 	SettingService settingService;
-	@Autowired
+	@Inject
 	MessageUtils m;
 
 	/*

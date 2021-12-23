@@ -6,53 +6,49 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.noear.solon.annotation.Controller;
+import org.noear.solon.annotation.Inject;
+import org.noear.solon.annotation.Mapping;
+import org.noear.solon.core.handle.ModelAndView;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.cym.config.InitConfig;
-import com.cym.ext.CertExt;
 import com.cym.model.Cert;
 import com.cym.model.CertCode;
 import com.cym.service.CertService;
 import com.cym.service.SettingService;
+import com.cym.sqlhelper.bean.Page;
 import com.cym.utils.BaseController;
 import com.cym.utils.JsonResult;
 import com.cym.utils.SystemTool;
 import com.cym.utils.TimeExeUtils;
 
-import cn.craccd.sqlHelper.bean.Page;
 import cn.hutool.core.io.FileUtil;
-import cn.hutool.core.util.RuntimeUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.core.util.ZipUtil;
 
 @Controller
-@RequestMapping("/adminPage/cert")
+@Mapping("/adminPage/cert")
 public class CertController extends BaseController {
-	@Autowired
+	@Inject
 	SettingService settingService;
-	@Autowired
+	@Inject
 	CertService certService;
-	@Autowired
+	@Inject
 	TimeExeUtils timeExeUtils;
 
 	Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	Boolean isInApply = false;
 
-	@RequestMapping("")
+	@Mapping("")
 	public ModelAndView index(HttpSession httpSession, ModelAndView modelAndView, Page page, String keywords) {
 		page = certService.getPage(keywords, page);
 
@@ -62,7 +58,7 @@ public class CertController extends BaseController {
 		return modelAndView;
 	}
 
-	@RequestMapping("addOver")
+	@Mapping("addOver")
 	@ResponseBody
 	public JsonResult addOver(Cert cert, String[] domains, String[] types, String[] values) {
 		if (certService.hasSame(cert)) {
@@ -74,20 +70,20 @@ public class CertController extends BaseController {
 		return renderSuccess(cert);
 	}
 
-	@RequestMapping("setAutoRenew")
+	@Mapping("setAutoRenew")
 	@ResponseBody
 	public JsonResult setAutoRenew(Cert cert) {
 		sqlHelper.updateById(cert);
 		return renderSuccess();
 	}
 
-	@RequestMapping("detail")
+	@Mapping("detail")
 	@ResponseBody
 	public JsonResult detail(String id) {
 		return renderSuccess(sqlHelper.findById(id, Cert.class));
 	}
 
-	@RequestMapping("del")
+	@Mapping("del")
 	@ResponseBody
 	public JsonResult del(String id) {
 		Cert cert = sqlHelper.findById(id, Cert.class);
@@ -99,7 +95,7 @@ public class CertController extends BaseController {
 		return renderSuccess();
 	}
 
-	@RequestMapping("apply")
+	@Mapping("apply")
 	@ResponseBody
 	public JsonResult apply(String id, String type) {
 		if (!SystemTool.isLinux()) {
@@ -240,7 +236,7 @@ public class CertController extends BaseController {
 		return list.toArray(new String[] {});
 	}
 
-	@RequestMapping("getTxtValue")
+	@Mapping("getTxtValue")
 	@ResponseBody
 	public JsonResult getTxtValue(String id) {
 
@@ -248,7 +244,7 @@ public class CertController extends BaseController {
 		return renderSuccess(certCodes);
 	}
 
-	@RequestMapping("download")
+	@Mapping("download")
 	public void download(String id, HttpServletResponse response) throws IOException {
 		Cert cert = sqlHelper.findById(id, Cert.class);
 		if (StrUtil.isNotEmpty(cert.getPem()) && StrUtil.isNotEmpty(cert.getKey())) {

@@ -23,9 +23,9 @@ import io.swagger.annotations.ApiParam;
 
 @Api(tags = "负载均衡(upstream)接口")
 @RestController
-@RequestMapping("/api/upstream")
+@Mapping("/api/upstream")
 public class UpstreamApiController extends BaseController {
-	@Autowired
+	@Inject
 	UpstreamService upstreamService;
 
 	@SuppressWarnings("unchecked")

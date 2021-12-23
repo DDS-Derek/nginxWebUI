@@ -5,14 +5,13 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.noear.solon.annotation.Controller;
+import org.noear.solon.annotation.Inject;
+import org.noear.solon.annotation.Mapping;
+import org.noear.solon.core.handle.ModelAndView;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.cym.ext.TemplateExt;
-import com.cym.model.Location;
 import com.cym.model.Param;
 import com.cym.model.Template;
 import com.cym.service.TemplateService;
@@ -23,12 +22,12 @@ import cn.hutool.core.util.StrUtil;
 import cn.hutool.json.JSONUtil;
 
 @Controller
-@RequestMapping("/adminPage/template")
+@Mapping("/adminPage/template")
 public class TemplateController extends BaseController {
-	@Autowired
+	@Inject
 	TemplateService templateService;
 	
-	@RequestMapping("")
+	@Mapping("")
 	public ModelAndView index(HttpSession httpSession, ModelAndView modelAndView) {
 		List<Template> templateList = sqlHelper.findAll(Template.class);
 
@@ -48,7 +47,7 @@ public class TemplateController extends BaseController {
 		return modelAndView;
 	}
 
-	@RequestMapping("addOver")
+	@Mapping("addOver")
 	@ResponseBody
 	public JsonResult addOver(Template template,String paramJson) {
 		
@@ -71,7 +70,7 @@ public class TemplateController extends BaseController {
 		return renderSuccess();
 	}
 
-	@RequestMapping("detail")
+	@Mapping("detail")
 	@ResponseBody
 	public JsonResult detail(String id) {
 		Template template = sqlHelper.findById(id, Template.class);
@@ -84,7 +83,7 @@ public class TemplateController extends BaseController {
 		return renderSuccess(templateExt);
 	}
 
-	@RequestMapping("del")
+	@Mapping("del")
 	@ResponseBody
 	public JsonResult del(String id) {
 
@@ -92,7 +91,7 @@ public class TemplateController extends BaseController {
 		return renderSuccess();
 	}
 	
-	@RequestMapping("getTemplate")
+	@Mapping("getTemplate")
 	@ResponseBody
 	public JsonResult getTemplate() {
 

@@ -13,7 +13,7 @@ import cn.craccd.sqlHelper.utils.SqlHelper;
 
 @Service
 public class SettingService {
-	@Autowired
+	@Inject
 	SqlHelper sqlHelper;
 
 	public void set(String key, String value) {

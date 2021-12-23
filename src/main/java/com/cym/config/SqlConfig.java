@@ -9,7 +9,7 @@ import cn.craccd.sqlHelper.utils.SqlHelper;
 @Configuration
 @ComponentScan(basePackages = { "cn.craccd" })
 public class SqlConfig  {
-	@Autowired
+	@Inject
 	SqlHelper sqlHelper;
 
 }

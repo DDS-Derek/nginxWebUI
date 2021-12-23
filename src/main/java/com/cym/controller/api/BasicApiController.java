@@ -23,13 +23,13 @@ import io.swagger.annotations.ApiOperation;
 
 @Api(tags = "基础参数接口")
 @RestController
-@RequestMapping("/api/basic")
+@Mapping("/api/basic")
 public class BasicApiController extends BaseController {
-	@Autowired
+	@Inject
 	HttpService httpService;
-	@Autowired
+	@Inject
 	BasicService basicService;
-	@Autowired
+	@Inject
 	StreamService streamService;
 
 	@ApiOperation("获取Http参数")

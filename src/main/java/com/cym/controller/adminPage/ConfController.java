@@ -6,15 +6,14 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.noear.solon.annotation.Controller;
+import org.noear.solon.annotation.Inject;
+import org.noear.solon.annotation.Mapping;
+import org.noear.solon.core.handle.ModelAndView;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.io.ClassPathResource;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.cym.config.InitConfig;
 import com.cym.config.VersionConfig;
@@ -33,6 +32,7 @@ import com.cym.utils.ToolUtils;
 
 import cn.hutool.core.codec.Base64;
 import cn.hutool.core.io.FileUtil;
+import cn.hutool.core.io.resource.ClassPathResource;
 import cn.hutool.core.net.URLDecoder;
 import cn.hutool.core.net.URLEncoder;
 import cn.hutool.core.util.CharsetUtil;
@@ -43,27 +43,27 @@ import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
 
 @Controller
-@RequestMapping("/adminPage/conf")
+@Mapping("/adminPage/conf")
 public class ConfController extends BaseController {
 	Logger logger = LoggerFactory.getLogger(this.getClass());
-	@Autowired
+	@Inject
 	UpstreamService upstreamService;
-	@Autowired
+	@Inject
 	SettingService settingService;
-	@Autowired
+	@Inject
 	ServerService serverService;
-	@Autowired
+	@Inject
 	ConfService confService;
-	@Autowired
+	@Inject
 	MainController mainController;
 
-	@Autowired
+	@Inject
 	VersionConfig versionConfig;
 	
 	@Value("${project.version}")
 	String currentVersion;
 
-	@RequestMapping("")
+	@Mapping("")
 	public ModelAndView index(ModelAndView modelAndView) {
 
 		String nginxPath = settingService.get("nginxPath");
@@ -84,7 +84,7 @@ public class ConfController extends BaseController {
 		return modelAndView;
 	}
 
-	@RequestMapping(value = "nginxStatus")
+	@Mapping(value = "nginxStatus")
 	@ResponseBody
 	public JsonResult nginxStatus() {
 		if (NginxUtils.isRun()) {
@@ -95,7 +95,7 @@ public class ConfController extends BaseController {
 
 	}
 
-	@RequestMapping(value = "replace")
+	@Mapping(value = "replace")
 	@ResponseBody
 	public JsonResult replace(String json, HttpServletRequest request, String adminName) {
 
@@ -166,7 +166,7 @@ public class ConfController extends BaseController {
 	 * @param nginxDir
 	 * @return
 	 */
-	@RequestMapping(value = "checkBase")
+	@Mapping(value = "checkBase")
 	@ResponseBody
 	public JsonResult checkBase() {
 		String nginxExe = settingService.get("nginxExe");
@@ -213,7 +213,7 @@ public class ConfController extends BaseController {
 	 * @param json
 	 * @return
 	 */
-	@RequestMapping(value = "check")
+	@Mapping(value = "check")
 	@ResponseBody
 	public JsonResult check(String nginxPath, String nginxExe, String nginxDir, String json) {
 		if (nginxExe == null) {
@@ -270,7 +270,7 @@ public class ConfController extends BaseController {
 
 	}
 
-	@RequestMapping(value = "saveCmd")
+	@Mapping(value = "saveCmd")
 	@ResponseBody
 	public JsonResult saveCmd(String nginxPath, String nginxExe, String nginxDir) {
 		nginxPath = ToolUtils.handlePath(nginxPath);
@@ -285,7 +285,7 @@ public class ConfController extends BaseController {
 		return renderSuccess();
 	}
 
-	@RequestMapping(value = "reload")
+	@Mapping(value = "reload")
 	@ResponseBody
 	public synchronized JsonResult reload(String nginxPath, String nginxExe, String nginxDir) {
 		if (nginxPath == null) {
@@ -321,7 +321,7 @@ public class ConfController extends BaseController {
 		}
 	}
 
-	@RequestMapping(value = "runCmd")
+	@Mapping(value = "runCmd")
 	@ResponseBody
 	public JsonResult runCmd(String cmd, String type) {
 		if(StrUtil.isNotEmpty(type)) {
@@ -352,13 +352,13 @@ public class ConfController extends BaseController {
 		}
 	}
 
-	@RequestMapping(value = "getLastCmd")
+	@Mapping(value = "getLastCmd")
 	@ResponseBody
 	public JsonResult getLastCmd(String type) {
 		return renderSuccess(settingService.get(type));
 	}
 
-	@RequestMapping(value = "loadConf")
+	@Mapping(value = "loadConf")
 	@ResponseBody
 	public JsonResult loadConf() {
 		String decompose = settingService.get("decompose");
@@ -367,7 +367,7 @@ public class ConfController extends BaseController {
 		return renderSuccess(confExt);
 	}
 
-	@RequestMapping(value = "loadOrg")
+	@Mapping(value = "loadOrg")
 	@ResponseBody
 	public JsonResult loadOrg(String nginxPath) {
 		String decompose = settingService.get("decompose");
@@ -397,14 +397,14 @@ public class ConfController extends BaseController {
 
 	}
 
-	@RequestMapping(value = "decompose")
+	@Mapping(value = "decompose")
 	@ResponseBody
 	public JsonResult decompose(String decompose) {
 		settingService.set("decompose", decompose);
 		return renderSuccess();
 	}
 
-	@RequestMapping(value = "update")
+	@Mapping(value = "update")
 	@ResponseBody
 	public JsonResult update() {
 		versionConfig.getNewVersion();
@@ -416,13 +416,13 @@ public class ConfController extends BaseController {
 		}
 	}
 
-	@RequestMapping(value = "getKey")
+	@Mapping(value = "getKey")
 	@ResponseBody
 	public JsonResult getKey(String key) {
 		return renderSuccess(settingService.get(key));
 	}
 
-	@RequestMapping(value = "setKey")
+	@Mapping(value = "setKey")
 	@ResponseBody
 	public JsonResult setKey(String key, String val) {
 		settingService.set(key, val);

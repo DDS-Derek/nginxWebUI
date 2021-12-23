@@ -16,7 +16,7 @@ import cn.craccd.sqlHelper.utils.SqlHelper;
 
 @Service
 public class BasicService {
-	@Autowired
+	@Inject
 	SqlHelper sqlHelper;
 
 	public List<Basic> findAll() {

@@ -12,7 +12,7 @@ import cn.hutool.core.util.StrUtil;
 @Service
 public class WwwService {
 
-	@Autowired
+	@Inject
 	SqlHelper sqlHelper;
 
 	public Boolean hasDir(String dir, String id) {

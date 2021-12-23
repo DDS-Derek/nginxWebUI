@@ -4,46 +4,40 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.TimeUnit;
 
 import javax.servlet.http.HttpSession;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.noear.solon.annotation.Controller;
+import org.noear.solon.annotation.Inject;
+import org.noear.solon.annotation.Mapping;
+import org.noear.solon.core.handle.ModelAndView;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.cym.ext.UpstreamExt;
-import com.cym.model.Remote;
-import com.cym.model.Server;
 import com.cym.model.Upstream;
 import com.cym.model.UpstreamServer;
 import com.cym.service.ParamService;
 import com.cym.service.SettingService;
 import com.cym.service.UpstreamService;
+import com.cym.sqlhelper.bean.Page;
 import com.cym.utils.BaseController;
 import com.cym.utils.JsonResult;
 import com.cym.utils.SnowFlakeUtils;
-import com.cym.utils.TelnetUtils;
 
-import cn.craccd.sqlHelper.bean.Page;
-import cn.hutool.core.lang.TypeReference;
 import cn.hutool.core.util.StrUtil;
-import cn.hutool.http.HttpUtil;
 import cn.hutool.json.JSONUtil;
 
 @Controller
-@RequestMapping("/adminPage/upstream")
+@Mapping("/adminPage/upstream")
 public class UpstreamController extends BaseController {
-	@Autowired
+	@Inject
 	UpstreamService upstreamService;
-	@Autowired
+	@Inject
 	ParamService paramService;
-	@Autowired
+	@Inject
 	SettingService settingService;
 
-	@RequestMapping("")
+	@Mapping("")
 	public ModelAndView index(HttpSession httpSession, ModelAndView modelAndView, Page page, String keywords) {
 
 		page = upstreamService.search(page, keywords);
@@ -115,7 +109,7 @@ public class UpstreamController extends BaseController {
 		return html;
 	}
 
-	@RequestMapping("addOver")
+	@Mapping("addOver")
 	@ResponseBody
 	public JsonResult addOver(String upstreamJson, String upstreamParamJson, String upstreamServerJson) {
 		Upstream upstream = JSONUtil.toBean(upstreamJson, Upstream.class);
@@ -143,7 +137,7 @@ public class UpstreamController extends BaseController {
 		return renderSuccess();
 	}
 
-	@RequestMapping("detail")
+	@Mapping("detail")
 	@ResponseBody
 	public JsonResult detail(String id) {
 
@@ -156,7 +150,7 @@ public class UpstreamController extends BaseController {
 		return renderSuccess(upstreamExt);
 	}
 
-	@RequestMapping("del")
+	@Mapping("del")
 	@ResponseBody
 	public JsonResult del(String id) {
 
@@ -165,7 +159,7 @@ public class UpstreamController extends BaseController {
 		return renderSuccess();
 	}
 
-	@RequestMapping("setMonitor")
+	@Mapping("setMonitor")
 	@ResponseBody
 	public JsonResult setMonitor(String id, Integer monitor) {
 		Upstream upstream = new Upstream();
@@ -176,7 +170,7 @@ public class UpstreamController extends BaseController {
 		return renderSuccess();
 	}
 
-	@RequestMapping("upstreamStatus")
+	@Mapping("upstreamStatus")
 	@ResponseBody
 	public JsonResult upstreamStatus(HttpSession httpSession) {
 		Map<String, String> map = new HashMap<>();
@@ -188,7 +182,7 @@ public class UpstreamController extends BaseController {
 		return renderSuccess(map);
 	}
 
-	@RequestMapping("upstreamOver")
+	@Mapping("upstreamOver")
 	@ResponseBody
 	public JsonResult upstreamOver(String mail, String upstreamMonitor) {
 		settingService.set("mail", mail);
@@ -201,7 +195,7 @@ public class UpstreamController extends BaseController {
 		return renderSuccess();
 	}
 	
-	@RequestMapping("setOrder")
+	@Mapping("setOrder")
 	@ResponseBody
 	public JsonResult setOrder(String id, Integer count) {
 		upstreamService.setSeq(id, count);

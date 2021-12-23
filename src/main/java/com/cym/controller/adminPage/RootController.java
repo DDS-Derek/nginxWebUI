@@ -5,8 +5,8 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.noear.solon.annotation.Controller;
+import org.noear.solon.annotation.Mapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.cym.ext.TreeNode;
@@ -18,11 +18,11 @@ import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.util.StrUtil;
 
 @Controller
-@RequestMapping("/adminPage/root")
+@Mapping("/adminPage/root")
 public class RootController extends BaseController {
 
 	@ResponseBody
-	@RequestMapping("getList")
+	@Mapping("getList")
 	public List<TreeNode> getList(String id) {
 		if (StrUtil.isEmpty(id)) {
 			id = "/";
@@ -82,7 +82,7 @@ public class RootController extends BaseController {
 	}
 
 	@ResponseBody
-	@RequestMapping("mkdir")
+	@Mapping("mkdir")
 	public JsonResult mkdir(String dir, String name) {
 
 		FileUtil.mkdir(dir + name);

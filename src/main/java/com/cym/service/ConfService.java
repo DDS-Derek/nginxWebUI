@@ -49,21 +49,21 @@ import cn.hutool.core.util.ZipUtil;
 @Service
 public class ConfService {
 	Logger logger = LoggerFactory.getLogger(this.getClass());
-	@Autowired
+	@Inject
 	UpstreamService upstreamService;
-	@Autowired
+	@Inject
 	SettingService settingService;
-	@Autowired
+	@Inject
 	ServerService serverService;
-	@Autowired
+	@Inject
 	LocationService locationService;
-	@Autowired
+	@Inject
 	ParamService paramService;
-	@Autowired
+	@Inject
 	SqlHelper sqlHelper;
-	@Autowired
+	@Inject
 	TemplateService templateService;
-	@Autowired
+	@Inject
 	OperateLogService operateLogService;
 
 	public synchronized ConfExt buildConf(Boolean decompose, Boolean check) {

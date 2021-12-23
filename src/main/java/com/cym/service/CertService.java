@@ -16,7 +16,7 @@ import cn.hutool.core.util.StrUtil;
 
 @Service
 public class CertService {
-	@Autowired
+	@Inject
 	SqlHelper sqlHelper;
 
 	public boolean hasSame(Cert cert) {

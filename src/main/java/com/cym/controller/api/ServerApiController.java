@@ -24,11 +24,11 @@ import io.swagger.annotations.ApiParam;
 
 @Api(tags = "反向代理(server)接口")
 @RestController
-@RequestMapping("/api/server")
+@Mapping("/api/server")
 public class ServerApiController extends BaseController {
-	@Autowired
+	@Inject
 	ServerService serverService;
-	@Autowired
+	@Inject
 	ParamService paramService;
 	
 	@SuppressWarnings("unchecked")

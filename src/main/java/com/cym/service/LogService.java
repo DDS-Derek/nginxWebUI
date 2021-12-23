@@ -15,9 +15,9 @@ import cn.hutool.core.util.StrUtil;
 
 @Service
 public class LogService {
-	@Autowired
+	@Inject
 	SqlHelper sqlHelper;
-	@Autowired
+	@Inject
 	JdbcTemplate jdbcTemplate;
 
 	Logger logger = LoggerFactory.getLogger(this.getClass());

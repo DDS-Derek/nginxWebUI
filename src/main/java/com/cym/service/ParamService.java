@@ -17,7 +17,7 @@ import cn.hutool.json.JSONUtil;
 @Service
 public class ParamService {
 
-	@Autowired
+	@Inject
 	SqlHelper sqlHelper;
 
 	public String getJsonByTypeId(String id, String type) {

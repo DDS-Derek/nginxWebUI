@@ -25,9 +25,9 @@ import cn.hutool.json.JSONObject;
 @Service
 public class RemoteService {
 	Logger logger = LoggerFactory.getLogger(this.getClass());
-	@Autowired
+	@Inject
 	SqlHelper sqlHelper;
-	@Autowired
+	@Inject
 	AdminService adminService;
 
 	public void getCreditKey(Remote remote, String code, String auth) {

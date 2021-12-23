@@ -38,24 +38,24 @@ import cn.hutool.core.util.ZipUtil;
 @Component
 public class InitConfig {
 	Logger logger = LoggerFactory.getLogger(this.getClass());
-	@Autowired
+	@Inject
 	protected MessageUtils m;
-	@Autowired
+	@Inject
 	private ApplicationContext applicationContext;
 	
 	public static String acmeSh;
 	public static String acmeShDir;
 	public static String home;
 
-	@Autowired
+	@Inject
 	SettingService settingService;
-	@Autowired
+	@Inject
 	BasicService basicService;
-	@Autowired
+	@Inject
 	ScheduleTask scheduleTask;
-	@Autowired
+	@Inject
 	SqlHelper sqlHelper;
-	@Autowired
+	@Inject
 	JdbcTemplate jdbcTemplate;
 
 	@Value("${project.home}")

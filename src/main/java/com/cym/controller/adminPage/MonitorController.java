@@ -1,17 +1,14 @@
 package com.cym.controller.adminPage;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import javax.servlet.http.HttpSession;
 
+import org.noear.solon.annotation.Controller;
+import org.noear.solon.annotation.Inject;
+import org.noear.solon.annotation.Mapping;
+import org.noear.solon.core.handle.ModelAndView;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.cym.ext.MonitorInfo;
 import com.cym.ext.NetworkInfo;
@@ -22,18 +19,17 @@ import com.cym.utils.JsonResult;
 import com.cym.utils.NetWorkUtil;
 
 import cn.hutool.core.util.StrUtil;
-import cn.hutool.json.JSONUtil;
 
-@RequestMapping("/adminPage/monitor")
+@Mapping("/adminPage/monitor")
 @Controller
 public class MonitorController extends BaseController {
-	@Autowired
+	@Inject
 	MonitorService monitorService;
-	@Autowired
+	@Inject
 	SettingService settingService;
 	Logger logger = LoggerFactory.getLogger(this.getClass());
 
-	@RequestMapping("")
+	@Mapping("")
 	public ModelAndView index(HttpSession httpSession, ModelAndView modelAndView) {
 
 		modelAndView.addObject("list", monitorService.getDiskInfo());
@@ -53,7 +49,7 @@ public class MonitorController extends BaseController {
 		return modelAndView;
 	}
 
-	@RequestMapping("check")
+	@Mapping("check")
 	@ResponseBody
 	public JsonResult check() {
 
@@ -62,7 +58,7 @@ public class MonitorController extends BaseController {
 		return renderSuccess(monitorInfo);
 	}
 	
-	@RequestMapping("network")
+	@Mapping("network")
 	@ResponseBody
 	public JsonResult network() {
 		NetworkInfo networkInfo = NetWorkUtil.getNetworkDownUp();
@@ -70,7 +66,7 @@ public class MonitorController extends BaseController {
 		return renderSuccess(networkInfo);
 	}
 
-	@RequestMapping("addNginxGiudeOver")
+	@Mapping("addNginxGiudeOver")
 	@ResponseBody
 	public JsonResult addNginxGiudeOver(String nginxDir, String nginxExe) {
 

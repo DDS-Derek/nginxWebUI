@@ -12,7 +12,7 @@ import cn.hutool.core.util.StrUtil;
 
 @Service
 public class CreditService {
-	@Autowired
+	@Inject
 	SqlHelper sqlHelper;
 
 	

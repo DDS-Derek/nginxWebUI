@@ -29,12 +29,12 @@ import io.swagger.annotations.ApiParam;
 
 @Api(tags = "证书接口")
 @RestController
-@RequestMapping("/api/cert")
+@Mapping("/api/cert")
 public class CertApiController extends BaseController {
 
-	@Autowired
+	@Inject
 	CertController certController;
-	@Autowired
+	@Inject
 	CertService certService;
 
 	@ApiOperation("获取证书分页列表")

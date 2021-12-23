@@ -8,21 +8,19 @@ import java.util.Map;
 import javax.websocket.OnClose;
 import javax.websocket.OnError;
 import javax.websocket.OnOpen;
-import javax.websocket.Session;
 import javax.websocket.server.PathParam;
-import javax.websocket.server.ServerEndpoint;
 
+import org.noear.solon.annotation.Controller;
+import org.noear.solon.annotation.ServerEndpoint;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
-import org.springframework.stereotype.Controller;
 
 import com.cym.model.Log;
+import com.cym.sqlhelper.utils.SqlHelper;
 import com.cym.utils.ApplicationContextRegister;
 import com.cym.utils.SystemTool;
 import com.cym.utils.TailLogThread;
-
-import cn.craccd.sqlHelper.utils.SqlHelper;
 
 @ServerEndpoint("/adminPage/logTail/{id}/{guid}")
 @Controller

@@ -4,11 +4,11 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.noear.solon.annotation.Controller;
+import org.noear.solon.annotation.Inject;
+import org.noear.solon.annotation.Mapping;
+import org.noear.solon.core.handle.ModelAndView;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.cym.config.InitConfig;
 import com.cym.model.Http;
@@ -22,14 +22,14 @@ import cn.hutool.core.util.StrUtil;
 import cn.hutool.json.JSONUtil;
 
 @Controller
-@RequestMapping("/adminPage/http")
+@Mapping("/adminPage/http")
 public class HttpController extends BaseController {
-	@Autowired
+	@Inject
 	HttpService httpService;
-	@Autowired
+	@Inject
 	SettingService settingService;
 
-	@RequestMapping("")
+	@Mapping("")
 	public ModelAndView index(HttpSession httpSession, ModelAndView modelAndView) {
 		List<Http> httpList = httpService.findAll();
 
@@ -38,7 +38,7 @@ public class HttpController extends BaseController {
 		return modelAndView;
 	}
 
-	@RequestMapping("addOver")
+	@Mapping("addOver")
 	@ResponseBody
 	public JsonResult addOver(Http http) {
 		if (StrUtil.isEmpty(http.getId())) {
@@ -49,7 +49,7 @@ public class HttpController extends BaseController {
 		return renderSuccess();
 	}
 
-	@RequestMapping("addTemplate")
+	@Mapping("addTemplate")
 	@ResponseBody
 	public JsonResult addTemplate(String templateId) {
 		httpService.addTemplate(templateId);
@@ -57,13 +57,13 @@ public class HttpController extends BaseController {
 		return renderSuccess();
 	}
 
-	@RequestMapping("detail")
+	@Mapping("detail")
 	@ResponseBody
 	public JsonResult detail(String id) {
 		return renderSuccess(sqlHelper.findById(id, Http.class));
 	}
 
-	@RequestMapping("del")
+	@Mapping("del")
 	@ResponseBody
 	public JsonResult del(String id) {
 		sqlHelper.deleteById(id, Http.class);
@@ -71,7 +71,7 @@ public class HttpController extends BaseController {
 		return renderSuccess();
 	}
 
-	@RequestMapping("addGiudeOver")
+	@Mapping("addGiudeOver")
 	@ResponseBody
 	public JsonResult addGiudeOver(String json, Boolean logStatus, Boolean webSocket) {
 		List<Http> https = JSONUtil.toList(JSONUtil.parseArray(json), Http.class);
@@ -109,7 +109,7 @@ public class HttpController extends BaseController {
 
 
 
-	@RequestMapping("setOrder")
+	@Mapping("setOrder")
 	@ResponseBody
 	public JsonResult setOrder(String id, Integer count) {
 		httpService.setSeq(id, count);

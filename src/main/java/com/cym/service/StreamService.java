@@ -18,7 +18,7 @@ import cn.craccd.sqlHelper.utils.SqlHelper;
 
 @Service
 public class StreamService {
-	@Autowired
+	@Inject
 	SqlHelper sqlHelper;
 
 	public void setSeq(String streamId, Integer seqAdd) {

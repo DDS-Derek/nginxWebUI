@@ -6,16 +6,16 @@ import java.util.HashMap;
 
 import javax.servlet.http.HttpSession;
 
+import org.noear.solon.annotation.Controller;
+import org.noear.solon.annotation.Inject;
+import org.noear.solon.annotation.Mapping;
+import org.noear.solon.core.handle.ModelAndView;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.system.ApplicationHome;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.cym.config.InitConfig;
 import com.cym.model.Remote;
@@ -29,25 +29,25 @@ import cn.hutool.core.io.FileUtil;
 import cn.hutool.http.HttpUtil;
 import cn.hutool.json.JSONUtil;
 
-@RequestMapping("")
+@Mapping("")
 @Controller
 public class MainController extends BaseController {
 	Logger logger = LoggerFactory.getLogger(this.getClass());
-	@Autowired
+	@Inject
 	UpdateUtils updateUtils;
-	@Autowired
+	@Inject
 	SettingService settingService;
 
 	private static final Logger LOG = LoggerFactory.getLogger(MainController.class);
 
-	@RequestMapping("")
+	@Mapping("")
 	public ModelAndView index(ModelAndView modelAndView, String keywords) {
 		modelAndView.setViewName("/adminPage/index");
 		return modelAndView;
 	}
 
 	@ResponseBody
-	@RequestMapping("/adminPage/main/upload")
+	@Mapping("/adminPage/main/upload")
 	public JsonResult upload(@RequestParam("file") MultipartFile file, HttpSession httpSession) {
 		try {
 			File temp = new File(FileUtil.getTmpDir() + "/" + file.getOriginalFilename());
@@ -79,7 +79,7 @@ public class MainController extends BaseController {
 	}
 
 	@ResponseBody
-	@RequestMapping("/adminPage/main/autoUpdate")
+	@Mapping("/adminPage/main/autoUpdate")
 	public JsonResult autoUpdate(String url) {
 		if (!SystemTool.isLinux()) {
 			return renderError(m.get("commonStr.updateTips"));
@@ -96,7 +96,7 @@ public class MainController extends BaseController {
 	
 	
 	@ResponseBody
-	@RequestMapping("/adminPage/main/changeLang")
+	@Mapping("/adminPage/main/changeLang")
 	public JsonResult changeLang() {
 		if (settingService.get("lang") != null && settingService.get("lang").equals("en_US")) {
 			settingService.set("lang", "");

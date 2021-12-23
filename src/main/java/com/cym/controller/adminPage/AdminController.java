@@ -11,13 +11,13 @@ import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.noear.solon.annotation.Controller;
+import org.noear.solon.annotation.Inject;
+import org.noear.solon.annotation.Mapping;
+import org.noear.solon.core.handle.ModelAndView;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.cym.ext.AdminExt;
 import com.cym.ext.Tree;
@@ -26,6 +26,7 @@ import com.cym.model.Group;
 import com.cym.service.AdminService;
 import com.cym.service.GroupService;
 import com.cym.service.SettingService;
+import com.cym.sqlhelper.bean.Page;
 import com.cym.utils.AuthUtils;
 import com.cym.utils.BaseController;
 import com.cym.utils.JsonResult;
@@ -37,27 +38,26 @@ import com.google.zxing.WriterException;
 import com.google.zxing.client.j2se.MatrixToImageWriter;
 import com.google.zxing.common.BitMatrix;
 
-import cn.craccd.sqlHelper.bean.Page;
 import cn.hutool.core.util.StrUtil;
 
 @Controller
-@RequestMapping("/adminPage/admin")
+@Mapping("/adminPage/admin")
 public class AdminController extends BaseController {
 	Logger logger = LoggerFactory.getLogger(this.getClass());
-	@Autowired
+	@Inject
 	AdminService adminService;
-	@Autowired
+	@Inject
 	SettingService settingService;
-	@Autowired
+	@Inject
 	SendMailUtils sendCloudUtils;
-	@Autowired
+	@Inject
 	AuthUtils authUtils;
-	@Autowired
+	@Inject
 	GroupService groupService;
-	@Autowired
+	@Inject
 	RemoteController remoteController;
 
-	@RequestMapping("")
+	@Mapping("")
 	public ModelAndView index(HttpSession httpSession, ModelAndView modelAndView, Page page) {
 		page = adminService.search(page);
 
@@ -66,7 +66,7 @@ public class AdminController extends BaseController {
 		return modelAndView;
 	}
 
-	@RequestMapping("addOver")
+	@Mapping("addOver")
 	@ResponseBody
 	public JsonResult addOver(Admin admin, String[] parentId) {
 		if (StrUtil.isEmpty(admin.getId())) {
@@ -92,7 +92,7 @@ public class AdminController extends BaseController {
 		return renderSuccess();
 	}
 
-	@RequestMapping("detail")
+	@Mapping("detail")
 	@ResponseBody
 	public JsonResult detail(String id) {
 		AdminExt adminExt = new AdminExt();
@@ -102,7 +102,7 @@ public class AdminController extends BaseController {
 		return renderSuccess(adminExt);
 	}
 
-	@RequestMapping("del")
+	@Mapping("del")
 	@ResponseBody
 	public JsonResult del(String id) {
 		sqlHelper.deleteById(id, Admin.class);
@@ -110,7 +110,7 @@ public class AdminController extends BaseController {
 		return renderSuccess();
 	}
 
-	@RequestMapping("getMailSetting")
+	@Mapping("getMailSetting")
 	@ResponseBody
 	public JsonResult getMailSetting() {
 		Map<String, String> map = new HashMap<>();
@@ -126,7 +126,7 @@ public class AdminController extends BaseController {
 		return renderSuccess(map);
 	}
 
-	@RequestMapping("updateMailSetting")
+	@Mapping("updateMailSetting")
 	@ResponseBody
 	public JsonResult updateMailSetting(String mailType, String mail_user, String mail_host, String mail_port, String mail_from, String mail_pass, String mail_ssl,String mail_interval) {
 		settingService.set("mail_host", mail_host);
@@ -140,7 +140,7 @@ public class AdminController extends BaseController {
 		return renderSuccess();
 	}
 
-	@RequestMapping("testMail")
+	@Mapping("testMail")
 	@ResponseBody
 	public JsonResult testMail(String mail) {
 		if (StrUtil.isEmpty(mail)) {
@@ -156,7 +156,7 @@ public class AdminController extends BaseController {
 	}
 	
 	
-	@RequestMapping("testAuth")
+	@Mapping("testAuth")
 	@ResponseBody
 	public JsonResult testAuth(String key, String code) {
 		
@@ -164,7 +164,7 @@ public class AdminController extends BaseController {
 		return renderSuccess(rs);
 	}
 
-	@RequestMapping(value = "qr")
+	@Mapping(value = "qr")
 	public void getqcode(HttpServletResponse resp, String url, Integer w, Integer h) throws IOException {
 		if (url != null && !"".equals(url)) {
 			ServletOutputStream stream = null;
@@ -196,7 +196,7 @@ public class AdminController extends BaseController {
 	}
 	
 
-	@RequestMapping("getGroupTree")
+	@Mapping("getGroupTree")
 	@ResponseBody
 	public JsonResult getGroupTree() {
 

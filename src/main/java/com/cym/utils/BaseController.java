@@ -14,11 +14,11 @@ import cn.craccd.sqlHelper.utils.SqlHelper;
  * Describe: 基础控制器
  */
 public class BaseController {
-	@Autowired
+	@Inject
 	protected SqlHelper sqlHelper;
-	@Autowired
+	@Inject
 	protected AdminService adminService;
-	@Autowired
+	@Inject
 	protected MessageUtils m;
 
 	protected JsonResult renderError() {

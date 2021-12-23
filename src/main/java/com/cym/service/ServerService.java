@@ -36,7 +36,7 @@ import cn.hutool.json.JSONUtil;
 public class ServerService {
 	Logger logger = LoggerFactory.getLogger(this.getClass());
 
-	@Autowired
+	@Inject
 	SqlHelper sqlHelper;
 
 	public Page search(Page page, String keywords) {

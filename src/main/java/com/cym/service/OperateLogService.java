@@ -15,7 +15,7 @@ import cn.hutool.core.util.StrUtil;
 
 @Service
 public class OperateLogService {
-	@Autowired
+	@Inject
 	SqlHelper sqlHelper;
 
 	public Page search(Page page) {

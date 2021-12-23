@@ -23,13 +23,13 @@ import io.swagger.models.auth.In;
 public class MainTest {
 	Logger logger = LoggerFactory.getLogger(this.getClass());
 
-	@Autowired
+	@Inject
 	SqlHelper sqlHelper;
-	@Autowired
+	@Inject
 	MessageUtils m;
-	@Autowired
+	@Inject
 	ConfController confController;
-	@Autowired
+	@Inject
 	TimeExeUtils exeUtils;
 
 	@Test

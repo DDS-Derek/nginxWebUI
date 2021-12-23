@@ -45,9 +45,9 @@ import cn.hutool.json.JSONUtil;
 @Component
 public class AdminInterceptor implements HandlerInterceptor {
 	Logger logger = LoggerFactory.getLogger(this.getClass());
-	@Autowired
+	@Inject
 	CreditService creditService;
-	@Autowired
+	@Inject
 	MessageUtils m;
 
 	/*

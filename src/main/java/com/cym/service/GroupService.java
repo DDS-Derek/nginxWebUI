@@ -16,7 +16,7 @@ import cn.hutool.core.util.StrUtil;
 
 @Service
 public class GroupService {
-	@Autowired
+	@Inject
 	SqlHelper sqlHelper;
 
 	@Transactional

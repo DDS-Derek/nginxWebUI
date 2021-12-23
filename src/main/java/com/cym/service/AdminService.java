@@ -23,7 +23,7 @@ import cn.hutool.core.util.StrUtil;
 
 @Service
 public class AdminService {
-	@Autowired
+	@Inject
 	SqlHelper sqlHelper;
 
 	public Admin login(String name, String pass) {

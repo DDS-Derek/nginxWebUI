@@ -53,27 +53,27 @@ public class ScheduleTask {
 	@Value("${server.port}")
 	Integer port;
 
-	@Autowired
+	@Inject
 	SqlHelper sqlHelper;
-	@Autowired
+	@Inject
 	CertController certController;
-	@Autowired
+	@Inject
 	SettingService settingService;
-	@Autowired
+	@Inject
 	ConfController confController;
-	@Autowired
+	@Inject
 	RemoteController remoteController;
-	@Autowired
+	@Inject
 	RemoteService remoteService;
-	@Autowired
+	@Inject
 	UpstreamService upstreamService;
-	@Autowired
+	@Inject
 	LogService logInfoService;
-	@Autowired
+	@Inject
 	SendMailUtils sendMailUtils;
-	@Autowired
+	@Inject
 	HttpService httpService;
-	@Autowired
+	@Inject
 	MessageUtils m;
 
 	// 续签证书

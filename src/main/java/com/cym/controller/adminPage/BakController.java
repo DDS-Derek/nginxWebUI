@@ -8,33 +8,33 @@ import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
+import org.noear.solon.annotation.Controller;
+import org.noear.solon.annotation.Inject;
+import org.noear.solon.annotation.Mapping;
+import org.noear.solon.core.handle.ModelAndView;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.cym.model.Bak;
 import com.cym.model.BakSub;
 import com.cym.service.BakService;
 import com.cym.service.SettingService;
+import com.cym.sqlhelper.bean.Page;
 import com.cym.utils.BaseController;
 import com.cym.utils.JsonResult;
 
-import cn.craccd.sqlHelper.bean.Page;
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.util.StrUtil;
 
 @Controller
-@RequestMapping("/adminPage/bak")
+@Mapping("/adminPage/bak")
 public class BakController extends BaseController {
-	@Autowired
+	@Inject
 	SettingService settingService;
-	@Autowired
+	@Inject
 	BakService bakService;
 
-	@RequestMapping("")
+	@Mapping("")
 	public ModelAndView index(HttpSession httpSession, ModelAndView modelAndView, Page page) {
 		page = bakService.getList(page);
 
@@ -43,7 +43,7 @@ public class BakController extends BaseController {
 		return modelAndView;
 	}
 
-	@RequestMapping("getCompare")
+	@Mapping("getCompare")
 	@ResponseBody
 	public JsonResult getCompare(String id) {
 		Bak bak = sqlHelper.findById(id, Bak.class);
@@ -60,14 +60,14 @@ public class BakController extends BaseController {
 		return renderSuccess(map);
 	}
 
-	@RequestMapping("content")
+	@Mapping("content")
 	@ResponseBody
 	public JsonResult content(String id) {
 		Bak bak = sqlHelper.findById(id, Bak.class);
 		return renderSuccess(bak);
 	}
 
-	@RequestMapping("replace")
+	@Mapping("replace")
 	@ResponseBody
 	public JsonResult replace(String id) {
 		Bak bak = sqlHelper.findById(id, Bak.class);
@@ -96,14 +96,14 @@ public class BakController extends BaseController {
 	}
 
 	@Transactional
-	@RequestMapping("del")
+	@Mapping("del")
 	@ResponseBody
 	public JsonResult del(String id) {
 		bakService.del(id);
 		return renderSuccess();
 	}
 
-	@RequestMapping("delAll")
+	@Mapping("delAll")
 	@ResponseBody
 	public JsonResult delAll() {
 		bakService.delAll();

@@ -20,9 +20,9 @@ import cn.hutool.json.JSONUtil;
 @Component
 public class ApiInterceptor implements HandlerInterceptor {
 
-	@Autowired
+	@Inject
 	MessageUtils m;
-	@Autowired
+	@Inject
 	AdminService adminService;
 
 	/*

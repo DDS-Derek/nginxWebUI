@@ -7,12 +7,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.noear.solon.annotation.Controller;
+import org.noear.solon.annotation.Inject;
+import org.noear.solon.annotation.Mapping;
+import org.noear.solon.core.handle.ModelAndView;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.cym.config.VersionConfig;
 import com.cym.model.Admin;
@@ -38,31 +38,31 @@ import cn.hutool.core.util.StrUtil;
  * @author Administrator
  *
  */
-@RequestMapping("/adminPage/login")
+@Mapping("/adminPage/login")
 @Controller
 public class LoginController extends BaseController {
-	@Autowired
+	@Inject
 	AdminService adminService;
-	@Autowired
+	@Inject
 	CreditService creditService;
-	@Autowired
+	@Inject
 	VersionConfig versionConfig;
-	@Autowired
+	@Inject
 	AuthUtils authUtils;
 	@Value("${project.version}")
 	String currentVersion;
 
-	@Autowired
+	@Inject
 	SettingService settingService;
 
-	@RequestMapping("")
+	@Mapping("")
 	public ModelAndView admin(ModelAndView modelAndView, HttpServletRequest request, HttpSession httpSession, String adminId) {
 		modelAndView.addObject("adminCount", sqlHelper.findAllCount(Admin.class));
 		modelAndView.setViewName("/adminPage/login/index");
 		return modelAndView;
 	}
 
-	@RequestMapping("loginOut")
+	@Mapping("loginOut")
 	public ModelAndView loginOut(ModelAndView modelAndView, HttpSession httpSession, HttpServletRequest request) {
 
 		httpSession.removeAttribute("isLogin");
@@ -70,13 +70,13 @@ public class LoginController extends BaseController {
 		return modelAndView;
 	}
 
-	@RequestMapping("noServer")
+	@Mapping("noServer")
 	public ModelAndView noServer(ModelAndView modelAndView) {
 		modelAndView.setViewName("/adminPage/login/noServer");
 		return modelAndView;
 	}
 
-	@RequestMapping("login")
+	@Mapping("login")
 	@ResponseBody
 	public JsonResult submitLogin(String name, String pass, String code, String authCode, String remember, HttpSession httpSession, HttpServletRequest httpServletRequest) {
 		// 解码
@@ -124,7 +124,7 @@ public class LoginController extends BaseController {
 		return renderSuccess(admin);
 	}
 
-	@RequestMapping("autoLogin")
+	@Mapping("autoLogin")
 	@ResponseBody
 	public JsonResult autoLogin(String adminId, HttpSession httpSession) {
 
@@ -148,7 +148,7 @@ public class LoginController extends BaseController {
 	}
 
 	@ResponseBody
-	@RequestMapping("getAuth")
+	@Mapping("getAuth")
 	public JsonResult getAuth(String name, String pass, String code, Integer remote, HttpSession httpSession, HttpServletRequest httpServletRequest) {
 
 		// 解码
@@ -183,7 +183,7 @@ public class LoginController extends BaseController {
 	}
 
 	@ResponseBody
-	@RequestMapping("getCredit")
+	@Mapping("getCredit")
 	public JsonResult getCredit(String name, String pass, String code, String auth) {
 		// 解码
 		if (StrUtil.isNotEmpty(name)) {
@@ -223,7 +223,7 @@ public class LoginController extends BaseController {
 	}
 
 	@ResponseBody
-	@RequestMapping("getLocalType")
+	@Mapping("getLocalType")
 	public JsonResult getLocalType(HttpSession httpSession) {
 		String localType = (String) httpSession.getAttribute("localType");
 		if (StrUtil.isNotEmpty(localType)) {
@@ -242,7 +242,7 @@ public class LoginController extends BaseController {
 		return renderSuccess("");
 	}
 
-	@RequestMapping("addAdmin")
+	@Mapping("addAdmin")
 	@ResponseBody
 	public JsonResult addAdmin(String name, String pass) {
 
@@ -266,14 +266,14 @@ public class LoginController extends BaseController {
 		return renderSuccess();
 	}
 
-	@RequestMapping("/getCode")
+	@Mapping("/getCode")
 	public void getCode(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws Exception {
 		SpecCaptcha specCaptcha = new SpecCaptcha(100, 40, 4);
 		specCaptcha.setCharType(Captcha.TYPE_ONLY_NUMBER);
 		CaptchaUtil.out(specCaptcha, httpServletRequest, httpServletResponse);
 	}
 
-	@RequestMapping("/getRemoteCode")
+	@Mapping("/getRemoteCode")
 	public void getRemoteCode(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws Exception {
 		SpecCaptcha specCaptcha = new SpecCaptcha(100, 40, 4);
 		specCaptcha.setCharType(Captcha.TYPE_ONLY_NUMBER);
@@ -282,7 +282,7 @@ public class LoginController extends BaseController {
 	}
 
 	@ResponseBody
-	@RequestMapping("/changeLang")
+	@Mapping("/changeLang")
 	public JsonResult changeLang() {
 		Long adminCount = sqlHelper.findAllCount(Admin.class);
 		if (adminCount == 0) {

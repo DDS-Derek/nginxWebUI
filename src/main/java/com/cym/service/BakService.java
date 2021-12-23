@@ -16,7 +16,7 @@ import cn.craccd.sqlHelper.utils.SqlHelper;
 
 @Service
 public class BakService {
-	@Autowired
+	@Inject
 	SqlHelper sqlHelper;
 
 	public Page<Bak> getList(Page page) {

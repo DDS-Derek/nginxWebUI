@@ -5,13 +5,13 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
+import org.noear.solon.annotation.Controller;
+import org.noear.solon.annotation.Inject;
+import org.noear.solon.annotation.Mapping;
+import org.noear.solon.core.handle.ModelAndView;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.cym.ext.ServerExt;
 import com.cym.model.Cert;
@@ -27,6 +27,9 @@ import com.cym.service.ParamService;
 import com.cym.service.ServerService;
 import com.cym.service.SettingService;
 import com.cym.service.UpstreamService;
+import com.cym.sqlhelper.bean.Page;
+import com.cym.sqlhelper.bean.Sort;
+import com.cym.sqlhelper.bean.Sort.Direction;
 import com.cym.utils.BaseController;
 import com.cym.utils.JsonResult;
 import com.cym.utils.SnowFlakeUtils;
@@ -37,29 +40,26 @@ import com.github.odiszapc.nginxparser.NgxConfig;
 import com.github.odiszapc.nginxparser.NgxDumper;
 import com.github.odiszapc.nginxparser.NgxParam;
 
-import cn.craccd.sqlHelper.bean.Page;
-import cn.craccd.sqlHelper.bean.Sort;
-import cn.craccd.sqlHelper.bean.Sort.Direction;
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.json.JSONUtil;
 
 @Controller
-@RequestMapping("/adminPage/server")
+@Mapping("/adminPage/server")
 public class ServerController extends BaseController {
 	Logger logger = LoggerFactory.getLogger(this.getClass());
-	@Autowired
+	@Inject
 	ServerService serverService;
-	@Autowired
+	@Inject
 	UpstreamService upstreamService;
-	@Autowired
+	@Inject
 	ParamService paramService;
-	@Autowired
+	@Inject
 	SettingService settingService;
-	@Autowired
+	@Inject
 	ConfService confService;
 
-	@RequestMapping("")
+	@Mapping("")
 	public ModelAndView index(HttpSession httpSession, ModelAndView modelAndView, Page page, String keywords) {
 		page = serverService.search(page, keywords);
 
@@ -130,7 +130,7 @@ public class ServerController extends BaseController {
 		return StrUtil.join("<br>", str);
 	}
 
-	@RequestMapping("addOver")
+	@Mapping("addOver")
 	@ResponseBody
 	public JsonResult addOver(String serverJson, String serverParamJson, String locationJson) {
 		Server server = JSONUtil.toBean(serverJson, Server.class);
@@ -153,14 +153,14 @@ public class ServerController extends BaseController {
 		return renderSuccess();
 	}
 
-	@RequestMapping("setEnable")
+	@Mapping("setEnable")
 	@ResponseBody
 	public JsonResult setEnable(Server server) {
 		sqlHelper.updateById(server);
 		return renderSuccess();
 	}
 
-	@RequestMapping("detail")
+	@Mapping("detail")
 	@ResponseBody
 	public JsonResult detail(String id) {
 		Server server = sqlHelper.findById(id, Server.class);
@@ -179,7 +179,7 @@ public class ServerController extends BaseController {
 		return renderSuccess(serverExt);
 	}
 
-	@RequestMapping("del")
+	@Mapping("del")
 	@ResponseBody
 	public JsonResult del(String id) {
 		serverService.deleteById(id);
@@ -187,7 +187,7 @@ public class ServerController extends BaseController {
 		return renderSuccess();
 	}
 
-//	@RequestMapping("clone")
+//	@Mapping("clone")
 //	@ResponseBody
 //	public JsonResult clone(String id) {
 //		serverService.clone(id);
@@ -195,7 +195,7 @@ public class ServerController extends BaseController {
 //		return renderSuccess();
 //	}
 
-	@RequestMapping("importServer")
+	@Mapping("importServer")
 	@ResponseBody
 	public JsonResult importServer(String nginxPath) {
 
@@ -212,7 +212,7 @@ public class ServerController extends BaseController {
 		}
 	}
 
-	@RequestMapping("testPort")
+	@Mapping("testPort")
 	@ResponseBody
 	public JsonResult testPort() {
 		List<Server> servers = sqlHelper.findAll(Server.class);
@@ -242,7 +242,7 @@ public class ServerController extends BaseController {
 
 	}
 
-	@RequestMapping("editDescr")
+	@Mapping("editDescr")
 	@ResponseBody
 	public JsonResult editDescr(String id, String descr) {
 		Server server = new Server();
@@ -253,7 +253,7 @@ public class ServerController extends BaseController {
 		return renderSuccess();
 	}
 
-	@RequestMapping("preview")
+	@Mapping("preview")
 	@ResponseBody
 	public JsonResult preview(String id, String type) {
 		NgxBlock ngxBlock = null;
@@ -290,14 +290,14 @@ public class ServerController extends BaseController {
 		return renderSuccess(conf);
 	}
 
-	@RequestMapping("setOrder")
+	@Mapping("setOrder")
 	@ResponseBody
 	public JsonResult setOrder(String id, Integer count) {
 		serverService.setSeq(id, count);
 		return renderSuccess();
 	}
 	
-	@RequestMapping("getDescr")
+	@Mapping("getDescr")
 	@ResponseBody
 	public JsonResult getDescr(String id) {
 		Server server = sqlHelper.findById(id, Server.class);

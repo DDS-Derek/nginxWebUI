@@ -15,13 +15,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.noear.solon.annotation.Controller;
+import org.noear.solon.annotation.Inject;
+import org.noear.solon.annotation.Mapping;
+import org.noear.solon.core.handle.ModelAndView;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.cym.config.InitConfig;
 import com.cym.ext.AsycPack;
@@ -35,20 +35,20 @@ import cn.hutool.core.util.StrUtil;
 import cn.hutool.json.JSONUtil;
 
 @Controller
-@RequestMapping("/adminPage/export")
+@Mapping("/adminPage/export")
 public class ExportController extends BaseController {
 	Logger logger = LoggerFactory.getLogger(this.getClass());
-	@Autowired
+	@Inject
 	ConfService confService;
 
-	@RequestMapping("")
+	@Mapping("")
 	public ModelAndView index(HttpSession httpSession, ModelAndView modelAndView) {
 
 		modelAndView.setViewName("/adminPage/export/index");
 		return modelAndView;
 	}
 
-	@RequestMapping("dataExport")
+	@Mapping("dataExport")
 	public void dataExport(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		String date = DateUtil.format(new Date(), "yyyy-MM-dd_HH-mm-ss");
 
@@ -68,7 +68,7 @@ public class ExportController extends BaseController {
 		}
 	}
 
-	@RequestMapping(value = "dataImport")
+	@Mapping(value = "dataImport")
 	@ResponseBody
 	public JsonResult dataImport(String json, HttpServletRequest request, String adminName) {
 		AsycPack asycPack = JSONUtil.toBean(json, AsycPack.class);
@@ -81,7 +81,7 @@ public class ExportController extends BaseController {
 		return renderSuccess();
 	}
 
-	@RequestMapping("logExport")
+	@Mapping("logExport")
 	public void logExport(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException {
 		File file = new File(InitConfig.home + "log/nginxWebUI.log");
 		if (file.exists()) {

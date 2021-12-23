@@ -10,41 +10,40 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.io.IOUtils;
+import org.noear.solon.annotation.Controller;
+import org.noear.solon.annotation.Inject;
+import org.noear.solon.annotation.Mapping;
+import org.noear.solon.core.handle.ModelAndView;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.cym.config.AdminInterceptor;
 import com.cym.config.ScheduleTask;
 import com.cym.model.Log;
 import com.cym.service.LogService;
 import com.cym.service.SettingService;
+import com.cym.sqlhelper.bean.Page;
 import com.cym.utils.BaseController;
 import com.cym.utils.JsonResult;
 import com.cym.utils.SystemTool;
 
-import cn.craccd.sqlHelper.bean.Page;
-import cn.hutool.core.codec.Base64;
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.core.util.URLUtil;
 
 @Controller
-@RequestMapping("/adminPage/log")
+@Mapping("/adminPage/log")
 public class LogController extends BaseController {
 	Logger logger = LoggerFactory.getLogger(this.getClass());
-	@Autowired
+	@Inject
 	SettingService settingService;
-	@Autowired
+	@Inject
 	LogService logService;
-	@Autowired
+	@Inject
 	ScheduleTask scheduleTask;
 
-	@RequestMapping("")
+	@Mapping("")
 	public ModelAndView index(HttpSession httpSession, ModelAndView modelAndView, Page page) {
 		page = logService.search(page);
 		modelAndView.addObject("page", page);
@@ -54,7 +53,7 @@ public class LogController extends BaseController {
 		return modelAndView;
 	}
 
-	@RequestMapping("addOver")
+	@Mapping("addOver")
 	@ResponseBody
 	public JsonResult addOver(Log log) {
 		if (logService.hasDir(log.getPath(), log.getId())) {
@@ -69,20 +68,20 @@ public class LogController extends BaseController {
 		return renderSuccess();
 	}
 
-	@RequestMapping("detail")
+	@Mapping("detail")
 	@ResponseBody
 	public JsonResult detail(String id) {
 		return renderSuccess(sqlHelper.findById(id, Log.class));
 	}
 
-	@RequestMapping("del")
+	@Mapping("del")
 	@ResponseBody
 	public JsonResult del(String id) {
 		sqlHelper.deleteById(id, Log.class);
 		return renderSuccess();
 	}
 
-	@RequestMapping("tail")
+	@Mapping("tail")
 	public ModelAndView tail(ModelAndView modelAndView, String id, String protocol, HttpServletRequest request) {
 		modelAndView.addObject("id", id);
 		// 获取远程机器的协议
@@ -107,7 +106,7 @@ public class LogController extends BaseController {
 	}
 
 	@ResponseBody
-	@RequestMapping("down")
+	@Mapping("down")
 	public void down(ModelAndView modelAndView, String id, HttpServletResponse response) {
 		Log log = sqlHelper.findById(id, Log.class);
 		outputStream(new File(log.getPath()), response);

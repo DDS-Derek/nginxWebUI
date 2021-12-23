@@ -15,7 +15,7 @@ import com.cym.service.SettingService;
 @Component
 public class MessageUtils {
 
-	@Autowired
+	@Inject
 	PropertiesUtils propertiesUtils;
 	
 	Properties properties = null;
@@ -28,7 +28,7 @@ public class MessageUtils {
 	}
 	
 	
-	@Autowired
+	@Inject
 	SettingService settingService;
 	
 	/**

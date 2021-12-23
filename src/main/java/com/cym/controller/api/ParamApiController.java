@@ -22,10 +22,10 @@ import io.swagger.annotations.ApiParam;
 
 @Api(tags = "额外参数接口")
 @RestController
-@RequestMapping("/api/param")
+@Mapping("/api/param")
 public class ParamApiController extends BaseController {
 
-	@Autowired
+	@Inject
 	ParamService paramService;
 
 	@ApiOperation("根据项目获取参数列表")

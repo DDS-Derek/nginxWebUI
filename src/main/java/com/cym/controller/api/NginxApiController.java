@@ -27,13 +27,13 @@ import io.swagger.annotations.ApiParam;
 
 @Api(tags = "nginx接口")
 @RestController
-@RequestMapping("/api/nginx")
+@Mapping("/api/nginx")
 public class NginxApiController extends BaseController {
-	@Autowired
+	@Inject
 	ConfController confController;
-	@Autowired
+	@Inject
 	AdminService adminService;
-	@Autowired
+	@Inject
 	SettingService settingService;
 
 	@ApiOperation("获取nginx状态")

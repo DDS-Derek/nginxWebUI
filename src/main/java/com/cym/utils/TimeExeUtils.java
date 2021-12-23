@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 public class TimeExeUtils {
 	Logger logger = LoggerFactory.getLogger(this.getClass());
 	
-	@Autowired
+	@Inject
 	MessageUtils m;
 	
 

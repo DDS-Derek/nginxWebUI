@@ -12,7 +12,7 @@ import cn.craccd.sqlHelper.utils.SqlHelper;
 
 @Service
 public class PasswordService {
-	@Autowired
+	@Inject
 	SqlHelper sqlHelper;
 
 	public Page search(Page page) {

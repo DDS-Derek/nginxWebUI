@@ -4,31 +4,31 @@ import java.io.IOException;
 
 import javax.servlet.http.HttpSession;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.noear.solon.annotation.Controller;
+import org.noear.solon.annotation.Inject;
+import org.noear.solon.annotation.Mapping;
+import org.noear.solon.core.handle.ModelAndView;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.cym.config.InitConfig;
 import com.cym.model.Password;
 import com.cym.service.PasswordService;
+import com.cym.sqlhelper.bean.Page;
 import com.cym.utils.BaseController;
 import com.cym.utils.Crypt;
 import com.cym.utils.JsonResult;
 import com.cym.utils.SystemTool;
 
-import cn.craccd.sqlHelper.bean.Page;
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.util.StrUtil;
 
-@RequestMapping("/adminPage/password")
+@Mapping("/adminPage/password")
 @Controller
 public class PasswordController extends BaseController {
-	@Autowired
+	@Inject
 	PasswordService passwordService;
 
-	@RequestMapping("")
+	@Mapping("")
 	public ModelAndView index(HttpSession httpSession, ModelAndView modelAndView, Page page) {
 		page = passwordService.search(page);
 
@@ -37,7 +37,7 @@ public class PasswordController extends BaseController {
 		return modelAndView;
 	}
 
-	@RequestMapping("addOver")
+	@Mapping("addOver")
 	@ResponseBody
 	public JsonResult addOver(Password password) throws IOException {
 
@@ -73,7 +73,7 @@ public class PasswordController extends BaseController {
 		return renderSuccess();
 	}
 
-	@RequestMapping("del")
+	@Mapping("del")
 	@ResponseBody
 	public JsonResult del(String id) {
 		Password password = sqlHelper.findById(id, Password.class);
@@ -83,7 +83,7 @@ public class PasswordController extends BaseController {
 		return renderSuccess();
 	}
 
-	@RequestMapping("detail")
+	@Mapping("detail")
 	@ResponseBody
 	public JsonResult detail(String id) {
 		return renderSuccess(sqlHelper.findById(id, Password.class));

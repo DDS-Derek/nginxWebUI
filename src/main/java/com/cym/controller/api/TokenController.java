@@ -18,9 +18,9 @@ import io.swagger.annotations.ApiParam;
 
 @Api(tags = "获取token")
 @RestController
-@RequestMapping("token")
+@Mapping("token")
 public class TokenController extends BaseController {
-	@Autowired
+	@Inject
 	AdminService adminService;
 
 	@PostMapping("getToken")

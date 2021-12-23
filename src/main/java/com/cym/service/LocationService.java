@@ -7,6 +7,6 @@ import cn.craccd.sqlHelper.utils.SqlHelper;
 
 @Service
 public class LocationService {
-	@Autowired
+	@Inject
 	SqlHelper sqlHelper;
 }

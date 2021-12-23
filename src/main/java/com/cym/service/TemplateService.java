@@ -15,7 +15,7 @@ import cn.craccd.sqlHelper.utils.SqlHelper;
 
 @Service
 public class TemplateService {
-	@Autowired
+	@Inject
 	SqlHelper sqlHelper;
 
 	@Transactional

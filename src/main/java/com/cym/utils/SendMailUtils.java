@@ -14,7 +14,7 @@ import cn.hutool.extra.mail.MailUtil;
 public class SendMailUtils {
 
 	Logger logger = LoggerFactory.getLogger(this.getClass());
-	@Autowired
+	@Inject
 	SettingService settingService;
 
 	public void sendMailSmtp(String to, String title, String msg) {

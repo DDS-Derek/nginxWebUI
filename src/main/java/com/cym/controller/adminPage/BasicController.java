@@ -2,30 +2,27 @@ package com.cym.controller.adminPage;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.noear.solon.annotation.Controller;
+import org.noear.solon.annotation.Inject;
+import org.noear.solon.annotation.Mapping;
+import org.noear.solon.core.handle.ModelAndView;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.cym.model.Basic;
 import com.cym.service.BasicService;
 import com.cym.utils.BaseController;
 import com.cym.utils.JsonResult;
-import com.cym.utils.MessageUtils;
 import com.cym.utils.SnowFlakeUtils;
 
-import cn.craccd.sqlHelper.bean.Sort;
-import cn.craccd.sqlHelper.bean.Sort.Direction;
 import cn.hutool.core.util.StrUtil;
 
 @Controller
-@RequestMapping("/adminPage/basic")
+@Mapping("/adminPage/basic")
 public class BasicController extends BaseController {
-	@Autowired
+	@Inject
 	BasicService basicService;
 	
-	@RequestMapping("")
+	@Mapping("")
 	public ModelAndView index(ModelAndView modelAndView) {
 		List<Basic> basicList = basicService.findAll();
 
@@ -34,7 +31,7 @@ public class BasicController extends BaseController {
 		return modelAndView;
 	}
 
-	@RequestMapping("addOver")
+	@Mapping("addOver")
 	@ResponseBody
 	public JsonResult addOver(Basic basic) {
 		if (StrUtil.isEmpty(basic.getId())) {
@@ -45,7 +42,7 @@ public class BasicController extends BaseController {
 		return renderSuccess();
 	}
 
-	@RequestMapping("setOrder")
+	@Mapping("setOrder")
 	@ResponseBody
 	public JsonResult setOrder(String id, Integer count) {
 		basicService.setSeq(id, count);
@@ -53,13 +50,13 @@ public class BasicController extends BaseController {
 		return renderSuccess();
 	}
 	
-	@RequestMapping("detail")
+	@Mapping("detail")
 	@ResponseBody
 	public JsonResult detail(String id) {
 		return renderSuccess(sqlHelper.findById(id, Basic.class));
 	}
 
-	@RequestMapping("del")
+	@Mapping("del")
 	@ResponseBody
 	public JsonResult del(String id) {
 		sqlHelper.deleteById(id, Basic.class);

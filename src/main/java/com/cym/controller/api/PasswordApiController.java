@@ -21,11 +21,11 @@ import io.swagger.annotations.ApiOperation;
 
 @Api(tags = "密码文件接口")
 @RestController
-@RequestMapping("/api/password")
+@Mapping("/api/password")
 public class PasswordApiController extends BaseController{
-	@Autowired
+	@Inject
 	PasswordService passwordService;
-	@Autowired
+	@Inject
 	PasswordController passwordController;
 	
 	@ApiOperation("获取全部密码文件列表")

@@ -4,11 +4,11 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.noear.solon.annotation.Controller;
+import org.noear.solon.annotation.Inject;
+import org.noear.solon.annotation.Mapping;
+import org.noear.solon.core.handle.ModelAndView;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.cym.model.Stream;
 import com.cym.service.StreamService;
@@ -16,17 +16,15 @@ import com.cym.utils.BaseController;
 import com.cym.utils.JsonResult;
 import com.cym.utils.SnowFlakeUtils;
 
-import cn.craccd.sqlHelper.bean.Sort;
-import cn.craccd.sqlHelper.bean.Sort.Direction;
 import cn.hutool.core.util.StrUtil;
 
 @Controller
-@RequestMapping("/adminPage/stream")
+@Mapping("/adminPage/stream")
 public class StreamController extends BaseController {
-	@Autowired
+	@Inject
 	StreamService streamService;
 
-	@RequestMapping("")
+	@Mapping("")
 	public ModelAndView index(HttpSession httpSession, ModelAndView modelAndView) {
 		List<Stream> streamList = streamService.findAll();
 
@@ -35,7 +33,7 @@ public class StreamController extends BaseController {
 		return modelAndView;
 	}
 
-	@RequestMapping("addOver")
+	@Mapping("addOver")
 	@ResponseBody
 	public JsonResult addOver(Stream stream) {
 		if (StrUtil.isEmpty(stream.getId())) {
@@ -47,7 +45,7 @@ public class StreamController extends BaseController {
 	}
 	
 
-	@RequestMapping("addTemplate")
+	@Mapping("addTemplate")
 	@ResponseBody
 	public JsonResult addTemplate(String templateId) {
 		streamService.addTemplate(templateId);
@@ -55,13 +53,13 @@ public class StreamController extends BaseController {
 		return renderSuccess();
 	}
 
-	@RequestMapping("detail")
+	@Mapping("detail")
 	@ResponseBody
 	public JsonResult detail(String id) {
 		return renderSuccess(sqlHelper.findById(id, Stream.class));
 	}
 
-	@RequestMapping("del")
+	@Mapping("del")
 	@ResponseBody
 	public JsonResult del(String id) {
 		sqlHelper.deleteById(id, Stream.class);
@@ -69,7 +67,7 @@ public class StreamController extends BaseController {
 		return renderSuccess();
 	}
 
-	@RequestMapping("setOrder")
+	@Mapping("setOrder")
 	@ResponseBody
 	public JsonResult setOrder(String id, Integer count) {
 		streamService.setSeq(id, count);

@@ -25,7 +25,7 @@ import cn.hutool.json.JSONUtil;
 
 @Service
 public class UpstreamService {
-	@Autowired
+	@Inject
 	SqlHelper sqlHelper;
 
 	public Page search(Page page, String word) {
