@@ -34,7 +34,9 @@ public class NginxWebUI {
 
 		Solon.start(NginxWebUI.class, args, app -> {
 			app.onError(e -> e.printStackTrace());
-
+			
+            app.enableWebSocket(true);
+            
 			app.onEvent(freemarker.template.Configuration.class, cfg -> {
 				cfg.setSetting("classic_compatible", "true");
 				cfg.setSetting("number_format", "0.##");
