@@ -13,7 +13,6 @@ import org.noear.solon.annotation.Inject;
 import org.noear.solon.annotation.Mapping;
 import org.noear.solon.core.handle.ModelAndView;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.cym.model.Bak;
 import com.cym.model.BakSub;
@@ -38,13 +37,13 @@ public class BakController extends BaseController {
 	public ModelAndView index(HttpSession httpSession, ModelAndView modelAndView, Page page) {
 		page = bakService.getList(page);
 
-		modelAndView.addObject("page", page);
-		modelAndView.setViewName("/adminPage/bak/index");
+		modelAndView.put("page", page);
+		modelAndView.view("/adminPage/bak/index");
 		return modelAndView;
 	}
 
 	@Mapping("getCompare")
-	@ResponseBody
+	
 	public JsonResult getCompare(String id) {
 		Bak bak = sqlHelper.findById(id, Bak.class);
 
@@ -61,14 +60,14 @@ public class BakController extends BaseController {
 	}
 
 	@Mapping("content")
-	@ResponseBody
+	
 	public JsonResult content(String id) {
 		Bak bak = sqlHelper.findById(id, Bak.class);
 		return renderSuccess(bak);
 	}
 
 	@Mapping("replace")
-	@ResponseBody
+	
 	public JsonResult replace(String id) {
 		Bak bak = sqlHelper.findById(id, Bak.class);
 
@@ -95,16 +94,16 @@ public class BakController extends BaseController {
 
 	}
 
-	@Transactional
+	
 	@Mapping("del")
-	@ResponseBody
+	
 	public JsonResult del(String id) {
 		bakService.del(id);
 		return renderSuccess();
 	}
 
 	@Mapping("delAll")
-	@ResponseBody
+	
 	public JsonResult delAll() {
 		bakService.delAll();
 

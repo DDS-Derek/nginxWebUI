@@ -21,7 +21,6 @@ import org.noear.solon.annotation.Mapping;
 import org.noear.solon.core.handle.ModelAndView;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.cym.config.InitConfig;
 import com.cym.ext.AsycPack;
@@ -44,7 +43,7 @@ public class ExportController extends BaseController {
 	@Mapping("")
 	public ModelAndView index(HttpSession httpSession, ModelAndView modelAndView) {
 
-		modelAndView.setViewName("/adminPage/export/index");
+		modelAndView.view("/adminPage/export/index");
 		return modelAndView;
 	}
 
@@ -69,7 +68,7 @@ public class ExportController extends BaseController {
 	}
 
 	@Mapping(value = "dataImport")
-	@ResponseBody
+	
 	public JsonResult dataImport(String json, HttpServletRequest request, String adminName) {
 		AsycPack asycPack = JSONUtil.toBean(json, AsycPack.class);
 		if(StrUtil.isEmpty(adminName)) {

@@ -16,7 +16,6 @@ import org.noear.solon.annotation.Mapping;
 import org.noear.solon.core.handle.ModelAndView;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.cym.config.AdminInterceptor;
 import com.cym.config.ScheduleTask;
@@ -46,15 +45,15 @@ public class LogController extends BaseController {
 	@Mapping("")
 	public ModelAndView index(HttpSession httpSession, ModelAndView modelAndView, Page page) {
 		page = logService.search(page);
-		modelAndView.addObject("page", page);
+		modelAndView.put("page", page);
 
-		modelAndView.addObject("isLinux", SystemTool.isLinux());
-		modelAndView.setViewName("/adminPage/log/index");
+		modelAndView.put("isLinux", SystemTool.isLinux());
+		modelAndView.view("/adminPage/log/index");
 		return modelAndView;
 	}
 
 	@Mapping("addOver")
-	@ResponseBody
+	
 	public JsonResult addOver(Log log) {
 		if (logService.hasDir(log.getPath(), log.getId())) {
 			return renderError(m.get("logStr.sameDir"));
@@ -69,13 +68,13 @@ public class LogController extends BaseController {
 	}
 
 	@Mapping("detail")
-	@ResponseBody
+	
 	public JsonResult detail(String id) {
 		return renderSuccess(sqlHelper.findById(id, Log.class));
 	}
 
 	@Mapping("del")
-	@ResponseBody
+	
 	public JsonResult del(String id) {
 		sqlHelper.deleteById(id, Log.class);
 		return renderSuccess();
@@ -83,14 +82,14 @@ public class LogController extends BaseController {
 
 	@Mapping("tail")
 	public ModelAndView tail(ModelAndView modelAndView, String id, String protocol, HttpServletRequest request) {
-		modelAndView.addObject("id", id);
+		modelAndView.put("id", id);
 		// 获取远程机器的协议
 		if (StrUtil.isNotEmpty(protocol)) {
 			if (protocol.equals("https")) {
-				modelAndView.addObject("protocol", "wss:");
+				modelAndView.put("protocol", "wss:");
 			}
 			if (protocol.equals("http")) {
-				modelAndView.addObject("protocol", "ws:");
+				modelAndView.put("protocol", "ws:");
 			}
 		}
 
@@ -99,13 +98,13 @@ public class LogController extends BaseController {
 		String host = request.getHeader("Host");
 
 		String ctxWs = AdminInterceptor.getCtx(httpHost, host, realPort);
-		modelAndView.addObject("ctxWs", ctxWs);
+		modelAndView.put("ctxWs", ctxWs);
 		
-		modelAndView.setViewName("/adminPage/log/tail");
+		modelAndView.view("/adminPage/log/tail");
 		return modelAndView;
 	}
 
-	@ResponseBody
+	
 	@Mapping("down")
 	public void down(ModelAndView modelAndView, String id, HttpServletResponse response) {
 		Log log = sqlHelper.findById(id, Log.class);

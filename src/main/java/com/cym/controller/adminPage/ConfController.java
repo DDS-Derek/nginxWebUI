@@ -13,7 +13,6 @@ import org.noear.solon.core.handle.ModelAndView;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.cym.config.InitConfig;
 import com.cym.config.VersionConfig;
@@ -67,25 +66,25 @@ public class ConfController extends BaseController {
 	public ModelAndView index(ModelAndView modelAndView) {
 
 		String nginxPath = settingService.get("nginxPath");
-		modelAndView.addObject("nginxPath", nginxPath);
+		modelAndView.put("nginxPath", nginxPath);
 
 		String nginxExe = settingService.get("nginxExe");
-		modelAndView.addObject("nginxExe", nginxExe);
+		modelAndView.put("nginxExe", nginxExe);
 
 		String nginxDir = settingService.get("nginxDir");
-		modelAndView.addObject("nginxDir", nginxDir);
+		modelAndView.put("nginxDir", nginxDir);
 
 		String decompose = settingService.get("decompose");
-		modelAndView.addObject("decompose", decompose);
+		modelAndView.put("decompose", decompose);
 
-		modelAndView.addObject("tmp", InitConfig.home + "temp/nginx.conf");
+		modelAndView.put("tmp", InitConfig.home + "temp/nginx.conf");
 
-		modelAndView.setViewName("/adminPage/conf/index");
+		modelAndView.view("/adminPage/conf/index");
 		return modelAndView;
 	}
 
 	@Mapping(value = "nginxStatus")
-	@ResponseBody
+	
 	public JsonResult nginxStatus() {
 		if (NginxUtils.isRun()) {
 			return renderSuccess(m.get("confStr.nginxStatus") + "：<span class='green'>" + m.get("confStr.running") + "</span>");
@@ -96,7 +95,7 @@ public class ConfController extends BaseController {
 	}
 
 	@Mapping(value = "replace")
-	@ResponseBody
+	
 	public JsonResult replace(String json, HttpServletRequest request, String adminName) {
 
 		if (StrUtil.isEmpty(json)) {
@@ -167,7 +166,7 @@ public class ConfController extends BaseController {
 	 * @return
 	 */
 	@Mapping(value = "checkBase")
-	@ResponseBody
+	
 	public JsonResult checkBase() {
 		String nginxExe = settingService.get("nginxExe");
 		String nginxDir = settingService.get("nginxDir");
@@ -214,7 +213,7 @@ public class ConfController extends BaseController {
 	 * @return
 	 */
 	@Mapping(value = "check")
-	@ResponseBody
+	
 	public JsonResult check(String nginxPath, String nginxExe, String nginxDir, String json) {
 		if (nginxExe == null) {
 			nginxExe = settingService.get("nginxExe");
@@ -271,7 +270,7 @@ public class ConfController extends BaseController {
 	}
 
 	@Mapping(value = "saveCmd")
-	@ResponseBody
+	
 	public JsonResult saveCmd(String nginxPath, String nginxExe, String nginxDir) {
 		nginxPath = ToolUtils.handlePath(nginxPath);
 		settingService.set("nginxPath", nginxPath);
@@ -286,7 +285,7 @@ public class ConfController extends BaseController {
 	}
 
 	@Mapping(value = "reload")
-	@ResponseBody
+	
 	public synchronized JsonResult reload(String nginxPath, String nginxExe, String nginxDir) {
 		if (nginxPath == null) {
 			nginxPath = settingService.get("nginxPath");
@@ -322,7 +321,7 @@ public class ConfController extends BaseController {
 	}
 
 	@Mapping(value = "runCmd")
-	@ResponseBody
+	
 	public JsonResult runCmd(String cmd, String type) {
 		if(StrUtil.isNotEmpty(type)) {
 			settingService.set(type, cmd);
@@ -353,13 +352,13 @@ public class ConfController extends BaseController {
 	}
 
 	@Mapping(value = "getLastCmd")
-	@ResponseBody
+	
 	public JsonResult getLastCmd(String type) {
 		return renderSuccess(settingService.get(type));
 	}
 
 	@Mapping(value = "loadConf")
-	@ResponseBody
+	
 	public JsonResult loadConf() {
 		String decompose = settingService.get("decompose");
 
@@ -368,7 +367,7 @@ public class ConfController extends BaseController {
 	}
 
 	@Mapping(value = "loadOrg")
-	@ResponseBody
+	
 	public JsonResult loadOrg(String nginxPath) {
 		String decompose = settingService.get("decompose");
 		ConfExt confExt = confService.buildConf(StrUtil.isNotEmpty(decompose) && decompose.equals("true"), false);
@@ -398,14 +397,14 @@ public class ConfController extends BaseController {
 	}
 
 	@Mapping(value = "decompose")
-	@ResponseBody
+	
 	public JsonResult decompose(String decompose) {
 		settingService.set("decompose", decompose);
 		return renderSuccess();
 	}
 
 	@Mapping(value = "update")
-	@ResponseBody
+	
 	public JsonResult update() {
 		versionConfig.getNewVersion();
 		if (Integer.parseInt(currentVersion.replace(".", "").replace("v", "")) < Integer.parseInt(versionConfig.getVersion().getVersion().replace(".", "").replace("v", ""))) {
@@ -417,13 +416,13 @@ public class ConfController extends BaseController {
 	}
 
 	@Mapping(value = "getKey")
-	@ResponseBody
+	
 	public JsonResult getKey(String key) {
 		return renderSuccess(settingService.get(key));
 	}
 
 	@Mapping(value = "setKey")
-	@ResponseBody
+	
 	public JsonResult setKey(String key, String val) {
 		settingService.set(key, val);
 		return renderSuccess();

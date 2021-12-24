@@ -17,7 +17,6 @@ import org.noear.solon.annotation.Mapping;
 import org.noear.solon.core.handle.ModelAndView;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.cym.config.InitConfig;
 import com.cym.model.Cert;
@@ -52,14 +51,14 @@ public class CertController extends BaseController {
 	public ModelAndView index(HttpSession httpSession, ModelAndView modelAndView, Page page, String keywords) {
 		page = certService.getPage(keywords, page);
 
-		modelAndView.addObject("keywords", keywords);
-		modelAndView.addObject("page", page);
-		modelAndView.setViewName("/adminPage/cert/index");
+		modelAndView.put("keywords", keywords);
+		modelAndView.put("page", page);
+		modelAndView.view("/adminPage/cert/index");
 		return modelAndView;
 	}
 
 	@Mapping("addOver")
-	@ResponseBody
+	
 	public JsonResult addOver(Cert cert, String[] domains, String[] types, String[] values) {
 		if (certService.hasSame(cert)) {
 			return renderError(m.get("certStr.same"));
@@ -71,20 +70,20 @@ public class CertController extends BaseController {
 	}
 
 	@Mapping("setAutoRenew")
-	@ResponseBody
+	
 	public JsonResult setAutoRenew(Cert cert) {
 		sqlHelper.updateById(cert);
 		return renderSuccess();
 	}
 
 	@Mapping("detail")
-	@ResponseBody
+	
 	public JsonResult detail(String id) {
 		return renderSuccess(sqlHelper.findById(id, Cert.class));
 	}
 
 	@Mapping("del")
-	@ResponseBody
+	
 	public JsonResult del(String id) {
 		Cert cert = sqlHelper.findById(id, Cert.class);
 		String path = InitConfig.acmeShDir + cert.getDomain();
@@ -96,7 +95,7 @@ public class CertController extends BaseController {
 	}
 
 	@Mapping("apply")
-	@ResponseBody
+	
 	public JsonResult apply(String id, String type) {
 		if (!SystemTool.isLinux()) {
 			return renderError(m.get("certStr.error2"));
@@ -237,7 +236,7 @@ public class CertController extends BaseController {
 	}
 
 	@Mapping("getTxtValue")
-	@ResponseBody
+	
 	public JsonResult getTxtValue(String id) {
 
 		List<CertCode> certCodes = certService.getCertCodes(id);

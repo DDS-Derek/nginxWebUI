@@ -11,7 +11,6 @@ import org.noear.solon.annotation.Mapping;
 import org.noear.solon.core.handle.ModelAndView;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.cym.model.Www;
 import com.cym.service.WwwService;
@@ -33,13 +32,13 @@ public class WwwController extends BaseController {
 	@Mapping("")
 	public ModelAndView index(HttpSession httpSession, ModelAndView modelAndView) {
 
-		modelAndView.addObject("list", sqlHelper.findAll(new Sort("dir", Direction.ASC), Www.class));
-		modelAndView.setViewName("/adminPage/www/index");
+		modelAndView.put("list", sqlHelper.findAll(new Sort("dir", Direction.ASC), Www.class));
+		modelAndView.view("/adminPage/www/index");
 		return modelAndView;
 	}
 
 	@Mapping("addOver")
-	@ResponseBody
+	
 	public JsonResult addOver(Www www, String dirTemp) {
 		if (wwwService.hasDir(www.getDir(),www.getId())) {
 			return renderError(m.get("wwwStr.sameDir"));
@@ -68,7 +67,7 @@ public class WwwController extends BaseController {
 
 
 	@Mapping("del")
-	@ResponseBody
+	
 	public JsonResult del(String id) {
 		sqlHelper.deleteById(id, Www.class);
 
@@ -76,7 +75,7 @@ public class WwwController extends BaseController {
 	}
 
 	@Mapping("detail")
-	@ResponseBody
+	
 	public JsonResult detail(String id) {
 		Www www = sqlHelper.findById(id, Www.class);
 

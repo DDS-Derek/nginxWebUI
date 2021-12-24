@@ -14,7 +14,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.system.ApplicationHome;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.cym.config.InitConfig;
@@ -42,11 +41,11 @@ public class MainController extends BaseController {
 
 	@Mapping("")
 	public ModelAndView index(ModelAndView modelAndView, String keywords) {
-		modelAndView.setViewName("/adminPage/index");
+		modelAndView.view("/adminPage/index");
 		return modelAndView;
 	}
 
-	@ResponseBody
+	
 	@Mapping("/adminPage/main/upload")
 	public JsonResult upload(@RequestParam("file") MultipartFile file, HttpSession httpSession) {
 		try {
@@ -78,7 +77,7 @@ public class MainController extends BaseController {
 		return renderError();
 	}
 
-	@ResponseBody
+	
 	@Mapping("/adminPage/main/autoUpdate")
 	public JsonResult autoUpdate(String url) {
 		if (!SystemTool.isLinux()) {
@@ -95,7 +94,7 @@ public class MainController extends BaseController {
 	}
 	
 	
-	@ResponseBody
+	
 	@Mapping("/adminPage/main/changeLang")
 	public JsonResult changeLang() {
 		if (settingService.get("lang") != null && settingService.get("lang").equals("en_US")) {

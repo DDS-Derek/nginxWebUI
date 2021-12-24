@@ -2,16 +2,15 @@ package com.cym.service;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
+import org.noear.solon.annotation.Inject;
+import org.noear.solon.extend.aspect.annotation.Service;
 
 import com.cym.model.Group;
 import com.cym.model.Remote;
+import com.cym.sqlhelper.utils.ConditionAndWrapper;
+import com.cym.sqlhelper.utils.ConditionOrWrapper;
+import com.cym.sqlhelper.utils.SqlHelper;
 
-import cn.craccd.sqlHelper.utils.ConditionAndWrapper;
-import cn.craccd.sqlHelper.utils.ConditionOrWrapper;
-import cn.craccd.sqlHelper.utils.SqlHelper;
 import cn.hutool.core.util.StrUtil;
 
 @Service
@@ -19,7 +18,7 @@ public class GroupService {
 	@Inject
 	SqlHelper sqlHelper;
 
-	@Transactional
+	
 	public void delete(String id) {
 
 		sqlHelper.deleteById(id, Group.class);

@@ -11,7 +11,6 @@ import org.noear.solon.annotation.Mapping;
 import org.noear.solon.core.handle.ModelAndView;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.cym.ext.ServerExt;
 import com.cym.model.Cert;
@@ -88,23 +87,23 @@ public class ServerController extends BaseController {
 		}
 		page.setRecords(exts);
 
-		modelAndView.addObject("page", page);
+		modelAndView.put("page", page);
 
 		List<Upstream> upstreamList = upstreamService.getListByProxyType(0);
-		modelAndView.addObject("upstreamList", upstreamList);
-		modelAndView.addObject("upstreamSize", upstreamList.size());
+		modelAndView.put("upstreamList", upstreamList);
+		modelAndView.put("upstreamSize", upstreamList.size());
 
 		List<Upstream> upstreamTcpList = upstreamService.getListByProxyType(1);
-		modelAndView.addObject("upstreamTcpList", upstreamTcpList);
-		modelAndView.addObject("upstreamTcpSize", upstreamTcpList.size());
+		modelAndView.put("upstreamTcpList", upstreamTcpList);
+		modelAndView.put("upstreamTcpSize", upstreamTcpList.size());
 
-		modelAndView.addObject("certList", sqlHelper.findAll(Cert.class));
-		modelAndView.addObject("wwwList", sqlHelper.findAll(Www.class));
+		modelAndView.put("certList", sqlHelper.findAll(Cert.class));
+		modelAndView.put("wwwList", sqlHelper.findAll(Www.class));
 
-		modelAndView.addObject("passwordList", sqlHelper.findAll(Password.class));
+		modelAndView.put("passwordList", sqlHelper.findAll(Password.class));
 
-		modelAndView.addObject("keywords", keywords);
-		modelAndView.setViewName("/adminPage/server/index");
+		modelAndView.put("keywords", keywords);
+		modelAndView.view("/adminPage/server/index");
 		return modelAndView;
 	}
 
@@ -131,7 +130,7 @@ public class ServerController extends BaseController {
 	}
 
 	@Mapping("addOver")
-	@ResponseBody
+	
 	public JsonResult addOver(String serverJson, String serverParamJson, String locationJson) {
 		Server server = JSONUtil.toBean(serverJson, Server.class);
 		List<Location> locations = JSONUtil.toList(JSONUtil.parseArray(locationJson), Location.class);
@@ -154,14 +153,14 @@ public class ServerController extends BaseController {
 	}
 
 	@Mapping("setEnable")
-	@ResponseBody
+	
 	public JsonResult setEnable(Server server) {
 		sqlHelper.updateById(server);
 		return renderSuccess();
 	}
 
 	@Mapping("detail")
-	@ResponseBody
+	
 	public JsonResult detail(String id) {
 		Server server = sqlHelper.findById(id, Server.class);
 
@@ -180,7 +179,7 @@ public class ServerController extends BaseController {
 	}
 
 	@Mapping("del")
-	@ResponseBody
+	
 	public JsonResult del(String id) {
 		serverService.deleteById(id);
 
@@ -188,7 +187,7 @@ public class ServerController extends BaseController {
 	}
 
 //	@Mapping("clone")
-//	@ResponseBody
+//	
 //	public JsonResult clone(String id) {
 //		serverService.clone(id);
 //
@@ -196,7 +195,7 @@ public class ServerController extends BaseController {
 //	}
 
 	@Mapping("importServer")
-	@ResponseBody
+	
 	public JsonResult importServer(String nginxPath) {
 
 		if (StrUtil.isEmpty(nginxPath) || !FileUtil.exist(nginxPath)) {
@@ -213,7 +212,7 @@ public class ServerController extends BaseController {
 	}
 
 	@Mapping("testPort")
-	@ResponseBody
+	
 	public JsonResult testPort() {
 		List<Server> servers = sqlHelper.findAll(Server.class);
 
@@ -243,7 +242,7 @@ public class ServerController extends BaseController {
 	}
 
 	@Mapping("editDescr")
-	@ResponseBody
+	
 	public JsonResult editDescr(String id, String descr) {
 		Server server = new Server();
 		server.setId(id);
@@ -254,7 +253,7 @@ public class ServerController extends BaseController {
 	}
 
 	@Mapping("preview")
-	@ResponseBody
+	
 	public JsonResult preview(String id, String type) {
 		NgxBlock ngxBlock = null;
 		if (type.equals("server")) {
@@ -291,14 +290,14 @@ public class ServerController extends BaseController {
 	}
 
 	@Mapping("setOrder")
-	@ResponseBody
+	
 	public JsonResult setOrder(String id, Integer count) {
 		serverService.setSeq(id, count);
 		return renderSuccess();
 	}
 	
 	@Mapping("getDescr")
-	@ResponseBody
+	
 	public JsonResult getDescr(String id) {
 		Server server = sqlHelper.findById(id, Server.class);
 		

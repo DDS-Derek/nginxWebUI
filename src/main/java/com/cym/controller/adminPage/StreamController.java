@@ -8,7 +8,6 @@ import org.noear.solon.annotation.Controller;
 import org.noear.solon.annotation.Inject;
 import org.noear.solon.annotation.Mapping;
 import org.noear.solon.core.handle.ModelAndView;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.cym.model.Stream;
 import com.cym.service.StreamService;
@@ -28,13 +27,13 @@ public class StreamController extends BaseController {
 	public ModelAndView index(HttpSession httpSession, ModelAndView modelAndView) {
 		List<Stream> streamList = streamService.findAll();
 
-		modelAndView.addObject("streamList", streamList);
-		modelAndView.setViewName("/adminPage/stream/index");
+		modelAndView.put("streamList", streamList);
+		modelAndView.view("/adminPage/stream/index");
 		return modelAndView;
 	}
 
 	@Mapping("addOver")
-	@ResponseBody
+	
 	public JsonResult addOver(Stream stream) {
 		if (StrUtil.isEmpty(stream.getId())) {
 			stream.setSeq( SnowFlakeUtils.getId());
@@ -46,7 +45,7 @@ public class StreamController extends BaseController {
 	
 
 	@Mapping("addTemplate")
-	@ResponseBody
+	
 	public JsonResult addTemplate(String templateId) {
 		streamService.addTemplate(templateId);
 		
@@ -54,13 +53,13 @@ public class StreamController extends BaseController {
 	}
 
 	@Mapping("detail")
-	@ResponseBody
+	
 	public JsonResult detail(String id) {
 		return renderSuccess(sqlHelper.findById(id, Stream.class));
 	}
 
 	@Mapping("del")
-	@ResponseBody
+	
 	public JsonResult del(String id) {
 		sqlHelper.deleteById(id, Stream.class);
 
@@ -68,7 +67,7 @@ public class StreamController extends BaseController {
 	}
 
 	@Mapping("setOrder")
-	@ResponseBody
+	
 	public JsonResult setOrder(String id, Integer count) {
 		streamService.setSeq(id, count);
 

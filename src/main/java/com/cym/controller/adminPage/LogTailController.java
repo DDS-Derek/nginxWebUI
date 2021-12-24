@@ -22,6 +22,8 @@ import com.cym.utils.ApplicationContextRegister;
 import com.cym.utils.SystemTool;
 import com.cym.utils.TailLogThread;
 
+import cn.hutool.db.Session;
+
 @ServerEndpoint("/adminPage/logTail/{id}/{guid}")
 @Controller
 public class LogTailController {

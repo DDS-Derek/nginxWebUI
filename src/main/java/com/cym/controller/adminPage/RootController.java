@@ -7,7 +7,6 @@ import java.util.List;
 
 import org.noear.solon.annotation.Controller;
 import org.noear.solon.annotation.Mapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.cym.ext.TreeNode;
 import com.cym.utils.BaseController;
@@ -21,7 +20,7 @@ import cn.hutool.core.util.StrUtil;
 @Mapping("/adminPage/root")
 public class RootController extends BaseController {
 
-	@ResponseBody
+	
 	@Mapping("getList")
 	public List<TreeNode> getList(String id) {
 		if (StrUtil.isEmpty(id)) {
@@ -81,7 +80,7 @@ public class RootController extends BaseController {
 		return list;
 	}
 
-	@ResponseBody
+	
 	@Mapping("mkdir")
 	public JsonResult mkdir(String dir, String name) {
 

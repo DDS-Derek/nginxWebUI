@@ -6,27 +6,26 @@ import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 
+import org.noear.solon.annotation.Inject;
+import org.noear.solon.extend.aspect.annotation.Service;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.cym.model.Location;
 import com.cym.model.Param;
 import com.cym.model.Server;
+import com.cym.sqlhelper.bean.Page;
+import com.cym.sqlhelper.bean.Sort;
+import com.cym.sqlhelper.bean.Sort.Direction;
+import com.cym.sqlhelper.utils.ConditionAndWrapper;
+import com.cym.sqlhelper.utils.ConditionOrWrapper;
+import com.cym.sqlhelper.utils.SqlHelper;
 import com.cym.utils.SnowFlakeUtils;
 import com.github.odiszapc.nginxparser.NgxBlock;
 import com.github.odiszapc.nginxparser.NgxConfig;
 import com.github.odiszapc.nginxparser.NgxEntry;
 import com.github.odiszapc.nginxparser.NgxParam;
 
-import cn.craccd.sqlHelper.bean.Page;
-import cn.craccd.sqlHelper.bean.Sort;
-import cn.craccd.sqlHelper.bean.Sort.Direction;
-import cn.craccd.sqlHelper.utils.ConditionAndWrapper;
-import cn.craccd.sqlHelper.utils.ConditionOrWrapper;
-import cn.craccd.sqlHelper.utils.SqlHelper;
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.util.CharsetUtil;
 import cn.hutool.core.util.StrUtil;
@@ -52,7 +51,7 @@ public class ServerService {
 		return page;
 	}
 
-	@Transactional
+	
 	public void deleteById(String id) {
 		sqlHelper.deleteById(id, Server.class);
 		sqlHelper.deleteByQuery(new ConditionAndWrapper().eq("serverId", id), Location.class);
@@ -62,7 +61,7 @@ public class ServerService {
 		return sqlHelper.findListByQuery(new ConditionAndWrapper().eq("serverId", serverId), Location.class);
 	}
 
-	@Transactional
+	
 	public void addOver(Server server, String serverParamJson, List<Location> locations) throws Exception {
 
 		if (server.getDef() != null && server.getDef() == 1) {
@@ -119,7 +118,7 @@ public class ServerService {
 		}
 	}
 
-	@Transactional
+	
 	public void addOverTcp(Server server, String serverParamJson) {
 		sqlHelper.insertOrUpdate(server);
 

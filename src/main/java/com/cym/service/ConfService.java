@@ -1,18 +1,16 @@
 package com.cym.service;
 
 import java.io.File;
-import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
+import org.noear.solon.annotation.Inject;
+import org.noear.solon.extend.aspect.annotation.Service;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.cym.config.InitConfig;
 import com.cym.ext.AsycPack;
@@ -30,6 +28,10 @@ import com.cym.model.Stream;
 import com.cym.model.Template;
 import com.cym.model.Upstream;
 import com.cym.model.UpstreamServer;
+import com.cym.sqlhelper.bean.Sort;
+import com.cym.sqlhelper.bean.Sort.Direction;
+import com.cym.sqlhelper.utils.ConditionAndWrapper;
+import com.cym.sqlhelper.utils.SqlHelper;
 import com.cym.utils.ToolUtils;
 import com.github.odiszapc.nginxparser.NgxBlock;
 import com.github.odiszapc.nginxparser.NgxConfig;
@@ -37,14 +39,9 @@ import com.github.odiszapc.nginxparser.NgxDumper;
 import com.github.odiszapc.nginxparser.NgxEntry;
 import com.github.odiszapc.nginxparser.NgxParam;
 
-import cn.craccd.sqlHelper.bean.Sort;
-import cn.craccd.sqlHelper.bean.Sort.Direction;
-import cn.craccd.sqlHelper.utils.ConditionAndWrapper;
-import cn.craccd.sqlHelper.utils.SqlHelper;
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.util.StrUtil;
-import cn.hutool.core.util.ZipUtil;
 
 @Service
 public class ConfService {
@@ -641,7 +638,7 @@ public class ConfService {
 		return ToolUtils.handleConf(new NgxDumper(ngxConfig).dump());
 	}
 
-	@Transactional
+	
 	public void replace(String nginxPath, String nginxContent, List<String> subContent, List<String> subName, Boolean isReplace, String adminName) {
 		
 		String beforeConf = null;
@@ -748,7 +745,7 @@ public class ConfService {
 		return asycPack;
 	}
 
-	@Transactional
+	
 	public void setAsycPack(AsycPack asycPack, String adminName) {
 		// 不要同步Cert表
 		try {

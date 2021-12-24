@@ -7,17 +7,13 @@ import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.ServletOutputStream;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
 import org.noear.solon.annotation.Controller;
 import org.noear.solon.annotation.Inject;
 import org.noear.solon.annotation.Mapping;
+import org.noear.solon.core.handle.Context;
 import org.noear.solon.core.handle.ModelAndView;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.cym.ext.AdminExt;
 import com.cym.ext.Tree;
@@ -58,16 +54,16 @@ public class AdminController extends BaseController {
 	RemoteController remoteController;
 
 	@Mapping("")
-	public ModelAndView index(HttpSession httpSession, ModelAndView modelAndView, Page page) {
+	public ModelAndView index( ModelAndView modelAndView, Page page) {
 		page = adminService.search(page);
 
-		modelAndView.addObject("page", page);
-		modelAndView.setViewName("/adminPage/admin/index");
+		modelAndView.put("page", page);
+		modelAndView.view("/adminPage/admin/index");
 		return modelAndView;
 	}
 
 	@Mapping("addOver")
-	@ResponseBody
+	
 	public JsonResult addOver(Admin admin, String[] parentId) {
 		if (StrUtil.isEmpty(admin.getId())) {
 			Long count = adminService.getCountByName(admin.getName());
@@ -93,7 +89,7 @@ public class AdminController extends BaseController {
 	}
 
 	@Mapping("detail")
-	@ResponseBody
+	
 	public JsonResult detail(String id) {
 		AdminExt adminExt = new AdminExt();
 		adminExt.setAdmin(sqlHelper.findById(id, Admin.class));
@@ -103,7 +99,7 @@ public class AdminController extends BaseController {
 	}
 
 	@Mapping("del")
-	@ResponseBody
+	
 	public JsonResult del(String id) {
 		sqlHelper.deleteById(id, Admin.class);
 
@@ -111,7 +107,7 @@ public class AdminController extends BaseController {
 	}
 
 	@Mapping("getMailSetting")
-	@ResponseBody
+	
 	public JsonResult getMailSetting() {
 		Map<String, String> map = new HashMap<>();
 
@@ -127,7 +123,7 @@ public class AdminController extends BaseController {
 	}
 
 	@Mapping("updateMailSetting")
-	@ResponseBody
+	
 	public JsonResult updateMailSetting(String mailType, String mail_user, String mail_host, String mail_port, String mail_from, String mail_pass, String mail_ssl,String mail_interval) {
 		settingService.set("mail_host", mail_host);
 		settingService.set("mail_port", mail_port);
@@ -141,7 +137,7 @@ public class AdminController extends BaseController {
 	}
 
 	@Mapping("testMail")
-	@ResponseBody
+	
 	public JsonResult testMail(String mail) {
 		if (StrUtil.isEmpty(mail)) {
 			return renderError(m.get("adminStr.emailEmpty"));
@@ -157,7 +153,7 @@ public class AdminController extends BaseController {
 	
 	
 	@Mapping("testAuth")
-	@ResponseBody
+	
 	public JsonResult testAuth(String key, String code) {
 		
 		Boolean rs = authUtils.testKey(key, code);
@@ -165,9 +161,8 @@ public class AdminController extends BaseController {
 	}
 
 	@Mapping(value = "qr")
-	public void getqcode(HttpServletResponse resp, String url, Integer w, Integer h) throws IOException {
+	public void getqcode( String url, Integer w, Integer h) throws IOException {
 		if (url != null && !"".equals(url)) {
-			ServletOutputStream stream = null;
 
 			if (w == null) {
 				w = 300;
@@ -176,28 +171,21 @@ public class AdminController extends BaseController {
 				h = 300;
 			}
 			try {
-				stream = resp.getOutputStream();
-
 				Hashtable<EncodeHintType, Object> hints = new Hashtable<EncodeHintType, Object>();
 				hints.put(EncodeHintType.CHARACTER_SET, "utf-8");
 				hints.put(EncodeHintType.MARGIN, 0);
 
 				BitMatrix matrix = new MultiFormatWriter().encode(url, BarcodeFormat.QR_CODE, w, h, hints);
-				MatrixToImageWriter.writeToStream(matrix, "png", stream);
+				MatrixToImageWriter.writeToStream(matrix, "png", Context.current().outputStream());
 			} catch (WriterException e) {
 				logger.error(e.getMessage(), e);
-			} finally {
-				if (stream != null) {
-					stream.flush();
-					stream.close();
-				}
-			}
+			} 
 		}
 	}
 	
 
 	@Mapping("getGroupTree")
-	@ResponseBody
+	
 	public JsonResult getGroupTree() {
 
 		List<Group> groups = groupService.getListByParent(null);

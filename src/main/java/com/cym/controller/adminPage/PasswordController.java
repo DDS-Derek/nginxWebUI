@@ -8,7 +8,6 @@ import org.noear.solon.annotation.Controller;
 import org.noear.solon.annotation.Inject;
 import org.noear.solon.annotation.Mapping;
 import org.noear.solon.core.handle.ModelAndView;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.cym.config.InitConfig;
 import com.cym.model.Password;
@@ -32,13 +31,13 @@ public class PasswordController extends BaseController {
 	public ModelAndView index(HttpSession httpSession, ModelAndView modelAndView, Page page) {
 		page = passwordService.search(page);
 
-		modelAndView.addObject("page", page);
-		modelAndView.setViewName("/adminPage/password/index");
+		modelAndView.put("page", page);
+		modelAndView.view("/adminPage/password/index");
 		return modelAndView;
 	}
 
 	@Mapping("addOver")
-	@ResponseBody
+	
 	public JsonResult addOver(Password password) throws IOException {
 
 		if (StrUtil.isEmpty(password.getId())) {
@@ -74,7 +73,7 @@ public class PasswordController extends BaseController {
 	}
 
 	@Mapping("del")
-	@ResponseBody
+	
 	public JsonResult del(String id) {
 		Password password = sqlHelper.findById(id, Password.class);
 		sqlHelper.deleteById(id, Password.class);
@@ -84,7 +83,7 @@ public class PasswordController extends BaseController {
 	}
 
 	@Mapping("detail")
-	@ResponseBody
+	
 	public JsonResult detail(String id) {
 		return renderSuccess(sqlHelper.findById(id, Password.class));
 	}

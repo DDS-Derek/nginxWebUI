@@ -6,7 +6,6 @@ import org.noear.solon.annotation.Controller;
 import org.noear.solon.annotation.Inject;
 import org.noear.solon.annotation.Mapping;
 import org.noear.solon.core.handle.ModelAndView;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.cym.model.Basic;
 import com.cym.service.BasicService;
@@ -26,13 +25,13 @@ public class BasicController extends BaseController {
 	public ModelAndView index(ModelAndView modelAndView) {
 		List<Basic> basicList = basicService.findAll();
 
-		modelAndView.addObject("basicList", basicList);
-		modelAndView.setViewName("/adminPage/basic/index");
+		modelAndView.put("basicList", basicList);
+		modelAndView.view("/adminPage/basic/index");
 		return modelAndView;
 	}
 
 	@Mapping("addOver")
-	@ResponseBody
+	
 	public JsonResult addOver(Basic basic) {
 		if (StrUtil.isEmpty(basic.getId())) {
 			basic.setSeq( SnowFlakeUtils.getId());
@@ -43,7 +42,7 @@ public class BasicController extends BaseController {
 	}
 
 	@Mapping("setOrder")
-	@ResponseBody
+	
 	public JsonResult setOrder(String id, Integer count) {
 		basicService.setSeq(id, count);
 
@@ -51,13 +50,13 @@ public class BasicController extends BaseController {
 	}
 	
 	@Mapping("detail")
-	@ResponseBody
+	
 	public JsonResult detail(String id) {
 		return renderSuccess(sqlHelper.findById(id, Basic.class));
 	}
 
 	@Mapping("del")
-	@ResponseBody
+	
 	public JsonResult del(String id) {
 		sqlHelper.deleteById(id, Basic.class);
 

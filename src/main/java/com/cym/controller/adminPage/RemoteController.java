@@ -22,7 +22,6 @@ import org.noear.solon.core.handle.ModelAndView;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.cym.controller.api.NginxApiController;
 import com.cym.ext.AsycPack;
@@ -71,7 +70,7 @@ public class RemoteController extends BaseController {
 	Integer port;
 
 	@Mapping("version")
-	@ResponseBody
+	
 	public Map<String, Object> version() {
 		Map<String, Object> map = new HashMap<>();
 		map.put("version", projectVersion);
@@ -89,19 +88,19 @@ public class RemoteController extends BaseController {
 	public ModelAndView index(ModelAndView modelAndView, HttpSession httpSession) {
 
 		JsonResult<List<String>> jsonResult = nginxApiController.getNginxStartCmd();
-		modelAndView.addObject("startCmds", jsonResult.getObj());
+		modelAndView.put("startCmds", jsonResult.getObj());
 
 		jsonResult = nginxApiController.getNginxStopCmd();
-		modelAndView.addObject("stopCmds", jsonResult.getObj());
+		modelAndView.put("stopCmds", jsonResult.getObj());
 
-		modelAndView.addObject("projectVersion", projectVersion);
-		modelAndView.setViewName("/adminPage/remote/index");
+		modelAndView.put("projectVersion", projectVersion);
+		modelAndView.view("/adminPage/remote/index");
 
 		return modelAndView;
 	}
 
 	@Mapping("allTable")
-	@ResponseBody
+	
 	public List<Remote> allTable(HttpServletRequest request) {
 		Admin admin = getAdmin(request);
 		List<Remote> remoteList = sqlHelper.findAll(Remote.class);
@@ -180,7 +179,7 @@ public class RemoteController extends BaseController {
 	}
 
 	@Mapping("addGroupOver")
-	@ResponseBody
+	
 	public JsonResult addGroupOver(Group group) {
 		if (StrUtil.isNotEmpty(group.getParentId()) && StrUtil.isNotEmpty(group.getId()) && group.getId().equals(group.getParentId())) {
 			return renderError(m.get("remoteStr.parentGroupMsg"));
@@ -191,13 +190,13 @@ public class RemoteController extends BaseController {
 	}
 
 	@Mapping("groupDetail")
-	@ResponseBody
+	
 	public JsonResult groupDetail(String id) {
 		return renderSuccess(sqlHelper.findById(id, Group.class));
 	}
 
 	@Mapping("delGroup")
-	@ResponseBody
+	
 	public JsonResult delGroup(String id) {
 
 		groupService.delete(id);
@@ -205,7 +204,7 @@ public class RemoteController extends BaseController {
 	}
 
 	@Mapping("getGroupTree")
-	@ResponseBody
+	
 	public JsonResult getGroupTree(HttpServletRequest request) {
 		Admin admin = getAdmin(request);
 
@@ -248,7 +247,7 @@ public class RemoteController extends BaseController {
 	}
 
 	@Mapping("getCmdRemote")
-	@ResponseBody
+	
 	public JsonResult getCmdRemote(HttpServletRequest request) {
 		Admin admin = getAdmin(request);
 
@@ -295,7 +294,7 @@ public class RemoteController extends BaseController {
 	}
 
 	@Mapping("cmdOver")
-	@ResponseBody
+	
 	public JsonResult cmdOver(String[] remoteId, String cmd, Integer interval, HttpServletRequest request) {
 		if (remoteId == null || remoteId.length == 0) {
 			return renderSuccess(m.get("remoteStr.noSelect"));
@@ -371,7 +370,7 @@ public class RemoteController extends BaseController {
 	}
 
 	@Mapping("asyc")
-	@ResponseBody
+	
 	public JsonResult asyc(String fromId, String[] remoteId, String[] asycData, HttpServletRequest request) {
 		if (StrUtil.isEmpty(fromId) || remoteId == null || remoteId.length == 0) {
 			return renderError(m.get("remoteStr.noChoice"));
@@ -415,7 +414,7 @@ public class RemoteController extends BaseController {
 	}
 
 	@Mapping("getAsycPack")
-	@ResponseBody
+	
 	public String getAsycPack(String[] asycData) {
 		AsycPack asycPack = confService.getAsycPack(asycData);
 
@@ -423,7 +422,7 @@ public class RemoteController extends BaseController {
 	}
 
 	@Mapping("setAsycPack")
-	@ResponseBody
+	
 	public JsonResult setAsycPack(String json, HttpServletRequest request, String adminName) {
 		AsycPack asycPack = JSONUtil.toBean(json, AsycPack.class);
 		if (StrUtil.isEmpty(adminName)) {
@@ -436,7 +435,7 @@ public class RemoteController extends BaseController {
 	}
 
 	@Mapping("addOver")
-	@ResponseBody
+	
 	public JsonResult addOver(Remote remote, String code, String auth) {
 		remote.setIp(remote.getIp().trim());
 
@@ -456,7 +455,7 @@ public class RemoteController extends BaseController {
 	}
 
 	@Mapping("getAuth")
-	@ResponseBody
+	
 	public JsonResult getAuth(Remote remote) {
 		try {
 			Map<String, Object> map = new HashMap<>();
@@ -483,13 +482,13 @@ public class RemoteController extends BaseController {
 	}
 
 	@Mapping("detail")
-	@ResponseBody
+	
 	public JsonResult detail(String id) {
 		return renderSuccess(sqlHelper.findById(id, Remote.class));
 	}
 
 	@Mapping("del")
-	@ResponseBody
+	
 	public JsonResult del(String id) {
 		sqlHelper.deleteById(id, Remote.class);
 
@@ -497,7 +496,7 @@ public class RemoteController extends BaseController {
 	}
 
 	@Mapping("content")
-	@ResponseBody
+	
 	public JsonResult content(String id) {
 
 		Remote remote = sqlHelper.findById(id, Remote.class);
@@ -508,7 +507,7 @@ public class RemoteController extends BaseController {
 	}
 
 	@Mapping("readContent")
-	@ResponseBody
+	
 	public String readContent() {
 
 		String nginxPath = settingService.get("nginxPath");
@@ -522,7 +521,7 @@ public class RemoteController extends BaseController {
 	}
 
 	@Mapping("change")
-	@ResponseBody
+	
 	public JsonResult change(String id, HttpSession httpSession) {
 		Remote remote = sqlHelper.findById(id, Remote.class);
 
@@ -538,7 +537,7 @@ public class RemoteController extends BaseController {
 	}
 
 	@Mapping("nginxStatus")
-	@ResponseBody
+	
 	public JsonResult nginxStatus(HttpSession httpSession) {
 		Map<String, String> map = new HashMap<>();
 		map.put("mail", settingService.get("mail"));
@@ -550,7 +549,7 @@ public class RemoteController extends BaseController {
 	}
 
 	@Mapping("nginxOver")
-	@ResponseBody
+	
 	public JsonResult nginxOver(String mail, String nginxMonitor) {
 		settingService.set("mail", mail);
 		settingService.set("nginxMonitor", nginxMonitor);
@@ -559,7 +558,7 @@ public class RemoteController extends BaseController {
 	}
 
 	@Mapping("setMonitor")
-	@ResponseBody
+	
 	public JsonResult setMonitor(String id, Integer monitor) {
 		if (!"local".equals(id)) {
 			Remote remote = new Remote();

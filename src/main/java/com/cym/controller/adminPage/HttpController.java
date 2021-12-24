@@ -8,7 +8,6 @@ import org.noear.solon.annotation.Controller;
 import org.noear.solon.annotation.Inject;
 import org.noear.solon.annotation.Mapping;
 import org.noear.solon.core.handle.ModelAndView;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.cym.config.InitConfig;
 import com.cym.model.Http;
@@ -33,13 +32,13 @@ public class HttpController extends BaseController {
 	public ModelAndView index(HttpSession httpSession, ModelAndView modelAndView) {
 		List<Http> httpList = httpService.findAll();
 
-		modelAndView.addObject("httpList", httpList);
-		modelAndView.setViewName("/adminPage/http/index");
+		modelAndView.put("httpList", httpList);
+		modelAndView.view("/adminPage/http/index");
 		return modelAndView;
 	}
 
 	@Mapping("addOver")
-	@ResponseBody
+	
 	public JsonResult addOver(Http http) {
 		if (StrUtil.isEmpty(http.getId())) {
 			http.setSeq(SnowFlakeUtils.getId());
@@ -50,7 +49,7 @@ public class HttpController extends BaseController {
 	}
 
 	@Mapping("addTemplate")
-	@ResponseBody
+	
 	public JsonResult addTemplate(String templateId) {
 		httpService.addTemplate(templateId);
 
@@ -58,13 +57,13 @@ public class HttpController extends BaseController {
 	}
 
 	@Mapping("detail")
-	@ResponseBody
+	
 	public JsonResult detail(String id) {
 		return renderSuccess(sqlHelper.findById(id, Http.class));
 	}
 
 	@Mapping("del")
-	@ResponseBody
+	
 	public JsonResult del(String id) {
 		sqlHelper.deleteById(id, Http.class);
 
@@ -72,7 +71,7 @@ public class HttpController extends BaseController {
 	}
 
 	@Mapping("addGiudeOver")
-	@ResponseBody
+	
 	public JsonResult addGiudeOver(String json, Boolean logStatus, Boolean webSocket) {
 		List<Http> https = JSONUtil.toList(JSONUtil.parseArray(json), Http.class);
 
@@ -110,7 +109,7 @@ public class HttpController extends BaseController {
 
 
 	@Mapping("setOrder")
-	@ResponseBody
+	
 	public JsonResult setOrder(String id, Integer count) {
 		httpService.setSeq(id, count);
 		return renderSuccess();

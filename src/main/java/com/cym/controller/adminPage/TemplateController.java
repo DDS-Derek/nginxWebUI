@@ -9,7 +9,6 @@ import org.noear.solon.annotation.Controller;
 import org.noear.solon.annotation.Inject;
 import org.noear.solon.annotation.Mapping;
 import org.noear.solon.core.handle.ModelAndView;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.cym.ext.TemplateExt;
 import com.cym.model.Param;
@@ -42,13 +41,13 @@ public class TemplateController extends BaseController {
 			extList.add(templateExt);
 		}
 		
-		modelAndView.addObject("templateList", extList);
-		modelAndView.setViewName("/adminPage/template/index");
+		modelAndView.put("templateList", extList);
+		modelAndView.view("/adminPage/template/index");
 		return modelAndView;
 	}
 
 	@Mapping("addOver")
-	@ResponseBody
+	
 	public JsonResult addOver(Template template,String paramJson) {
 		
 		if (StrUtil.isEmpty(template.getId())) {
@@ -71,7 +70,7 @@ public class TemplateController extends BaseController {
 	}
 
 	@Mapping("detail")
-	@ResponseBody
+	
 	public JsonResult detail(String id) {
 		Template template = sqlHelper.findById(id, Template.class);
 		TemplateExt templateExt = new TemplateExt();
@@ -84,7 +83,7 @@ public class TemplateController extends BaseController {
 	}
 
 	@Mapping("del")
-	@ResponseBody
+	
 	public JsonResult del(String id) {
 
 		templateService.del(id);
@@ -92,7 +91,7 @@ public class TemplateController extends BaseController {
 	}
 	
 	@Mapping("getTemplate")
-	@ResponseBody
+	
 	public JsonResult getTemplate() {
 
 		return renderSuccess(sqlHelper.findAll(Template.class));
