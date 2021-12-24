@@ -3,8 +3,6 @@ package com.cym.controller.adminPage;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.servlet.http.HttpSession;
-
 import org.noear.solon.annotation.Controller;
 import org.noear.solon.annotation.Inject;
 import org.noear.solon.annotation.Mapping;
@@ -27,7 +25,7 @@ public class TemplateController extends BaseController {
 	TemplateService templateService;
 	
 	@Mapping("")
-	public ModelAndView index(HttpSession httpSession, ModelAndView modelAndView) {
+	public ModelAndView index( ModelAndView modelAndView) {
 		List<Template> templateList = sqlHelper.findAll(Template.class);
 
 		List<TemplateExt> extList = new ArrayList<>();

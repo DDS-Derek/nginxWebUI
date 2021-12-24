@@ -1,7 +1,5 @@
 package com.cym.controller.adminPage;
 
-import javax.servlet.http.HttpSession;
-
 import org.noear.solon.annotation.Controller;
 import org.noear.solon.annotation.Inject;
 import org.noear.solon.annotation.Mapping;
@@ -29,7 +27,7 @@ public class MonitorController extends BaseController {
 	Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	@Mapping("")
-	public ModelAndView index(HttpSession httpSession, ModelAndView modelAndView) {
+	public ModelAndView index(ModelAndView modelAndView) {
 
 		modelAndView.put("list", monitorService.getDiskInfo());
 
@@ -49,24 +47,24 @@ public class MonitorController extends BaseController {
 	}
 
 	@Mapping("check")
-	
+
 	public JsonResult check() {
 
 		MonitorInfo monitorInfo = monitorService.getMonitorInfoOshi();
 
 		return renderSuccess(monitorInfo);
 	}
-	
+
 	@Mapping("network")
-	
+
 	public JsonResult network() {
 		NetworkInfo networkInfo = NetWorkUtil.getNetworkDownUp();
-		//System.err.println(JSONUtil.toJsonStr(networkInfo));
+		// System.err.println(JSONUtil.toJsonStr(networkInfo));
 		return renderSuccess(networkInfo);
 	}
 
 	@Mapping("addNginxGiudeOver")
-	
+
 	public JsonResult addNginxGiudeOver(String nginxDir, String nginxExe) {
 
 		settingService.set("nginxDir", nginxDir);

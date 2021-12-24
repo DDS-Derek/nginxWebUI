@@ -3,8 +3,6 @@ package com.cym.controller.adminPage;
 import java.net.URL;
 import java.nio.charset.Charset;
 
-import javax.servlet.http.HttpSession;
-
 import org.noear.solon.annotation.Controller;
 import org.noear.solon.annotation.Inject;
 import org.noear.solon.annotation.Mapping;
@@ -30,7 +28,7 @@ public class WwwController extends BaseController {
 	WwwService wwwService;
 
 	@Mapping("")
-	public ModelAndView index(HttpSession httpSession, ModelAndView modelAndView) {
+	public ModelAndView index(ModelAndView modelAndView) {
 
 		modelAndView.put("list", sqlHelper.findAll(new Sort("dir", Direction.ASC), Www.class));
 		modelAndView.view("/adminPage/www/index");

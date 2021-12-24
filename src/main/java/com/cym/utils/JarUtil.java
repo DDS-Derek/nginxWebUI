@@ -26,7 +26,11 @@ public class JarUtil {
 		}
 		return root.getAbsolutePath();
 	}
-	
+
+	public static File getCurrentFile() {
+		return new File(getCurrentFilePath());
+	}
+
 	public static void main(String[] args) {
 		System.out.println(getCurrentFilePath());
 	}

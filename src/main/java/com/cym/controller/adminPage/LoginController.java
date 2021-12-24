@@ -108,9 +108,9 @@ public class LoginController extends BaseController {
 		}
 
 		// 登录成功
-		Context.current().session("localType", "local");
-		Context.current().session("isLogin", true);
-		Context.current().session("admin", admin);
+		Context.current().sessionSet("localType", "local");
+		Context.current().sessionSet("isLogin", true);
+		Context.current().sessionSet("admin", admin);
 		Context.current().sessionRemove("imgCode"); // 立刻销毁验证码
 
 		// 检查更新
@@ -127,9 +127,9 @@ public class LoginController extends BaseController {
 		Admin admin = sqlHelper.findById(adminId, Admin.class);
 		if (admin != null) {
 			// 登录成功
-			Context.current().session("localType", "local");
-			Context.current().session("isLogin", true);
-			Context.current().session("admin", admin);
+			Context.current().sessionSet("localType", "local");
+			Context.current().sessionSet("isLogin", true);
+			Context.current().sessionSet("admin", admin);
 			Context.current().sessionRemove("imgCode"); // 立刻销毁验证码
 
 			// 检查更新

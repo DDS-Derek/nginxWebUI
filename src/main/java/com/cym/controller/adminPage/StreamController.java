@@ -2,8 +2,6 @@ package com.cym.controller.adminPage;
 
 import java.util.List;
 
-import javax.servlet.http.HttpSession;
-
 import org.noear.solon.annotation.Controller;
 import org.noear.solon.annotation.Inject;
 import org.noear.solon.annotation.Mapping;
@@ -24,7 +22,7 @@ public class StreamController extends BaseController {
 	StreamService streamService;
 
 	@Mapping("")
-	public ModelAndView index(HttpSession httpSession, ModelAndView modelAndView) {
+	public ModelAndView index( ModelAndView modelAndView) {
 		List<Stream> streamList = streamService.findAll();
 
 		modelAndView.put("streamList", streamList);

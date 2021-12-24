@@ -5,8 +5,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpSession;
-
 import org.noear.solon.annotation.Controller;
 import org.noear.solon.annotation.Inject;
 import org.noear.solon.annotation.Mapping;
@@ -37,7 +35,7 @@ public class UpstreamController extends BaseController {
 	SettingService settingService;
 
 	@Mapping("")
-	public ModelAndView index(HttpSession httpSession, ModelAndView modelAndView, Page page, String keywords) {
+	public ModelAndView index( ModelAndView modelAndView, Page page, String keywords) {
 
 		page = upstreamService.search(page, keywords);
 
@@ -171,7 +169,7 @@ public class UpstreamController extends BaseController {
 
 	@Mapping("upstreamStatus")
 	
-	public JsonResult upstreamStatus(HttpSession httpSession) {
+	public JsonResult upstreamStatus() {
 		Map<String, String> map = new HashMap<>();
 		map.put("mail", settingService.get("mail"));
 

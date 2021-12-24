@@ -11,17 +11,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
 import org.noear.solon.annotation.Controller;
 import org.noear.solon.annotation.Inject;
 import org.noear.solon.annotation.Mapping;
+import org.noear.solon.core.handle.Context;
 import org.noear.solon.core.handle.ModelAndView;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Value;
 
 import com.cym.controller.api.NginxApiController;
 import com.cym.ext.AsycPack;
@@ -64,9 +60,9 @@ public class RemoteController extends BaseController {
 	@Inject
 	NginxApiController nginxApiController;
 
-	@Value("${project.version}")
+	@Inject("${project.version}")
 	String projectVersion;
-	@Value("${server.port}")
+	@Inject("${server.port}")
 	Integer port;
 
 	@Mapping("version")
@@ -85,7 +81,7 @@ public class RemoteController extends BaseController {
 	}
 
 	@Mapping("")
-	public ModelAndView index(ModelAndView modelAndView, HttpSession httpSession) {
+	public ModelAndView index(ModelAndView modelAndView) {
 
 		JsonResult<List<String>> jsonResult = nginxApiController.getNginxStartCmd();
 		modelAndView.put("startCmds", jsonResult.getObj());
@@ -101,8 +97,8 @@ public class RemoteController extends BaseController {
 
 	@Mapping("allTable")
 	
-	public List<Remote> allTable(HttpServletRequest request) {
-		Admin admin = getAdmin(request);
+	public List<Remote> allTable() {
+		Admin admin = getAdmin();
 		List<Remote> remoteList = sqlHelper.findAll(Remote.class);
 
 		for (Remote remote : remoteList) {
@@ -205,8 +201,8 @@ public class RemoteController extends BaseController {
 
 	@Mapping("getGroupTree")
 	
-	public JsonResult getGroupTree(HttpServletRequest request) {
-		Admin admin = getAdmin(request);
+	public JsonResult getGroupTree() {
+		Admin admin = getAdmin();
 
 		List<Tree> treeList = new ArrayList<>();
 		Tree tree = new Tree();
@@ -248,8 +244,8 @@ public class RemoteController extends BaseController {
 
 	@Mapping("getCmdRemote")
 	
-	public JsonResult getCmdRemote(HttpServletRequest request) {
-		Admin admin = getAdmin(request);
+	public JsonResult getCmdRemote() {
+		Admin admin = getAdmin();
 
 		List<Group> groups = remoteService.getGroupByAdmin(admin);
 		List<Remote> remotes = remoteService.getListByParent(null);
@@ -295,7 +291,7 @@ public class RemoteController extends BaseController {
 
 	@Mapping("cmdOver")
 	
-	public JsonResult cmdOver(String[] remoteId, String cmd, Integer interval, HttpServletRequest request) {
+	public JsonResult cmdOver(String[] remoteId, String cmd, Integer interval) {
 		if (remoteId == null || remoteId.length == 0) {
 			return renderSuccess(m.get("remoteStr.noSelect"));
 		}
@@ -311,7 +307,7 @@ public class RemoteController extends BaseController {
 					jsonResult = confController.reload(null, null, null);
 				}
 				if (cmd.contentEquals("replace")) {
-					jsonResult = confController.replace(confController.getReplaceJson(), request, null);
+					jsonResult = confController.replace(confController.getReplaceJson(), null);
 				}
 				if (cmd.startsWith("start") || cmd.startsWith("stop")) {
 					jsonResult = confController.runCmd(cmd.replace("start ", "").replace("stop ", ""), null);
@@ -371,7 +367,7 @@ public class RemoteController extends BaseController {
 
 	@Mapping("asyc")
 	
-	public JsonResult asyc(String fromId, String[] remoteId, String[] asycData, HttpServletRequest request) {
+	public JsonResult asyc(String fromId, String[] remoteId, String[] asycData) {
 		if (StrUtil.isEmpty(fromId) || remoteId == null || remoteId.length == 0) {
 			return renderError(m.get("remoteStr.noChoice"));
 		}
@@ -387,11 +383,11 @@ public class RemoteController extends BaseController {
 					+ "&asycData=" + StrUtil.join(",", Arrays.asList(asycData)), 1000);
 		}
 
-		String adminName = getAdmin(request).getName();
+		String adminName = getAdmin().getName();
 
 		for (String remoteToId : remoteId) {
 			if (remoteToId.equals("local") || remoteToId.equals("本地")) {
-				setAsycPack(json, request, adminName);
+				setAsycPack(json, adminName);
 			} else {
 				Remote remoteTo = sqlHelper.findById(remoteToId, Remote.class);
 				try {
@@ -423,10 +419,10 @@ public class RemoteController extends BaseController {
 
 	@Mapping("setAsycPack")
 	
-	public JsonResult setAsycPack(String json, HttpServletRequest request, String adminName) {
+	public JsonResult setAsycPack(String json, String adminName) {
 		AsycPack asycPack = JSONUtil.toBean(json, AsycPack.class);
 		if (StrUtil.isEmpty(adminName)) {
-			Admin admin = getAdmin(request);
+			Admin admin = getAdmin();
 			adminName = admin.getName();
 		}
 		confService.setAsycPack(asycPack, adminName);
@@ -522,15 +518,15 @@ public class RemoteController extends BaseController {
 
 	@Mapping("change")
 	
-	public JsonResult change(String id, HttpSession httpSession) {
+	public JsonResult change(String id,Context context) {
 		Remote remote = sqlHelper.findById(id, Remote.class);
 
 		if (remote == null) {
-			httpSession.setAttribute("localType", "local");
-			httpSession.removeAttribute("remote");
+			context.sessionSet("localType", "local");
+			context.sessionRemove("remote");
 		} else {
-			httpSession.setAttribute("localType", "remote");
-			httpSession.setAttribute("remote", remote);
+			context.sessionSet("localType", "remote");
+			context.sessionSet("remote", remote);
 		}
 
 		return renderSuccess();
@@ -538,7 +534,7 @@ public class RemoteController extends BaseController {
 
 	@Mapping("nginxStatus")
 	
-	public JsonResult nginxStatus(HttpSession httpSession) {
+	public JsonResult nginxStatus() {
 		Map<String, String> map = new HashMap<>();
 		map.put("mail", settingService.get("mail"));
 
@@ -573,7 +569,7 @@ public class RemoteController extends BaseController {
 	}
 
 	@Mapping("/src")
-	public void src(HttpServletRequest httpServletRequest, HttpServletResponse response, String url) throws Exception {
+	public void src(String url) throws Exception {
 
 //		response.addHeader("Content-Type", "image/jpeg");
 //		response.setHeader("content-disposition", "attachment;filename=code.jpg"); // 设置文件名
@@ -583,7 +579,7 @@ public class RemoteController extends BaseController {
 		BufferedInputStream bis = null;
 		try {
 			bis = new BufferedInputStream(downUrl.openConnection().getInputStream());
-			OutputStream os = response.getOutputStream();
+			OutputStream os = Context.current().outputStream();
 			int i = bis.read(buffer);
 			while (i != -1) {
 				os.write(buffer, 0, i);

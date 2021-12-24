@@ -4,22 +4,20 @@ import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 
-import javax.servlet.http.HttpSession;
-
 import org.noear.solon.annotation.Controller;
 import org.noear.solon.annotation.Inject;
 import org.noear.solon.annotation.Mapping;
+import org.noear.solon.core.handle.Context;
 import org.noear.solon.core.handle.ModelAndView;
+import org.noear.solon.core.handle.UploadedFile;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.boot.system.ApplicationHome;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.cym.config.InitConfig;
 import com.cym.model.Remote;
 import com.cym.service.SettingService;
 import com.cym.utils.BaseController;
+import com.cym.utils.JarUtil;
 import com.cym.utils.JsonResult;
 import com.cym.utils.SystemTool;
 import com.cym.utils.UpdateUtils;
@@ -45,20 +43,19 @@ public class MainController extends BaseController {
 		return modelAndView;
 	}
 
-	
 	@Mapping("/adminPage/main/upload")
-	public JsonResult upload(@RequestParam("file") MultipartFile file, HttpSession httpSession) {
+	public JsonResult upload(Context context, UploadedFile file) {
 		try {
-			File temp = new File(FileUtil.getTmpDir() + "/" + file.getOriginalFilename());
+			File temp = new File(FileUtil.getTmpDir() + "/" + file.name);
 			file.transferTo(temp);
 
 			// 移动文件
-			File dest = new File(InitConfig.home + "cert/" + file.getOriginalFilename());
+			File dest = new File(InitConfig.home + "cert/" + file.name);
 			FileUtil.move(temp, dest, true);
 
-			String localType = (String) httpSession.getAttribute("localType");
+			String localType = (String) context.session("localType");
 			if ("remote".equals(localType)) {
-				Remote remote = (Remote) httpSession.getAttribute("remote");
+				Remote remote = (Remote) context.session("remote");
 
 				HashMap<String, Object> paramMap = new HashMap<>();
 				paramMap.put("file", dest);
@@ -77,24 +74,20 @@ public class MainController extends BaseController {
 		return renderError();
 	}
 
-	
 	@Mapping("/adminPage/main/autoUpdate")
 	public JsonResult autoUpdate(String url) {
 		if (!SystemTool.isLinux()) {
 			return renderError(m.get("commonStr.updateTips"));
 		}
 
-		ApplicationHome home = new ApplicationHome(getClass());
-		File jar = home.getSource();
+		File jar = JarUtil.getCurrentFile();
 		String path = jar.getParent() + "/nginxWebUI.jar.update";
 		LOG.info("download:" + path);
 		HttpUtil.downloadFile(url, path);
 		updateUtils.run(path);
 		return renderSuccess();
 	}
-	
-	
-	
+
 	@Mapping("/adminPage/main/changeLang")
 	public JsonResult changeLang() {
 		if (settingService.get("lang") != null && settingService.get("lang").equals("en_US")) {

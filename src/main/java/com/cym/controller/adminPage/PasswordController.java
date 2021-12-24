@@ -2,8 +2,6 @@ package com.cym.controller.adminPage;
 
 import java.io.IOException;
 
-import javax.servlet.http.HttpSession;
-
 import org.noear.solon.annotation.Controller;
 import org.noear.solon.annotation.Inject;
 import org.noear.solon.annotation.Mapping;
@@ -28,7 +26,7 @@ public class PasswordController extends BaseController {
 	PasswordService passwordService;
 
 	@Mapping("")
-	public ModelAndView index(HttpSession httpSession, ModelAndView modelAndView, Page page) {
+	public ModelAndView index(ModelAndView modelAndView, Page page) {
 		page = passwordService.search(page);
 
 		modelAndView.put("page", page);

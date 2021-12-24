@@ -3,8 +3,6 @@ package com.cym.controller.adminPage;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.servlet.http.HttpSession;
-
 import org.noear.solon.annotation.Controller;
 import org.noear.solon.annotation.Inject;
 import org.noear.solon.annotation.Mapping;
@@ -59,7 +57,7 @@ public class ServerController extends BaseController {
 	ConfService confService;
 
 	@Mapping("")
-	public ModelAndView index(HttpSession httpSession, ModelAndView modelAndView, Page page, String keywords) {
+	public ModelAndView index( ModelAndView modelAndView, Page page, String keywords) {
 		page = serverService.search(page, keywords);
 
 		List<ServerExt> exts = new ArrayList<ServerExt>();

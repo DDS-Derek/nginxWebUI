@@ -1,7 +1,5 @@
 package com.cym.controller.adminPage;
 
-import javax.servlet.http.HttpSession;
-
 import org.noear.solon.annotation.Controller;
 import org.noear.solon.annotation.Inject;
 import org.noear.solon.annotation.Mapping;
@@ -20,7 +18,7 @@ public class OperateLogController extends BaseController{
 	OperateLogService operateLogService;
 	
 	@Mapping("")
-	public ModelAndView index(HttpSession httpSession, ModelAndView modelAndView, Page page) {
+	public ModelAndView index( ModelAndView modelAndView, Page page) {
 		page = operateLogService.search(page);
 		
 		modelAndView.put("page", page);
