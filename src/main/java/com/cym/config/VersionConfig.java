@@ -1,8 +1,7 @@
 package com.cym.config;
 
-import javax.annotation.PostConstruct;
-
-import org.springframework.context.annotation.Configuration;
+import org.noear.solon.annotation.Configuration;
+import org.noear.solon.annotation.Init;
 
 import com.cym.model.Version;
 
@@ -15,7 +14,7 @@ public class VersionConfig {
 
 	Version version;
 
-	@PostConstruct
+	@Init
 	public void getNewVersion() {
 		
 		try {

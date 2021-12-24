@@ -1,7 +1,5 @@
 package com.cym.utils;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
@@ -10,7 +8,6 @@ import io.swagger.annotations.ApiModelProperty;
  * Describe: 封装Json返回信息
  */
 @ApiModel("返回结果")
-@JsonInclude(JsonInclude.Include.NON_NULL)
 public class JsonResult<T> {
 	@ApiModelProperty("请求结果")
 	private boolean success;

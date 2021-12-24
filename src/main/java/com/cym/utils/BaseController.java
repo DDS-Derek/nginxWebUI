@@ -1,7 +1,5 @@
 package com.cym.utils;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.noear.solon.annotation.Inject;
 import org.noear.solon.core.handle.Context;
 

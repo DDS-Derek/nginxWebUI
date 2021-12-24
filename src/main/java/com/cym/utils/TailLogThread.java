@@ -5,12 +5,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
-import javax.websocket.Session;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.cym.NginxWebUI;
+import cn.hutool.db.Session;
 
 public class TailLogThread extends Thread {
 	static Logger logger = LoggerFactory.getLogger(TailLogThread.class);

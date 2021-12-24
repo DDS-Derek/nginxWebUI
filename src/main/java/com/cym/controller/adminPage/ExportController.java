@@ -11,13 +11,10 @@ import java.net.URLEncoder;
 import java.nio.charset.Charset;
 import java.util.Date;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
 import org.noear.solon.annotation.Controller;
 import org.noear.solon.annotation.Inject;
 import org.noear.solon.annotation.Mapping;
+import org.noear.solon.core.handle.Context;
 import org.noear.solon.core.handle.ModelAndView;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -41,25 +38,25 @@ public class ExportController extends BaseController {
 	ConfService confService;
 
 	@Mapping("")
-	public ModelAndView index(HttpSession httpSession, ModelAndView modelAndView) {
+	public ModelAndView index( ModelAndView modelAndView) {
 
 		modelAndView.view("/adminPage/export/index");
 		return modelAndView;
 	}
 
 	@Mapping("dataExport")
-	public void dataExport(HttpServletRequest request, HttpServletResponse response) throws IOException {
+	public void dataExport(Context context) throws IOException {
 		String date = DateUtil.format(new Date(), "yyyy-MM-dd_HH-mm-ss");
 
 		AsycPack asycPack = confService.getAsycPack(new String[] {"all"});
 		String json = JSONUtil.toJsonPrettyStr(asycPack);
 
-		response.addHeader("Content-Type", "application/octet-stream");
-		response.setHeader("content-disposition", "attachment;filename=" + URLEncoder.encode(date + ".json", "UTF-8")); // 设置文件名
+		context.header("Content-Type", "application/octet-stream");
+		context.header("content-disposition", "attachment;filename=" + URLEncoder.encode(date + ".json", "UTF-8")); // 设置文件名
 
 		byte[] buffer = new byte[1024];
 		BufferedInputStream bis = new BufferedInputStream(new ByteArrayInputStream(json.getBytes(Charset.forName("UTF-8"))));
-		OutputStream os = response.getOutputStream();
+		OutputStream os = context.outputStream();
 		int i = bis.read(buffer);
 		while (i != -1) {
 			os.write(buffer, 0, i);
@@ -69,10 +66,10 @@ public class ExportController extends BaseController {
 
 	@Mapping(value = "dataImport")
 	
-	public JsonResult dataImport(String json, HttpServletRequest request, String adminName) {
+	public JsonResult dataImport(String json,Context context, String adminName) {
 		AsycPack asycPack = JSONUtil.toBean(json, AsycPack.class);
 		if(StrUtil.isEmpty(adminName)) {
-			Admin admin = getAdmin(request);
+			Admin admin = getAdmin();
 			adminName = admin.getName();
 		}
 		confService.setAsycPack(asycPack, adminName);
@@ -81,14 +78,14 @@ public class ExportController extends BaseController {
 	}
 
 	@Mapping("logExport")
-	public void logExport(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException {
+	public void logExport(Context context) throws UnsupportedEncodingException {
 		File file = new File(InitConfig.home + "log/nginxWebUI.log");
 		if (file.exists()) {
 			// 配置文件下载
-			response.setHeader("content-type", "application/octet-stream");
-			response.setContentType("application/octet-stream");
+			context.header("content-type", "application/octet-stream");
+			context.contentType("application/octet-stream");
 			// 下载文件能正常显示中文
-			response.setHeader("Content-Disposition", "attachment;filename=" + URLEncoder.encode(file.getName(), "UTF-8"));
+			context.header("Content-Disposition", "attachment;filename=" + URLEncoder.encode(file.getName(), "UTF-8"));
 			// 实现文件下载
 			byte[] buffer = new byte[1024];
 			FileInputStream fis = null;
@@ -96,7 +93,7 @@ public class ExportController extends BaseController {
 			try {
 				fis = new FileInputStream(file);
 				bis = new BufferedInputStream(fis);
-				OutputStream os = response.getOutputStream();
+				OutputStream os = context.outputStream();
 				int i = bis.read(buffer);
 				while (i != -1) {
 					os.write(buffer, 0, i);

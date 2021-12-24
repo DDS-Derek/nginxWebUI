@@ -2,8 +2,6 @@ package com.cym.controller.adminPage;
 
 import java.util.List;
 
-import javax.servlet.http.HttpSession;
-
 import org.noear.solon.annotation.Controller;
 import org.noear.solon.annotation.Inject;
 import org.noear.solon.annotation.Mapping;
@@ -29,7 +27,7 @@ public class HttpController extends BaseController {
 	SettingService settingService;
 
 	@Mapping("")
-	public ModelAndView index(HttpSession httpSession, ModelAndView modelAndView) {
+	public ModelAndView index(ModelAndView modelAndView) {
 		List<Http> httpList = httpService.findAll();
 
 		modelAndView.put("httpList", httpList);

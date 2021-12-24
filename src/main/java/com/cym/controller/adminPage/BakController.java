@@ -6,13 +6,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpSession;
-
 import org.noear.solon.annotation.Controller;
 import org.noear.solon.annotation.Inject;
 import org.noear.solon.annotation.Mapping;
 import org.noear.solon.core.handle.ModelAndView;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.cym.model.Bak;
 import com.cym.model.BakSub;
@@ -34,7 +31,7 @@ public class BakController extends BaseController {
 	BakService bakService;
 
 	@Mapping("")
-	public ModelAndView index(HttpSession httpSession, ModelAndView modelAndView, Page page) {
+	public ModelAndView index( ModelAndView modelAndView, Page page) {
 		page = bakService.getList(page);
 
 		modelAndView.put("page", page);

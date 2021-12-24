@@ -5,14 +5,11 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
 import org.apache.commons.io.IOUtils;
 import org.noear.solon.annotation.Controller;
 import org.noear.solon.annotation.Inject;
 import org.noear.solon.annotation.Mapping;
+import org.noear.solon.core.handle.Context;
 import org.noear.solon.core.handle.ModelAndView;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -43,7 +40,7 @@ public class LogController extends BaseController {
 	ScheduleTask scheduleTask;
 
 	@Mapping("")
-	public ModelAndView index(HttpSession httpSession, ModelAndView modelAndView, Page page) {
+	public ModelAndView index( ModelAndView modelAndView, Page page) {
 		page = logService.search(page);
 		modelAndView.put("page", page);
 
@@ -81,7 +78,7 @@ public class LogController extends BaseController {
 	}
 
 	@Mapping("tail")
-	public ModelAndView tail(ModelAndView modelAndView, String id, String protocol, HttpServletRequest request) {
+	public ModelAndView tail(ModelAndView modelAndView, String id, String protocol) {
 		modelAndView.put("id", id);
 		// 获取远程机器的协议
 		if (StrUtil.isNotEmpty(protocol)) {
@@ -93,9 +90,9 @@ public class LogController extends BaseController {
 			}
 		}
 
-		String httpHost = request.getHeader("X-Forwarded-Host");
-		String realPort = request.getHeader("X-Forwarded-Port");
-		String host = request.getHeader("Host");
+		String httpHost = Context.current().header("X-Forwarded-Host");
+		String realPort = Context.current().header("X-Forwarded-Port");
+		String host = Context.current().header("Host");
 
 		String ctxWs = AdminInterceptor.getCtx(httpHost, host, realPort);
 		modelAndView.put("ctxWs", ctxWs);
@@ -106,21 +103,20 @@ public class LogController extends BaseController {
 
 	
 	@Mapping("down")
-	public void down(ModelAndView modelAndView, String id, HttpServletResponse response) {
+	public void down(ModelAndView modelAndView, String id) {
 		Log log = sqlHelper.findById(id, Log.class);
-		outputStream(new File(log.getPath()), response);
+		outputStream(new File(log.getPath()));
 	}
 
-	private void outputStream(File file, HttpServletResponse response) {
+	private void outputStream(File file) {
 		try {
-			response.setContentType("application/octet-stream");
+			Context.current().contentType("application/octet-stream");
 			String headerKey = "Content-Disposition";
 			String headerValue = "attachment; filename=" + URLUtil.encode(file.getName());
-			response.setHeader(headerKey, headerValue);
+			Context.current().header(headerKey, headerValue);
 
 			InputStream inputStream = new FileInputStream(file);
-			IOUtils.copy(inputStream, response.getOutputStream());
-			response.flushBuffer();
+			IOUtils.copy(inputStream, Context.current().outputStream());
 		} catch (IOException e) {
 			logger.error(e.getMessage(), e);
 		}

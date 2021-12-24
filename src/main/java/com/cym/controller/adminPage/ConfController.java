@@ -4,15 +4,12 @@ import java.io.File;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.noear.solon.annotation.Controller;
 import org.noear.solon.annotation.Inject;
 import org.noear.solon.annotation.Mapping;
 import org.noear.solon.core.handle.ModelAndView;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Value;
 
 import com.cym.config.InitConfig;
 import com.cym.config.VersionConfig;
@@ -58,8 +55,8 @@ public class ConfController extends BaseController {
 
 	@Inject
 	VersionConfig versionConfig;
-	
-	@Value("${project.version}")
+
+	@Inject("${project.version}")
 	String currentVersion;
 
 	@Mapping("")
@@ -84,7 +81,7 @@ public class ConfController extends BaseController {
 	}
 
 	@Mapping(value = "nginxStatus")
-	
+
 	public JsonResult nginxStatus() {
 		if (NginxUtils.isRun()) {
 			return renderSuccess(m.get("confStr.nginxStatus") + "：<span class='green'>" + m.get("confStr.running") + "</span>");
@@ -95,8 +92,8 @@ public class ConfController extends BaseController {
 	}
 
 	@Mapping(value = "replace")
-	
-	public JsonResult replace(String json, HttpServletRequest request, String adminName) {
+
+	public JsonResult replace(String json, String adminName) {
 
 		if (StrUtil.isEmpty(json)) {
 			json = getReplaceJson();
@@ -126,12 +123,12 @@ public class ConfController extends BaseController {
 		}
 
 		try {
-			if(StrUtil.isEmpty(adminName)) {
-				Admin admin = getAdmin(request);
+			if (StrUtil.isEmpty(adminName)) {
+				Admin admin = getAdmin();
 				adminName = admin.getName();
 			}
-			
-			confService.replace(nginxPath, nginxContent, subContent, subName, true, adminName); 
+
+			confService.replace(nginxPath, nginxContent, subContent, subName, true, adminName);
 			return renderSuccess(m.get("confStr.replaceSuccess"));
 		} catch (Exception e) {
 			logger.error(e.getMessage(), e);
@@ -166,7 +163,7 @@ public class ConfController extends BaseController {
 	 * @return
 	 */
 	@Mapping(value = "checkBase")
-	
+
 	public JsonResult checkBase() {
 		String nginxExe = settingService.get("nginxExe");
 		String nginxDir = settingService.get("nginxDir");
@@ -182,7 +179,7 @@ public class ConfController extends BaseController {
 			FileUtil.writeString(confExt.getConf(), fileTemp, CharsetUtil.CHARSET_UTF_8);
 
 			ClassPathResource resource = new ClassPathResource("mime.types");
-			FileUtil.writeFromStream(resource.getInputStream(), InitConfig.home + "temp/mime.types");
+			FileUtil.writeFromStream(resource.getStream(), InitConfig.home + "temp/mime.types");
 
 			cmd = nginxExe + " -t -c " + fileTemp;
 			if (StrUtil.isNotEmpty(nginxDir)) {
@@ -213,7 +210,7 @@ public class ConfController extends BaseController {
 	 * @return
 	 */
 	@Mapping(value = "check")
-	
+
 	public JsonResult check(String nginxPath, String nginxExe, String nginxDir, String json) {
 		if (nginxExe == null) {
 			nginxExe = settingService.get("nginxExe");
@@ -248,7 +245,7 @@ public class ConfController extends BaseController {
 
 		try {
 			ClassPathResource resource = new ClassPathResource("mime.types");
-			FileUtil.writeFromStream(resource.getInputStream(), InitConfig.home + "temp/mime.types");
+			FileUtil.writeFromStream(resource.getStream(), InitConfig.home + "temp/mime.types");
 
 			cmd = nginxExe + " -t -c " + fileTemp;
 			if (StrUtil.isNotEmpty(nginxDir)) {
@@ -270,7 +267,7 @@ public class ConfController extends BaseController {
 	}
 
 	@Mapping(value = "saveCmd")
-	
+
 	public JsonResult saveCmd(String nginxPath, String nginxExe, String nginxDir) {
 		nginxPath = ToolUtils.handlePath(nginxPath);
 		settingService.set("nginxPath", nginxPath);
@@ -285,7 +282,7 @@ public class ConfController extends BaseController {
 	}
 
 	@Mapping(value = "reload")
-	
+
 	public synchronized JsonResult reload(String nginxPath, String nginxExe, String nginxDir) {
 		if (nginxPath == null) {
 			nginxPath = settingService.get("nginxPath");
@@ -321,12 +318,12 @@ public class ConfController extends BaseController {
 	}
 
 	@Mapping(value = "runCmd")
-	
+
 	public JsonResult runCmd(String cmd, String type) {
-		if(StrUtil.isNotEmpty(type)) {
+		if (StrUtil.isNotEmpty(type)) {
 			settingService.set(type, cmd);
 		}
-		
+
 		try {
 			String rs = "";
 			if (SystemTool.isWindows()) {
@@ -352,13 +349,13 @@ public class ConfController extends BaseController {
 	}
 
 	@Mapping(value = "getLastCmd")
-	
+
 	public JsonResult getLastCmd(String type) {
 		return renderSuccess(settingService.get(type));
 	}
 
 	@Mapping(value = "loadConf")
-	
+
 	public JsonResult loadConf() {
 		String decompose = settingService.get("decompose");
 
@@ -367,7 +364,7 @@ public class ConfController extends BaseController {
 	}
 
 	@Mapping(value = "loadOrg")
-	
+
 	public JsonResult loadOrg(String nginxPath) {
 		String decompose = settingService.get("decompose");
 		ConfExt confExt = confService.buildConf(StrUtil.isNotEmpty(decompose) && decompose.equals("true"), false);
@@ -397,14 +394,14 @@ public class ConfController extends BaseController {
 	}
 
 	@Mapping(value = "decompose")
-	
+
 	public JsonResult decompose(String decompose) {
 		settingService.set("decompose", decompose);
 		return renderSuccess();
 	}
 
 	@Mapping(value = "update")
-	
+
 	public JsonResult update() {
 		versionConfig.getNewVersion();
 		if (Integer.parseInt(currentVersion.replace(".", "").replace("v", "")) < Integer.parseInt(versionConfig.getVersion().getVersion().replace(".", "").replace("v", ""))) {
@@ -416,13 +413,13 @@ public class ConfController extends BaseController {
 	}
 
 	@Mapping(value = "getKey")
-	
+
 	public JsonResult getKey(String key) {
 		return renderSuccess(settingService.get(key));
 	}
 
 	@Mapping(value = "setKey")
-	
+
 	public JsonResult setKey(String key, String val) {
 		settingService.set(key, val);
 		return renderSuccess();

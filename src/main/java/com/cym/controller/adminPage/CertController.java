@@ -8,12 +8,10 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
 import org.noear.solon.annotation.Controller;
 import org.noear.solon.annotation.Inject;
 import org.noear.solon.annotation.Mapping;
+import org.noear.solon.core.handle.Context;
 import org.noear.solon.core.handle.ModelAndView;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -48,7 +46,7 @@ public class CertController extends BaseController {
 	Boolean isInApply = false;
 
 	@Mapping("")
-	public ModelAndView index(HttpSession httpSession, ModelAndView modelAndView, Page page, String keywords) {
+	public ModelAndView index(ModelAndView modelAndView, Page page, String keywords) {
 		page = certService.getPage(keywords, page);
 
 		modelAndView.put("keywords", keywords);
@@ -58,7 +56,7 @@ public class CertController extends BaseController {
 	}
 
 	@Mapping("addOver")
-	
+
 	public JsonResult addOver(Cert cert, String[] domains, String[] types, String[] values) {
 		if (certService.hasSame(cert)) {
 			return renderError(m.get("certStr.same"));
@@ -70,20 +68,20 @@ public class CertController extends BaseController {
 	}
 
 	@Mapping("setAutoRenew")
-	
+
 	public JsonResult setAutoRenew(Cert cert) {
 		sqlHelper.updateById(cert);
 		return renderSuccess();
 	}
 
 	@Mapping("detail")
-	
+
 	public JsonResult detail(String id) {
 		return renderSuccess(sqlHelper.findById(id, Cert.class));
 	}
 
 	@Mapping("del")
-	
+
 	public JsonResult del(String id) {
 		Cert cert = sqlHelper.findById(id, Cert.class);
 		String path = InitConfig.acmeShDir + cert.getDomain();
@@ -95,7 +93,7 @@ public class CertController extends BaseController {
 	}
 
 	@Mapping("apply")
-	
+
 	public JsonResult apply(String id, String type) {
 		if (!SystemTool.isLinux()) {
 			return renderError(m.get("certStr.error2"));
@@ -236,7 +234,7 @@ public class CertController extends BaseController {
 	}
 
 	@Mapping("getTxtValue")
-	
+
 	public JsonResult getTxtValue(String id) {
 
 		List<CertCode> certCodes = certService.getCertCodes(id);
@@ -244,7 +242,7 @@ public class CertController extends BaseController {
 	}
 
 	@Mapping("download")
-	public void download(String id, HttpServletResponse response) throws IOException {
+	public void download(String id) throws IOException {
 		Cert cert = sqlHelper.findById(id, Cert.class);
 		if (StrUtil.isNotEmpty(cert.getPem()) && StrUtil.isNotEmpty(cert.getKey())) {
 			String dir = InitConfig.home + "/temp/cert";
@@ -260,21 +258,21 @@ public class CertController extends BaseController {
 			ZipUtil.zip(dir);
 			FileUtil.del(dir);
 
-			handleStream(response, dir + ".zip");
+			handleStream(dir + ".zip");
 		}
 	}
 
-	private void handleStream(HttpServletResponse response, String path) throws IOException {
+	private void handleStream(String path) throws IOException {
 
-		response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=utf-8");
-		response.setHeader("Content-Disposition", "attachment;filename=cert.zip");
+		Context.current().contentType(("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=utf-8"));
+		Context.current().header("Content-Disposition", "attachment;filename=cert.zip");
 		byte[] buffer = new byte[1024];
 		FileInputStream fis = null;
 		BufferedInputStream bis = null;
 		try {
 			fis = new FileInputStream(path);
 			bis = new BufferedInputStream(fis);
-			OutputStream os = response.getOutputStream();
+			OutputStream os = Context.current().outputStream();
 			int i = bis.read(buffer);
 			while (i != -1) {
 				os.write(buffer, 0, i);
