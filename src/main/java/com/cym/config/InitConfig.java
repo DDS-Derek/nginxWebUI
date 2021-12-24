@@ -6,30 +6,25 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.annotation.PostConstruct;
-
+import org.noear.solon.annotation.Component;
+import org.noear.solon.annotation.Init;
+import org.noear.solon.annotation.Inject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.system.ApplicationHome;
-import org.springframework.context.ApplicationContext;
-import org.springframework.core.io.ClassPathResource;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.stereotype.Component;
 
 import com.cym.model.Basic;
 import com.cym.model.Http;
 import com.cym.service.BasicService;
 import com.cym.service.SettingService;
+import com.cym.sqlhelper.utils.JdbcTemplate;
+import com.cym.sqlhelper.utils.SqlHelper;
 import com.cym.utils.FilePermissionUtil;
 import com.cym.utils.MessageUtils;
 import com.cym.utils.NginxUtils;
 import com.cym.utils.SystemTool;
 
-import cn.craccd.sqlHelper.utils.SqlHelper;
 import cn.hutool.core.io.FileUtil;
+import cn.hutool.core.io.resource.ClassPathResource;
 import cn.hutool.core.util.CharsetUtil;
 import cn.hutool.core.util.RuntimeUtil;
 import cn.hutool.core.util.StrUtil;
@@ -40,8 +35,6 @@ public class InitConfig {
 	Logger logger = LoggerFactory.getLogger(this.getClass());
 	@Inject
 	protected MessageUtils m;
-	@Inject
-	private ApplicationContext applicationContext;
 	
 	public static String acmeSh;
 	public static String acmeShDir;
@@ -58,20 +51,19 @@ public class InitConfig {
 	@Inject
 	JdbcTemplate jdbcTemplate;
 
-	@Value("${project.home}")
+	@Inject("${project.home}")
 	public void setHome(String home) {
-
 		InitConfig.home = home;
 		InitConfig.acmeShDir = home + ".acme.sh/";
 		InitConfig.acmeSh = home + ".acme.sh/acme.sh";
 	}
 
-	@PostConstruct
+	@Init
 	public void init() throws IOException {
 		if(!FilePermissionUtil.canWrite(new File(home))) {
 			logger.error(home + " " + "directory does not have writable permission. Please specify it again.");
 			logger.error(home + " " + "目录没有可写权限,请重新指定.");
-			SpringApplication.exit(applicationContext);
+			System.exit(1); 
 		}
 		
 		// 初始化base值
@@ -95,11 +87,11 @@ public class InitConfig {
 		// 释放nginx.conf,mime.types
 		if (!FileUtil.exist(home + "nginx.conf")) {
 			ClassPathResource resource = new ClassPathResource("nginx.conf");
-			FileUtil.writeFromStream(resource.getInputStream(), home + "nginx.conf");
+			FileUtil.writeFromStream(resource.getStream(), home + "nginx.conf");
 		}
 		if (!FileUtil.exist(home + "mime.types")) {
 			ClassPathResource resource = new ClassPathResource("mime.types");
-			FileUtil.writeFromStream(resource.getInputStream(), home + "mime.types");
+			FileUtil.writeFromStream(resource.getStream(), home + "mime.types");
 		}
 
 		// 设置nginx配置文件
@@ -113,7 +105,7 @@ public class InitConfig {
 		if (SystemTool.isLinux()) {
 			// 释放acme全新包
 			ClassPathResource resource = new ClassPathResource("acme.zip");
-			InputStream inputStream = resource.getInputStream();
+			InputStream inputStream = resource.getStream();
 			FileUtil.writeFromStream(inputStream, InitConfig.home + "acme.zip");
 			FileUtil.mkdir(acmeShDir);
 			ZipUtil.unzip(home + "acme.zip", acmeShDir);

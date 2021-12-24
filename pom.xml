@@ -24,7 +24,10 @@
 			<groupId>org.noear</groupId>
 			<artifactId>logback-solon-plugin</artifactId>
 		</dependency>
-
+		<dependency>
+			<groupId>org.noear</groupId>
+			<artifactId>cron4j-solon-plugin</artifactId>
+		</dependency>
 		<dependency>
 			<groupId>com.github.odiszapc</groupId>
 			<artifactId>nginxparser</artifactId>
