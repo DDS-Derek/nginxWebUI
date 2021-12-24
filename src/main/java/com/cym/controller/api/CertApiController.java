@@ -1,34 +1,26 @@
 package com.cym.controller.api;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
-import javax.servlet.http.HttpServletResponse;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.noear.solon.annotation.Inject;
+import org.noear.solon.annotation.Mapping;
 
 import com.cym.controller.adminPage.CertController;
 import com.cym.model.Cert;
 import com.cym.model.CertCode;
 import com.cym.service.CertService;
+import com.cym.sqlhelper.bean.Page;
 import com.cym.utils.BaseController;
 import com.cym.utils.JsonResult;
-import com.cym.utils.SystemTool;
 
-import cn.craccd.sqlHelper.bean.Page;
 import cn.hutool.core.util.StrUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 
 @Api(tags = "证书接口")
-@RestController
+
 @Mapping("/api/cert")
 public class CertApiController extends BaseController {
 
@@ -38,20 +30,20 @@ public class CertApiController extends BaseController {
 	CertService certService;
 
 	@ApiOperation("获取证书分页列表")
-	@PostMapping("getPage")
-	public JsonResult<Page<Cert>> getPage(@ApiParam("当前页数(从1开始)") @RequestParam(defaultValue = "1") Integer current, //
-			@ApiParam("每页数量(默认为10)") @RequestParam(defaultValue = "10") Integer limit, //
+	@Mapping("getPage")
+	public JsonResult<Page<Cert>> getPage(@ApiParam("当前页数(从1开始)") Integer current, //
+			@ApiParam("每页数量(默认为10)") Integer limit, //
 			@ApiParam("查询关键字") String keywords) {
 		Page page = new Page();
 		page.setCurr(current);
 		page.setLimit(limit);
 		page = certService.getPage(keywords, page);
-				
+
 		return renderSuccess(page);
 	}
 
 	@ApiOperation("添加或编辑证书")
-	@PostMapping("addOver")
+	@Mapping("addOver")
 	public JsonResult addOver(Cert cert) {
 		if (StrUtil.isEmpty(cert.getDomain())) {
 			return renderError("域名为空");
@@ -79,14 +71,14 @@ public class CertApiController extends BaseController {
 	}
 
 	@ApiOperation("获取域名解析码")
-	@PostMapping("getTxtValue")
+	@Mapping("getTxtValue")
 	public JsonResult<List<CertCode>> getTxtValue(String certId) {
 		List<CertCode> certCodes = certService.getCertCodes(certId);
 		return renderSuccess(certCodes);
 	}
 
 	@ApiOperation("设置证书自动续签")
-	@PostMapping("setAutoRenew")
+	@Mapping("setAutoRenew")
 	public JsonResult setAutoRenew(@ApiParam("主键id") String id, @ApiParam("是否自动续签:0否 1是") Integer autoRenew) {
 		Cert cert = new Cert();
 		cert.setId(id);
@@ -97,27 +89,27 @@ public class CertApiController extends BaseController {
 	}
 
 	@ApiOperation("删除证书")
-	@PostMapping("del")
+	@Mapping("del")
 	public JsonResult del(String id) {
 		return certController.del(id);
 	}
 
 	@ApiOperation("执行申请")
-	@PostMapping("apply")
+	@Mapping("apply")
 	public JsonResult<List<CertCode>> apply(@ApiParam("主键id") String id, @ApiParam("申请类型 issue:申请 renew:续签") String type) {
 
 		JsonResult jsonResult = certController.apply(id, type);
-		
-		if(jsonResult.isSuccess() && jsonResult.getObj()!=null) {
+
+		if (jsonResult.isSuccess() && jsonResult.getObj() != null) {
 			jsonResult.setMsg(m.get("certStr.dnsDescr"));
 		}
-		
+
 		return jsonResult;
 	}
 
 	@ApiOperation("下载证书文件")
-	@PostMapping("download")
-	public void download(@ApiParam("主键id") String id, HttpServletResponse response) throws IOException {
-		certController.download(id, response);
+	@Mapping("download")
+	public void download(@ApiParam("主键id") String id) throws IOException {
+		certController.download(id);
 	}
 }

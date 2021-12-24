@@ -3,10 +3,8 @@ package com.cym.controller.api;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.noear.solon.annotation.Inject;
+import org.noear.solon.annotation.Mapping;
 
 import com.cym.model.Admin;
 import com.cym.service.AdminService;
@@ -17,13 +15,13 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiParam;
 
 @Api(tags = "获取token")
-@RestController
+
 @Mapping("token")
 public class TokenController extends BaseController {
 	@Inject
 	AdminService adminService;
 
-	@PostMapping("getToken")
+	@Mapping("getToken")
 	public JsonResult getToken(@ApiParam("用户名") String name, @ApiParam("密码") String pass) {
 
 		// 用户名密码
