@@ -35,7 +35,7 @@ public class InitConfig {
 	Logger logger = LoggerFactory.getLogger(this.getClass());
 	@Inject
 	protected MessageUtils m;
-	
+
 	public static String acmeSh;
 	public static String acmeShDir;
 	public static String home;
@@ -51,21 +51,18 @@ public class InitConfig {
 	@Inject
 	JdbcTemplate jdbcTemplate;
 
-	@Inject("${project.home}")
-	public void setHome(String home) {
+	@Init
+	public void init(@Inject("${project.home}") String home) throws IOException {
 		InitConfig.home = home;
 		InitConfig.acmeShDir = home + ".acme.sh/";
 		InitConfig.acmeSh = home + ".acme.sh/acme.sh";
-	}
 
-	@Init
-	public void init() throws IOException {
-		if(!FilePermissionUtil.canWrite(new File(home))) {
+		if (!FilePermissionUtil.canWrite(new File(home))) {
 			logger.error(home + " " + "directory does not have writable permission. Please specify it again.");
 			logger.error(home + " " + "目录没有可写权限,请重新指定.");
-			System.exit(1); 
+			System.exit(1);
 		}
-		
+
 		// 初始化base值
 		Long count = sqlHelper.findAllCount(Basic.class);
 		if (count == 0) {

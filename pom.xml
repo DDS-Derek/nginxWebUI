@@ -33,7 +33,10 @@
 			<artifactId>nginxparser</artifactId>
 			<version>0.9.6</version>
 		</dependency>
-
+		<dependency>
+			<groupId>org.noear</groupId>
+			<artifactId>solon.boot.websocket</artifactId>
+		</dependency>
 		<dependency>
 			<groupId>com.h2database</groupId>
 			<artifactId>h2</artifactId>
