@@ -2,10 +2,9 @@ package com.cym.controller.adminPage;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.IOException;
+import java.io.FileNotFoundException;
 import java.io.InputStream;
 
-import org.apache.commons.io.IOUtils;
 import org.noear.solon.annotation.Controller;
 import org.noear.solon.annotation.Inject;
 import org.noear.solon.annotation.Mapping;
@@ -105,23 +104,17 @@ public class LogController extends BaseController {
 
 	
 	@Mapping("down")
-	public void down(ModelAndView modelAndView, String id) {
+	public void down(ModelAndView modelAndView, String id) throws FileNotFoundException {
 		Log log = sqlHelper.findById(id, Log.class);
-		outputStream(new File(log.getPath()));
+		File file = new File(log.getPath());
+		
+		Context.current().contentType("application/octet-stream");
+		String headerKey = "Content-Disposition";
+		String headerValue = "attachment; filename=" + URLUtil.encode(file.getName());
+		Context.current().header(headerKey, headerValue);
+
+		InputStream inputStream = new FileInputStream(file);
+		Context.current().output(inputStream);
 	}
 
-	private void outputStream(File file) {
-		try {
-			Context.current().contentType("application/octet-stream");
-			String headerKey = "Content-Disposition";
-			String headerValue = "attachment; filename=" + URLUtil.encode(file.getName());
-			Context.current().header(headerKey, headerValue);
-
-			InputStream inputStream = new FileInputStream(file);
-			IOUtils.copy(inputStream, Context.current().outputStream());
-		} catch (IOException e) {
-			logger.error(e.getMessage(), e);
-		}
-
-	}
 }
