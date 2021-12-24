@@ -19,6 +19,7 @@ import com.cym.service.SettingService;
 import com.cym.sqlhelper.utils.JdbcTemplate;
 import com.cym.sqlhelper.utils.SqlHelper;
 import com.cym.utils.FilePermissionUtil;
+import com.cym.utils.JarUtil;
 import com.cym.utils.MessageUtils;
 import com.cym.utils.NginxUtils;
 import com.cym.utils.SystemTool;
@@ -53,6 +54,18 @@ public class InitConfig {
 
 	@Init
 	public void init(@Inject("${project.home}") String home) throws IOException {
+		
+		if (StrUtil.isEmpty(home)) {
+			// 获取jar位置
+			File file = new File(JarUtil.getCurrentFilePath());
+
+			if (file.getPath().contains("target") && file.getPath().contains("classes")) {
+				home = FileUtil.getUserHomePath() + File.separator + "svnWebUI";
+			} else {
+				home = file.getParent();
+			}
+		}
+		
 		InitConfig.home = home;
 		InitConfig.acmeShDir = home + ".acme.sh/";
 		InitConfig.acmeSh = home + ".acme.sh/acme.sh";

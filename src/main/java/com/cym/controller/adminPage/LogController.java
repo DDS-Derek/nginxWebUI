@@ -14,7 +14,7 @@ import org.noear.solon.core.handle.ModelAndView;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.cym.config.AdminInterceptor;
+import com.cym.config.AppFilter;
 import com.cym.config.ScheduleTask;
 import com.cym.model.Log;
 import com.cym.service.LogService;
@@ -38,6 +38,8 @@ public class LogController extends BaseController {
 	LogService logService;
 	@Inject
 	ScheduleTask scheduleTask;
+	@Inject
+	AppFilter appFilter;
 
 	@Mapping("")
 	public ModelAndView index( ModelAndView modelAndView, Page page) {
@@ -94,7 +96,7 @@ public class LogController extends BaseController {
 		String realPort = Context.current().header("X-Forwarded-Port");
 		String host = Context.current().header("Host");
 
-		String ctxWs = AdminInterceptor.getCtx(httpHost, host, realPort);
+		String ctxWs = appFilter.getCtxStr(httpHost, host, realPort);
 		modelAndView.put("ctxWs", ctxWs);
 		
 		modelAndView.view("/adminPage/log/tail");
