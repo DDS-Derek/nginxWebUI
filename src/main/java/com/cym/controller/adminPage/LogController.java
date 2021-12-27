@@ -14,7 +14,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.cym.config.AppFilter;
-import com.cym.config.ScheduleTask;
 import com.cym.model.Log;
 import com.cym.service.LogService;
 import com.cym.service.SettingService;
@@ -35,8 +34,6 @@ public class LogController extends BaseController {
 	SettingService settingService;
 	@Inject
 	LogService logService;
-	@Inject
-	ScheduleTask scheduleTask;
 	@Inject
 	AppFilter appFilter;
 

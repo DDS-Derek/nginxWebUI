@@ -37,6 +37,10 @@ public class InitConfig {
 	@Inject
 	protected MessageUtils m;
 
+	@Inject
+	HomeConfig homeConfig;
+	
+	
 	public static String acmeSh;
 	public static String acmeShDir;
 	public static String home;
@@ -50,23 +54,12 @@ public class InitConfig {
 	@Inject
 	JdbcTemplate jdbcTemplate;
 
-	@Init
-	public void init(@Inject("${project.home}") String home) throws IOException {
+	@Init(index = 30)
+	public void init() throws IOException {
 		
-		if (StrUtil.isEmpty(home)) {
-			// 获取jar位置
-			File file = new File(JarUtil.getCurrentFilePath());
-
-			if (file.getPath().contains("target") && file.getPath().contains("classes")) {
-				home = FileUtil.getUserHomePath() + File.separator + "svnWebUI";
-			} else {
-				home = file.getParent();
-			}
-		}
-		
-		InitConfig.home = home;
-		InitConfig.acmeShDir = home + ".acme.sh/";
-		InitConfig.acmeSh = home + ".acme.sh/acme.sh";
+		InitConfig.home = homeConfig.home;
+		InitConfig.acmeShDir = homeConfig.home + ".acme.sh/";
+		InitConfig.acmeSh = homeConfig.home + ".acme.sh/acme.sh";
 
 		if (!FilePermissionUtil.canWrite(new File(home))) {
 			logger.error(home + " " + "directory does not have writable permission. Please specify it again.");

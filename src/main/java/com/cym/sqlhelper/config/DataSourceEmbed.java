@@ -6,7 +6,9 @@ import javax.sql.DataSource;
 
 import org.noear.solon.annotation.Component;
 import org.noear.solon.annotation.Init;
+import org.noear.solon.annotation.Inject;
 
+import com.cym.config.HomeConfig;
 import com.cym.config.InitConfig;
 
 import cn.hutool.db.ds.pooled.DbConfig;
@@ -14,11 +16,13 @@ import cn.hutool.db.ds.pooled.PooledDataSource;
 
 @Component
 public class DataSourceEmbed {
-
+	@Inject
+	HomeConfig homeConfig;
+	
 	DataSource dataSource;
-	@Init(index = 10)
+	@Init(index = 20)
 	public void init() {
-		String dbPath = InitConfig.home + File.separator + "h2";
+		String dbPath = homeConfig.home + File.separator + "h2";
 
 		if (dataSource == null) {
 			DbConfig dbConfig = new DbConfig();
