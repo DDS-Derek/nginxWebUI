@@ -54,7 +54,7 @@ public class AppFilter implements Filter {
 	MessageUtils m;
 	@Inject
 	CreditService creditService;
-	@Inject("${spring.application.name}")
+	@Inject("${solon.app.name}")
 	String projectName;
 
 	@Inject
@@ -231,7 +231,8 @@ public class AppFilter implements Filter {
 		ctx.attrSet("projectName", projectName);
 
 		ctx.attrSet("showAdmin", ctx.param("showAdmin"));
-
+		ctx.attrSet("admin", ctx.session("admin"));
+		
 		// 显示版本更新
 		if (versionConfig.getVersion() != null) {
 			ctx.attrSet("newVersion", versionConfig.getVersion());

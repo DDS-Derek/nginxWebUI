@@ -49,8 +49,8 @@ public class JdbcTemplate {
 			}
 
 			return mapList;
-		} catch (SQLException e) {
-			e.printStackTrace();
+		} catch (Exception e) {
+			logger.error(e.getMessage(), e);
 		}
 		return null;
 	}
