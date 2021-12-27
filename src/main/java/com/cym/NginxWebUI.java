@@ -1,8 +1,11 @@
 package com.cym;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.IOException;
 import java.lang.management.ManagementFactory;
 import java.lang.management.RuntimeMXBean;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,6 +18,7 @@ import com.cym.utils.JarUtil;
 import com.cym.utils.SystemTool;
 
 import cn.hutool.core.io.FileUtil;
+import cn.hutool.core.io.resource.ClassPathResource;
 import cn.hutool.core.util.RuntimeUtil;
 
 @EnableQuartz
@@ -28,21 +32,36 @@ public class NginxWebUI {
 
 			// 删掉多余的jar
 			removeJar();
+
+			// 展示logo
+			showLogo();
+
 		} catch (Exception e) {
 			logger.error(e.getMessage(), e);
 		}
 
 		Solon.start(NginxWebUI.class, args, app -> {
 			app.onError(e -> e.printStackTrace());
-			
-            app.enableWebSocket(true);
-            
+
+			app.enableWebSocket(true);
+
 			app.onEvent(freemarker.template.Configuration.class, cfg -> {
 				cfg.setSetting("classic_compatible", "true");
 				cfg.setSetting("number_format", "0.##");
 			});
 
 		});
+	}
+
+	private static void showLogo() throws IOException {
+		ClassPathResource resource = new ClassPathResource("banner.txt");
+		BufferedReader reader = resource.getReader(Charset.forName("utf-8"));
+		String str = "";
+		// 使用readLine() 比较方便的读取一行
+		while (null != (str = reader.readLine())) {
+			System.out.println(str);
+		}
+		reader.close();// 关闭流
 	}
 
 	public static void killSelf() {
