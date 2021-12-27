@@ -46,8 +46,6 @@ public class InitConfig {
 	@Inject
 	BasicService basicService;
 	@Inject
-	ScheduleTask scheduleTask;
-	@Inject
 	SqlHelper sqlHelper;
 	@Inject
 	JdbcTemplate jdbcTemplate;
