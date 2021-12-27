@@ -76,7 +76,7 @@ public class ConfController extends BaseController {
 
 		modelAndView.put("tmp", InitConfig.home + "temp/nginx.conf");
 
-		modelAndView.view("/adminPage/conf/index");
+		modelAndView.view("/adminPage/conf/index.html");
 		return modelAndView;
 	}
 

@@ -90,7 +90,7 @@ public class RemoteController extends BaseController {
 		modelAndView.put("stopCmds", jsonResult.getObj());
 
 		modelAndView.put("projectVersion", projectVersion);
-		modelAndView.view("/adminPage/remote/index");
+		modelAndView.view("/adminPage/remote/index.html");
 
 		return modelAndView;
 	}

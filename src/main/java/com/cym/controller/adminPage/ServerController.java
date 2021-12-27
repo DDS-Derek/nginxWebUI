@@ -101,7 +101,7 @@ public class ServerController extends BaseController {
 		modelAndView.put("passwordList", sqlHelper.findAll(Password.class));
 
 		modelAndView.put("keywords", keywords);
-		modelAndView.view("/adminPage/server/index");
+		modelAndView.view("/adminPage/server/index.html");
 		return modelAndView;
 	}
 

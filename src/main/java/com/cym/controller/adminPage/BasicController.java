@@ -26,7 +26,7 @@ public class BasicController extends BaseController {
 		List<Basic> basicList = basicService.findAll();
 
 		modelAndView.put("basicList", basicList);
-		modelAndView.view("/adminPage/basic/index");
+		modelAndView.view("/adminPage/basic/index.html");
 		return modelAndView;
 	}
 

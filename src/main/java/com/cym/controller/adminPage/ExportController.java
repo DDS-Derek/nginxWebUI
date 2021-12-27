@@ -40,7 +40,7 @@ public class ExportController extends BaseController {
 	@Mapping("")
 	public ModelAndView index( ModelAndView modelAndView) {
 
-		modelAndView.view("/adminPage/export/index");
+		modelAndView.view("/adminPage/export/index.html");
 		return modelAndView;
 	}
 

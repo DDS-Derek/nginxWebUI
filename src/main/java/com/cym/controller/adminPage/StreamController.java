@@ -26,7 +26,7 @@ public class StreamController extends BaseController {
 		List<Stream> streamList = streamService.findAll();
 
 		modelAndView.put("streamList", streamList);
-		modelAndView.view("/adminPage/stream/index");
+		modelAndView.view("/adminPage/stream/index.html");
 		return modelAndView;
 	}
 

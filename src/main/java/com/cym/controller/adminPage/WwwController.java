@@ -31,7 +31,7 @@ public class WwwController extends BaseController {
 	public ModelAndView index(ModelAndView modelAndView) {
 
 		modelAndView.put("list", sqlHelper.findAll(new Sort("dir", Direction.ASC), Www.class));
-		modelAndView.view("/adminPage/www/index");
+		modelAndView.view("/adminPage/www/index.html");
 		return modelAndView;
 	}
 

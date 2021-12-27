@@ -23,7 +23,7 @@ public class OperateLogController extends BaseController{
 		
 		modelAndView.put("page", page);
 		
-		modelAndView.view("/adminPage/operatelog/index");
+		modelAndView.view("/adminPage/operatelog/index.html");
 		return modelAndView;
 	}
 	

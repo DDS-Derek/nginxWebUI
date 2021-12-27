@@ -13,7 +13,7 @@ public class AbortController extends BaseController {
 	@Mapping("")
 	public ModelAndView index( ModelAndView modelAndView) {
 
-		modelAndView.view("/adminPage/abort/index");
+		modelAndView.view("/adminPage/abort/index.html");
 		return modelAndView;
 	}
 

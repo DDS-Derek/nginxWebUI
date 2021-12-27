@@ -42,7 +42,7 @@ public class MonitorController extends BaseController {
 		Boolean isInit = StrUtil.isNotEmpty(nginxExe);
 		modelAndView.put("isInit", isInit.toString());
 
-		modelAndView.view("/adminPage/monitor/index");
+		modelAndView.view("/adminPage/monitor/index.html");
 		return modelAndView;
 	}
 

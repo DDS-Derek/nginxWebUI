@@ -30,7 +30,7 @@ public class PasswordController extends BaseController {
 		page = passwordService.search(page);
 
 		modelAndView.put("page", page);
-		modelAndView.view("/adminPage/password/index");
+		modelAndView.view("/adminPage/password/index.html");
 		return modelAndView;
 	}
 

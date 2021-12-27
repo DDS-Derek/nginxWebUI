@@ -31,7 +31,7 @@ public class HttpController extends BaseController {
 		List<Http> httpList = httpService.findAll();
 
 		modelAndView.put("httpList", httpList);
-		modelAndView.view("/adminPage/http/index");
+		modelAndView.view("/adminPage/http/index.html");
 		return modelAndView;
 	}
 

@@ -35,7 +35,7 @@ public class BakController extends BaseController {
 		page = bakService.getList(page);
 
 		modelAndView.put("page", page);
-		modelAndView.view("/adminPage/bak/index");
+		modelAndView.view("/adminPage/bak/index.html");
 		return modelAndView;
 	}
 

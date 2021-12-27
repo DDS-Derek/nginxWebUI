@@ -40,7 +40,7 @@ public class TemplateController extends BaseController {
 		}
 		
 		modelAndView.put("templateList", extList);
-		modelAndView.view("/adminPage/template/index");
+		modelAndView.view("/adminPage/template/index.html");
 		return modelAndView;
 	}
 

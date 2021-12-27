@@ -51,7 +51,7 @@ public class CertController extends BaseController {
 
 		modelAndView.put("keywords", keywords);
 		modelAndView.put("page", page);
-		modelAndView.view("/adminPage/cert/index");
+		modelAndView.view("/adminPage/cert/index.html");
 		return modelAndView;
 	}
 

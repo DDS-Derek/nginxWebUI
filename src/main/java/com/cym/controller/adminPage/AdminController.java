@@ -58,7 +58,7 @@ public class AdminController extends BaseController {
 		page = adminService.search(page);
 
 		modelAndView.put("page", page);
-		modelAndView.view("/adminPage/admin/index");
+		modelAndView.view("/adminPage/admin/index.html");
 		return modelAndView;
 	}
 

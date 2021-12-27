@@ -39,7 +39,7 @@ public class MainController extends BaseController {
 
 	@Mapping("")
 	public ModelAndView index(ModelAndView modelAndView, String keywords) {
-		modelAndView.view("/adminPage/index");
+		modelAndView.view("/adminPage/index.html");
 		return modelAndView;
 	}
 

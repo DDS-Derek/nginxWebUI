@@ -43,7 +43,7 @@ public class LogController extends BaseController {
 		modelAndView.put("page", page);
 
 		modelAndView.put("isLinux", SystemTool.isLinux());
-		modelAndView.view("/adminPage/log/index");
+		modelAndView.view("/adminPage/log/index.html");
 		return modelAndView;
 	}
 
@@ -95,7 +95,7 @@ public class LogController extends BaseController {
 		String ctxWs = appFilter.getCtxStr(httpHost, host, realPort);
 		modelAndView.put("ctxWs", ctxWs);
 		
-		modelAndView.view("/adminPage/log/tail");
+		modelAndView.view("/adminPage/log/tail.html");
 		return modelAndView;
 	}
 
