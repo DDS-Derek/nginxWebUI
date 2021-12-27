@@ -74,9 +74,9 @@ public class AppFilter implements Filter {
 
 			// 全局过滤器
 			if (!ctx.path().contains("/lib/") //
-					&& !ctx.path().endsWith("/js/") //
-					&& !ctx.path().endsWith("/img/") //
-					&& !ctx.path().endsWith("/css/")) {
+					&& !ctx.path().contains("/js/") //
+					&& !ctx.path().contains("/img/") //
+					&& !ctx.path().contains("/css/")) {
 				if (!frontInterceptor(ctx)) {
 					return;
 				}
@@ -85,9 +85,9 @@ public class AppFilter implements Filter {
 			// 登录过滤器
 			if (ctx.path().contains("/adminPage/") //
 					&& !ctx.path().contains("/lib/") //
-					&& !ctx.path().endsWith("/js/") //
-					&& !ctx.path().endsWith("/img/") //
-					&& !ctx.path().endsWith("/css/")) {
+					&& !ctx.path().contains("/js/") //
+					&& !ctx.path().contains("/img/") //
+					&& !ctx.path().contains("/css/")) {
 				if (!adminInterceptor(ctx)) {
 					return;
 				}
@@ -96,9 +96,9 @@ public class AppFilter implements Filter {
 			// api过滤器
 			if (ctx.path().contains("/api/") //
 					&& !ctx.path().contains("/lib/") //
-					&& !ctx.path().endsWith("/js/") //
-					&& !ctx.path().endsWith("/img/") //
-					&& !ctx.path().endsWith("/css/")) {
+					&& !ctx.path().contains("/js/") //
+					&& !ctx.path().contains("/img/") //
+					&& !ctx.path().contains("/css/")) {
 				if (!apiInterceptor(ctx)) {
 					return;
 				}

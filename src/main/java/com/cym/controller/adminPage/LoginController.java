@@ -52,7 +52,7 @@ public class LoginController extends BaseController {
 	@Mapping("")
 	public ModelAndView admin(ModelAndView modelAndView,  String adminId) {
 		modelAndView.put("adminCount", sqlHelper.findAllCount(Admin.class));
-		modelAndView.view("/adminPage/login/index");
+		modelAndView.view("/adminPage/login/index.html");
 		return modelAndView;
 	}
 
@@ -60,13 +60,13 @@ public class LoginController extends BaseController {
 	public ModelAndView loginOut(ModelAndView modelAndView) {
 		
 		Context.current().sessionRemove(("isLogin"));;
-		modelAndView.view("/adminPage/index");
+		modelAndView.view("/adminPage/index.html");
 		return modelAndView;
 	}
 
 	@Mapping("noServer")
 	public ModelAndView noServer(ModelAndView modelAndView) {
-		modelAndView.view("/adminPage/login/noServer");
+		modelAndView.view("/adminPage/login/noServer.html");
 		return modelAndView;
 	}
 
