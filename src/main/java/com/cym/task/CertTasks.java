@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import org.noear.solon.annotation.Inject;
-import org.noear.solon.extend.cron4j.Cron4j;
+import org.noear.solon.extend.quartz.Quartz;
 
 import com.cym.controller.adminPage.CertController;
 import com.cym.controller.adminPage.ConfController;
@@ -12,7 +12,7 @@ import com.cym.model.Cert;
 import com.cym.sqlhelper.utils.SqlHelper;
 
 // 续签证书
-@Cron4j(cron5x = "0 0 2 * * ?")
+@Quartz(cron7x = "0 0 2 * * ?")
 public class CertTasks implements Runnable {
 	@Inject
 	SqlHelper sqlHelper;

@@ -5,7 +5,7 @@ import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
 import org.noear.solon.annotation.Inject;
-import org.noear.solon.extend.cron4j.Cron4j;
+import org.noear.solon.extend.quartz.Quartz;
 
 import com.cym.controller.adminPage.ConfController;
 import com.cym.model.Http;
@@ -18,7 +18,7 @@ import cn.hutool.core.util.StrUtil;
 import cn.hutool.core.util.ZipUtil;
 
 // 分隔日志,每天
-@Cron4j(cron5x = "0 55 23 * * ?")
+@Quartz(cron7x = "0 55 23 * * ?")
 public class DiviLog implements Runnable {
 	@Inject
 	HttpService httpService;

@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.noear.solon.Solon;
-import org.noear.solon.extend.cron4j.EnableCron4j;
+import org.noear.solon.extend.quartz.EnableQuartz;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -17,7 +17,7 @@ import com.cym.utils.SystemTool;
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.util.RuntimeUtil;
 
-@EnableCron4j
+@EnableQuartz
 public class NginxWebUI {
 	static Logger logger = LoggerFactory.getLogger(NginxWebUI.class);
 

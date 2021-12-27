@@ -54,7 +54,7 @@ public class InitConfig {
 	@Inject
 	JdbcTemplate jdbcTemplate;
 
-	@Init(index = 30)
+	@Init(index = 40)
 	public void init() throws IOException {
 		
 		InitConfig.home = homeConfig.home;

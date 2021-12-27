@@ -8,7 +8,7 @@ import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 import org.noear.solon.annotation.Inject;
-import org.noear.solon.extend.cron4j.Cron4j;
+import org.noear.solon.extend.quartz.Quartz;
 
 import com.cym.model.Upstream;
 import com.cym.model.UpstreamServer;
@@ -23,8 +23,8 @@ import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.StrUtil;
 
 // 检查负载节点情况
-@Cron4j(cron5x = "0/30 * * * * ?")
-public class NodeTasks implements Runnable {	
+@Quartz(cron7x = "0/30 * * * * ?")
+public class NodeTasks implements Runnable {
 	@Inject
 	SettingService settingService;
 	@Inject
@@ -35,7 +35,7 @@ public class NodeTasks implements Runnable {
 	SendMailUtils sendMailUtils;
 	@Inject
 	MessageUtils m;
-	
+
 	@Override
 	public void run() {
 		String lastUpstreamSend = settingService.get("lastUpstreamSend");

@@ -6,7 +6,7 @@ import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import org.noear.solon.annotation.Inject;
-import org.noear.solon.extend.cron4j.Cron4j;
+import org.noear.solon.extend.quartz.Quartz;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -23,10 +23,10 @@ import cn.hutool.http.HttpUtil;
 import cn.hutool.json.JSONUtil;
 
 // 检查远程服务器
-@Cron4j(cron5x = "0/30 * * * * ?")
+@Quartz(cron7x = "0/30 * * * * ?")
 public class NginxTasks implements Runnable {
 	Logger logger = LoggerFactory.getLogger(getClass());
-	
+
 	@Inject("server.port")
 	String port;
 	@Inject

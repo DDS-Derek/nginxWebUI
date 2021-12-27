@@ -3,7 +3,7 @@ package com.cym.task;
 import java.io.File;
 import java.util.concurrent.TimeUnit;
 
-import org.noear.solon.extend.cron4j.Cron4j;
+import org.noear.solon.extend.quartz.Quartz;
 
 import com.cym.config.InitConfig;
 
@@ -12,7 +12,7 @@ import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.io.FileUtil;
 
 // 删除7天前的备份
-@Cron4j(cron5x = "0 0 0 * * ?")
+@Quartz(cron7x = "0 0 0 * * ?")
 public class DelBak implements Runnable {
 	@Override
 	public void run() {

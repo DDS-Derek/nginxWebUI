@@ -22,7 +22,7 @@ public class DataSourceEmbed {
 	DataSource dataSource;
 	@Init(index = 20)
 	public void init() {
-		String dbPath = homeConfig.home + File.separator + "h2";
+		String dbPath = homeConfig.home  + "h2";
 
 		if (dataSource == null) {
 			DbConfig dbConfig = new DbConfig();
