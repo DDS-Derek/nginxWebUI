@@ -15,7 +15,7 @@ public class Doc {
     public void generate() {
         ApiConfig config = new ApiConfig();
 
-        config.setServerUrl("http://localhost:8089");
+        config.setServerUrl("http://localhost:8080");
 
         //设置用md5加密html文件名,不设置为true，html的文件名将直接为controller的名称
         config.setMd5EncryptedHtmlName(true);
