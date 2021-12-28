@@ -51,8 +51,8 @@ public class JdbcTemplate {
 			return mapList;
 		} catch (Exception e) {
 			logger.error(e.getMessage(), e);
+			throw new RuntimeException(e);
 		}
-		return null;
 	}
 
 	public String clobToStr(JdbcClob jdbcClob) {

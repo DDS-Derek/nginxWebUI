@@ -137,7 +137,7 @@ public class ServerService {
 		sqlHelper.deleteByQuery(new ConditionAndWrapper().eq("serverId", server.getId()), Location.class);
 	}
 
-	public List<Server> getListByProxyType(Integer[] proxyType) {
+	public List<Server> getListByProxyType(String[] proxyType) {
 		Sort sort = new Sort().add("seq", Direction.DESC);
 		return sqlHelper.findListByQuery(new ConditionAndWrapper().in("proxyType", proxyType), sort, Server.class);
 	}

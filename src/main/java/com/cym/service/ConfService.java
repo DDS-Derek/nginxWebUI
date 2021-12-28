@@ -139,7 +139,7 @@ public class ConfService {
 			}
 
 			// 添加server
-			List<Server> servers = serverService.getListByProxyType(new Integer[] { 0 });
+			List<Server> servers = serverService.getListByProxyType(new String[] {"0" });
 			for (Server server : servers) {
 				if (server.getEnable() == null || !server.getEnable()) {
 					continue;
@@ -207,7 +207,7 @@ public class ConfService {
 			}
 
 			// 添加server
-			servers = serverService.getListByProxyType(new Integer[] { 1, 2 });
+			servers = serverService.getListByProxyType(new String[] { "1", "2" });
 			for (Server server : servers) {
 				if (server.getEnable() == null || !server.getEnable()) {
 					continue;

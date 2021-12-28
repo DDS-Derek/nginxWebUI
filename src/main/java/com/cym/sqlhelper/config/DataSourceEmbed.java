@@ -1,7 +1,5 @@
 package com.cym.sqlhelper.config;
 
-import java.io.File;
-
 import javax.sql.DataSource;
 
 import org.noear.solon.annotation.Component;
@@ -9,10 +7,8 @@ import org.noear.solon.annotation.Init;
 import org.noear.solon.annotation.Inject;
 
 import com.cym.config.HomeConfig;
-import com.cym.config.InitConfig;
-
-import cn.hutool.db.ds.pooled.DbConfig;
-import cn.hutool.db.ds.pooled.PooledDataSource;
+import com.zaxxer.hikari.HikariConfig;
+import com.zaxxer.hikari.HikariDataSource;
 
 @Component
 public class DataSourceEmbed {
@@ -25,12 +21,12 @@ public class DataSourceEmbed {
 		String dbPath = homeConfig.home  + "h2";
 
 		if (dataSource == null) {
-			DbConfig dbConfig = new DbConfig();
-			dbConfig.setUrl("jdbc:h2:" + dbPath);
-			dbConfig.setUser("sa");
-			dbConfig.setPass("");
-			dbConfig.setMaxActive(1);
-			dataSource = new PooledDataSource(dbConfig);
+			HikariConfig dbConfig = new HikariConfig();
+			dbConfig.setJdbcUrl(("jdbc:h2:" + dbPath));
+			dbConfig.setUsername("sa");
+			dbConfig.setPassword("");
+			dbConfig.setMaximumPoolSize(1); 
+			dataSource = new HikariDataSource(dbConfig);
 		}
 	}
 
