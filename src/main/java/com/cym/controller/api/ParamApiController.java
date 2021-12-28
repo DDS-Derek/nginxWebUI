@@ -17,13 +17,19 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 
 @Api(tags = "额外参数接口")
-
 @Mapping("/api/param")
 public class ParamApiController extends BaseController {
 
 	@Inject
 	ParamService paramService;
 
+	/**
+	 * 根据项目获取参数列表
+	 * @param serverId
+	 * @param locationId
+	 * @param upstreamId
+	 * @return
+	 */
 	@ApiOperation("根据项目获取参数列表")
 	@Mapping("getList")
 	public JsonResult<List<Param>> getList(@ApiParam("所属反向代理id") String serverId, //
@@ -37,6 +43,12 @@ public class ParamApiController extends BaseController {
 		return renderSuccess(list);
 	}
 
+	/**
+	 * 添加或编辑参数
+	 * @param param
+	 * @return
+	 * @throws IOException
+	 */
 	@ApiOperation("添加或编辑参数")
 	@Mapping("insertOrUpdate")
 	public JsonResult<?> insertOrUpdate(Param param) throws IOException {
@@ -60,6 +72,11 @@ public class ParamApiController extends BaseController {
 		return renderSuccess(param);
 	}
 
+	/**
+	 * 删除
+	 * @param id
+	 * @return
+	 */
 	@ApiOperation("删除")
 	@Mapping("del")
 	public JsonResult<?> del(String id) {

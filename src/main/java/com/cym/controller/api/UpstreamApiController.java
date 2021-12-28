@@ -19,12 +19,18 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 
 @Api(tags = "负载均衡(upstream)接口")
-
 @Mapping("/api/upstream")
 public class UpstreamApiController extends BaseController {
 	@Inject
 	UpstreamService upstreamService;
 
+	/**
+	 * 获取upstream分页列表
+	 * @param current
+	 * @param limit
+	 * @param keywords
+	 * @return
+	 */
 	@SuppressWarnings("unchecked")
 	@ApiOperation("获取upstream分页列表")
 	@Mapping("getPage")
@@ -39,6 +45,11 @@ public class UpstreamApiController extends BaseController {
 		return renderSuccess(page);
 	}
 
+	/**
+	 * 添加或编辑upstream
+	 * @param upstream
+	 * @return
+	 */
 	@ApiOperation("添加或编辑upstream")
 	@Mapping("insertOrUpdate")
 	public JsonResult<?> insertOrUpdate(Upstream upstream) {
@@ -64,6 +75,11 @@ public class UpstreamApiController extends BaseController {
 		return renderSuccess(upstream);
 	}
 
+	/**
+	 * 删除upstream
+	 * @param id
+	 * @return
+	 */
 	@ApiOperation("删除upstream")
 	@Mapping("delete")
 	public JsonResult<?> delete(String id) {
@@ -72,6 +88,11 @@ public class UpstreamApiController extends BaseController {
 		return renderSuccess();
 	}
 
+	/**
+	 * 根据upstreamId获取server列表
+	 * @param upstreamId
+	 * @return
+	 */
 	@ApiOperation("根据upstreamId获取server列表")
 	@Mapping("getServerByUpstreamId")
 	public JsonResult<List<UpstreamServer>> getServerByUpstreamId(String upstreamId) {
@@ -80,6 +101,11 @@ public class UpstreamApiController extends BaseController {
 		return renderSuccess(list);
 	}
 
+	/**
+	 * 添加或编辑server
+	 * @param upstreamServer
+	 * @return
+	 */
 	@ApiOperation("添加或编辑server")
 	@Mapping("insertOrUpdateServer")
 	public JsonResult insertOrUpdateServer(UpstreamServer upstreamServer) {
@@ -97,6 +123,11 @@ public class UpstreamApiController extends BaseController {
 		return renderSuccess(upstreamServer);
 	}
 
+	/**
+	 * 删除server
+	 * @param id
+	 * @return
+	 */
 	@ApiOperation("删除server")
 	@Mapping("deleteServer")
 	public JsonResult deleteServer(String id) {

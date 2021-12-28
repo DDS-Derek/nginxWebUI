@@ -20,7 +20,6 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 
 @Api(tags = "反向代理(server)接口")
-
 @Mapping("/api/server")
 public class ServerApiController extends BaseController {
 	@Inject
@@ -28,6 +27,13 @@ public class ServerApiController extends BaseController {
 	@Inject
 	ParamService paramService;
 
+	/**
+	 * 获取server分页列表
+	 * @param current
+	 * @param limit
+	 * @param keywords
+	 * @return
+	 */
 	@SuppressWarnings("unchecked")
 	@ApiOperation("获取server分页列表")
 	@Mapping("getPage")
@@ -42,6 +48,11 @@ public class ServerApiController extends BaseController {
 		return renderSuccess(page);
 	}
 
+	/**
+	 * 添加或编辑server
+	 * @param server
+	 * @return
+	 */
 	@ApiOperation("添加或编辑server")
 	@Mapping("insertOrUpdate")
 	public JsonResult<?> insertOrUpdate(Server server) {
@@ -56,6 +67,11 @@ public class ServerApiController extends BaseController {
 		return renderSuccess(server);
 	}
 
+	/**
+	 * 删除server
+	 * @param id
+	 * @return
+	 */
 	@ApiOperation("删除server")
 	@Mapping("delete")
 	public JsonResult<?> delete(String id) {
@@ -64,6 +80,11 @@ public class ServerApiController extends BaseController {
 		return renderSuccess();
 	}
 
+	/**
+	 * 根据serverId获取location列表
+	 * @param serverId
+	 * @return
+	 */
 	@ApiOperation("根据serverId获取location列表")
 	@Mapping("getLocationByServerId")
 	public JsonResult<List<Location>> getLocationByServerId(String serverId) {
@@ -75,6 +96,11 @@ public class ServerApiController extends BaseController {
 		return renderSuccess(locationList);
 	}
 
+	/**
+	 * 添加或编辑location
+	 * @param location
+	 * @return
+	 */
 	@ApiOperation("添加或编辑location")
 	@Mapping("insertOrUpdateLocation")
 	public JsonResult<?> insertOrUpdateLocation(Location location) {
@@ -88,6 +114,11 @@ public class ServerApiController extends BaseController {
 		return renderSuccess(location);
 	}
 
+	/**
+	 * 删除location
+	 * @param id
+	 * @return
+	 */
 	@ApiOperation("删除location")
 	@Mapping("deleteLocation")
 	public JsonResult<?> deleteLocation(String id) {
@@ -96,18 +127,5 @@ public class ServerApiController extends BaseController {
 		return renderSuccess();
 	}
 
-//	@ApiOperation("移动location")
-//	@Mapping("moveLocation")
-//	public JsonResult<?> moveLocation(String locationId, @ApiParam("-1:上移 1:下移") @RequestParam Integer seq) {
-//		if (seq == null) {
-//			return renderError("seq" + m.get("apiStr.notFill"));
-//		}
-//		if (StrUtil.isEmpty(locationId)) {
-//			return renderError("locationId" + m.get("apiStr.notFill"));
-//		}
-//		serverService.moveLocation(locationId, seq);
-//
-//		return renderSuccess();
-//	}
 
 }

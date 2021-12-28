@@ -20,7 +20,6 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 
 @Api(tags = "证书接口")
-
 @Mapping("/api/cert")
 public class CertApiController extends BaseController {
 
@@ -29,6 +28,13 @@ public class CertApiController extends BaseController {
 	@Inject
 	CertService certService;
 
+	/**
+	 * 获取证书分页列表
+	 * @param current
+	 * @param limit
+	 * @param keywords
+	 * @return
+	 */
 	@ApiOperation("获取证书分页列表")
 	@Mapping("getPage")
 	public JsonResult<Page<Cert>> getPage(@ApiParam("当前页数(从1开始)") Integer current, //
@@ -42,6 +48,11 @@ public class CertApiController extends BaseController {
 		return renderSuccess(page);
 	}
 
+	/**
+	 * 添加或编辑证书
+	 * @param cert
+	 * @return
+	 */
 	@ApiOperation("添加或编辑证书")
 	@Mapping("addOver")
 	public JsonResult addOver(Cert cert) {
@@ -70,6 +81,11 @@ public class CertApiController extends BaseController {
 		return certController.addOver(cert, null, null, null);
 	}
 
+	/**
+	 * 获取域名解析码
+	 * @param certId
+	 * @return
+	 */
 	@ApiOperation("获取域名解析码")
 	@Mapping("getTxtValue")
 	public JsonResult<List<CertCode>> getTxtValue(String certId) {
@@ -77,6 +93,12 @@ public class CertApiController extends BaseController {
 		return renderSuccess(certCodes);
 	}
 
+	/**
+	 * 设置证书自动续签
+	 * @param id
+	 * @param autoRenew
+	 * @return
+	 */
 	@ApiOperation("设置证书自动续签")
 	@Mapping("setAutoRenew")
 	public JsonResult setAutoRenew(@ApiParam("主键id") String id, @ApiParam("是否自动续签:0否 1是") Integer autoRenew) {
@@ -88,12 +110,23 @@ public class CertApiController extends BaseController {
 		return renderSuccess();
 	}
 
+	/**
+	 * 删除证书
+	 * @param id
+	 * @return
+	 */
 	@ApiOperation("删除证书")
 	@Mapping("del")
 	public JsonResult del(String id) {
 		return certController.del(id);
 	}
 
+	/**
+	 * 执行申请
+	 * @param id
+	 * @param type
+	 * @return
+	 */
 	@ApiOperation("执行申请")
 	@Mapping("apply")
 	public JsonResult<List<CertCode>> apply(@ApiParam("主键id") String id, @ApiParam("申请类型 issue:申请 renew:续签") String type) {
@@ -107,6 +140,11 @@ public class CertApiController extends BaseController {
 		return jsonResult;
 	}
 
+	/**
+	 * 下载证书文件
+	 * @param id
+	 * @throws IOException
+	 */
 	@ApiOperation("下载证书文件")
 	@Mapping("download")
 	public void download(@ApiParam("主键id") String id) throws IOException {

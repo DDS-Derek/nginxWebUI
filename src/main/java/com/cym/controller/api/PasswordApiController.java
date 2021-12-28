@@ -25,6 +25,10 @@ public class PasswordApiController extends BaseController{
 	@Inject
 	PasswordController passwordController;
 	
+	/**
+	 * 获取全部密码文件列表
+	 * @return
+	 */
 	@ApiOperation("获取全部密码文件列表")
 	@Mapping("getList")
 	public JsonResult<List<Password>> getList() {
@@ -32,12 +36,23 @@ public class PasswordApiController extends BaseController{
 		return renderSuccess(list);
 	}
 
+	/**
+	 * 添加或编辑密码文件
+	 * @param password
+	 * @return
+	 * @throws IOException
+	 */
 	@ApiOperation("添加或编辑密码文件")
 	@Mapping("insertOrUpdate")
 	public JsonResult<?> insertOrUpdate(Password password) throws IOException {
 		return renderSuccess(passwordController.addOver(password));
 	}
 
+	/**
+	 * 删除密码文件
+	 * @param id
+	 * @return
+	 */
 	@ApiOperation("删除密码文件")
 	@Mapping("del")
 	public JsonResult<?> del(String id) {

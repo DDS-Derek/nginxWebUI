@@ -30,6 +30,10 @@ public class NginxApiController extends BaseController {
 	@Inject
 	SettingService settingService;
 
+	/**
+	 * 获取nginx状态
+	 * @return
+	 */
 	@ApiOperation("获取nginx状态")
 	@Mapping("nginxStatus")
 	public JsonResult<?> nginxStatus() {
@@ -40,6 +44,10 @@ public class NginxApiController extends BaseController {
 		}
 	}
 
+	/**
+	 * 替换conf文件
+	 * @return
+	 */
 	@ApiOperation("替换conf文件")
 	@Mapping("replace")
 	public JsonResult<?> replace() {
@@ -51,6 +59,10 @@ public class NginxApiController extends BaseController {
 		}
 	}
 
+	/**
+	 * 效验conf文件
+	 * @return
+	 */
 	@ApiOperation("效验conf文件")
 	@Mapping("check")
 	public JsonResult<?> checkBase() {
@@ -62,6 +74,10 @@ public class NginxApiController extends BaseController {
 		}
 	}
 
+	/**
+	 * 重载conf文件
+	 * @return
+	 */
 	@ApiOperation("重载conf文件")
 	@Mapping("reload")
 	public synchronized JsonResult<?> reload() {
@@ -73,6 +89,10 @@ public class NginxApiController extends BaseController {
 		}
 	}
 
+	/**
+	 * 获取nginx启动命令
+	 * @return
+	 */
 	@ApiOperation("获取nginx启动命令")
 	@Mapping("getNginxStartCmd")
 	public JsonResult<List<String>> getNginxStartCmd() {
@@ -92,6 +112,10 @@ public class NginxApiController extends BaseController {
 		return renderSuccess(list);
 	}
 
+	/**
+	 * 获取nginx停止命令
+	 * @return
+	 */
 	@ApiOperation("获取nginx停止命令")
 	@Mapping("getNginxStopCmd")
 	public JsonResult<List<String>> getNginxStopCmd() {
@@ -112,6 +136,11 @@ public class NginxApiController extends BaseController {
 		return renderSuccess(list);
 	}
 
+	/**
+	 * 执行nginx命令
+	 * @param cmd
+	 * @return
+	 */
 	@ApiOperation("执行nginx命令")
 	@Mapping("runNginxCmd")
 	public JsonResult<?> runNginxCmd(@ApiParam("执行命令") String cmd) {
@@ -121,27 +150,4 @@ public class NginxApiController extends BaseController {
 		return jsonResult;
 	}
 
-//	@ApiOperation("停止nginx")
-//	@Mapping("stop")
-//	public synchronized JsonResult<?> stop() {
-//		JsonResult jsonResult = confController.stop(null, null);
-//		
-//		if (jsonResult.isSuccess()) {
-//			return renderSuccess("停止成功");
-//		} else {
-//			return renderError("停止失败");
-//		}
-//	}
-//
-//	@ApiOperation("启动nginx")
-//	@Mapping("start")
-//	public synchronized JsonResult<?> start() {
-//		JsonResult jsonResult = confController.start(null, null, null);
-//		
-//		if (jsonResult.isSuccess()) {
-//			return renderSuccess("启动成功");
-//		} else {
-//			return renderError("启动失败");
-//		}
-//	}
 }

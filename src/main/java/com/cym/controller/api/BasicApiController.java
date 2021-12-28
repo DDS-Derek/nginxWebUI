@@ -20,7 +20,6 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
 @Api(tags = "基础参数接口")
-
 @Mapping("/api/basic")
 public class BasicApiController extends BaseController {
 	@Inject

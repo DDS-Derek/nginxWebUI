@@ -21,6 +21,13 @@ public class TokenController extends BaseController {
 	@Inject
 	AdminService adminService;
 
+	/**
+	 * 获取Token
+	 * 
+	 * @param name
+	 * @param pass
+	 * @return
+	 */
 	@Mapping("getToken")
 	public JsonResult getToken(@ApiParam("用户名") String name, @ApiParam("密码") String pass) {
 
