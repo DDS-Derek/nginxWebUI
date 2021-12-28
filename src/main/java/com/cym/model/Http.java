@@ -9,12 +9,22 @@ import io.swagger.annotations.ApiModelProperty;
 @ApiModel("Http参数")
 @Table
 public class Http extends BaseModel {
+	/**
+	 * 参数名
+	 */
 	@ApiModelProperty("参数名")
 	String name;
+	/**
+	 * 参数值
+	 */
 	@ApiModelProperty("参数值")
 	String value;
+	/**
+	 * 参数单位
+	 */
 	@ApiModelProperty("参数单位")
 	String unit;
+
 	@ApiModelProperty(hidden = true)
 	Long seq;
 

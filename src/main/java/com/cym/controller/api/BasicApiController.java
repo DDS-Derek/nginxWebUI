@@ -30,12 +30,21 @@ public class BasicApiController extends BaseController {
 	@Inject
 	StreamService streamService;
 
+	/**
+	 * 获取Http参数
+	 * @return
+	 */
 	@ApiOperation("获取Http参数")
 	@Mapping("getHttp")
 	public JsonResult<List<Http>> getHttp() {
 		return renderSuccess(httpService.findAll());
 	}
 
+	/**
+	 * 添加或编辑Http参数
+	 * @param http
+	 * @return
+	 */
 	@ApiOperation("添加或编辑Http参数")
 	@Mapping("insertOrUpdateHttp")
 	public JsonResult<Http> insertOrUpdateHttp(Http http) {
@@ -50,6 +59,11 @@ public class BasicApiController extends BaseController {
 		return renderSuccess(http);
 	}
 
+	/**
+	 * 删除Http参数
+	 * @param id
+	 * @return
+	 */
 	@ApiOperation("删除Http参数")
 	@Mapping("delHttp")
 	public JsonResult delHttp(String id) {
@@ -57,12 +71,21 @@ public class BasicApiController extends BaseController {
 		return renderSuccess();
 	}
 
+	/**
+	 * 获取基础参数
+	 * @return
+	 */
 	@ApiOperation("获取基础参数")
 	@Mapping("getBasic")
 	public JsonResult<List<Basic>> getBasic() {
 		return renderSuccess(basicService.findAll());
 	}
 
+	/**
+	 * 添加或编辑基础参数
+	 * @param basic
+	 * @return
+	 */
 	@ApiOperation("添加或编辑基础参数")
 	@Mapping("insertOrUpdateBasic")
 	public JsonResult<Basic> insertOrUpdateBasic(Basic basic) {
@@ -77,6 +100,11 @@ public class BasicApiController extends BaseController {
 		return renderSuccess(basic);
 	}
 
+	/**
+	 * 删除基础参数
+	 * @param id
+	 * @return
+	 */
 	@ApiOperation("删除基础参数")
 	@Mapping("delBasic")
 	public JsonResult delBasic(String id) {
@@ -84,12 +112,21 @@ public class BasicApiController extends BaseController {
 		return renderSuccess();
 	}
 
+	/**
+	 * 获取Stream参数
+	 * @return
+	 */
 	@ApiOperation("获取Stream参数")
 	@Mapping("getStream")
 	public JsonResult<List<Stream>> getStream() {
 		return renderSuccess(streamService.findAll());
 	}
 
+	/**
+	 * 添加或编辑Stream参数
+	 * @param stream
+	 * @return
+	 */
 	@ApiOperation("添加或编辑Stream参数")
 	@Mapping("insertOrUpdateStream")
 	public JsonResult<Stream> insertOrUpdateStream(Stream stream) {
@@ -103,6 +140,11 @@ public class BasicApiController extends BaseController {
 		return renderSuccess(stream);
 	}
 
+	/**
+	 * 删除Stream参数
+	 * @param id
+	 * @return
+	 */
 	@ApiOperation("删除Stream参数")
 	@Mapping("delStream")
 	public JsonResult delStream(String id) {

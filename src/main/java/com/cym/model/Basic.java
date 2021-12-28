@@ -6,11 +6,20 @@ import com.cym.sqlhelper.config.Table;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
+/**
+ * 基础参数
+ */
 @ApiModel("基础参数")
 @Table
 public class Basic extends BaseModel {
+	/**
+	 * 参数名
+	 */
 	@ApiModelProperty("参数名")
 	String name;
+	/**
+	 * 参数值
+	 */
 	@ApiModelProperty("参数值")
 	String value;
 	@ApiModelProperty(hidden = true)
