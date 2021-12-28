@@ -1,4 +1,6 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.cym</groupId>
 	<artifactId>nginxWebUI</artifactId>
@@ -11,7 +13,7 @@
 	<parent>
 		<groupId>org.noear</groupId>
 		<artifactId>solon-parent</artifactId>
-		<version>1.6.11-m2</version>
+		<version>1.6.11-m3</version>
 	</parent>
 
 
@@ -26,27 +28,24 @@
 		</dependency>
 		<dependency>
 			<groupId>org.noear</groupId>
-			<artifactId>quartz-solon-plugin</artifactId>
-			<exclusions>
-				<exclusion>
-					<groupId>com.zaxxer</groupId>
-					<artifactId>HikariCP-java7</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>com.mchange</groupId>
-					<artifactId>c3p0</artifactId>
-				</exclusion>
-			</exclusions>
+			<artifactId>solon.schedule</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>com.github.odiszapc</groupId>
-			<artifactId>nginxparser</artifactId>
-			<version>0.9.6</version>
+			<groupId>org.antlr</groupId>
+			<artifactId>antlr4-runtime</artifactId>
+			<version>4.7.2</version>
+			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.noear</groupId>
 			<artifactId>solonhat-smartdoc</artifactId>
 			<version>1.0.0-m1</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.github.odiszapc</groupId>
+			<artifactId>nginxparser</artifactId>
+			<version>0.9.6</version>
 		</dependency>
 		<dependency>
 			<groupId>org.noear</groupId>
@@ -119,19 +118,14 @@
 			<artifactId>solon-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-		
 		<dependency>
-			<groupId>io.springfox</groupId>
-			<artifactId>springfox-swagger2</artifactId>
-			<version>3.0.0</version>
+			<groupId>io.swagger</groupId>
+			<artifactId>swagger-annotations</artifactId>
+			<version>1.5.20</version>
 		</dependency>
-		<!--
-		<dependency>
-			<groupId>io.springfox</groupId>
-			<artifactId>springfox-swagger-ui</artifactId>
-			<version>3.0.0</version>
-		</dependency>
-		-->
+		<!-- <dependency> <groupId>io.springfox</groupId> <artifactId>springfox-swagger2</artifactId> 
+			<version>3.0.0</version> </dependency> <dependency> <groupId>io.springfox</groupId> 
+			<artifactId>springfox-swagger-ui</artifactId> <version>3.0.0</version> </dependency> -->
 
 	</dependencies>
 
@@ -185,31 +179,12 @@
 				</executions>
 			</plugin>
 
-			<!--
-			<plugin>
-				<groupId>com.github.shalousun</groupId>
-				<artifactId>smart-doc-maven-plugin</artifactId>
-				<version>2.3.5</version>
-				<configuration>
-					<configFile>./src/main/resources/smart-doc.json</configFile>
-					<projectName>nginxWebUI</projectName>
-					<excludes>
-						<exclude>com.alibaba:fastjson</exclude>
-					</excludes>
-					<includes>
-						<include>com.alibaba:fastjson</include>
-					</includes>
-				</configuration>
-				<executions>
-					<execution>
-						<phase>compile</phase>
-						<goals>
-							<goal>html</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-			-->
+			<!-- <plugin> <groupId>com.github.shalousun</groupId> <artifactId>smart-doc-maven-plugin</artifactId> 
+				<version>2.3.5</version> <configuration> <configFile>./src/main/resources/smart-doc.json</configFile> 
+				<projectName>nginxWebUI</projectName> <excludes> <exclude>com.alibaba:fastjson</exclude> 
+				</excludes> <includes> <include>com.alibaba:fastjson</include> </includes> 
+				</configuration> <executions> <execution> <phase>compile</phase> <goals> 
+				<goal>html</goal> </goals> </execution> </executions> </plugin> -->
 		</plugins>
 	</build>
 

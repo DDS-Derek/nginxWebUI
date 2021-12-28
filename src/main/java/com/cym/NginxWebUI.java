@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.noear.solon.Solon;
-import org.noear.solon.extend.quartz.EnableQuartz;
+import org.noear.solon.schedule.annotation.EnableScheduling;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -21,7 +21,7 @@ import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.io.resource.ClassPathResource;
 import cn.hutool.core.util.RuntimeUtil;
 
-@EnableQuartz
+@EnableScheduling
 public class NginxWebUI {
 	static Logger logger = LoggerFactory.getLogger(NginxWebUI.class);
 
