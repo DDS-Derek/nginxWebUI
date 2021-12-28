@@ -11,7 +11,7 @@
 	<parent>
 		<groupId>org.noear</groupId>
 		<artifactId>solon-parent</artifactId>
-		<version>1.6.11-m1</version>
+		<version>1.6.11-m2</version>
 	</parent>
 
 
@@ -87,7 +87,11 @@
 			<version>2.7</version>
 		</dependency>-->
 
-
+		<dependency>
+			<groupId>com.zaxxer</groupId>
+			<artifactId>HikariCP</artifactId>
+			<version>5.0.0</version>
+		</dependency>
 		<dependency>
 			<groupId>com.github.whvcse</groupId>
 			<artifactId>easy-captcha</artifactId>
