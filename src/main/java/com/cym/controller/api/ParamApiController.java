@@ -15,7 +15,9 @@ import cn.hutool.core.util.StrUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
-
+/**
+ * 额外参数接口
+ */
 @Api(tags = "额外参数接口")
 @Mapping("/api/param")
 public class ParamApiController extends BaseController {

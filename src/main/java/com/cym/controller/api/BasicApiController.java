@@ -19,6 +19,11 @@ import cn.hutool.core.util.StrUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
+/**
+ * 基础参数接口
+ * @author CYM
+ *
+ */
 @Api(tags = "基础参数接口")
 @Mapping("/api/basic")
 public class BasicApiController extends BaseController {

@@ -17,7 +17,9 @@ import cn.hutool.core.util.StrUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
-
+/**
+ * 负载均衡(upstream)接口
+ */
 @Api(tags = "负载均衡(upstream)接口")
 @Mapping("/api/upstream")
 public class UpstreamApiController extends BaseController {

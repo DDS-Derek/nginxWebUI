@@ -19,6 +19,10 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 
+/**
+ * 证书接口
+ *
+ */
 @Api(tags = "证书接口")
 @Mapping("/api/cert")
 public class CertApiController extends BaseController {

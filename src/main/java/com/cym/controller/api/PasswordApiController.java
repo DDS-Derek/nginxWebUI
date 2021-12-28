@@ -15,9 +15,10 @@ import com.cym.utils.JsonResult;
 import cn.hutool.core.io.FileUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-
+/**
+ * 密码文件接口
+ */
 @Api(tags = "密码文件接口")
-
 @Mapping("/api/password")
 public class PasswordApiController extends BaseController{
 	@Inject

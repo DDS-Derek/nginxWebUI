@@ -19,8 +19,10 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 
+/**
+ * nginx接口
+ */
 @Api(tags = "nginx接口")
-
 @Mapping("/api/nginx")
 public class NginxApiController extends BaseController {
 	@Inject
@@ -32,6 +34,7 @@ public class NginxApiController extends BaseController {
 
 	/**
 	 * 获取nginx状态
+	 * 
 	 * @return
 	 */
 	@ApiOperation("获取nginx状态")
@@ -46,6 +49,7 @@ public class NginxApiController extends BaseController {
 
 	/**
 	 * 替换conf文件
+	 * 
 	 * @return
 	 */
 	@ApiOperation("替换conf文件")
@@ -61,6 +65,7 @@ public class NginxApiController extends BaseController {
 
 	/**
 	 * 效验conf文件
+	 * 
 	 * @return
 	 */
 	@ApiOperation("效验conf文件")
@@ -76,6 +81,7 @@ public class NginxApiController extends BaseController {
 
 	/**
 	 * 重载conf文件
+	 * 
 	 * @return
 	 */
 	@ApiOperation("重载conf文件")
@@ -91,6 +97,7 @@ public class NginxApiController extends BaseController {
 
 	/**
 	 * 获取nginx启动命令
+	 * 
 	 * @return
 	 */
 	@ApiOperation("获取nginx启动命令")
@@ -114,6 +121,7 @@ public class NginxApiController extends BaseController {
 
 	/**
 	 * 获取nginx停止命令
+	 * 
 	 * @return
 	 */
 	@ApiOperation("获取nginx停止命令")
@@ -138,6 +146,7 @@ public class NginxApiController extends BaseController {
 
 	/**
 	 * 执行nginx命令
+	 * 
 	 * @param cmd
 	 * @return
 	 */

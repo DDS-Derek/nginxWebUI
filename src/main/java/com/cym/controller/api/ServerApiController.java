@@ -18,7 +18,9 @@ import cn.hutool.core.util.StrUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
-
+/**
+ * 反向代理(server)接口
+ */
 @Api(tags = "反向代理(server)接口")
 @Mapping("/api/server")
 public class ServerApiController extends BaseController {

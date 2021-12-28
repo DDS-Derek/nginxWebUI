@@ -13,9 +13,10 @@ import com.cym.utils.JsonResult;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiParam;
-
+/**
+ * 获取token
+ */
 @Api(tags = "获取token")
-
 @Mapping("token")
 public class TokenController extends BaseController {
 	@Inject
