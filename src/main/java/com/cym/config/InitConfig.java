@@ -60,7 +60,7 @@ public class InitConfig {
 		InitConfig.home = homeConfig.home;
 		InitConfig.acmeShDir = homeConfig.home + ".acme.sh/";
 		InitConfig.acmeSh = homeConfig.home + ".acme.sh/acme.sh";
-
+		
 		if (!FilePermissionUtil.canWrite(new File(home))) {
 			logger.error(home + " " + "directory does not have writable permission. Please specify it again.");
 			logger.error(home + " " + "目录没有可写权限,请重新指定.");
