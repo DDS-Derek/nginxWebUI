@@ -3,6 +3,7 @@ package com.cym.controller.api;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.noear.solon.annotation.Controller;
 import org.noear.solon.annotation.Inject;
 import org.noear.solon.annotation.Mapping;
 
@@ -24,6 +25,7 @@ import io.swagger.annotations.ApiParam;
  */
 @Api(tags = "nginx接口")
 @Mapping("/api/nginx")
+@Controller
 public class NginxApiController extends BaseController {
 	@Inject
 	ConfController confController;

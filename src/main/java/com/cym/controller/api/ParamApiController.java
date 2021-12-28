@@ -3,6 +3,7 @@ package com.cym.controller.api;
 import java.io.IOException;
 import java.util.List;
 
+import org.noear.solon.annotation.Controller;
 import org.noear.solon.annotation.Inject;
 import org.noear.solon.annotation.Mapping;
 
@@ -20,6 +21,7 @@ import io.swagger.annotations.ApiParam;
  */
 @Api(tags = "额外参数接口")
 @Mapping("/api/param")
+@Controller
 public class ParamApiController extends BaseController {
 
 	@Inject

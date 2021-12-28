@@ -1,0 +1,384 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width initial-scale=1'>
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <link rel="stylesheet" href="markdown.css?v=1640703804813"/>
+    <title>反向代理(server)接口</title>
+</head>
+<body>
+<div class="markdown-body">
+    <h1>反向代理(server)接口</h1>
+<h2>获取server分页列表</h2>
+<p><strong>URL:</strong> <code>http://localhost:8080/api/server/getPage</code></p>
+<p><strong>Type:</strong> <code>ANY</code></p>
+<p><strong>Content-Type:</strong> <code>application/x-www-form-urlencoded;charset=utf-8</code></p>
+<p><strong>Description:</strong> 获取server分页列表</p>
+<p><strong>Request-parameters:</strong></p>
+<table>
+<thead>
+<tr><th>Parameter</th><th>Type</th><th>Description</th><th>Required</th><th>Since</th></tr>
+</thead>
+<tbody>
+<tr><td>current</td><td>int32</td><td>No comments found.</td><td>true</td><td>-</td></tr>
+<tr><td>limit</td><td>int32</td><td>No comments found.</td><td>true</td><td>-</td></tr>
+<tr><td>keywords</td><td>string</td><td>No comments found.</td><td>true</td><td>-</td></tr>
+</tbody>
+</table>
+<p><strong>Request-example:</strong></p>
+<pre><code>curl   -i http://localhost:8080/api/server/getPage?keywords=tq3w0k&amp;current=d7oksh&amp;limit=10
+</code></pre>
+<p><strong>Response-fields:</strong></p>
+<table>
+<thead>
+<tr><th>Field</th><th>Type</th><th>Description</th><th>Since</th></tr>
+</thead>
+<tbody>
+<tr><td>success</td><td>boolean</td><td>No comments found.</td><td>-</td></tr>
+<tr><td>status</td><td>string</td><td>No comments found.</td><td>-</td></tr>
+<tr><td>msg</td><td>string</td><td>No comments found.</td><td>-</td></tr>
+<tr><td>obj</td><td>object</td><td>No comments found.</td><td>-</td></tr>
+<tr><td>└─count</td><td>int64</td><td>No comments found.</td><td>-</td></tr>
+<tr><td>└─curr</td><td>int32</td><td>No comments found.</td><td>-</td></tr>
+<tr><td>└─limit</td><td>int32</td><td>No comments found.</td><td>-</td></tr>
+<tr><td>└─records</td><td>array</td><td>No comments found.</td><td>-</td></tr>
+<tr><td>     └─id</td><td>string</td><td>No comments found.</td><td>-</td></tr>
+<tr><td>     └─createTime</td><td>int64</td><td>No comments found.</td><td>-</td></tr>
+<tr><td>     └─updateTime</td><td>int64</td><td>No comments found.</td><td>-</td></tr>
+<tr><td>     └─serverName</td><td>string</td><td>No comments found.</td><td>-</td></tr>
+<tr><td>     └─listen</td><td>string</td><td>No comments found.</td><td>-</td></tr>
+<tr><td>     └─def</td><td>int32</td><td>No comments found.</td><td>-</td></tr>
+<tr><td>     └─rewrite</td><td>int32</td><td>No comments found.</td><td>-</td></tr>
+<tr><td>     └─rewriteListen</td><td>string</td><td>No comments found.</td><td>-</td></tr>
+<tr><td>     └─ssl</td><td>int32</td><td>No comments found.</td><td>-</td></tr>
+<tr><td>     └─http2</td><td>int32</td><td>No comments found.</td><td>-</td></tr>
+<tr><td>     └─proxyProtocol</td><td>int32</td><td>No comments found.</td><td>-</td></tr>
+<tr><td>     └─pem</td><td>string</td><td>No comments found.</td><td>-</td></tr>
+<tr><td>     └─key</td><td>string</td><td>No comments found.</td><td>-</td></tr>
+<tr><td>     └─proxyType</td><td>int32</td><td>No comments found.</td><td>-</td></tr>
+<tr><td>     └─proxyUpstreamId</td><td>string</td><td>No comments found.</td><td>-</td></tr>
+<tr><td>     └─pemStr</td><td>string</td><td>No comments found.</td><td>-</td></tr>
+<tr><td>     └─keyStr</td><td>string</td><td>No comments found.</td><td>-</td></tr>
+<tr><td>     └─enable</td><td>boolean</td><td>No comments found.</td><td>-</td></tr>
+<tr><td>     └─descr</td><td>string</td><td>No comments found.</td><td>-</td></tr>
+<tr><td>     └─protocols</td><td>string</td><td>No comments found.</td><td>-</td></tr>
+<tr><td>     └─passwordId</td><td>string</td><td>No comments found.</td><td>-</td></tr>
+<tr><td>     └─seq</td><td>int64</td><td>No comments found.</td><td>-</td></tr>
+</tbody>
+</table>
+<p><strong>Response-example:</strong></p>
+<pre><code>{
+	&quot;success&quot;:true,
+	&quot;status&quot;:&quot;o4h35t&quot;,
+	&quot;msg&quot;:&quot;eh4qfl&quot;,
+	&quot;obj&quot;:{
+		&quot;count&quot;:548,
+		&quot;curr&quot;:501,
+		&quot;limit&quot;:10,
+		&quot;records&quot;:[
+			{
+				&quot;id&quot;:&quot;82&quot;,
+				&quot;createTime&quot;:1640703805875,
+				&quot;updateTime&quot;:1640703805875,
+				&quot;serverName&quot;:&quot;哲瀚.丁&quot;,
+				&quot;listen&quot;:&quot;klepqy&quot;,
+				&quot;def&quot;:51,
+				&quot;rewrite&quot;:366,
+				&quot;rewriteListen&quot;:&quot;8vrkq7&quot;,
+				&quot;ssl&quot;:720,
+				&quot;http2&quot;:279,
+				&quot;proxyProtocol&quot;:565,
+				&quot;pem&quot;:&quot;dsybp3&quot;,
+				&quot;key&quot;:&quot;2rxoqh&quot;,
+				&quot;proxyType&quot;:600,
+				&quot;proxyUpstreamId&quot;:&quot;82&quot;,
+				&quot;pemStr&quot;:&quot;wydyf7&quot;,
+				&quot;keyStr&quot;:&quot;24r90z&quot;,
+				&quot;enable&quot;:true,
+				&quot;descr&quot;:&quot;tr2u44&quot;,
+				&quot;protocols&quot;:&quot;fsrle8&quot;,
+				&quot;passwordId&quot;:&quot;82&quot;,
+				&quot;seq&quot;:160
+			}
+		]
+	}
+}
+</code></pre>
+<h2>添加或编辑server</h2>
+<p><strong>URL:</strong> <code>http://localhost:8080/api/server/insertOrUpdate</code></p>
+<p><strong>Type:</strong> <code>ANY</code></p>
+<p><strong>Content-Type:</strong> <code>application/x-www-form-urlencoded;charset=utf-8</code></p>
+<p><strong>Description:</strong> 添加或编辑server</p>
+<p><strong>Request-parameters:</strong></p>
+<table>
+<thead>
+<tr><th>Parameter</th><th>Type</th><th>Description</th><th>Required</th><th>Since</th></tr>
+</thead>
+<tbody>
+<tr><td>id</td><td>string</td><td>No comments found.</td><td>false</td><td>-</td></tr>
+<tr><td>createTime</td><td>int64</td><td>No comments found.</td><td>false</td><td>-</td></tr>
+<tr><td>updateTime</td><td>int64</td><td>No comments found.</td><td>false</td><td>-</td></tr>
+<tr><td>serverName</td><td>string</td><td>No comments found.</td><td>false</td><td>-</td></tr>
+<tr><td>listen</td><td>string</td><td>No comments found.</td><td>false</td><td>-</td></tr>
+<tr><td>def</td><td>int32</td><td>No comments found.</td><td>false</td><td>-</td></tr>
+<tr><td>rewrite</td><td>int32</td><td>No comments found.</td><td>false</td><td>-</td></tr>
+<tr><td>rewriteListen</td><td>string</td><td>No comments found.</td><td>false</td><td>-</td></tr>
+<tr><td>ssl</td><td>int32</td><td>No comments found.</td><td>false</td><td>-</td></tr>
+<tr><td>http2</td><td>int32</td><td>No comments found.</td><td>false</td><td>-</td></tr>
+<tr><td>proxyProtocol</td><td>int32</td><td>No comments found.</td><td>false</td><td>-</td></tr>
+<tr><td>pem</td><td>string</td><td>No comments found.</td><td>false</td><td>-</td></tr>
+<tr><td>key</td><td>string</td><td>No comments found.</td><td>false</td><td>-</td></tr>
+<tr><td>proxyType</td><td>int32</td><td>No comments found.</td><td>false</td><td>-</td></tr>
+<tr><td>proxyUpstreamId</td><td>string</td><td>No comments found.</td><td>false</td><td>-</td></tr>
+<tr><td>pemStr</td><td>string</td><td>No comments found.</td><td>false</td><td>-</td></tr>
+<tr><td>keyStr</td><td>string</td><td>No comments found.</td><td>false</td><td>-</td></tr>
+<tr><td>enable</td><td>boolean</td><td>No comments found.</td><td>false</td><td>-</td></tr>
+<tr><td>descr</td><td>string</td><td>No comments found.</td><td>false</td><td>-</td></tr>
+<tr><td>protocols</td><td>string</td><td>No comments found.</td><td>false</td><td>-</td></tr>
+<tr><td>passwordId</td><td>string</td><td>No comments found.</td><td>false</td><td>-</td></tr>
+<tr><td>seq</td><td>int64</td><td>No comments found.</td><td>false</td><td>-</td></tr>
+</tbody>
+</table>
+<p><strong>Request-example:</strong></p>
+<pre><code>curl   -i http://localhost:8080/api/server/insertOrUpdate?id=82&amp;enable=true&amp;rewriteListen=pd49f6&amp;proxyUpstreamId=82&amp;descr=5idszm&amp;listen=hml9wp&amp;seq=266&amp;serverName=哲瀚.丁&amp;ssl=550&amp;rewrite=185&amp;updateTime=1640703805875&amp;proxyProtocol=801&amp;http2=153&amp;proxyType=896&amp;def=471&amp;key=988ta7&amp;pem=bzi0fd&amp;keyStr=r72gsn&amp;protocols=i9xyhj&amp;createTime=1640703805875&amp;passwordId=82&amp;pemStr=31vqwm
+</code></pre>
+<p><strong>Response-fields:</strong></p>
+<table>
+<thead>
+<tr><th>Field</th><th>Type</th><th>Description</th><th>Since</th></tr>
+</thead>
+<tbody>
+<tr><td>success</td><td>boolean</td><td>No comments found.</td><td>-</td></tr>
+<tr><td>status</td><td>string</td><td>No comments found.</td><td>-</td></tr>
+<tr><td>msg</td><td>string</td><td>No comments found.</td><td>-</td></tr>
+<tr><td>obj</td><td>object</td><td>No comments found.</td><td>-</td></tr>
+</tbody>
+</table>
+<p><strong>Response-example:</strong></p>
+<pre><code>{
+	&quot;success&quot;:true,
+	&quot;status&quot;:&quot;2ip05e&quot;,
+	&quot;msg&quot;:&quot;nn03o1&quot;,
+	&quot;obj&quot;:{
+		
+	}
+}
+</code></pre>
+<h2>删除server</h2>
+<p><strong>URL:</strong> <code>http://localhost:8080/api/server/delete</code></p>
+<p><strong>Type:</strong> <code>ANY</code></p>
+<p><strong>Content-Type:</strong> <code>application/x-www-form-urlencoded;charset=utf-8</code></p>
+<p><strong>Description:</strong> 删除server</p>
+<p><strong>Request-parameters:</strong></p>
+<table>
+<thead>
+<tr><th>Parameter</th><th>Type</th><th>Description</th><th>Required</th><th>Since</th></tr>
+</thead>
+<tbody>
+<tr><td>id</td><td>string</td><td>No comments found.</td><td>true</td><td>-</td></tr>
+</tbody>
+</table>
+<p><strong>Request-example:</strong></p>
+<pre><code>curl   -i http://localhost:8080/api/server/delete?id=82
+</code></pre>
+<p><strong>Response-fields:</strong></p>
+<table>
+<thead>
+<tr><th>Field</th><th>Type</th><th>Description</th><th>Since</th></tr>
+</thead>
+<tbody>
+<tr><td>success</td><td>boolean</td><td>No comments found.</td><td>-</td></tr>
+<tr><td>status</td><td>string</td><td>No comments found.</td><td>-</td></tr>
+<tr><td>msg</td><td>string</td><td>No comments found.</td><td>-</td></tr>
+<tr><td>obj</td><td>object</td><td>No comments found.</td><td>-</td></tr>
+</tbody>
+</table>
+<p><strong>Response-example:</strong></p>
+<pre><code>{
+	&quot;success&quot;:true,
+	&quot;status&quot;:&quot;t6rj2e&quot;,
+	&quot;msg&quot;:&quot;0jghh8&quot;,
+	&quot;obj&quot;:{
+		
+	}
+}
+</code></pre>
+<h2>根据serverId获取location列表</h2>
+<p><strong>URL:</strong> <code>http://localhost:8080/api/server/getLocationByServerId</code></p>
+<p><strong>Type:</strong> <code>ANY</code></p>
+<p><strong>Content-Type:</strong> <code>application/x-www-form-urlencoded;charset=utf-8</code></p>
+<p><strong>Description:</strong> 根据serverId获取location列表</p>
+<p><strong>Request-parameters:</strong></p>
+<table>
+<thead>
+<tr><th>Parameter</th><th>Type</th><th>Description</th><th>Required</th><th>Since</th></tr>
+</thead>
+<tbody>
+<tr><td>serverId</td><td>string</td><td>No comments found.</td><td>true</td><td>-</td></tr>
+</tbody>
+</table>
+<p><strong>Request-example:</strong></p>
+<pre><code>curl   -i http://localhost:8080/api/server/getLocationByServerId?serverId=82
+</code></pre>
+<p><strong>Response-fields:</strong></p>
+<table>
+<thead>
+<tr><th>Field</th><th>Type</th><th>Description</th><th>Since</th></tr>
+</thead>
+<tbody>
+<tr><td>success</td><td>boolean</td><td>No comments found.</td><td>-</td></tr>
+<tr><td>status</td><td>string</td><td>No comments found.</td><td>-</td></tr>
+<tr><td>msg</td><td>string</td><td>No comments found.</td><td>-</td></tr>
+<tr><td>obj</td><td>object</td><td>No comments found.</td><td>-</td></tr>
+<tr><td>└─id</td><td>string</td><td>No comments found.</td><td>-</td></tr>
+<tr><td>└─createTime</td><td>int64</td><td>No comments found.</td><td>-</td></tr>
+<tr><td>└─updateTime</td><td>int64</td><td>No comments found.</td><td>-</td></tr>
+<tr><td>└─serverId</td><td>string</td><td>No comments found.</td><td>-</td></tr>
+<tr><td>└─path</td><td>string</td><td>No comments found.</td><td>-</td></tr>
+<tr><td>└─type</td><td>int32</td><td>No comments found.</td><td>-</td></tr>
+<tr><td>└─locationParamJson</td><td>string</td><td>No comments found.</td><td>-</td></tr>
+<tr><td>└─value</td><td>string</td><td>No comments found.</td><td>-</td></tr>
+<tr><td>└─upstreamType</td><td>string</td><td>No comments found.</td><td>-</td></tr>
+<tr><td>└─upstreamId</td><td>string</td><td>No comments found.</td><td>-</td></tr>
+<tr><td>└─upstreamPath</td><td>string</td><td>No comments found.</td><td>-</td></tr>
+<tr><td>└─rootPath</td><td>string</td><td>No comments found.</td><td>-</td></tr>
+<tr><td>└─rootPage</td><td>string</td><td>No comments found.</td><td>-</td></tr>
+<tr><td>└─rootType</td><td>string</td><td>No comments found.</td><td>-</td></tr>
+<tr><td>└─header</td><td>int32</td><td>No comments found.</td><td>-</td></tr>
+<tr><td>└─websocket</td><td>int32</td><td>No comments found.</td><td>-</td></tr>
+</tbody>
+</table>
+<p><strong>Response-example:</strong></p>
+<pre><code>{
+	&quot;success&quot;:true,
+	&quot;status&quot;:&quot;rpnr0p&quot;,
+	&quot;msg&quot;:&quot;8qyl2o&quot;,
+	&quot;obj&quot;:[
+		{
+			&quot;id&quot;:&quot;82&quot;,
+			&quot;createTime&quot;:1640703805875,
+			&quot;updateTime&quot;:1640703805875,
+			&quot;serverId&quot;:&quot;82&quot;,
+			&quot;path&quot;:&quot;s5hj3m&quot;,
+			&quot;type&quot;:145,
+			&quot;locationParamJson&quot;:&quot;yk8hi1&quot;,
+			&quot;value&quot;:&quot;0v8wjd&quot;,
+			&quot;upstreamType&quot;:&quot;0q1p3l&quot;,
+			&quot;upstreamId&quot;:&quot;82&quot;,
+			&quot;upstreamPath&quot;:&quot;ok7ejs&quot;,
+			&quot;rootPath&quot;:&quot;vyc4j3&quot;,
+			&quot;rootPage&quot;:&quot;ocl8u9&quot;,
+			&quot;rootType&quot;:&quot;3dpxxa&quot;,
+			&quot;header&quot;:602,
+			&quot;websocket&quot;:890
+		}
+	]
+}
+</code></pre>
+<h2>添加或编辑location</h2>
+<p><strong>URL:</strong> <code>http://localhost:8080/api/server/insertOrUpdateLocation</code></p>
+<p><strong>Type:</strong> <code>ANY</code></p>
+<p><strong>Content-Type:</strong> <code>application/x-www-form-urlencoded;charset=utf-8</code></p>
+<p><strong>Description:</strong> 添加或编辑location</p>
+<p><strong>Request-parameters:</strong></p>
+<table>
+<thead>
+<tr><th>Parameter</th><th>Type</th><th>Description</th><th>Required</th><th>Since</th></tr>
+</thead>
+<tbody>
+<tr><td>id</td><td>string</td><td>No comments found.</td><td>false</td><td>-</td></tr>
+<tr><td>createTime</td><td>int64</td><td>No comments found.</td><td>false</td><td>-</td></tr>
+<tr><td>updateTime</td><td>int64</td><td>No comments found.</td><td>false</td><td>-</td></tr>
+<tr><td>serverId</td><td>string</td><td>No comments found.</td><td>false</td><td>-</td></tr>
+<tr><td>path</td><td>string</td><td>No comments found.</td><td>false</td><td>-</td></tr>
+<tr><td>type</td><td>int32</td><td>No comments found.</td><td>false</td><td>-</td></tr>
+<tr><td>locationParamJson</td><td>string</td><td>No comments found.</td><td>false</td><td>-</td></tr>
+<tr><td>value</td><td>string</td><td>No comments found.</td><td>false</td><td>-</td></tr>
+<tr><td>upstreamType</td><td>string</td><td>No comments found.</td><td>false</td><td>-</td></tr>
+<tr><td>upstreamId</td><td>string</td><td>No comments found.</td><td>false</td><td>-</td></tr>
+<tr><td>upstreamPath</td><td>string</td><td>No comments found.</td><td>false</td><td>-</td></tr>
+<tr><td>rootPath</td><td>string</td><td>No comments found.</td><td>false</td><td>-</td></tr>
+<tr><td>rootPage</td><td>string</td><td>No comments found.</td><td>false</td><td>-</td></tr>
+<tr><td>rootType</td><td>string</td><td>No comments found.</td><td>false</td><td>-</td></tr>
+<tr><td>header</td><td>int32</td><td>No comments found.</td><td>false</td><td>-</td></tr>
+<tr><td>websocket</td><td>int32</td><td>No comments found.</td><td>false</td><td>-</td></tr>
+</tbody>
+</table>
+<p><strong>Request-example:</strong></p>
+<pre><code>curl   -i http://localhost:8080/api/server/insertOrUpdateLocation?path=ezlqbx&amp;type=704&amp;serverId=82&amp;locationParamJson=9k0hj4&amp;createTime=1640703805875&amp;header=718&amp;id=82&amp;value=djlwv4&amp;rootType=6a7iul&amp;updateTime=1640703805875&amp;upstreamType=zb5p35&amp;rootPage=kwh82m&amp;rootPath=uurzv4&amp;upstreamPath=faee6f&amp;websocket=109&amp;upstreamId=82
+</code></pre>
+<p><strong>Response-fields:</strong></p>
+<table>
+<thead>
+<tr><th>Field</th><th>Type</th><th>Description</th><th>Since</th></tr>
+</thead>
+<tbody>
+<tr><td>success</td><td>boolean</td><td>No comments found.</td><td>-</td></tr>
+<tr><td>status</td><td>string</td><td>No comments found.</td><td>-</td></tr>
+<tr><td>msg</td><td>string</td><td>No comments found.</td><td>-</td></tr>
+<tr><td>obj</td><td>object</td><td>No comments found.</td><td>-</td></tr>
+</tbody>
+</table>
+<p><strong>Response-example:</strong></p>
+<pre><code>{
+	&quot;success&quot;:true,
+	&quot;status&quot;:&quot;fwfiok&quot;,
+	&quot;msg&quot;:&quot;y3d7zc&quot;,
+	&quot;obj&quot;:{
+		
+	}
+}
+</code></pre>
+<h2>删除location</h2>
+<p><strong>URL:</strong> <code>http://localhost:8080/api/server/deleteLocation</code></p>
+<p><strong>Type:</strong> <code>ANY</code></p>
+<p><strong>Content-Type:</strong> <code>application/x-www-form-urlencoded;charset=utf-8</code></p>
+<p><strong>Description:</strong> 删除location</p>
+<p><strong>Request-parameters:</strong></p>
+<table>
+<thead>
+<tr><th>Parameter</th><th>Type</th><th>Description</th><th>Required</th><th>Since</th></tr>
+</thead>
+<tbody>
+<tr><td>id</td><td>string</td><td>No comments found.</td><td>true</td><td>-</td></tr>
+</tbody>
+</table>
+<p><strong>Request-example:</strong></p>
+<pre><code>curl   -i http://localhost:8080/api/server/deleteLocation?id=82
+</code></pre>
+<p><strong>Response-fields:</strong></p>
+<table>
+<thead>
+<tr><th>Field</th><th>Type</th><th>Description</th><th>Since</th></tr>
+</thead>
+<tbody>
+<tr><td>success</td><td>boolean</td><td>No comments found.</td><td>-</td></tr>
+<tr><td>status</td><td>string</td><td>No comments found.</td><td>-</td></tr>
+<tr><td>msg</td><td>string</td><td>No comments found.</td><td>-</td></tr>
+<tr><td>obj</td><td>object</td><td>No comments found.</td><td>-</td></tr>
+</tbody>
+</table>
+<p><strong>Response-example:</strong></p>
+<pre><code>{
+	&quot;success&quot;:true,
+	&quot;status&quot;:&quot;kh5kb6&quot;,
+	&quot;msg&quot;:&quot;6pyoz4&quot;,
+	&quot;obj&quot;:{
+		
+	}
+}
+</code></pre>
+
+    <footer class="page-footer">
+        <span class="copyright">Generated by smart-doc at 2021-12-28 23:03:24</span>
+        <span class="footer-modification">Suggestions, contact, support and error reporting on
+            <a href="https://gitee.com/smart-doc-team/smart-doc" target="_blank">Gitee</a> or
+            <a href="https://github.com/smart-doc-group/smart-doc" target="_blank">Github</a>
+        </span>
+    </footer>
+</div>
+</body>
+</html>

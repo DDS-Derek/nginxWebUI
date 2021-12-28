@@ -3,6 +3,7 @@ package com.cym.controller.api;
 import java.io.IOException;
 import java.util.List;
 
+import org.noear.solon.annotation.Controller;
 import org.noear.solon.annotation.Inject;
 import org.noear.solon.annotation.Mapping;
 
@@ -20,6 +21,7 @@ import io.swagger.annotations.ApiOperation;
  */
 @Api(tags = "密码文件接口")
 @Mapping("/api/password")
+@Controller
 public class PasswordApiController extends BaseController{
 	@Inject
 	PasswordService passwordService;

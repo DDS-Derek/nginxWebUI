@@ -2,6 +2,7 @@ package com.cym.controller.api;
 
 import java.util.List;
 
+import org.noear.solon.annotation.Controller;
 import org.noear.solon.annotation.Inject;
 import org.noear.solon.annotation.Mapping;
 
@@ -22,6 +23,7 @@ import io.swagger.annotations.ApiParam;
  */
 @Api(tags = "负载均衡(upstream)接口")
 @Mapping("/api/upstream")
+@Controller
 public class UpstreamApiController extends BaseController {
 	@Inject
 	UpstreamService upstreamService;

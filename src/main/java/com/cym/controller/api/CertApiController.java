@@ -3,6 +3,7 @@ package com.cym.controller.api;
 import java.io.IOException;
 import java.util.List;
 
+import org.noear.solon.annotation.Controller;
 import org.noear.solon.annotation.Inject;
 import org.noear.solon.annotation.Mapping;
 
@@ -25,6 +26,7 @@ import io.swagger.annotations.ApiParam;
  */
 @Api(tags = "证书接口")
 @Mapping("/api/cert")
+@Controller
 public class CertApiController extends BaseController {
 
 	@Inject

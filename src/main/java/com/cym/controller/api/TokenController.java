@@ -3,6 +3,7 @@ package com.cym.controller.api;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.noear.solon.annotation.Controller;
 import org.noear.solon.annotation.Inject;
 import org.noear.solon.annotation.Mapping;
 
@@ -18,6 +19,7 @@ import io.swagger.annotations.ApiParam;
  */
 @Api(tags = "获取token")
 @Mapping("token")
+@Controller
 public class TokenController extends BaseController {
 	@Inject
 	AdminService adminService;

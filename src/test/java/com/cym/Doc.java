@@ -27,7 +27,7 @@ public class Doc {
                 SourceCodePath
                         .path()
                         .setDesc("demo")
-                        .setPath("src/main/java")
+                        .setPath("src/main/java/com/cym/controller/api/")
         );
 
         long start = System.currentTimeMillis();

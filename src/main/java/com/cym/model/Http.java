@@ -6,6 +6,11 @@ import com.cym.sqlhelper.config.Table;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
+/**
+ * Http参数
+ * @author CYM
+ *
+ */
 @ApiModel("Http参数")
 @Table
 public class Http extends BaseModel {

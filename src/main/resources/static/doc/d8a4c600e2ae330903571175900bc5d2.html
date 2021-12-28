@@ -1,0 +1,330 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width initial-scale=1'>
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <link rel="stylesheet" href="markdown.css?v=1640703804813"/>
+    <title>负载均衡(upstream)接口</title>
+</head>
+<body>
+<div class="markdown-body">
+    <h1>负载均衡(upstream)接口</h1>
+<h2>获取upstream分页列表</h2>
+<p><strong>URL:</strong> <code>http://localhost:8080/api/upstream/getPage</code></p>
+<p><strong>Type:</strong> <code>ANY</code></p>
+<p><strong>Content-Type:</strong> <code>application/x-www-form-urlencoded;charset=utf-8</code></p>
+<p><strong>Description:</strong> 获取upstream分页列表</p>
+<p><strong>Request-parameters:</strong></p>
+<table>
+<thead>
+<tr><th>Parameter</th><th>Type</th><th>Description</th><th>Required</th><th>Since</th></tr>
+</thead>
+<tbody>
+<tr><td>current</td><td>int32</td><td>No comments found.</td><td>true</td><td>-</td></tr>
+<tr><td>limit</td><td>int32</td><td>No comments found.</td><td>true</td><td>-</td></tr>
+<tr><td>keywords</td><td>string</td><td>No comments found.</td><td>true</td><td>-</td></tr>
+</tbody>
+</table>
+<p><strong>Request-example:</strong></p>
+<pre><code>curl   -i http://localhost:8080/api/upstream/getPage?current=vb8mx3&amp;limit=10&amp;keywords=vdaonb
+</code></pre>
+<p><strong>Response-fields:</strong></p>
+<table>
+<thead>
+<tr><th>Field</th><th>Type</th><th>Description</th><th>Since</th></tr>
+</thead>
+<tbody>
+<tr><td>success</td><td>boolean</td><td>No comments found.</td><td>-</td></tr>
+<tr><td>status</td><td>string</td><td>No comments found.</td><td>-</td></tr>
+<tr><td>msg</td><td>string</td><td>No comments found.</td><td>-</td></tr>
+<tr><td>obj</td><td>object</td><td>No comments found.</td><td>-</td></tr>
+<tr><td>└─count</td><td>int64</td><td>No comments found.</td><td>-</td></tr>
+<tr><td>└─curr</td><td>int32</td><td>No comments found.</td><td>-</td></tr>
+<tr><td>└─limit</td><td>int32</td><td>No comments found.</td><td>-</td></tr>
+<tr><td>└─records</td><td>array</td><td>No comments found.</td><td>-</td></tr>
+<tr><td>     └─id</td><td>string</td><td>No comments found.</td><td>-</td></tr>
+<tr><td>     └─createTime</td><td>int64</td><td>No comments found.</td><td>-</td></tr>
+<tr><td>     └─updateTime</td><td>int64</td><td>No comments found.</td><td>-</td></tr>
+<tr><td>     └─name</td><td>string</td><td>No comments found.</td><td>-</td></tr>
+<tr><td>     └─tactics</td><td>string</td><td>No comments found.</td><td>-</td></tr>
+<tr><td>     └─proxyType</td><td>int32</td><td>No comments found.</td><td>-</td></tr>
+<tr><td>     └─monitor</td><td>int32</td><td>No comments found.</td><td>-</td></tr>
+<tr><td>     └─seq</td><td>int64</td><td>No comments found.</td><td>-</td></tr>
+</tbody>
+</table>
+<p><strong>Response-example:</strong></p>
+<pre><code>{
+	&quot;success&quot;:true,
+	&quot;status&quot;:&quot;ck6hmt&quot;,
+	&quot;msg&quot;:&quot;swlxf7&quot;,
+	&quot;obj&quot;:{
+		&quot;count&quot;:755,
+		&quot;curr&quot;:916,
+		&quot;limit&quot;:10,
+		&quot;records&quot;:[
+			{
+				&quot;id&quot;:&quot;82&quot;,
+				&quot;createTime&quot;:1640703805875,
+				&quot;updateTime&quot;:1640703805875,
+				&quot;name&quot;:&quot;哲瀚.丁&quot;,
+				&quot;tactics&quot;:&quot;qr80i5&quot;,
+				&quot;proxyType&quot;:38,
+				&quot;monitor&quot;:426,
+				&quot;seq&quot;:45
+			}
+		]
+	}
+}
+</code></pre>
+<h2>添加或编辑upstream</h2>
+<p><strong>URL:</strong> <code>http://localhost:8080/api/upstream/insertOrUpdate</code></p>
+<p><strong>Type:</strong> <code>ANY</code></p>
+<p><strong>Content-Type:</strong> <code>application/x-www-form-urlencoded;charset=utf-8</code></p>
+<p><strong>Description:</strong> 添加或编辑upstream</p>
+<p><strong>Request-parameters:</strong></p>
+<table>
+<thead>
+<tr><th>Parameter</th><th>Type</th><th>Description</th><th>Required</th><th>Since</th></tr>
+</thead>
+<tbody>
+<tr><td>id</td><td>string</td><td>No comments found.</td><td>false</td><td>-</td></tr>
+<tr><td>createTime</td><td>int64</td><td>No comments found.</td><td>false</td><td>-</td></tr>
+<tr><td>updateTime</td><td>int64</td><td>No comments found.</td><td>false</td><td>-</td></tr>
+<tr><td>name</td><td>string</td><td>No comments found.</td><td>false</td><td>-</td></tr>
+<tr><td>tactics</td><td>string</td><td>No comments found.</td><td>false</td><td>-</td></tr>
+<tr><td>proxyType</td><td>int32</td><td>No comments found.</td><td>false</td><td>-</td></tr>
+<tr><td>monitor</td><td>int32</td><td>No comments found.</td><td>false</td><td>-</td></tr>
+<tr><td>seq</td><td>int64</td><td>No comments found.</td><td>false</td><td>-</td></tr>
+</tbody>
+</table>
+<p><strong>Request-example:</strong></p>
+<pre><code>curl   -i http://localhost:8080/api/upstream/insertOrUpdate?name=哲瀚.丁&amp;tactics=20ie1p&amp;createTime=1640703805875&amp;proxyType=865&amp;id=82&amp;monitor=626&amp;seq=367&amp;updateTime=1640703805875
+</code></pre>
+<p><strong>Response-fields:</strong></p>
+<table>
+<thead>
+<tr><th>Field</th><th>Type</th><th>Description</th><th>Since</th></tr>
+</thead>
+<tbody>
+<tr><td>success</td><td>boolean</td><td>No comments found.</td><td>-</td></tr>
+<tr><td>status</td><td>string</td><td>No comments found.</td><td>-</td></tr>
+<tr><td>msg</td><td>string</td><td>No comments found.</td><td>-</td></tr>
+<tr><td>obj</td><td>object</td><td>No comments found.</td><td>-</td></tr>
+</tbody>
+</table>
+<p><strong>Response-example:</strong></p>
+<pre><code>{
+	&quot;success&quot;:true,
+	&quot;status&quot;:&quot;bhf9sd&quot;,
+	&quot;msg&quot;:&quot;svi80p&quot;,
+	&quot;obj&quot;:{
+		
+	}
+}
+</code></pre>
+<h2>删除upstream</h2>
+<p><strong>URL:</strong> <code>http://localhost:8080/api/upstream/delete</code></p>
+<p><strong>Type:</strong> <code>ANY</code></p>
+<p><strong>Content-Type:</strong> <code>application/x-www-form-urlencoded;charset=utf-8</code></p>
+<p><strong>Description:</strong> 删除upstream</p>
+<p><strong>Request-parameters:</strong></p>
+<table>
+<thead>
+<tr><th>Parameter</th><th>Type</th><th>Description</th><th>Required</th><th>Since</th></tr>
+</thead>
+<tbody>
+<tr><td>id</td><td>string</td><td>No comments found.</td><td>true</td><td>-</td></tr>
+</tbody>
+</table>
+<p><strong>Request-example:</strong></p>
+<pre><code>curl   -i http://localhost:8080/api/upstream/delete?id=82
+</code></pre>
+<p><strong>Response-fields:</strong></p>
+<table>
+<thead>
+<tr><th>Field</th><th>Type</th><th>Description</th><th>Since</th></tr>
+</thead>
+<tbody>
+<tr><td>success</td><td>boolean</td><td>No comments found.</td><td>-</td></tr>
+<tr><td>status</td><td>string</td><td>No comments found.</td><td>-</td></tr>
+<tr><td>msg</td><td>string</td><td>No comments found.</td><td>-</td></tr>
+<tr><td>obj</td><td>object</td><td>No comments found.</td><td>-</td></tr>
+</tbody>
+</table>
+<p><strong>Response-example:</strong></p>
+<pre><code>{
+	&quot;success&quot;:true,
+	&quot;status&quot;:&quot;x2oz7r&quot;,
+	&quot;msg&quot;:&quot;5x77a4&quot;,
+	&quot;obj&quot;:{
+		
+	}
+}
+</code></pre>
+<h2>根据upstreamId获取server列表</h2>
+<p><strong>URL:</strong> <code>http://localhost:8080/api/upstream/getServerByUpstreamId</code></p>
+<p><strong>Type:</strong> <code>ANY</code></p>
+<p><strong>Content-Type:</strong> <code>application/x-www-form-urlencoded;charset=utf-8</code></p>
+<p><strong>Description:</strong> 根据upstreamId获取server列表</p>
+<p><strong>Request-parameters:</strong></p>
+<table>
+<thead>
+<tr><th>Parameter</th><th>Type</th><th>Description</th><th>Required</th><th>Since</th></tr>
+</thead>
+<tbody>
+<tr><td>upstreamId</td><td>string</td><td>No comments found.</td><td>true</td><td>-</td></tr>
+</tbody>
+</table>
+<p><strong>Request-example:</strong></p>
+<pre><code>curl   -i http://localhost:8080/api/upstream/getServerByUpstreamId?upstreamId=82
+</code></pre>
+<p><strong>Response-fields:</strong></p>
+<table>
+<thead>
+<tr><th>Field</th><th>Type</th><th>Description</th><th>Since</th></tr>
+</thead>
+<tbody>
+<tr><td>success</td><td>boolean</td><td>No comments found.</td><td>-</td></tr>
+<tr><td>status</td><td>string</td><td>No comments found.</td><td>-</td></tr>
+<tr><td>msg</td><td>string</td><td>No comments found.</td><td>-</td></tr>
+<tr><td>obj</td><td>object</td><td>No comments found.</td><td>-</td></tr>
+<tr><td>└─id</td><td>string</td><td>No comments found.</td><td>-</td></tr>
+<tr><td>└─createTime</td><td>int64</td><td>No comments found.</td><td>-</td></tr>
+<tr><td>└─updateTime</td><td>int64</td><td>No comments found.</td><td>-</td></tr>
+<tr><td>└─upstreamId</td><td>string</td><td>No comments found.</td><td>-</td></tr>
+<tr><td>└─server</td><td>string</td><td>No comments found.</td><td>-</td></tr>
+<tr><td>└─port</td><td>int32</td><td>No comments found.</td><td>-</td></tr>
+<tr><td>└─weight</td><td>int32</td><td>No comments found.</td><td>-</td></tr>
+<tr><td>└─failTimeout</td><td>int32</td><td>No comments found.</td><td>-</td></tr>
+<tr><td>└─maxFails</td><td>int32</td><td>No comments found.</td><td>-</td></tr>
+<tr><td>└─maxConns</td><td>int32</td><td>No comments found.</td><td>-</td></tr>
+<tr><td>└─status</td><td>string</td><td>No comments found.</td><td>-</td></tr>
+<tr><td>└─monitorStatus</td><td>int32</td><td>No comments found.</td><td>-</td></tr>
+</tbody>
+</table>
+<p><strong>Response-example:</strong></p>
+<pre><code>{
+	&quot;success&quot;:true,
+	&quot;status&quot;:&quot;duhm7t&quot;,
+	&quot;msg&quot;:&quot;wfy80z&quot;,
+	&quot;obj&quot;:[
+		{
+			&quot;id&quot;:&quot;82&quot;,
+			&quot;createTime&quot;:1640703805875,
+			&quot;updateTime&quot;:1640703805875,
+			&quot;upstreamId&quot;:&quot;82&quot;,
+			&quot;server&quot;:&quot;p1ph4i&quot;,
+			&quot;port&quot;:600,
+			&quot;weight&quot;:760,
+			&quot;failTimeout&quot;:895,
+			&quot;maxFails&quot;:893,
+			&quot;maxConns&quot;:46,
+			&quot;status&quot;:&quot;c3feir&quot;,
+			&quot;monitorStatus&quot;:375
+		}
+	]
+}
+</code></pre>
+<h2>添加或编辑server</h2>
+<p><strong>URL:</strong> <code>http://localhost:8080/api/upstream/insertOrUpdateServer</code></p>
+<p><strong>Type:</strong> <code>ANY</code></p>
+<p><strong>Content-Type:</strong> <code>application/x-www-form-urlencoded;charset=utf-8</code></p>
+<p><strong>Description:</strong> 添加或编辑server</p>
+<p><strong>Request-parameters:</strong></p>
+<table>
+<thead>
+<tr><th>Parameter</th><th>Type</th><th>Description</th><th>Required</th><th>Since</th></tr>
+</thead>
+<tbody>
+<tr><td>id</td><td>string</td><td>No comments found.</td><td>false</td><td>-</td></tr>
+<tr><td>createTime</td><td>int64</td><td>No comments found.</td><td>false</td><td>-</td></tr>
+<tr><td>updateTime</td><td>int64</td><td>No comments found.</td><td>false</td><td>-</td></tr>
+<tr><td>upstreamId</td><td>string</td><td>No comments found.</td><td>false</td><td>-</td></tr>
+<tr><td>server</td><td>string</td><td>No comments found.</td><td>false</td><td>-</td></tr>
+<tr><td>port</td><td>int32</td><td>No comments found.</td><td>false</td><td>-</td></tr>
+<tr><td>weight</td><td>int32</td><td>No comments found.</td><td>false</td><td>-</td></tr>
+<tr><td>failTimeout</td><td>int32</td><td>No comments found.</td><td>false</td><td>-</td></tr>
+<tr><td>maxFails</td><td>int32</td><td>No comments found.</td><td>false</td><td>-</td></tr>
+<tr><td>maxConns</td><td>int32</td><td>No comments found.</td><td>false</td><td>-</td></tr>
+<tr><td>status</td><td>string</td><td>No comments found.</td><td>false</td><td>-</td></tr>
+<tr><td>monitorStatus</td><td>int32</td><td>No comments found.</td><td>false</td><td>-</td></tr>
+</tbody>
+</table>
+<p><strong>Request-example:</strong></p>
+<pre><code>curl   -i http://localhost:8080/api/upstream/insertOrUpdateServer?server=bxomzv&amp;maxConns=675&amp;port=542&amp;createTime=1640703805875&amp;status=5mz218&amp;failTimeout=147&amp;monitorStatus=75&amp;id=82&amp;maxFails=582&amp;upstreamId=82&amp;updateTime=1640703805875&amp;weight=824
+</code></pre>
+<p><strong>Response-fields:</strong></p>
+<table>
+<thead>
+<tr><th>Field</th><th>Type</th><th>Description</th><th>Since</th></tr>
+</thead>
+<tbody>
+<tr><td>success</td><td>boolean</td><td>No comments found.</td><td>-</td></tr>
+<tr><td>status</td><td>string</td><td>No comments found.</td><td>-</td></tr>
+<tr><td>msg</td><td>string</td><td>No comments found.</td><td>-</td></tr>
+<tr><td>obj</td><td>object</td><td>No comments found.</td><td>-</td></tr>
+</tbody>
+</table>
+<p><strong>Response-example:</strong></p>
+<pre><code>{
+	&quot;success&quot;:true,
+	&quot;status&quot;:&quot;qm5tr5&quot;,
+	&quot;msg&quot;:&quot;7iwa1a&quot;,
+	&quot;obj&quot;:{
+		&quot;waring&quot;:&quot;You may have used non-display generics.&quot;
+	}
+}
+</code></pre>
+<h2>删除server</h2>
+<p><strong>URL:</strong> <code>http://localhost:8080/api/upstream/deleteServer</code></p>
+<p><strong>Type:</strong> <code>ANY</code></p>
+<p><strong>Content-Type:</strong> <code>application/x-www-form-urlencoded;charset=utf-8</code></p>
+<p><strong>Description:</strong> 删除server</p>
+<p><strong>Request-parameters:</strong></p>
+<table>
+<thead>
+<tr><th>Parameter</th><th>Type</th><th>Description</th><th>Required</th><th>Since</th></tr>
+</thead>
+<tbody>
+<tr><td>id</td><td>string</td><td>No comments found.</td><td>true</td><td>-</td></tr>
+</tbody>
+</table>
+<p><strong>Request-example:</strong></p>
+<pre><code>curl   -i http://localhost:8080/api/upstream/deleteServer?id=82
+</code></pre>
+<p><strong>Response-fields:</strong></p>
+<table>
+<thead>
+<tr><th>Field</th><th>Type</th><th>Description</th><th>Since</th></tr>
+</thead>
+<tbody>
+<tr><td>success</td><td>boolean</td><td>No comments found.</td><td>-</td></tr>
+<tr><td>status</td><td>string</td><td>No comments found.</td><td>-</td></tr>
+<tr><td>msg</td><td>string</td><td>No comments found.</td><td>-</td></tr>
+<tr><td>obj</td><td>object</td><td>No comments found.</td><td>-</td></tr>
+</tbody>
+</table>
+<p><strong>Response-example:</strong></p>
+<pre><code>{
+	&quot;success&quot;:true,
+	&quot;status&quot;:&quot;alkw1z&quot;,
+	&quot;msg&quot;:&quot;1mb3mx&quot;,
+	&quot;obj&quot;:{
+		&quot;waring&quot;:&quot;You may have used non-display generics.&quot;
+	}
+}
+</code></pre>
+
+    <footer class="page-footer">
+        <span class="copyright">Generated by smart-doc at 2021-12-28 23:03:24</span>
+        <span class="footer-modification">Suggestions, contact, support and error reporting on
+            <a href="https://gitee.com/smart-doc-team/smart-doc" target="_blank">Gitee</a> or
+            <a href="https://github.com/smart-doc-group/smart-doc" target="_blank">Github</a>
+        </span>
+    </footer>
+</div>
+</body>
+</html>

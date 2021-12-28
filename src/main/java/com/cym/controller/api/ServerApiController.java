@@ -2,6 +2,7 @@ package com.cym.controller.api;
 
 import java.util.List;
 
+import org.noear.solon.annotation.Controller;
 import org.noear.solon.annotation.Inject;
 import org.noear.solon.annotation.Mapping;
 
@@ -23,6 +24,7 @@ import io.swagger.annotations.ApiParam;
  */
 @Api(tags = "反向代理(server)接口")
 @Mapping("/api/server")
+@Controller
 public class ServerApiController extends BaseController {
 	@Inject
 	ServerService serverService;

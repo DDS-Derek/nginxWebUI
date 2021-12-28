@@ -2,6 +2,7 @@ package com.cym.controller.api;
 
 import java.util.List;
 
+import org.noear.solon.annotation.Controller;
 import org.noear.solon.annotation.Inject;
 import org.noear.solon.annotation.Mapping;
 
@@ -26,6 +27,7 @@ import io.swagger.annotations.ApiOperation;
  */
 @Api(tags = "基础参数接口")
 @Mapping("/api/basic")
+@Controller
 public class BasicApiController extends BaseController {
 	@Inject
 	HttpService httpService;
