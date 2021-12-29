@@ -76,11 +76,11 @@ public class ParamApiController extends BaseController {
 	}
 
 	/**
-	 * 删除
+	 * 删除额外参数
 	 * @param id 参数id
 	 * 
 	 */
-	@ApiOperation("删除")
+	@ApiOperation("删除额外参数")
 	@Mapping("del")
 	public JsonResult<?> del(String id) {
 		sqlHelper.deleteById(id, Param.class);
