@@ -2,18 +2,16 @@ package com.cym.sqlhelper.bean;
 
 import java.io.Serializable;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 public class BaseModel implements Serializable {
 	/**
 	 * 主键
 	 */
 	String id;
-	/**
-	 * @ignore
-	 */
+	@JsonIgnore
 	Long createTime;
-	/**
-	 * @ignore
-	 */
+	@JsonIgnore
 	Long updateTime;
 
 	public String getId() {

@@ -6,14 +6,14 @@
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
     <meta http-equiv="Pragma" content="no-cache" />
     <meta http-equiv="Expires" content="0" />
-    <link rel="stylesheet" href="markdown.css?v=1640749963455"/>
+    <link rel="stylesheet" href="markdown.css?v=1640750997280"/>
     <title>负载均衡(upstream)接口</title>
 </head>
 <body>
 <div class="markdown-body">
     <h1>负载均衡(upstream)接口</h1>
 <h2>获取upstream分页列表</h2>
-<p><strong>URL:</strong> <code>http://your_id:8080/api/upstream/getPage</code></p>
+<p><strong>URL:</strong> <code>http://your_ip:8080/api/upstream/getPage</code></p>
 <p><strong>Type:</strong> <code>ANY</code></p>
 <p><strong>Content-Type:</strong> <code>application/x-www-form-urlencoded;charset=utf-8</code></p>
 <p><strong>Description:</strong> 获取upstream分页列表</p>
@@ -29,7 +29,7 @@
 </tbody>
 </table>
 <p><strong>Request-example:</strong></p>
-<pre><code>curl   -i http://your_id:8080/api/upstream/getPage?limit=10&amp;keywords=26ywdv&amp;current=dlwi94
+<pre><code>curl   -i http://your_ip:8080/api/upstream/getPage?limit=10&amp;keywords=0jholy&amp;current=iuf2ih
 </code></pre>
 <p><strong>Response-fields:</strong></p>
 <table>
@@ -46,8 +46,6 @@
 <tr><td>└─limit</td><td>int32</td><td>每页记录数</td><td>-</td></tr>
 <tr><td>└─records</td><td>array</td><td>列表内容</td><td>-</td></tr>
 <tr><td>     └─id</td><td>string</td><td>主键</td><td>-</td></tr>
-<tr><td>     └─createTime</td><td>int64</td><td>No comments found.</td><td>-</td></tr>
-<tr><td>     └─updateTime</td><td>int64</td><td>No comments found.</td><td>-</td></tr>
 <tr><td>     └─name</td><td>string</td><td>*负载均衡名称</td><td>-</td></tr>
 <tr><td>     └─tactics</td><td>string</td><td>负载策略: '':无(默认) 'sticky':会话保持 'ip_hash':ip绑定 'least_conn':最少连接 'least_time':最短时间</td><td>-</td></tr>
 <tr><td>     └─proxyType</td><td>int32</td><td>代理类型 0:http(默认) 1:tcp/udp</td><td>-</td></tr>
@@ -58,29 +56,27 @@
 <p><strong>Response-example:</strong></p>
 <pre><code>{
 	&quot;success&quot;:true,
-	&quot;status&quot;:&quot;v8ra6k&quot;,
-	&quot;msg&quot;:&quot;fd7755&quot;,
+	&quot;status&quot;:&quot;dg0c8z&quot;,
+	&quot;msg&quot;:&quot;evbg5y&quot;,
 	&quot;obj&quot;:{
-		&quot;count&quot;:240,
-		&quot;curr&quot;:810,
+		&quot;count&quot;:845,
+		&quot;curr&quot;:526,
 		&quot;limit&quot;:10,
 		&quot;records&quot;:[
 			{
-				&quot;id&quot;:&quot;140&quot;,
-				&quot;createTime&quot;:1640749965510,
-				&quot;updateTime&quot;:1640749965510,
-				&quot;name&quot;:&quot;凯瑞.薛&quot;,
-				&quot;tactics&quot;:&quot;5p91ya&quot;,
-				&quot;proxyType&quot;:518,
-				&quot;monitor&quot;:511,
-				&quot;seq&quot;:129
+				&quot;id&quot;:&quot;157&quot;,
+				&quot;name&quot;:&quot;靖琪.熊&quot;,
+				&quot;tactics&quot;:&quot;sxubfu&quot;,
+				&quot;proxyType&quot;:953,
+				&quot;monitor&quot;:578,
+				&quot;seq&quot;:537
 			}
 		]
 	}
 }
 </code></pre>
 <h2>添加或编辑upstream</h2>
-<p><strong>URL:</strong> <code>http://your_id:8080/api/upstream/insertOrUpdate</code></p>
+<p><strong>URL:</strong> <code>http://your_ip:8080/api/upstream/insertOrUpdate</code></p>
 <p><strong>Type:</strong> <code>ANY</code></p>
 <p><strong>Content-Type:</strong> <code>application/x-www-form-urlencoded;charset=utf-8</code></p>
 <p><strong>Description:</strong> 添加或编辑upstream</p>
@@ -98,7 +94,7 @@
 </tbody>
 </table>
 <p><strong>Request-example:</strong></p>
-<pre><code>curl   -i http://your_id:8080/api/upstream/insertOrUpdate?tactics=nc7wsf&amp;id=140&amp;proxyType=790&amp;name=凯瑞.薛&amp;monitor=862
+<pre><code>curl   -i http://your_ip:8080/api/upstream/insertOrUpdate?proxyType=570&amp;id=157&amp;name=靖琪.熊&amp;monitor=170&amp;tactics=fmbywr
 </code></pre>
 <p><strong>Response-fields:</strong></p>
 <table>
@@ -115,15 +111,15 @@
 <p><strong>Response-example:</strong></p>
 <pre><code>{
 	&quot;success&quot;:true,
-	&quot;status&quot;:&quot;w1y8kp&quot;,
-	&quot;msg&quot;:&quot;8wz0b2&quot;,
+	&quot;status&quot;:&quot;gjths4&quot;,
+	&quot;msg&quot;:&quot;hbc1ng&quot;,
 	&quot;obj&quot;:{
 		
 	}
 }
 </code></pre>
 <h2>删除upstream</h2>
-<p><strong>URL:</strong> <code>http://your_id:8080/api/upstream/delete</code></p>
+<p><strong>URL:</strong> <code>http://your_ip:8080/api/upstream/delete</code></p>
 <p><strong>Type:</strong> <code>ANY</code></p>
 <p><strong>Content-Type:</strong> <code>application/x-www-form-urlencoded;charset=utf-8</code></p>
 <p><strong>Description:</strong> 删除upstream</p>
@@ -137,7 +133,7 @@
 </tbody>
 </table>
 <p><strong>Request-example:</strong></p>
-<pre><code>curl   -i http://your_id:8080/api/upstream/delete?id=140
+<pre><code>curl   -i http://your_ip:8080/api/upstream/delete?id=157
 </code></pre>
 <p><strong>Response-fields:</strong></p>
 <table>
@@ -154,15 +150,15 @@
 <p><strong>Response-example:</strong></p>
 <pre><code>{
 	&quot;success&quot;:true,
-	&quot;status&quot;:&quot;n8avmy&quot;,
-	&quot;msg&quot;:&quot;ma30wk&quot;,
+	&quot;status&quot;:&quot;fp78ya&quot;,
+	&quot;msg&quot;:&quot;s5sjbh&quot;,
 	&quot;obj&quot;:{
 		
 	}
 }
 </code></pre>
 <h2>根据upstreamId获取server列表</h2>
-<p><strong>URL:</strong> <code>http://your_id:8080/api/upstream/getServerByUpstreamId</code></p>
+<p><strong>URL:</strong> <code>http://your_ip:8080/api/upstream/getServerByUpstreamId</code></p>
 <p><strong>Type:</strong> <code>ANY</code></p>
 <p><strong>Content-Type:</strong> <code>application/x-www-form-urlencoded;charset=utf-8</code></p>
 <p><strong>Description:</strong> 根据upstreamId获取server列表</p>
@@ -176,7 +172,7 @@
 </tbody>
 </table>
 <p><strong>Request-example:</strong></p>
-<pre><code>curl   -i http://your_id:8080/api/upstream/getServerByUpstreamId?upstreamId=140
+<pre><code>curl   -i http://your_ip:8080/api/upstream/getServerByUpstreamId?upstreamId=157
 </code></pre>
 <p><strong>Response-fields:</strong></p>
 <table>
@@ -189,8 +185,6 @@
 <tr><td>msg</td><td>string</td><td>错误信息</td><td>-</td></tr>
 <tr><td>obj</td><td>object</td><td>返回内容</td><td>-</td></tr>
 <tr><td>└─id</td><td>string</td><td>主键</td><td>-</td></tr>
-<tr><td>└─createTime</td><td>int64</td><td>No comments found.</td><td>-</td></tr>
-<tr><td>└─updateTime</td><td>int64</td><td>No comments found.</td><td>-</td></tr>
 <tr><td>└─upstreamId</td><td>string</td><td>*负载均衡upstream的id</td><td>-</td></tr>
 <tr><td>└─server</td><td>string</td><td>*负载节点ip (例:10.10.10.1)</td><td>-</td></tr>
 <tr><td>└─port</td><td>int32</td><td>*负载节点端口 (例:8080)</td><td>-</td></tr>
@@ -205,28 +199,26 @@
 <p><strong>Response-example:</strong></p>
 <pre><code>{
 	&quot;success&quot;:true,
-	&quot;status&quot;:&quot;70dy56&quot;,
-	&quot;msg&quot;:&quot;9ayi3p&quot;,
+	&quot;status&quot;:&quot;pocqhu&quot;,
+	&quot;msg&quot;:&quot;fyk6mt&quot;,
 	&quot;obj&quot;:[
 		{
-			&quot;id&quot;:&quot;140&quot;,
-			&quot;createTime&quot;:1640749965510,
-			&quot;updateTime&quot;:1640749965510,
-			&quot;upstreamId&quot;:&quot;140&quot;,
-			&quot;server&quot;:&quot;hbcer5&quot;,
-			&quot;port&quot;:181,
-			&quot;weight&quot;:950,
-			&quot;failTimeout&quot;:848,
-			&quot;maxFails&quot;:815,
-			&quot;maxConns&quot;:864,
-			&quot;status&quot;:&quot;qyj0st&quot;,
-			&quot;monitorStatus&quot;:547
+			&quot;id&quot;:&quot;157&quot;,
+			&quot;upstreamId&quot;:&quot;157&quot;,
+			&quot;server&quot;:&quot;16qvoz&quot;,
+			&quot;port&quot;:45,
+			&quot;weight&quot;:437,
+			&quot;failTimeout&quot;:179,
+			&quot;maxFails&quot;:133,
+			&quot;maxConns&quot;:241,
+			&quot;status&quot;:&quot;izvjxh&quot;,
+			&quot;monitorStatus&quot;:719
 		}
 	]
 }
 </code></pre>
 <h2>添加或编辑server</h2>
-<p><strong>URL:</strong> <code>http://your_id:8080/api/upstream/insertOrUpdateServer</code></p>
+<p><strong>URL:</strong> <code>http://your_ip:8080/api/upstream/insertOrUpdateServer</code></p>
 <p><strong>Type:</strong> <code>ANY</code></p>
 <p><strong>Content-Type:</strong> <code>application/x-www-form-urlencoded;charset=utf-8</code></p>
 <p><strong>Description:</strong> 添加或编辑server</p>
@@ -248,7 +240,7 @@
 </tbody>
 </table>
 <p><strong>Request-example:</strong></p>
-<pre><code>curl   -i http://your_id:8080/api/upstream/insertOrUpdateServer?port=617&amp;upstreamId=140&amp;id=140&amp;status=p3pmlz&amp;maxFails=958&amp;maxConns=262&amp;weight=741&amp;failTimeout=324&amp;server=r3kvsq
+<pre><code>curl   -i http://your_ip:8080/api/upstream/insertOrUpdateServer?weight=454&amp;upstreamId=157&amp;failTimeout=870&amp;maxConns=917&amp;id=157&amp;status=k4uvgn&amp;maxFails=613&amp;port=532&amp;server=ghgbwp
 </code></pre>
 <p><strong>Response-fields:</strong></p>
 <table>
@@ -265,8 +257,8 @@
 <p><strong>Response-example:</strong></p>
 <pre><code>{
 	&quot;success&quot;:true,
-	&quot;status&quot;:&quot;09ibge&quot;,
-	&quot;msg&quot;:&quot;zp34xk&quot;,
+	&quot;status&quot;:&quot;g0oxje&quot;,
+	&quot;msg&quot;:&quot;ligkvk&quot;,
 	&quot;obj&quot;:{
 		&quot;waring&quot;:&quot;You may have used non-display generics.&quot;
 	}
@@ -274,7 +266,7 @@
 </code></pre>
 
     <footer class="page-footer">
-        <span class="copyright">Generated by smart-doc at 2021-12-29 11:52:43</span>
+        <span class="copyright">Generated by smart-doc at 2021-12-29 12:09:57</span>
         <span class="footer-modification">Suggestions, contact, support and error reporting on
             <a href="https://gitee.com/smart-doc-team/smart-doc" target="_blank">Gitee</a> or
             <a href="https://github.com/smart-doc-group/smart-doc" target="_blank">Github</a>

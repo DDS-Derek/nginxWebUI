@@ -2,6 +2,7 @@ package com.cym.model;
 
 import com.cym.sqlhelper.bean.BaseModel;
 import com.cym.sqlhelper.config.Table;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -24,16 +25,12 @@ public class Password extends BaseModel {
 	 */
 	@ApiModelProperty("密码")
 	String pass;
-	/**
-	 * @ignore
-	 */
+	@JsonIgnore
 	@ApiModelProperty(hidden = true, name = "文件路径")
 	String path;
 	@ApiModelProperty("描述")
 	String descr;
-	/**
-	 * @ignore
-	 */
+	@JsonIgnore
 	@ApiModelProperty(hidden = true, name = "文件内容")
 	String pathStr;
 

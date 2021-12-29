@@ -3,6 +3,7 @@ package com.cym.model;
 import com.cym.sqlhelper.bean.BaseModel;
 import com.cym.sqlhelper.config.InitValue;
 import com.cym.sqlhelper.config.Table;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -82,14 +83,10 @@ public class Server extends BaseModel {
 	 */
 	@ApiModelProperty("代理upstream的id")
 	String proxyUpstreamId;
-	/**
-	 * @ignore
-	 */
+	@JsonIgnore
 	@ApiModelProperty(hidden = true)
 	String pemStr;
-	/**
-	 * @ignore
-	 */
+	@JsonIgnore
 	@ApiModelProperty(hidden = true)
 	String keyStr;
 	/**
@@ -114,9 +111,7 @@ public class Server extends BaseModel {
 	 */
 	@ApiModelProperty("使用的password文件Id")
 	String passwordId;
-	/**
-	 * @ignore
-	 */
+	@JsonIgnore
 	@ApiModelProperty(hidden = true)
 	Long seq;
 

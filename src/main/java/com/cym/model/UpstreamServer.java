@@ -3,6 +3,7 @@ package com.cym.model;
 import com.cym.sqlhelper.bean.BaseModel;
 import com.cym.sqlhelper.config.InitValue;
 import com.cym.sqlhelper.config.Table;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -56,10 +57,7 @@ public class UpstreamServer extends BaseModel {
 	@ApiModelProperty("状态策略 'none':无(默认) 'down':停用 'backup':备用")
 	@InitValue("none")
 	String status;
-	
-	/**
-	 * @ignore
-	 */
+	@JsonIgnore
 	@ApiModelProperty(hidden = true, name = "监控状态 -1:未检测(默认) 0:不通 1:通")
 	@InitValue("-1")
 	Integer monitorStatus;

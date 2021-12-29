@@ -2,6 +2,7 @@ package com.cym.model;
 
 import com.cym.sqlhelper.bean.BaseModel;
 import com.cym.sqlhelper.config.Table;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -28,9 +29,7 @@ public class Http extends BaseModel {
 	 */
 	@ApiModelProperty("参数单位")
 	String unit;
-	/**
-	 * @ignore
-	 */
+	@JsonIgnore
 	@ApiModelProperty(hidden = true)
 	Long seq;
 

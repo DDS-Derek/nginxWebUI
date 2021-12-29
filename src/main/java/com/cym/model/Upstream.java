@@ -3,6 +3,7 @@ package com.cym.model;
 import com.cym.sqlhelper.bean.BaseModel;
 import com.cym.sqlhelper.config.InitValue;
 import com.cym.sqlhelper.config.Table;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -38,9 +39,7 @@ public class Upstream extends BaseModel {
 	@ApiModelProperty("监控邮件通知 0:否(默认) 1:是")
 	@InitValue("0")
 	Integer monitor;
-	/**
-	 * @ignore
-	 */
+	@JsonIgnore
 	@ApiModelProperty(hidden = true)
 	Long seq;
 

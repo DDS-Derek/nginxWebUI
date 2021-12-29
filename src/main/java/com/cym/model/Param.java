@@ -2,6 +2,7 @@ package com.cym.model;
 
 import com.cym.sqlhelper.bean.BaseModel;
 import com.cym.sqlhelper.config.Table;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -30,9 +31,7 @@ public class Param extends BaseModel {
 	@ApiModelProperty("所属负载均衡id")
 	String upstreamId;
 	
-	/**
-	 * @ignore
-	 */
+	@JsonIgnore
 	@ApiModelProperty(hidden = true)
 	String templateId;
 	/**
@@ -45,14 +44,10 @@ public class Param extends BaseModel {
 	 */
 	@ApiModelProperty("参数值")
 	String value;
-	/**
-	 * @ignore
-	 */
+	@JsonIgnore
 	@ApiModelProperty(hidden = true)
 	String templateValue;
-	/**
-	 * @ignore
-	 */
+	@JsonIgnore
 	@ApiModelProperty(hidden = true)
 	String templateName;
 	
