@@ -7,51 +7,106 @@ import com.cym.sqlhelper.config.Table;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+
+/**
+ * 
+ * 证书
+ *
+ */
 @ApiModel("证书")
 @Table
 public class Cert extends BaseModel {
+	/**
+	 * 域名
+	 */
 	@ApiModelProperty("域名")
 	@SingleIndex(unique = true)
 	String domain; 
+	/**
+	 * pem文件路径
+	 */
 	@ApiModelProperty("pem文件路径")
 	String pem;
+	/**
+	 * key文件路径
+	 */
 	@ApiModelProperty("key文件路径")
 	String key;
-
+	/**
+	 * 获取方式 0 申请证书 1 手动上传 2 DNS验证
+	 */
 	@ApiModelProperty("获取方式 0 申请证书 1 手动上传 2 DNS验证")
 	@InitValue("0")
 	Integer type; 
-
+	/**
+	 * 签发时间戳
+	 */
 	@ApiModelProperty("签发时间戳")
 	Long makeTime; 
-
+	/**
+	 * 是否自动续签 0否 1是
+	 */
 	@ApiModelProperty("是否自动续签 0否 1是")
 	@InitValue("0")
 	Integer autoRenew; 
-
+	/**
+	 * dns提供商 ali:阿里云  dp:腾讯云  cf:Cloudflare  gd:Godaddy
+	 */
 	@ApiModelProperty("dns提供商 ali:阿里云  dp:腾讯云  cf:Cloudflare  gd:Godaddy")
 	String dnsType; 
+	/**
+	 * dpId(腾讯云需要的参数)
+	 */
 	@ApiModelProperty("dpId(腾讯云需要的参数)")
 	String dpId;
+	/**
+	 * dpKey(腾讯云需要的参数)
+	 */
 	@ApiModelProperty("dpKey(腾讯云需要的参数)")
 	String dpKey;
+	/**
+	 * aliKey(阿里云需要的参数)
+	 */
 	@ApiModelProperty("aliKey(阿里云需要的参数)")
 	String aliKey;
+	/**
+	 * aliSecret(阿里云需要的参数)
+	 */
 	@ApiModelProperty("aliSecret(阿里云需要的参数)")
 	String aliSecret;
+	/**
+	 * cfEmail(Cloudflare需要的参数)
+	 */
 	@ApiModelProperty("cfEmail(Cloudflare需要的参数)")
 	String cfEmail;
+	/**
+	 * cfKey(Cloudflare需要的参数)
+	 */
 	@ApiModelProperty("cfKey(Cloudflare需要的参数)")
 	String cfKey;
+	/**
+	 * gdKey(Godaddy需要的参数)
+	 */
 	@ApiModelProperty("gdKey(Godaddy需要的参数)")
 	String gdKey;
+	/**
+	 * gdSecret(Godaddy需要的参数)
+	 */
 	@ApiModelProperty("gdSecret(Godaddy需要的参数)")
 	String gdSecret;
-	
+	/**
+	 * hwUsername(华为云需要的参数)
+	 */
 	@ApiModelProperty("hwUsername(华为云需要的参数)")
 	String hwUsername;
+	/**
+	 * hwPassword(华为云需要的参数)
+	 */
 	@ApiModelProperty("hwPassword(华为云需要的参数)")
 	String hwPassword;
+	/**
+	 * hwProjectID(华为云需要的参数)
+	 */
 	@ApiModelProperty("hwProjectID(华为云需要的参数)")
 	String hwProjectID;
 	

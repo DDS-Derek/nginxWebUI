@@ -30,7 +30,7 @@ public class PasswordApiController extends BaseController{
 	
 	/**
 	 * 获取全部密码文件列表
-	 * @return
+	 * 
 	 */
 	@ApiOperation("获取全部密码文件列表")
 	@Mapping("getList")
@@ -41,9 +41,8 @@ public class PasswordApiController extends BaseController{
 
 	/**
 	 * 添加或编辑密码文件
-	 * @param password
-	 * @return
-	 * @throws IOException
+	 * @param password 密码文件
+	 * 
 	 */
 	@ApiOperation("添加或编辑密码文件")
 	@Mapping("insertOrUpdate")
@@ -53,8 +52,8 @@ public class PasswordApiController extends BaseController{
 
 	/**
 	 * 删除密码文件
-	 * @param id
-	 * @return
+	 * @param id 密码文件id
+	 * 
 	 */
 	@ApiOperation("删除密码文件")
 	@Mapping("del")

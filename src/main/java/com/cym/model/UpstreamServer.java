@@ -7,29 +7,55 @@ import com.cym.sqlhelper.config.Table;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
+/**
+ * 
+ * 负载节点server
+ *
+ */
 @ApiModel("负载节点server")
 @Table
 public class UpstreamServer extends BaseModel {
+	/**
+	 * *负载均衡upstream的id
+	 */
 	@ApiModelProperty("*负载均衡upstream的id")
 	String upstreamId;
-
+	/**
+	 * *负载节点ip (例:10.10.10.1)
+	 */
 	@ApiModelProperty("*负载节点ip (例:10.10.10.1)")
 	String server;
+	/**
+	 * *负载节点端口 (例:8080)
+	 */
 	@ApiModelProperty("*负载节点端口 (例:8080)")
 	Integer port;
+	/**
+	 * 负载节点权重
+	 */
 	@ApiModelProperty("负载节点权重")
 	Integer weight;
-
+	/**
+	 * 失败等待时间,秒
+	 */
 	@ApiModelProperty("失败等待时间,秒")
 	Integer failTimeout;
+	/**
+	 * 最大失败次数
+	 */
 	@ApiModelProperty("最大失败次数")
 	Integer maxFails;
+	/**
+	 * 最大连接数
+	 */
 	@ApiModelProperty("最大连接数")
 	Integer maxConns;
+	/**
+	 * 状态策略 'none':无(默认) 'down':停用 'backup':备用
+	 */
 	@ApiModelProperty("状态策略 'none':无(默认) 'down':停用 'backup':备用")
 	@InitValue("none")
 	String status;
-
 	@ApiModelProperty(hidden = true, name = "监控状态 -1:未检测(默认) 0:不通 1:通")
 	@InitValue("-1")
 	Integer monitorStatus;

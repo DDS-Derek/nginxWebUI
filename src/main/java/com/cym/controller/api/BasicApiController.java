@@ -38,7 +38,7 @@ public class BasicApiController extends BaseController {
 
 	/**
 	 * 获取Http参数
-	 * @return
+	 * 
 	 */
 	@ApiOperation("获取Http参数")
 	@Mapping("getHttp")
@@ -48,8 +48,8 @@ public class BasicApiController extends BaseController {
 
 	/**
 	 * 添加或编辑Http参数
-	 * @param http
-	 * @return
+	 * @param http Http参数
+	 *
 	 */
 	@ApiOperation("添加或编辑Http参数")
 	@Mapping("insertOrUpdateHttp")
@@ -68,7 +68,7 @@ public class BasicApiController extends BaseController {
 	/**
 	 * 删除Http参数
 	 * @param id
-	 * @return
+	 * 
 	 */
 	@ApiOperation("删除Http参数")
 	@Mapping("delHttp")
@@ -79,7 +79,7 @@ public class BasicApiController extends BaseController {
 
 	/**
 	 * 获取基础参数
-	 * @return
+	 * 
 	 */
 	@ApiOperation("获取基础参数")
 	@Mapping("getBasic")
@@ -90,7 +90,7 @@ public class BasicApiController extends BaseController {
 	/**
 	 * 添加或编辑基础参数
 	 * @param basic
-	 * @return
+	 * 
 	 */
 	@ApiOperation("添加或编辑基础参数")
 	@Mapping("insertOrUpdateBasic")
@@ -109,7 +109,7 @@ public class BasicApiController extends BaseController {
 	/**
 	 * 删除基础参数
 	 * @param id
-	 * @return
+	 * 
 	 */
 	@ApiOperation("删除基础参数")
 	@Mapping("delBasic")
@@ -120,7 +120,7 @@ public class BasicApiController extends BaseController {
 
 	/**
 	 * 获取Stream参数
-	 * @return
+	 * 
 	 */
 	@ApiOperation("获取Stream参数")
 	@Mapping("getStream")
@@ -131,7 +131,7 @@ public class BasicApiController extends BaseController {
 	/**
 	 * 添加或编辑Stream参数
 	 * @param stream
-	 * @return
+	 * 
 	 */
 	@ApiOperation("添加或编辑Stream参数")
 	@Mapping("insertOrUpdateStream")
@@ -149,7 +149,7 @@ public class BasicApiController extends BaseController {
 	/**
 	 * 删除Stream参数
 	 * @param id
-	 * @return
+	 * 
 	 */
 	@ApiOperation("删除Stream参数")
 	@Mapping("delStream")

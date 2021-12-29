@@ -82,11 +82,11 @@ public class UpstreamService {
 	}
 
 	
-	public void del(String id) {
-		sqlHelper.deleteById(id, Upstream.class);
-		sqlHelper.deleteByQuery(new ConditionAndWrapper().eq("upstreamId", id), UpstreamServer.class);
-
-	}
+//	public void del(String id) {
+//		sqlHelper.deleteById(id, Upstream.class);
+//		sqlHelper.deleteByQuery(new ConditionAndWrapper().eq("upstreamId", id), UpstreamServer.class);
+//
+//	}
 
 	public List<Upstream> getListByProxyType(Integer proxyType) {
 		Sort sort = new Sort().add("seq", Direction.DESC);

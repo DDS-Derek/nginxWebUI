@@ -6,11 +6,22 @@ import com.cym.sqlhelper.config.Table;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
+/**
+ * 
+ * Stream参数
+ *
+ */
 @ApiModel("Stream参数")
 @Table
 public class Stream extends BaseModel {
+	/**
+	 * 参数名
+	 */
 	@ApiModelProperty("参数名")
 	String name;
+	/**
+	 * 参数值
+	 */
 	@ApiModelProperty("参数值")
 	String value;
 	@ApiModelProperty(hidden = true)

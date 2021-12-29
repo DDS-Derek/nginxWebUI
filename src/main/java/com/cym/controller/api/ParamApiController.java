@@ -29,10 +29,10 @@ public class ParamApiController extends BaseController {
 
 	/**
 	 * 根据项目获取参数列表
-	 * @param serverId
-	 * @param locationId
-	 * @param upstreamId
-	 * @return
+	 * @param serverId 所属反向代理id
+	 * @param locationId 所属代理目标id
+	 * @param upstreamId 所属负载均衡id
+	 * 
 	 */
 	@ApiOperation("根据项目获取参数列表")
 	@Mapping("getList")
@@ -50,8 +50,7 @@ public class ParamApiController extends BaseController {
 	/**
 	 * 添加或编辑参数
 	 * @param param
-	 * @return
-	 * @throws IOException
+	 * 
 	 */
 	@ApiOperation("添加或编辑参数")
 	@Mapping("insertOrUpdate")
@@ -78,8 +77,8 @@ public class ParamApiController extends BaseController {
 
 	/**
 	 * 删除
-	 * @param id
-	 * @return
+	 * @param id 参数id
+	 * 
 	 */
 	@ApiOperation("删除")
 	@Mapping("del")

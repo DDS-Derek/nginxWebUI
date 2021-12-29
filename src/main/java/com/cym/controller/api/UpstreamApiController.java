@@ -30,9 +30,9 @@ public class UpstreamApiController extends BaseController {
 
 	/**
 	 * 获取upstream分页列表
-	 * @param current
-	 * @param limit
-	 * @param keywords
+	 * @param current 当前页数(从1开始)
+	 * @param limit 每页数量(默认为10)
+	 * @param keywords 查询关键字
 	 * @return
 	 */
 	@SuppressWarnings("unchecked")
@@ -81,8 +81,7 @@ public class UpstreamApiController extends BaseController {
 
 	/**
 	 * 删除upstream
-	 * @param id
-	 * @return
+	 * @param id upstream的id
 	 */
 	@ApiOperation("删除upstream")
 	@Mapping("delete")
@@ -94,8 +93,7 @@ public class UpstreamApiController extends BaseController {
 
 	/**
 	 * 根据upstreamId获取server列表
-	 * @param upstreamId
-	 * @return
+	 * @param upstreamId upstream的id
 	 */
 	@ApiOperation("根据upstreamId获取server列表")
 	@Mapping("getServerByUpstreamId")
@@ -107,8 +105,7 @@ public class UpstreamApiController extends BaseController {
 
 	/**
 	 * 添加或编辑server
-	 * @param upstreamServer
-	 * @return
+	 * @param upstreamServer 负载节点server
 	 */
 	@ApiOperation("添加或编辑server")
 	@Mapping("insertOrUpdateServer")
@@ -127,15 +124,15 @@ public class UpstreamApiController extends BaseController {
 		return renderSuccess(upstreamServer);
 	}
 
-	/**
-	 * 删除server
-	 * @param id
-	 * @return
-	 */
-	@ApiOperation("删除server")
-	@Mapping("deleteServer")
-	public JsonResult deleteServer(String id) {
-		upstreamService.del(id);
-		return renderSuccess();
-	}
+//	/**
+//	 * 删除server
+//	 * @param id  upstream的id
+//	 * @return
+//	 */
+//	@ApiOperation("删除server")
+//	@Mapping("deleteServer")
+//	public JsonResult deleteServer(String id) {
+//		upstreamService.del(id);
+//		return renderSuccess();
+//	}
 }

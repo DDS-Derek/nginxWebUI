@@ -33,10 +33,10 @@ public class ServerApiController extends BaseController {
 
 	/**
 	 * 获取server分页列表
-	 * @param current
-	 * @param limit
-	 * @param keywords
-	 * @return
+	 * @param current 当前页数(从1开始)
+	 * @param limit 每页数量(默认为10)
+	 * @param keywords 查询关键字
+	 *  
 	 */
 	@SuppressWarnings("unchecked")
 	@ApiOperation("获取server分页列表")
@@ -54,8 +54,8 @@ public class ServerApiController extends BaseController {
 
 	/**
 	 * 添加或编辑server
-	 * @param server
-	 * @return
+	 * @param server 反向代理server
+	 * 
 	 */
 	@ApiOperation("添加或编辑server")
 	@Mapping("insertOrUpdate")
@@ -73,8 +73,8 @@ public class ServerApiController extends BaseController {
 
 	/**
 	 * 删除server
-	 * @param id
-	 * @return
+	 * @param id 反向代理id
+	 * 
 	 */
 	@ApiOperation("删除server")
 	@Mapping("delete")
@@ -86,8 +86,8 @@ public class ServerApiController extends BaseController {
 
 	/**
 	 * 根据serverId获取location列表
-	 * @param serverId
-	 * @return
+	 * @param serverId 反向代理id
+	 * 
 	 */
 	@ApiOperation("根据serverId获取location列表")
 	@Mapping("getLocationByServerId")
@@ -102,8 +102,8 @@ public class ServerApiController extends BaseController {
 
 	/**
 	 * 添加或编辑location
-	 * @param location
-	 * @return
+	 * @param location 代理目标location
+	 * 
 	 */
 	@ApiOperation("添加或编辑location")
 	@Mapping("insertOrUpdateLocation")
@@ -120,8 +120,8 @@ public class ServerApiController extends BaseController {
 
 	/**
 	 * 删除location
-	 * @param id
-	 * @return
+	 * @param id 代理目标location的id
+	 * 
 	 */
 	@ApiOperation("删除location")
 	@Mapping("deleteLocation")

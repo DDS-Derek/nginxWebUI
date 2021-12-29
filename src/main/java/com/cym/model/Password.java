@@ -6,11 +6,22 @@ import com.cym.sqlhelper.config.Table;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
+/**
+ * 
+ * 密码文件
+ *
+ */
 @ApiModel("密码文件")
 @Table
 public class Password extends BaseModel {
+	/**
+	 * 用户名
+	 */
 	@ApiModelProperty("用户名")
 	String name;
+	/**
+	 * 密码
+	 */
 	@ApiModelProperty("密码")
 	String pass;
 	@ApiModelProperty(hidden = true, name = "文件路径")

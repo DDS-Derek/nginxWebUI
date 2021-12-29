@@ -7,48 +7,79 @@ import com.cym.sqlhelper.config.Table;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
+/**
+ * 
+ * 反向代理server
+ *
+ */
 @ApiModel("反向代理server")
 @Table
 public class Server extends BaseModel {
+	/**
+	 * 监听域名
+	 */
 	@ApiModelProperty("监听域名")
 	String serverName;
-	
+	/**
+	 * 监听ip端口 (格式 ip:port或port)
+	 */
 	@ApiModelProperty("*监听ip端口 (格式 ip:port或port)")
 	String listen;
-
+	/**
+	 * 是否为默认server 0否(默认) 1是
+	 */
 	@ApiModelProperty("是否为默认server 0否(默认) 1是")
 	@InitValue("0")
 	Integer def; 
-
+	/**
+	 * 是否http跳转https 0否(默认) 1是
+	 */
 	@ApiModelProperty("是否http跳转https 0否(默认) 1是")
 	@InitValue("0")
 	Integer rewrite; 
-	
+	/**
+	 * http跳转https监听ip端口,默认为80 (格式 ip:port或port)
+	 */
 	@ApiModelProperty("http跳转https监听ip端口,默认为80 (格式 ip:port或port)")
 	@InitValue("80")
 	String rewriteListen; 
-
+	/**
+	 * 是否开启ssl 0否(默认) 1是
+	 */
 	@ApiModelProperty("是否开启ssl 0否(默认) 1是")
 	@InitValue("0")
 	Integer ssl; 
+	/**
+	 * 是否开启http2 0否(默认) 1是
+	 */
 	@ApiModelProperty("是否开启http2 0否(默认) 1是")
 	@InitValue("0")
 	Integer http2; 
-	
+	/**
+	 * 是否开启proxy_protocol 0否(默认) 1是
+	 */
 	@ApiModelProperty("是否开启proxy_protocol 0否(默认) 1是")
 	@InitValue("0")
 	Integer proxyProtocol; 
-	 
-	
+	/**
+	 * ssl证书pem文件路径
+	 */
 	@ApiModelProperty("ssl证书pem文件路径")
 	String pem;
+	/**
+	 * ssl证书key文件路径
+	 */
 	@ApiModelProperty("ssl证书key文件路径")
 	String key;
-	
+	/**
+	 * 代理类型 0:http(默认) 1:tcp 2:udp
+	 */
 	@ApiModelProperty("代理类型 0:http(默认) 1:tcp 2:udp")
 	@InitValue("0")
 	Integer proxyType;
-	
+	/**
+	 * 代理upstream的id
+	 */
 	@ApiModelProperty("代理upstream的id")
 	String proxyUpstreamId;
 
@@ -56,18 +87,26 @@ public class Server extends BaseModel {
 	String pemStr;
 	@ApiModelProperty(hidden = true)
 	String keyStr;
-
+	/**
+	 * 是否启用 true:启用(默认) false:禁用
+	 */
 	@ApiModelProperty("是否启用 true:启用(默认) false:禁用")
 	@InitValue("true")
 	Boolean enable;
-
+	/**
+	 * 描述
+	 */
 	@ApiModelProperty("描述")
 	String descr; 
-	
+	/**
+	 * 加密协议 (默认:TLSv1 TLSv1.1 TLSv1.2 TLSv1.3)
+	 */
 	@ApiModelProperty("加密协议 (默认:TLSv1 TLSv1.1 TLSv1.2 TLSv1.3)")
 	@InitValue("TLSv1 TLSv1.1 TLSv1.2 TLSv1.3")
 	String protocols; 
-
+	/**
+	 * 使用的password文件Id
+	 */
 	@ApiModelProperty("使用的password文件Id")
 	String passwordId;
 

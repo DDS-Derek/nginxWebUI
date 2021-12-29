@@ -27,9 +27,8 @@ public class TokenController extends BaseController {
 	/**
 	 * 获取Token
 	 * 
-	 * @param name
-	 * @param pass
-	 * @return
+	 * @param name 用户名
+	 * @param pass 密码
 	 */
 	@Mapping("getToken")
 	public JsonResult getToken(@ApiParam("用户名") String name, @ApiParam("密码") String pass) {

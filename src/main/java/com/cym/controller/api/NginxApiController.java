@@ -36,8 +36,6 @@ public class NginxApiController extends BaseController {
 
 	/**
 	 * 获取nginx状态
-	 * 
-	 * @return
 	 */
 	@ApiOperation("获取nginx状态")
 	@Mapping("nginxStatus")
@@ -52,7 +50,6 @@ public class NginxApiController extends BaseController {
 	/**
 	 * 替换conf文件
 	 * 
-	 * @return
 	 */
 	@ApiOperation("替换conf文件")
 	@Mapping("replace")
@@ -68,7 +65,6 @@ public class NginxApiController extends BaseController {
 	/**
 	 * 效验conf文件
 	 * 
-	 * @return
 	 */
 	@ApiOperation("效验conf文件")
 	@Mapping("check")
@@ -84,7 +80,6 @@ public class NginxApiController extends BaseController {
 	/**
 	 * 重载conf文件
 	 * 
-	 * @return
 	 */
 	@ApiOperation("重载conf文件")
 	@Mapping("reload")
@@ -100,7 +95,6 @@ public class NginxApiController extends BaseController {
 	/**
 	 * 获取nginx启动命令
 	 * 
-	 * @return
 	 */
 	@ApiOperation("获取nginx启动命令")
 	@Mapping("getNginxStartCmd")
@@ -124,7 +118,6 @@ public class NginxApiController extends BaseController {
 	/**
 	 * 获取nginx停止命令
 	 * 
-	 * @return
 	 */
 	@ApiOperation("获取nginx停止命令")
 	@Mapping("getNginxStopCmd")
@@ -149,12 +142,12 @@ public class NginxApiController extends BaseController {
 	/**
 	 * 执行nginx命令
 	 * 
-	 * @param cmd
-	 * @return
+	 * @param cmd 命令内容
+	 * 
 	 */
 	@ApiOperation("执行nginx命令")
 	@Mapping("runNginxCmd")
-	public JsonResult<?> runNginxCmd(@ApiParam("执行命令") String cmd) {
+	public JsonResult<?> runNginxCmd(@ApiParam("命令内容") String cmd) {
 
 		JsonResult jsonResult = confController.runCmd(cmd, null);
 		jsonResult.setObj(HtmlUtil.cleanHtmlTag(jsonResult.getObj().toString()));

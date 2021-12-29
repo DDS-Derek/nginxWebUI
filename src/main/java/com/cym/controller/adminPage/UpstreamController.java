@@ -151,7 +151,7 @@ public class UpstreamController extends BaseController {
 	
 	public JsonResult del(String id) {
 
-		upstreamService.del(id);
+		upstreamService.deleteById(id);
 
 		return renderSuccess();
 	}
