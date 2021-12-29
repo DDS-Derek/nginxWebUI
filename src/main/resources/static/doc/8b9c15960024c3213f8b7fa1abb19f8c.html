@@ -6,7 +6,7 @@
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
     <meta http-equiv="Pragma" content="no-cache" />
     <meta http-equiv="Expires" content="0" />
-    <link rel="stylesheet" href="markdown.css?v=1640742237775"/>
+    <link rel="stylesheet" href="markdown.css?v=1640747935155"/>
     <title>密码文件接口</title>
 </head>
 <body>
@@ -26,15 +26,15 @@
 <tr><th>Field</th><th>Type</th><th>Description</th><th>Since</th></tr>
 </thead>
 <tbody>
-<tr><td>success</td><td>boolean</td><td>No comments found.</td><td>-</td></tr>
-<tr><td>status</td><td>string</td><td>No comments found.</td><td>-</td></tr>
-<tr><td>msg</td><td>string</td><td>No comments found.</td><td>-</td></tr>
-<tr><td>obj</td><td>object</td><td>No comments found.</td><td>-</td></tr>
+<tr><td>success</td><td>boolean</td><td>请求结果</td><td>-</td></tr>
+<tr><td>status</td><td>string</td><td>请求状态 200:请求成功 401:token无效 500:服务器错误</td><td>-</td></tr>
+<tr><td>msg</td><td>string</td><td>错误信息</td><td>-</td></tr>
+<tr><td>obj</td><td>object</td><td>返回内容</td><td>-</td></tr>
 <tr><td>└─id</td><td>string</td><td>No comments found.</td><td>-</td></tr>
 <tr><td>└─createTime</td><td>int64</td><td>No comments found.</td><td>-</td></tr>
 <tr><td>└─updateTime</td><td>int64</td><td>No comments found.</td><td>-</td></tr>
-<tr><td>└─name</td><td>string</td><td>No comments found.</td><td>-</td></tr>
-<tr><td>└─pass</td><td>string</td><td>No comments found.</td><td>-</td></tr>
+<tr><td>└─name</td><td>string</td><td>用户名</td><td>-</td></tr>
+<tr><td>└─pass</td><td>string</td><td>密码</td><td>-</td></tr>
 <tr><td>└─path</td><td>string</td><td>No comments found.</td><td>-</td></tr>
 <tr><td>└─descr</td><td>string</td><td>No comments found.</td><td>-</td></tr>
 <tr><td>└─pathStr</td><td>string</td><td>No comments found.</td><td>-</td></tr>
@@ -43,18 +43,18 @@
 <p><strong>Response-example:</strong></p>
 <pre><code>{
 	&quot;success&quot;:true,
-	&quot;status&quot;:&quot;whvgti&quot;,
-	&quot;msg&quot;:&quot;4e2dm4&quot;,
+	&quot;status&quot;:&quot;2027os&quot;,
+	&quot;msg&quot;:&quot;ycau39&quot;,
 	&quot;obj&quot;:[
 		{
-			&quot;id&quot;:&quot;137&quot;,
-			&quot;createTime&quot;:1640742239244,
-			&quot;updateTime&quot;:1640742239244,
-			&quot;name&quot;:&quot;君浩.黄&quot;,
-			&quot;pass&quot;:&quot;876010&quot;,
-			&quot;path&quot;:&quot;lwhcvc&quot;,
-			&quot;descr&quot;:&quot;k83367&quot;,
-			&quot;pathStr&quot;:&quot;fzhn0v&quot;
+			&quot;id&quot;:&quot;96&quot;,
+			&quot;createTime&quot;:1640747936586,
+			&quot;updateTime&quot;:1640747936586,
+			&quot;name&quot;:&quot;炎彬.任&quot;,
+			&quot;pass&quot;:&quot;oxboc6&quot;,
+			&quot;path&quot;:&quot;r8oild&quot;,
+			&quot;descr&quot;:&quot;obr5vw&quot;,
+			&quot;pathStr&quot;:&quot;17cmg7&quot;
 		}
 	]
 }
@@ -73,15 +73,15 @@
 <tr><td>id</td><td>string</td><td>No comments found.</td><td>false</td><td>-</td></tr>
 <tr><td>createTime</td><td>int64</td><td>No comments found.</td><td>false</td><td>-</td></tr>
 <tr><td>updateTime</td><td>int64</td><td>No comments found.</td><td>false</td><td>-</td></tr>
-<tr><td>name</td><td>string</td><td>No comments found.</td><td>false</td><td>-</td></tr>
-<tr><td>pass</td><td>string</td><td>No comments found.</td><td>false</td><td>-</td></tr>
+<tr><td>name</td><td>string</td><td>用户名</td><td>false</td><td>-</td></tr>
+<tr><td>pass</td><td>string</td><td>密码</td><td>false</td><td>-</td></tr>
 <tr><td>path</td><td>string</td><td>No comments found.</td><td>false</td><td>-</td></tr>
 <tr><td>descr</td><td>string</td><td>No comments found.</td><td>false</td><td>-</td></tr>
 <tr><td>pathStr</td><td>string</td><td>No comments found.</td><td>false</td><td>-</td></tr>
 </tbody>
 </table>
 <p><strong>Request-example:</strong></p>
-<pre><code>curl   -i http://localhost:8080/api/password/insertOrUpdate?descr=d3vjho&amp;name=君浩.黄&amp;pathStr=bzlt94&amp;path=uf91af&amp;pass=wbbbxi&amp;createTime=1640742239244&amp;updateTime=1640742239244&amp;id=137
+<pre><code>curl   -i http://localhost:8080/api/password/insertOrUpdate?createTime=1640747936586&amp;name=炎彬.任&amp;pathStr=5kn8vp&amp;path=yw4q78&amp;pass=bxe69o&amp;updateTime=1640747936586&amp;descr=xeixxu&amp;id=96
 </code></pre>
 <p><strong>Response-fields:</strong></p>
 <table>
@@ -89,17 +89,17 @@
 <tr><th>Field</th><th>Type</th><th>Description</th><th>Since</th></tr>
 </thead>
 <tbody>
-<tr><td>success</td><td>boolean</td><td>No comments found.</td><td>-</td></tr>
-<tr><td>status</td><td>string</td><td>No comments found.</td><td>-</td></tr>
-<tr><td>msg</td><td>string</td><td>No comments found.</td><td>-</td></tr>
-<tr><td>obj</td><td>object</td><td>No comments found.</td><td>-</td></tr>
+<tr><td>success</td><td>boolean</td><td>请求结果</td><td>-</td></tr>
+<tr><td>status</td><td>string</td><td>请求状态 200:请求成功 401:token无效 500:服务器错误</td><td>-</td></tr>
+<tr><td>msg</td><td>string</td><td>错误信息</td><td>-</td></tr>
+<tr><td>obj</td><td>object</td><td>返回内容</td><td>-</td></tr>
 </tbody>
 </table>
 <p><strong>Response-example:</strong></p>
 <pre><code>{
 	&quot;success&quot;:true,
-	&quot;status&quot;:&quot;k2w34o&quot;,
-	&quot;msg&quot;:&quot;cal6wd&quot;,
+	&quot;status&quot;:&quot;sy7b9k&quot;,
+	&quot;msg&quot;:&quot;0yecz0&quot;,
 	&quot;obj&quot;:{
 		
 	}
@@ -120,7 +120,7 @@
 </tbody>
 </table>
 <p><strong>Request-example:</strong></p>
-<pre><code>curl   -i http://localhost:8080/api/password/del?id=137
+<pre><code>curl   -i http://localhost:8080/api/password/del?id=96
 </code></pre>
 <p><strong>Response-fields:</strong></p>
 <table>
@@ -128,17 +128,17 @@
 <tr><th>Field</th><th>Type</th><th>Description</th><th>Since</th></tr>
 </thead>
 <tbody>
-<tr><td>success</td><td>boolean</td><td>No comments found.</td><td>-</td></tr>
-<tr><td>status</td><td>string</td><td>No comments found.</td><td>-</td></tr>
-<tr><td>msg</td><td>string</td><td>No comments found.</td><td>-</td></tr>
-<tr><td>obj</td><td>object</td><td>No comments found.</td><td>-</td></tr>
+<tr><td>success</td><td>boolean</td><td>请求结果</td><td>-</td></tr>
+<tr><td>status</td><td>string</td><td>请求状态 200:请求成功 401:token无效 500:服务器错误</td><td>-</td></tr>
+<tr><td>msg</td><td>string</td><td>错误信息</td><td>-</td></tr>
+<tr><td>obj</td><td>object</td><td>返回内容</td><td>-</td></tr>
 </tbody>
 </table>
 <p><strong>Response-example:</strong></p>
 <pre><code>{
 	&quot;success&quot;:true,
-	&quot;status&quot;:&quot;yvaatb&quot;,
-	&quot;msg&quot;:&quot;iyc0i0&quot;,
+	&quot;status&quot;:&quot;ku3dt6&quot;,
+	&quot;msg&quot;:&quot;bwsbzd&quot;,
 	&quot;obj&quot;:{
 		
 	}
@@ -146,7 +146,7 @@
 </code></pre>
 
     <footer class="page-footer">
-        <span class="copyright">Generated by smart-doc at 2021-12-29 09:43:57</span>
+        <span class="copyright">Generated by smart-doc at 2021-12-29 11:18:55</span>
         <span class="footer-modification">Suggestions, contact, support and error reporting on
             <a href="https://gitee.com/smart-doc-team/smart-doc" target="_blank">Gitee</a> or
             <a href="https://github.com/smart-doc-group/smart-doc" target="_blank">Github</a>

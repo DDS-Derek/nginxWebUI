@@ -6,7 +6,7 @@
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
     <meta http-equiv="Pragma" content="no-cache" />
     <meta http-equiv="Expires" content="0" />
-    <link rel="stylesheet" href="markdown.css?v=1640742237775"/>
+    <link rel="stylesheet" href="markdown.css?v=1640747935155"/>
     <title>反向代理(server)接口</title>
 </head>
 <body>
@@ -29,7 +29,7 @@
 </tbody>
 </table>
 <p><strong>Request-example:</strong></p>
-<pre><code>curl   -i http://localhost:8080/api/server/getPage?limit=10&amp;current=8ofb7g&amp;keywords=877r85
+<pre><code>curl   -i http://localhost:8080/api/server/getPage?current=gq1wxg&amp;limit=10&amp;keywords=bo9h1g
 </code></pre>
 <p><strong>Response-fields:</strong></p>
 <table>
@@ -37,71 +37,71 @@
 <tr><th>Field</th><th>Type</th><th>Description</th><th>Since</th></tr>
 </thead>
 <tbody>
-<tr><td>success</td><td>boolean</td><td>No comments found.</td><td>-</td></tr>
-<tr><td>status</td><td>string</td><td>No comments found.</td><td>-</td></tr>
-<tr><td>msg</td><td>string</td><td>No comments found.</td><td>-</td></tr>
-<tr><td>obj</td><td>object</td><td>No comments found.</td><td>-</td></tr>
-<tr><td>└─count</td><td>int64</td><td>No comments found.</td><td>-</td></tr>
-<tr><td>└─curr</td><td>int32</td><td>No comments found.</td><td>-</td></tr>
-<tr><td>└─limit</td><td>int32</td><td>No comments found.</td><td>-</td></tr>
-<tr><td>└─records</td><td>array</td><td>No comments found.</td><td>-</td></tr>
+<tr><td>success</td><td>boolean</td><td>请求结果</td><td>-</td></tr>
+<tr><td>status</td><td>string</td><td>请求状态 200:请求成功 401:token无效 500:服务器错误</td><td>-</td></tr>
+<tr><td>msg</td><td>string</td><td>错误信息</td><td>-</td></tr>
+<tr><td>obj</td><td>object</td><td>返回内容</td><td>-</td></tr>
+<tr><td>└─count</td><td>int64</td><td>总记录数</td><td>-</td></tr>
+<tr><td>└─curr</td><td>int32</td><td>起始页(从1开始)</td><td>-</td></tr>
+<tr><td>└─limit</td><td>int32</td><td>每页记录数</td><td>-</td></tr>
+<tr><td>└─records</td><td>array</td><td>列表内容</td><td>-</td></tr>
 <tr><td>     └─id</td><td>string</td><td>No comments found.</td><td>-</td></tr>
 <tr><td>     └─createTime</td><td>int64</td><td>No comments found.</td><td>-</td></tr>
 <tr><td>     └─updateTime</td><td>int64</td><td>No comments found.</td><td>-</td></tr>
-<tr><td>     └─serverName</td><td>string</td><td>No comments found.</td><td>-</td></tr>
-<tr><td>     └─listen</td><td>string</td><td>No comments found.</td><td>-</td></tr>
-<tr><td>     └─def</td><td>int32</td><td>No comments found.</td><td>-</td></tr>
-<tr><td>     └─rewrite</td><td>int32</td><td>No comments found.</td><td>-</td></tr>
-<tr><td>     └─rewriteListen</td><td>string</td><td>No comments found.</td><td>-</td></tr>
-<tr><td>     └─ssl</td><td>int32</td><td>No comments found.</td><td>-</td></tr>
-<tr><td>     └─http2</td><td>int32</td><td>No comments found.</td><td>-</td></tr>
-<tr><td>     └─proxyProtocol</td><td>int32</td><td>No comments found.</td><td>-</td></tr>
-<tr><td>     └─pem</td><td>string</td><td>No comments found.</td><td>-</td></tr>
-<tr><td>     └─key</td><td>string</td><td>No comments found.</td><td>-</td></tr>
-<tr><td>     └─proxyType</td><td>int32</td><td>No comments found.</td><td>-</td></tr>
-<tr><td>     └─proxyUpstreamId</td><td>string</td><td>No comments found.</td><td>-</td></tr>
+<tr><td>     └─serverName</td><td>string</td><td>监听域名</td><td>-</td></tr>
+<tr><td>     └─listen</td><td>string</td><td>监听ip端口 (格式 ip:port或port)</td><td>-</td></tr>
+<tr><td>     └─def</td><td>int32</td><td>是否为默认server 0否(默认) 1是</td><td>-</td></tr>
+<tr><td>     └─rewrite</td><td>int32</td><td>是否http跳转https 0否(默认) 1是</td><td>-</td></tr>
+<tr><td>     └─rewriteListen</td><td>string</td><td>http跳转https监听ip端口,默认为80 (格式 ip:port或port)</td><td>-</td></tr>
+<tr><td>     └─ssl</td><td>int32</td><td>是否开启ssl 0否(默认) 1是</td><td>-</td></tr>
+<tr><td>     └─http2</td><td>int32</td><td>是否开启http2 0否(默认) 1是</td><td>-</td></tr>
+<tr><td>     └─proxyProtocol</td><td>int32</td><td>是否开启proxy_protocol 0否(默认) 1是</td><td>-</td></tr>
+<tr><td>     └─pem</td><td>string</td><td>ssl证书pem文件路径</td><td>-</td></tr>
+<tr><td>     └─key</td><td>string</td><td>ssl证书key文件路径</td><td>-</td></tr>
+<tr><td>     └─proxyType</td><td>int32</td><td>代理类型 0:http(默认) 1:tcp 2:udp</td><td>-</td></tr>
+<tr><td>     └─proxyUpstreamId</td><td>string</td><td>代理upstream的id</td><td>-</td></tr>
 <tr><td>     └─pemStr</td><td>string</td><td>No comments found.</td><td>-</td></tr>
 <tr><td>     └─keyStr</td><td>string</td><td>No comments found.</td><td>-</td></tr>
-<tr><td>     └─enable</td><td>boolean</td><td>No comments found.</td><td>-</td></tr>
-<tr><td>     └─descr</td><td>string</td><td>No comments found.</td><td>-</td></tr>
-<tr><td>     └─protocols</td><td>string</td><td>No comments found.</td><td>-</td></tr>
-<tr><td>     └─passwordId</td><td>string</td><td>No comments found.</td><td>-</td></tr>
+<tr><td>     └─enable</td><td>boolean</td><td>是否启用 true:启用(默认) false:禁用</td><td>-</td></tr>
+<tr><td>     └─descr</td><td>string</td><td>描述</td><td>-</td></tr>
+<tr><td>     └─protocols</td><td>string</td><td>加密协议 (默认:TLSv1 TLSv1.1 TLSv1.2 TLSv1.3)</td><td>-</td></tr>
+<tr><td>     └─passwordId</td><td>string</td><td>使用的password文件Id</td><td>-</td></tr>
 <tr><td>     └─seq</td><td>int64</td><td>No comments found.</td><td>-</td></tr>
 </tbody>
 </table>
 <p><strong>Response-example:</strong></p>
 <pre><code>{
 	&quot;success&quot;:true,
-	&quot;status&quot;:&quot;dt2a8v&quot;,
-	&quot;msg&quot;:&quot;lutqiy&quot;,
+	&quot;status&quot;:&quot;6ik7qq&quot;,
+	&quot;msg&quot;:&quot;ash964&quot;,
 	&quot;obj&quot;:{
-		&quot;count&quot;:610,
-		&quot;curr&quot;:774,
+		&quot;count&quot;:333,
+		&quot;curr&quot;:52,
 		&quot;limit&quot;:10,
 		&quot;records&quot;:[
 			{
-				&quot;id&quot;:&quot;137&quot;,
-				&quot;createTime&quot;:1640742239244,
-				&quot;updateTime&quot;:1640742239244,
-				&quot;serverName&quot;:&quot;君浩.黄&quot;,
-				&quot;listen&quot;:&quot;acj69e&quot;,
-				&quot;def&quot;:621,
-				&quot;rewrite&quot;:693,
-				&quot;rewriteListen&quot;:&quot;tfl65y&quot;,
-				&quot;ssl&quot;:284,
-				&quot;http2&quot;:775,
-				&quot;proxyProtocol&quot;:667,
-				&quot;pem&quot;:&quot;cmq35c&quot;,
-				&quot;key&quot;:&quot;68erwd&quot;,
-				&quot;proxyType&quot;:597,
-				&quot;proxyUpstreamId&quot;:&quot;137&quot;,
-				&quot;pemStr&quot;:&quot;ycepcu&quot;,
-				&quot;keyStr&quot;:&quot;srub3j&quot;,
+				&quot;id&quot;:&quot;96&quot;,
+				&quot;createTime&quot;:1640747936586,
+				&quot;updateTime&quot;:1640747936586,
+				&quot;serverName&quot;:&quot;炎彬.任&quot;,
+				&quot;listen&quot;:&quot;1cxfbi&quot;,
+				&quot;def&quot;:719,
+				&quot;rewrite&quot;:873,
+				&quot;rewriteListen&quot;:&quot;4hug2b&quot;,
+				&quot;ssl&quot;:975,
+				&quot;http2&quot;:448,
+				&quot;proxyProtocol&quot;:241,
+				&quot;pem&quot;:&quot;47d9zh&quot;,
+				&quot;key&quot;:&quot;76jfa7&quot;,
+				&quot;proxyType&quot;:974,
+				&quot;proxyUpstreamId&quot;:&quot;96&quot;,
+				&quot;pemStr&quot;:&quot;yt543p&quot;,
+				&quot;keyStr&quot;:&quot;zjk4u3&quot;,
 				&quot;enable&quot;:true,
-				&quot;descr&quot;:&quot;bvvvjc&quot;,
-				&quot;protocols&quot;:&quot;ok5qu4&quot;,
-				&quot;passwordId&quot;:&quot;137&quot;,
-				&quot;seq&quot;:632
+				&quot;descr&quot;:&quot;db61dl&quot;,
+				&quot;protocols&quot;:&quot;vh8r4w&quot;,
+				&quot;passwordId&quot;:&quot;96&quot;,
+				&quot;seq&quot;:163
 			}
 		]
 	}
@@ -121,29 +121,29 @@
 <tr><td>id</td><td>string</td><td>No comments found.</td><td>false</td><td>-</td></tr>
 <tr><td>createTime</td><td>int64</td><td>No comments found.</td><td>false</td><td>-</td></tr>
 <tr><td>updateTime</td><td>int64</td><td>No comments found.</td><td>false</td><td>-</td></tr>
-<tr><td>serverName</td><td>string</td><td>No comments found.</td><td>false</td><td>-</td></tr>
-<tr><td>listen</td><td>string</td><td>No comments found.</td><td>false</td><td>-</td></tr>
-<tr><td>def</td><td>int32</td><td>No comments found.</td><td>false</td><td>-</td></tr>
-<tr><td>rewrite</td><td>int32</td><td>No comments found.</td><td>false</td><td>-</td></tr>
-<tr><td>rewriteListen</td><td>string</td><td>No comments found.</td><td>false</td><td>-</td></tr>
-<tr><td>ssl</td><td>int32</td><td>No comments found.</td><td>false</td><td>-</td></tr>
-<tr><td>http2</td><td>int32</td><td>No comments found.</td><td>false</td><td>-</td></tr>
-<tr><td>proxyProtocol</td><td>int32</td><td>No comments found.</td><td>false</td><td>-</td></tr>
-<tr><td>pem</td><td>string</td><td>No comments found.</td><td>false</td><td>-</td></tr>
-<tr><td>key</td><td>string</td><td>No comments found.</td><td>false</td><td>-</td></tr>
-<tr><td>proxyType</td><td>int32</td><td>No comments found.</td><td>false</td><td>-</td></tr>
-<tr><td>proxyUpstreamId</td><td>string</td><td>No comments found.</td><td>false</td><td>-</td></tr>
+<tr><td>serverName</td><td>string</td><td>监听域名</td><td>false</td><td>-</td></tr>
+<tr><td>listen</td><td>string</td><td>监听ip端口 (格式 ip:port或port)</td><td>false</td><td>-</td></tr>
+<tr><td>def</td><td>int32</td><td>是否为默认server 0否(默认) 1是</td><td>false</td><td>-</td></tr>
+<tr><td>rewrite</td><td>int32</td><td>是否http跳转https 0否(默认) 1是</td><td>false</td><td>-</td></tr>
+<tr><td>rewriteListen</td><td>string</td><td>http跳转https监听ip端口,默认为80 (格式 ip:port或port)</td><td>false</td><td>-</td></tr>
+<tr><td>ssl</td><td>int32</td><td>是否开启ssl 0否(默认) 1是</td><td>false</td><td>-</td></tr>
+<tr><td>http2</td><td>int32</td><td>是否开启http2 0否(默认) 1是</td><td>false</td><td>-</td></tr>
+<tr><td>proxyProtocol</td><td>int32</td><td>是否开启proxy_protocol 0否(默认) 1是</td><td>false</td><td>-</td></tr>
+<tr><td>pem</td><td>string</td><td>ssl证书pem文件路径</td><td>false</td><td>-</td></tr>
+<tr><td>key</td><td>string</td><td>ssl证书key文件路径</td><td>false</td><td>-</td></tr>
+<tr><td>proxyType</td><td>int32</td><td>代理类型 0:http(默认) 1:tcp 2:udp</td><td>false</td><td>-</td></tr>
+<tr><td>proxyUpstreamId</td><td>string</td><td>代理upstream的id</td><td>false</td><td>-</td></tr>
 <tr><td>pemStr</td><td>string</td><td>No comments found.</td><td>false</td><td>-</td></tr>
 <tr><td>keyStr</td><td>string</td><td>No comments found.</td><td>false</td><td>-</td></tr>
-<tr><td>enable</td><td>boolean</td><td>No comments found.</td><td>false</td><td>-</td></tr>
-<tr><td>descr</td><td>string</td><td>No comments found.</td><td>false</td><td>-</td></tr>
-<tr><td>protocols</td><td>string</td><td>No comments found.</td><td>false</td><td>-</td></tr>
-<tr><td>passwordId</td><td>string</td><td>No comments found.</td><td>false</td><td>-</td></tr>
+<tr><td>enable</td><td>boolean</td><td>是否启用 true:启用(默认) false:禁用</td><td>false</td><td>-</td></tr>
+<tr><td>descr</td><td>string</td><td>描述</td><td>false</td><td>-</td></tr>
+<tr><td>protocols</td><td>string</td><td>加密协议 (默认:TLSv1 TLSv1.1 TLSv1.2 TLSv1.3)</td><td>false</td><td>-</td></tr>
+<tr><td>passwordId</td><td>string</td><td>使用的password文件Id</td><td>false</td><td>-</td></tr>
 <tr><td>seq</td><td>int64</td><td>No comments found.</td><td>false</td><td>-</td></tr>
 </tbody>
 </table>
 <p><strong>Request-example:</strong></p>
-<pre><code>curl   -i http://localhost:8080/api/server/insertOrUpdate?id=137&amp;key=s8mqpe&amp;rewriteListen=ba9lsk&amp;listen=s7cesr&amp;rewrite=980&amp;pem=br1yff&amp;def=868&amp;keyStr=0dlthe&amp;protocols=j4w48o&amp;descr=5yvd2z&amp;createTime=1640742239244&amp;pemStr=naws0x&amp;proxyUpstreamId=137&amp;passwordId=137&amp;seq=664&amp;http2=179&amp;ssl=855&amp;enable=true&amp;proxyProtocol=549&amp;updateTime=1640742239244&amp;serverName=君浩.黄&amp;proxyType=718
+<pre><code>curl   -i http://localhost:8080/api/server/insertOrUpdate?seq=729&amp;keyStr=fcnwn2&amp;serverName=炎彬.任&amp;ssl=695&amp;proxyUpstreamId=96&amp;rewriteListen=sskjql&amp;updateTime=1640747936586&amp;passwordId=96&amp;http2=663&amp;rewrite=109&amp;proxyProtocol=164&amp;id=96&amp;def=319&amp;key=s56sc2&amp;enable=true&amp;descr=khci2t&amp;pem=5en86m&amp;proxyType=925&amp;protocols=t6iwxe&amp;createTime=1640747936586&amp;pemStr=htswd4&amp;listen=28tlsf
 </code></pre>
 <p><strong>Response-fields:</strong></p>
 <table>
@@ -151,17 +151,17 @@
 <tr><th>Field</th><th>Type</th><th>Description</th><th>Since</th></tr>
 </thead>
 <tbody>
-<tr><td>success</td><td>boolean</td><td>No comments found.</td><td>-</td></tr>
-<tr><td>status</td><td>string</td><td>No comments found.</td><td>-</td></tr>
-<tr><td>msg</td><td>string</td><td>No comments found.</td><td>-</td></tr>
-<tr><td>obj</td><td>object</td><td>No comments found.</td><td>-</td></tr>
+<tr><td>success</td><td>boolean</td><td>请求结果</td><td>-</td></tr>
+<tr><td>status</td><td>string</td><td>请求状态 200:请求成功 401:token无效 500:服务器错误</td><td>-</td></tr>
+<tr><td>msg</td><td>string</td><td>错误信息</td><td>-</td></tr>
+<tr><td>obj</td><td>object</td><td>返回内容</td><td>-</td></tr>
 </tbody>
 </table>
 <p><strong>Response-example:</strong></p>
 <pre><code>{
 	&quot;success&quot;:true,
-	&quot;status&quot;:&quot;q15232&quot;,
-	&quot;msg&quot;:&quot;8qgdtn&quot;,
+	&quot;status&quot;:&quot;i07d8l&quot;,
+	&quot;msg&quot;:&quot;zvyl51&quot;,
 	&quot;obj&quot;:{
 		
 	}
@@ -182,7 +182,7 @@
 </tbody>
 </table>
 <p><strong>Request-example:</strong></p>
-<pre><code>curl   -i http://localhost:8080/api/server/delete?id=137
+<pre><code>curl   -i http://localhost:8080/api/server/delete?id=96
 </code></pre>
 <p><strong>Response-fields:</strong></p>
 <table>
@@ -190,17 +190,17 @@
 <tr><th>Field</th><th>Type</th><th>Description</th><th>Since</th></tr>
 </thead>
 <tbody>
-<tr><td>success</td><td>boolean</td><td>No comments found.</td><td>-</td></tr>
-<tr><td>status</td><td>string</td><td>No comments found.</td><td>-</td></tr>
-<tr><td>msg</td><td>string</td><td>No comments found.</td><td>-</td></tr>
-<tr><td>obj</td><td>object</td><td>No comments found.</td><td>-</td></tr>
+<tr><td>success</td><td>boolean</td><td>请求结果</td><td>-</td></tr>
+<tr><td>status</td><td>string</td><td>请求状态 200:请求成功 401:token无效 500:服务器错误</td><td>-</td></tr>
+<tr><td>msg</td><td>string</td><td>错误信息</td><td>-</td></tr>
+<tr><td>obj</td><td>object</td><td>返回内容</td><td>-</td></tr>
 </tbody>
 </table>
 <p><strong>Response-example:</strong></p>
 <pre><code>{
 	&quot;success&quot;:true,
-	&quot;status&quot;:&quot;p5jpr3&quot;,
-	&quot;msg&quot;:&quot;ap1kas&quot;,
+	&quot;status&quot;:&quot;0jfz8q&quot;,
+	&quot;msg&quot;:&quot;6r8dri&quot;,
 	&quot;obj&quot;:{
 		
 	}
@@ -221,7 +221,7 @@
 </tbody>
 </table>
 <p><strong>Request-example:</strong></p>
-<pre><code>curl   -i http://localhost:8080/api/server/getLocationByServerId?serverId=137
+<pre><code>curl   -i http://localhost:8080/api/server/getLocationByServerId?serverId=96
 </code></pre>
 <p><strong>Response-fields:</strong></p>
 <table>
@@ -229,51 +229,51 @@
 <tr><th>Field</th><th>Type</th><th>Description</th><th>Since</th></tr>
 </thead>
 <tbody>
-<tr><td>success</td><td>boolean</td><td>No comments found.</td><td>-</td></tr>
-<tr><td>status</td><td>string</td><td>No comments found.</td><td>-</td></tr>
-<tr><td>msg</td><td>string</td><td>No comments found.</td><td>-</td></tr>
-<tr><td>obj</td><td>object</td><td>No comments found.</td><td>-</td></tr>
+<tr><td>success</td><td>boolean</td><td>请求结果</td><td>-</td></tr>
+<tr><td>status</td><td>string</td><td>请求状态 200:请求成功 401:token无效 500:服务器错误</td><td>-</td></tr>
+<tr><td>msg</td><td>string</td><td>错误信息</td><td>-</td></tr>
+<tr><td>obj</td><td>object</td><td>返回内容</td><td>-</td></tr>
 <tr><td>└─id</td><td>string</td><td>No comments found.</td><td>-</td></tr>
 <tr><td>└─createTime</td><td>int64</td><td>No comments found.</td><td>-</td></tr>
 <tr><td>└─updateTime</td><td>int64</td><td>No comments found.</td><td>-</td></tr>
-<tr><td>└─serverId</td><td>string</td><td>No comments found.</td><td>-</td></tr>
-<tr><td>└─path</td><td>string</td><td>No comments found.</td><td>-</td></tr>
-<tr><td>└─type</td><td>int32</td><td>No comments found.</td><td>-</td></tr>
+<tr><td>└─serverId</td><td>string</td><td>*所属反向代理serverId</td><td>-</td></tr>
+<tr><td>└─path</td><td>string</td><td>*监控路径 例:/</td><td>-</td></tr>
+<tr><td>└─type</td><td>int32</td><td>代理类型 0:动态代理(默认) 1:静态代理 2:负载均衡 3:空白代理</td><td>-</td></tr>
 <tr><td>└─locationParamJson</td><td>string</td><td>No comments found.</td><td>-</td></tr>
-<tr><td>└─value</td><td>string</td><td>No comments found.</td><td>-</td></tr>
-<tr><td>└─upstreamType</td><td>string</td><td>No comments found.</td><td>-</td></tr>
-<tr><td>└─upstreamId</td><td>string</td><td>No comments found.</td><td>-</td></tr>
-<tr><td>└─upstreamPath</td><td>string</td><td>No comments found.</td><td>-</td></tr>
-<tr><td>└─rootPath</td><td>string</td><td>No comments found.</td><td>-</td></tr>
-<tr><td>└─rootPage</td><td>string</td><td>No comments found.</td><td>-</td></tr>
-<tr><td>└─rootType</td><td>string</td><td>No comments found.</td><td>-</td></tr>
-<tr><td>└─header</td><td>int32</td><td>No comments found.</td><td>-</td></tr>
-<tr><td>└─websocket</td><td>int32</td><td>No comments found.</td><td>-</td></tr>
+<tr><td>└─value</td><td>string</td><td>动态代理目标 (例:http://10.10.10.1:8080/)</td><td>-</td></tr>
+<tr><td>└─upstreamType</td><td>string</td><td>代理负载协议,http or https</td><td>-</td></tr>
+<tr><td>└─upstreamId</td><td>string</td><td>代理负载均衡upstream的id</td><td>-</td></tr>
+<tr><td>└─upstreamPath</td><td>string</td><td>代理负载额外路径,默认为空</td><td>-</td></tr>
+<tr><td>└─rootPath</td><td>string</td><td>静态代理路径 (例:/home/www)</td><td>-</td></tr>
+<tr><td>└─rootPage</td><td>string</td><td>静态代理默认页面 (例:index.html)</td><td>-</td></tr>
+<tr><td>└─rootType</td><td>string</td><td>静态代理类型 root:根路径模式 alias:别名模式</td><td>-</td></tr>
+<tr><td>└─header</td><td>int32</td><td>是否携带Host参数 0否 1是(默认)</td><td>-</td></tr>
+<tr><td>└─websocket</td><td>int32</td><td>是否开启websocket支持 0否(默认) 1是</td><td>-</td></tr>
 </tbody>
 </table>
 <p><strong>Response-example:</strong></p>
 <pre><code>{
 	&quot;success&quot;:true,
-	&quot;status&quot;:&quot;qoxink&quot;,
-	&quot;msg&quot;:&quot;nodgne&quot;,
+	&quot;status&quot;:&quot;jt4yja&quot;,
+	&quot;msg&quot;:&quot;pvbbkk&quot;,
 	&quot;obj&quot;:[
 		{
-			&quot;id&quot;:&quot;137&quot;,
-			&quot;createTime&quot;:1640742239244,
-			&quot;updateTime&quot;:1640742239244,
-			&quot;serverId&quot;:&quot;137&quot;,
-			&quot;path&quot;:&quot;p934c5&quot;,
-			&quot;type&quot;:619,
-			&quot;locationParamJson&quot;:&quot;0ke05k&quot;,
-			&quot;value&quot;:&quot;n2o4jv&quot;,
-			&quot;upstreamType&quot;:&quot;kc48ca&quot;,
-			&quot;upstreamId&quot;:&quot;137&quot;,
-			&quot;upstreamPath&quot;:&quot;wjgdcz&quot;,
-			&quot;rootPath&quot;:&quot;o5c8r1&quot;,
-			&quot;rootPage&quot;:&quot;b7oks1&quot;,
-			&quot;rootType&quot;:&quot;nvvyam&quot;,
-			&quot;header&quot;:1,
-			&quot;websocket&quot;:831
+			&quot;id&quot;:&quot;96&quot;,
+			&quot;createTime&quot;:1640747936586,
+			&quot;updateTime&quot;:1640747936586,
+			&quot;serverId&quot;:&quot;96&quot;,
+			&quot;path&quot;:&quot;08p928&quot;,
+			&quot;type&quot;:2,
+			&quot;locationParamJson&quot;:&quot;4ks41g&quot;,
+			&quot;value&quot;:&quot;sojuza&quot;,
+			&quot;upstreamType&quot;:&quot;kwh9kq&quot;,
+			&quot;upstreamId&quot;:&quot;96&quot;,
+			&quot;upstreamPath&quot;:&quot;xlfvh1&quot;,
+			&quot;rootPath&quot;:&quot;9oonoj&quot;,
+			&quot;rootPage&quot;:&quot;uoxd3k&quot;,
+			&quot;rootType&quot;:&quot;smppa1&quot;,
+			&quot;header&quot;:186,
+			&quot;websocket&quot;:507
 		}
 	]
 }
@@ -292,23 +292,23 @@
 <tr><td>id</td><td>string</td><td>No comments found.</td><td>false</td><td>-</td></tr>
 <tr><td>createTime</td><td>int64</td><td>No comments found.</td><td>false</td><td>-</td></tr>
 <tr><td>updateTime</td><td>int64</td><td>No comments found.</td><td>false</td><td>-</td></tr>
-<tr><td>serverId</td><td>string</td><td>No comments found.</td><td>false</td><td>-</td></tr>
-<tr><td>path</td><td>string</td><td>No comments found.</td><td>false</td><td>-</td></tr>
-<tr><td>type</td><td>int32</td><td>No comments found.</td><td>false</td><td>-</td></tr>
+<tr><td>serverId</td><td>string</td><td>*所属反向代理serverId</td><td>false</td><td>-</td></tr>
+<tr><td>path</td><td>string</td><td>*监控路径 例:/</td><td>false</td><td>-</td></tr>
+<tr><td>type</td><td>int32</td><td>代理类型 0:动态代理(默认) 1:静态代理 2:负载均衡 3:空白代理</td><td>false</td><td>-</td></tr>
 <tr><td>locationParamJson</td><td>string</td><td>No comments found.</td><td>false</td><td>-</td></tr>
-<tr><td>value</td><td>string</td><td>No comments found.</td><td>false</td><td>-</td></tr>
-<tr><td>upstreamType</td><td>string</td><td>No comments found.</td><td>false</td><td>-</td></tr>
-<tr><td>upstreamId</td><td>string</td><td>No comments found.</td><td>false</td><td>-</td></tr>
-<tr><td>upstreamPath</td><td>string</td><td>No comments found.</td><td>false</td><td>-</td></tr>
-<tr><td>rootPath</td><td>string</td><td>No comments found.</td><td>false</td><td>-</td></tr>
-<tr><td>rootPage</td><td>string</td><td>No comments found.</td><td>false</td><td>-</td></tr>
-<tr><td>rootType</td><td>string</td><td>No comments found.</td><td>false</td><td>-</td></tr>
-<tr><td>header</td><td>int32</td><td>No comments found.</td><td>false</td><td>-</td></tr>
-<tr><td>websocket</td><td>int32</td><td>No comments found.</td><td>false</td><td>-</td></tr>
+<tr><td>value</td><td>string</td><td>动态代理目标 (例:http://10.10.10.1:8080/)</td><td>false</td><td>-</td></tr>
+<tr><td>upstreamType</td><td>string</td><td>代理负载协议,http or https</td><td>false</td><td>-</td></tr>
+<tr><td>upstreamId</td><td>string</td><td>代理负载均衡upstream的id</td><td>false</td><td>-</td></tr>
+<tr><td>upstreamPath</td><td>string</td><td>代理负载额外路径,默认为空</td><td>false</td><td>-</td></tr>
+<tr><td>rootPath</td><td>string</td><td>静态代理路径 (例:/home/www)</td><td>false</td><td>-</td></tr>
+<tr><td>rootPage</td><td>string</td><td>静态代理默认页面 (例:index.html)</td><td>false</td><td>-</td></tr>
+<tr><td>rootType</td><td>string</td><td>静态代理类型 root:根路径模式 alias:别名模式</td><td>false</td><td>-</td></tr>
+<tr><td>header</td><td>int32</td><td>是否携带Host参数 0否 1是(默认)</td><td>false</td><td>-</td></tr>
+<tr><td>websocket</td><td>int32</td><td>是否开启websocket支持 0否(默认) 1是</td><td>false</td><td>-</td></tr>
 </tbody>
 </table>
 <p><strong>Request-example:</strong></p>
-<pre><code>curl   -i http://localhost:8080/api/server/insertOrUpdateLocation?rootType=klph20&amp;updateTime=1640742239244&amp;type=227&amp;value=rnc1l8&amp;upstreamType=5y0v1q&amp;header=448&amp;locationParamJson=d0pt4w&amp;rootPath=4uf641&amp;websocket=372&amp;createTime=1640742239244&amp;upstreamId=137&amp;rootPage=qykn6v&amp;id=137&amp;serverId=137&amp;path=madwmm&amp;upstreamPath=meac3x
+<pre><code>curl   -i http://localhost:8080/api/server/insertOrUpdateLocation?type=806&amp;upstreamPath=1b1ly3&amp;websocket=668&amp;locationParamJson=pmfkrw&amp;updateTime=1640747936586&amp;rootPath=yvjbt2&amp;id=96&amp;upstreamType=1mgapk&amp;rootType=dlnjbq&amp;rootPage=n59gi9&amp;header=896&amp;createTime=1640747936586&amp;upstreamId=96&amp;path=o2e5e3&amp;serverId=96&amp;value=43fjdz
 </code></pre>
 <p><strong>Response-fields:</strong></p>
 <table>
@@ -316,17 +316,17 @@
 <tr><th>Field</th><th>Type</th><th>Description</th><th>Since</th></tr>
 </thead>
 <tbody>
-<tr><td>success</td><td>boolean</td><td>No comments found.</td><td>-</td></tr>
-<tr><td>status</td><td>string</td><td>No comments found.</td><td>-</td></tr>
-<tr><td>msg</td><td>string</td><td>No comments found.</td><td>-</td></tr>
-<tr><td>obj</td><td>object</td><td>No comments found.</td><td>-</td></tr>
+<tr><td>success</td><td>boolean</td><td>请求结果</td><td>-</td></tr>
+<tr><td>status</td><td>string</td><td>请求状态 200:请求成功 401:token无效 500:服务器错误</td><td>-</td></tr>
+<tr><td>msg</td><td>string</td><td>错误信息</td><td>-</td></tr>
+<tr><td>obj</td><td>object</td><td>返回内容</td><td>-</td></tr>
 </tbody>
 </table>
 <p><strong>Response-example:</strong></p>
 <pre><code>{
 	&quot;success&quot;:true,
-	&quot;status&quot;:&quot;y6l2c5&quot;,
-	&quot;msg&quot;:&quot;3kep4p&quot;,
+	&quot;status&quot;:&quot;od2btp&quot;,
+	&quot;msg&quot;:&quot;hw79ok&quot;,
 	&quot;obj&quot;:{
 		
 	}
@@ -347,7 +347,7 @@
 </tbody>
 </table>
 <p><strong>Request-example:</strong></p>
-<pre><code>curl   -i http://localhost:8080/api/server/deleteLocation?id=137
+<pre><code>curl   -i http://localhost:8080/api/server/deleteLocation?id=96
 </code></pre>
 <p><strong>Response-fields:</strong></p>
 <table>
@@ -355,17 +355,17 @@
 <tr><th>Field</th><th>Type</th><th>Description</th><th>Since</th></tr>
 </thead>
 <tbody>
-<tr><td>success</td><td>boolean</td><td>No comments found.</td><td>-</td></tr>
-<tr><td>status</td><td>string</td><td>No comments found.</td><td>-</td></tr>
-<tr><td>msg</td><td>string</td><td>No comments found.</td><td>-</td></tr>
-<tr><td>obj</td><td>object</td><td>No comments found.</td><td>-</td></tr>
+<tr><td>success</td><td>boolean</td><td>请求结果</td><td>-</td></tr>
+<tr><td>status</td><td>string</td><td>请求状态 200:请求成功 401:token无效 500:服务器错误</td><td>-</td></tr>
+<tr><td>msg</td><td>string</td><td>错误信息</td><td>-</td></tr>
+<tr><td>obj</td><td>object</td><td>返回内容</td><td>-</td></tr>
 </tbody>
 </table>
 <p><strong>Response-example:</strong></p>
 <pre><code>{
 	&quot;success&quot;:true,
-	&quot;status&quot;:&quot;3kobas&quot;,
-	&quot;msg&quot;:&quot;y9xs0y&quot;,
+	&quot;status&quot;:&quot;j8i1oi&quot;,
+	&quot;msg&quot;:&quot;eutylz&quot;,
 	&quot;obj&quot;:{
 		
 	}
@@ -373,7 +373,7 @@
 </code></pre>
 
     <footer class="page-footer">
-        <span class="copyright">Generated by smart-doc at 2021-12-29 09:43:57</span>
+        <span class="copyright">Generated by smart-doc at 2021-12-29 11:18:55</span>
         <span class="footer-modification">Suggestions, contact, support and error reporting on
             <a href="https://gitee.com/smart-doc-team/smart-doc" target="_blank">Gitee</a> or
             <a href="https://github.com/smart-doc-group/smart-doc" target="_blank">Github</a>
