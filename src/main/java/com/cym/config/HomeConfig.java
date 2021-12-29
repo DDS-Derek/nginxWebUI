@@ -30,6 +30,11 @@ public class HomeConfig {
 				home = file.getParent();
 			}
 		}
+
+		// windows 加上盘符
+		if (SystemTool.isWindows() && !home.contains(":")) {
+			home = JarUtil.getCurrentFilePath().split(":")[0] + ":" + home;
+		}
 	}
 
 }
