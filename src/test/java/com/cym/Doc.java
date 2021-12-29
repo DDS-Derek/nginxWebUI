@@ -26,7 +26,7 @@ public class Doc {
         config.setSourceCodePaths(
                 SourceCodePath
                         .path()
-                        .setDesc("demo")
+                        .setDesc("smart-doc")
                         .setPath("src/main/java/com/cym/controller/api/")
         );
 
