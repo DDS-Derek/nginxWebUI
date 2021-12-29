@@ -38,7 +38,9 @@ public class Upstream extends BaseModel {
 	@ApiModelProperty("监控邮件通知 0:否(默认) 1:是")
 	@InitValue("0")
 	Integer monitor;
-	
+	/**
+	 * @ignore
+	 */
 	@ApiModelProperty(hidden = true)
 	Long seq;
 

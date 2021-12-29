@@ -82,9 +82,14 @@ public class Server extends BaseModel {
 	 */
 	@ApiModelProperty("代理upstream的id")
 	String proxyUpstreamId;
-
+	/**
+	 * @ignore
+	 */
 	@ApiModelProperty(hidden = true)
 	String pemStr;
+	/**
+	 * @ignore
+	 */
 	@ApiModelProperty(hidden = true)
 	String keyStr;
 	/**
@@ -109,7 +114,9 @@ public class Server extends BaseModel {
 	 */
 	@ApiModelProperty("使用的password文件Id")
 	String passwordId;
-
+	/**
+	 * @ignore
+	 */
 	@ApiModelProperty(hidden = true)
 	Long seq;
 

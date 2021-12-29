@@ -56,7 +56,7 @@ public class CertApiController extends BaseController {
 
 	/**
 	 * 添加或编辑证书
-	 * @param cert
+	 * @param cert 证书
 	 * 
 	 */
 	@ApiOperation("添加或编辑证书")

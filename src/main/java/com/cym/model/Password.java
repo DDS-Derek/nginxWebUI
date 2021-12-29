@@ -24,10 +24,16 @@ public class Password extends BaseModel {
 	 */
 	@ApiModelProperty("密码")
 	String pass;
+	/**
+	 * @ignore
+	 */
 	@ApiModelProperty(hidden = true, name = "文件路径")
 	String path;
 	@ApiModelProperty("描述")
 	String descr;
+	/**
+	 * @ignore
+	 */
 	@ApiModelProperty(hidden = true, name = "文件内容")
 	String pathStr;
 

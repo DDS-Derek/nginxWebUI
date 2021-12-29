@@ -38,7 +38,6 @@ public class ServerApiController extends BaseController {
 	 * @param keywords 查询关键字
 	 *  
 	 */
-	@SuppressWarnings("unchecked")
 	@ApiOperation("获取server分页列表")
 	@Mapping("getPage")
 	public JsonResult<Page<Server>> getPage(@ApiParam("当前页数(从1开始)") Integer current, //

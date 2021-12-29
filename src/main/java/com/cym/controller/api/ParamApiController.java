@@ -49,7 +49,7 @@ public class ParamApiController extends BaseController {
 
 	/**
 	 * 添加或编辑参数
-	 * @param param
+	 * @param param 额外参数
 	 * 
 	 */
 	@ApiOperation("添加或编辑参数")

@@ -56,6 +56,10 @@ public class UpstreamServer extends BaseModel {
 	@ApiModelProperty("状态策略 'none':无(默认) 'down':停用 'backup':备用")
 	@InitValue("none")
 	String status;
+	
+	/**
+	 * @ignore
+	 */
 	@ApiModelProperty(hidden = true, name = "监控状态 -1:未检测(默认) 0:不通 1:通")
 	@InitValue("-1")
 	Integer monitorStatus;

@@ -67,7 +67,7 @@ public class BasicApiController extends BaseController {
 
 	/**
 	 * 删除Http参数
-	 * @param id
+	 * @param id http参数id
 	 * 
 	 */
 	@ApiOperation("删除Http参数")
@@ -89,7 +89,7 @@ public class BasicApiController extends BaseController {
 
 	/**
 	 * 添加或编辑基础参数
-	 * @param basic
+	 * @param basic 基础参数
 	 * 
 	 */
 	@ApiOperation("添加或编辑基础参数")
@@ -108,7 +108,7 @@ public class BasicApiController extends BaseController {
 
 	/**
 	 * 删除基础参数
-	 * @param id
+	 * @param id 基础参数id
 	 * 
 	 */
 	@ApiOperation("删除基础参数")
@@ -130,7 +130,7 @@ public class BasicApiController extends BaseController {
 
 	/**
 	 * 添加或编辑Stream参数
-	 * @param stream
+	 * @param stream Stream参数
 	 * 
 	 */
 	@ApiOperation("添加或编辑Stream参数")
@@ -148,7 +148,7 @@ public class BasicApiController extends BaseController {
 
 	/**
 	 * 删除Stream参数
-	 * @param id
+	 * @param id Stream参数id
 	 * 
 	 */
 	@ApiOperation("删除Stream参数")

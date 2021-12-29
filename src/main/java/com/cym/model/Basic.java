@@ -22,6 +22,9 @@ public class Basic extends BaseModel {
 	 */
 	@ApiModelProperty("参数值")
 	String value;
+	/**
+	 * @ignore
+	 */
 	@ApiModelProperty(hidden = true)
 	Long seq;
 

@@ -8,7 +8,6 @@ import io.swagger.annotations.ApiModelProperty;
 
 /**
  * Http参数
- * @author CYM
  *
  */
 @ApiModel("Http参数")
@@ -29,7 +28,9 @@ public class Http extends BaseModel {
 	 */
 	@ApiModelProperty("参数单位")
 	String unit;
-
+	/**
+	 * @ignore
+	 */
 	@ApiModelProperty(hidden = true)
 	Long seq;
 

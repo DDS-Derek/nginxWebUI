@@ -33,7 +33,7 @@ public class UpstreamApiController extends BaseController {
 	 * @param current 当前页数(从1开始)
 	 * @param limit 每页数量(默认为10)
 	 * @param keywords 查询关键字
-	 * @return
+	 * 
 	 */
 	@SuppressWarnings("unchecked")
 	@ApiOperation("获取upstream分页列表")
@@ -52,7 +52,7 @@ public class UpstreamApiController extends BaseController {
 	/**
 	 * 添加或编辑upstream
 	 * @param upstream
-	 * @return
+	 * 
 	 */
 	@ApiOperation("添加或编辑upstream")
 	@Mapping("insertOrUpdate")
@@ -127,7 +127,7 @@ public class UpstreamApiController extends BaseController {
 //	/**
 //	 * 删除server
 //	 * @param id  upstream的id
-//	 * @return
+//	 * 
 //	 */
 //	@ApiOperation("删除server")
 //	@Mapping("deleteServer")

@@ -3,8 +3,17 @@ package com.cym.sqlhelper.bean;
 import java.io.Serializable;
 
 public class BaseModel implements Serializable {
+	/**
+	 * 主键
+	 */
 	String id;
+	/**
+	 * @ignore
+	 */
 	Long createTime;
+	/**
+	 * @ignore
+	 */
 	Long updateTime;
 
 	public String getId() {

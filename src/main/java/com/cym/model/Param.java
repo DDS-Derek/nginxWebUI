@@ -30,6 +30,9 @@ public class Param extends BaseModel {
 	@ApiModelProperty("所属负载均衡id")
 	String upstreamId;
 	
+	/**
+	 * @ignore
+	 */
 	@ApiModelProperty(hidden = true)
 	String templateId;
 	/**
@@ -42,10 +45,14 @@ public class Param extends BaseModel {
 	 */
 	@ApiModelProperty("参数值")
 	String value;
-
+	/**
+	 * @ignore
+	 */
 	@ApiModelProperty(hidden = true)
 	String templateValue;
-
+	/**
+	 * @ignore
+	 */
 	@ApiModelProperty(hidden = true)
 	String templateName;
 	
