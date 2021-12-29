@@ -6,7 +6,7 @@
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
     <meta http-equiv="Pragma" content="no-cache" />
     <meta http-equiv="Expires" content="0" />
-    <link rel="stylesheet" href="markdown.css?v=1640751172156"/>
+    <link rel="stylesheet" href="markdown.css?v=1640757786611"/>
     <title>负载均衡(upstream)接口</title>
 </head>
 <body>
@@ -29,7 +29,7 @@
 </tbody>
 </table>
 <p><strong>Request-example:</strong></p>
-<pre><code>curl   -i http://your_ip:8080/api/upstream/getPage?keywords=mv3d5x&amp;limit=10&amp;current=gwxuuj
+<pre><code>curl   -i http://your_ip:8080/api/upstream/getPage?keywords=9u4mr5&amp;current=vsoghj&amp;limit=10
 </code></pre>
 <p><strong>Response-fields:</strong></p>
 <table>
@@ -46,7 +46,7 @@
 <tr><td>└─limit</td><td>int32</td><td>每页记录数</td><td>-</td></tr>
 <tr><td>└─records</td><td>array</td><td>列表内容</td><td>-</td></tr>
 <tr><td>     └─id</td><td>string</td><td>主键</td><td>-</td></tr>
-<tr><td>     └─name</td><td>string</td><td>*负载均衡名称</td><td>-</td></tr>
+<tr><td>     └─name</td><td>string</td><td>负载均衡名称</td><td>-</td></tr>
 <tr><td>     └─tactics</td><td>string</td><td>负载策略: '':无(默认) 'sticky':会话保持 'ip_hash':ip绑定 'least_conn':最少连接 'least_time':最短时间</td><td>-</td></tr>
 <tr><td>     └─proxyType</td><td>int32</td><td>代理类型 0:http(默认) 1:tcp/udp</td><td>-</td></tr>
 <tr><td>     └─monitor</td><td>int32</td><td>监控邮件通知 0:否(默认) 1:是</td><td>-</td></tr>
@@ -55,19 +55,19 @@
 <p><strong>Response-example:</strong></p>
 <pre><code>{
 	&quot;success&quot;:true,
-	&quot;status&quot;:&quot;1cnfl1&quot;,
-	&quot;msg&quot;:&quot;5h1kuq&quot;,
+	&quot;status&quot;:&quot;kb5l24&quot;,
+	&quot;msg&quot;:&quot;4dygip&quot;,
 	&quot;obj&quot;:{
-		&quot;count&quot;:580,
-		&quot;curr&quot;:813,
+		&quot;count&quot;:502,
+		&quot;curr&quot;:287,
 		&quot;limit&quot;:10,
 		&quot;records&quot;:[
 			{
-				&quot;id&quot;:&quot;32&quot;,
-				&quot;name&quot;:&quot;哲瀚.陆&quot;,
-				&quot;tactics&quot;:&quot;ajchzj&quot;,
-				&quot;proxyType&quot;:675,
-				&quot;monitor&quot;:473
+				&quot;id&quot;:&quot;109&quot;,
+				&quot;name&quot;:&quot;昊强.董&quot;,
+				&quot;tactics&quot;:&quot;ksn3s3&quot;,
+				&quot;proxyType&quot;:393,
+				&quot;monitor&quot;:55
 			}
 		]
 	}
@@ -85,14 +85,14 @@
 </thead>
 <tbody>
 <tr><td>id</td><td>string</td><td>主键</td><td>false</td><td>-</td></tr>
-<tr><td>name</td><td>string</td><td>*负载均衡名称</td><td>false</td><td>-</td></tr>
+<tr><td>name</td><td>string</td><td>负载均衡名称</td><td>true</td><td>-</td></tr>
 <tr><td>tactics</td><td>string</td><td>负载策略: '':无(默认) 'sticky':会话保持 'ip_hash':ip绑定 'least_conn':最少连接 'least_time':最短时间</td><td>false</td><td>-</td></tr>
 <tr><td>proxyType</td><td>int32</td><td>代理类型 0:http(默认) 1:tcp/udp</td><td>false</td><td>-</td></tr>
 <tr><td>monitor</td><td>int32</td><td>监控邮件通知 0:否(默认) 1:是</td><td>false</td><td>-</td></tr>
 </tbody>
 </table>
 <p><strong>Request-example:</strong></p>
-<pre><code>curl   -i http://your_ip:8080/api/upstream/insertOrUpdate?updateTime=1640751173617&amp;createTime=1640751173617&amp;proxyType=66&amp;id=32&amp;monitor=482&amp;tactics=3ykhvt&amp;name=哲瀚.陆&amp;seq=861
+<pre><code>curl   -i http://your_ip:8080/api/upstream/insertOrUpdate?proxyType=811&amp;updateTime=1640757788987&amp;monitor=238&amp;createTime=1640757788987&amp;name=昊强.董&amp;tactics=my9eh1&amp;id=109&amp;seq=848
 </code></pre>
 <p><strong>Response-fields:</strong></p>
 <table>
@@ -109,8 +109,8 @@
 <p><strong>Response-example:</strong></p>
 <pre><code>{
 	&quot;success&quot;:true,
-	&quot;status&quot;:&quot;cikris&quot;,
-	&quot;msg&quot;:&quot;unuaki&quot;,
+	&quot;status&quot;:&quot;vziu7w&quot;,
+	&quot;msg&quot;:&quot;6qb44l&quot;,
 	&quot;obj&quot;:{
 		
 	}
@@ -131,7 +131,7 @@
 </tbody>
 </table>
 <p><strong>Request-example:</strong></p>
-<pre><code>curl   -i http://your_ip:8080/api/upstream/delete?id=32
+<pre><code>curl   -i http://your_ip:8080/api/upstream/delete?id=109
 </code></pre>
 <p><strong>Response-fields:</strong></p>
 <table>
@@ -148,8 +148,8 @@
 <p><strong>Response-example:</strong></p>
 <pre><code>{
 	&quot;success&quot;:true,
-	&quot;status&quot;:&quot;jzrart&quot;,
-	&quot;msg&quot;:&quot;vwdu11&quot;,
+	&quot;status&quot;:&quot;q5w9r4&quot;,
+	&quot;msg&quot;:&quot;jis39c&quot;,
 	&quot;obj&quot;:{
 		
 	}
@@ -170,7 +170,7 @@
 </tbody>
 </table>
 <p><strong>Request-example:</strong></p>
-<pre><code>curl   -i http://your_ip:8080/api/upstream/getServerByUpstreamId?upstreamId=32
+<pre><code>curl   -i http://your_ip:8080/api/upstream/getServerByUpstreamId?upstreamId=109
 </code></pre>
 <p><strong>Response-fields:</strong></p>
 <table>
@@ -183,9 +183,9 @@
 <tr><td>msg</td><td>string</td><td>错误信息</td><td>-</td></tr>
 <tr><td>obj</td><td>object</td><td>返回内容</td><td>-</td></tr>
 <tr><td>└─id</td><td>string</td><td>主键</td><td>-</td></tr>
-<tr><td>└─upstreamId</td><td>string</td><td>*负载均衡upstream的id</td><td>-</td></tr>
-<tr><td>└─server</td><td>string</td><td>*负载节点ip (例:10.10.10.1)</td><td>-</td></tr>
-<tr><td>└─port</td><td>int32</td><td>*负载节点端口 (例:8080)</td><td>-</td></tr>
+<tr><td>└─upstreamId</td><td>string</td><td>负载均衡upstream的id</td><td>-</td></tr>
+<tr><td>└─server</td><td>string</td><td>负载节点ip (例:10.10.10.1)</td><td>-</td></tr>
+<tr><td>└─port</td><td>int32</td><td>负载节点端口 (例:8080)</td><td>-</td></tr>
 <tr><td>└─weight</td><td>int32</td><td>负载节点权重</td><td>-</td></tr>
 <tr><td>└─failTimeout</td><td>int32</td><td>失败等待时间,秒</td><td>-</td></tr>
 <tr><td>└─maxFails</td><td>int32</td><td>最大失败次数</td><td>-</td></tr>
@@ -196,19 +196,19 @@
 <p><strong>Response-example:</strong></p>
 <pre><code>{
 	&quot;success&quot;:true,
-	&quot;status&quot;:&quot;pt7qd5&quot;,
-	&quot;msg&quot;:&quot;mhp5d3&quot;,
+	&quot;status&quot;:&quot;l71sxz&quot;,
+	&quot;msg&quot;:&quot;yynmtu&quot;,
 	&quot;obj&quot;:[
 		{
-			&quot;id&quot;:&quot;32&quot;,
-			&quot;upstreamId&quot;:&quot;32&quot;,
-			&quot;server&quot;:&quot;9o6m34&quot;,
-			&quot;port&quot;:503,
-			&quot;weight&quot;:664,
-			&quot;failTimeout&quot;:2,
-			&quot;maxFails&quot;:468,
-			&quot;maxConns&quot;:275,
-			&quot;status&quot;:&quot;4fgnqd&quot;
+			&quot;id&quot;:&quot;109&quot;,
+			&quot;upstreamId&quot;:&quot;109&quot;,
+			&quot;server&quot;:&quot;ffwmdr&quot;,
+			&quot;port&quot;:188,
+			&quot;weight&quot;:266,
+			&quot;failTimeout&quot;:221,
+			&quot;maxFails&quot;:279,
+			&quot;maxConns&quot;:340,
+			&quot;status&quot;:&quot;pueuie&quot;
 		}
 	]
 }
@@ -225,9 +225,9 @@
 </thead>
 <tbody>
 <tr><td>id</td><td>string</td><td>主键</td><td>false</td><td>-</td></tr>
-<tr><td>upstreamId</td><td>string</td><td>*负载均衡upstream的id</td><td>false</td><td>-</td></tr>
-<tr><td>server</td><td>string</td><td>*负载节点ip (例:10.10.10.1)</td><td>false</td><td>-</td></tr>
-<tr><td>port</td><td>int32</td><td>*负载节点端口 (例:8080)</td><td>false</td><td>-</td></tr>
+<tr><td>upstreamId</td><td>string</td><td>负载均衡upstream的id</td><td>true</td><td>-</td></tr>
+<tr><td>server</td><td>string</td><td>负载节点ip (例:10.10.10.1)</td><td>true</td><td>-</td></tr>
+<tr><td>port</td><td>int32</td><td>负载节点端口 (例:8080)</td><td>true</td><td>-</td></tr>
 <tr><td>weight</td><td>int32</td><td>负载节点权重</td><td>false</td><td>-</td></tr>
 <tr><td>failTimeout</td><td>int32</td><td>失败等待时间,秒</td><td>false</td><td>-</td></tr>
 <tr><td>maxFails</td><td>int32</td><td>最大失败次数</td><td>false</td><td>-</td></tr>
@@ -236,7 +236,7 @@
 </tbody>
 </table>
 <p><strong>Request-example:</strong></p>
-<pre><code>curl   -i http://your_ip:8080/api/upstream/insertOrUpdateServer?id=32&amp;maxFails=390&amp;monitorStatus=662&amp;updateTime=1640751173617&amp;status=58ptzf&amp;failTimeout=309&amp;upstreamId=32&amp;server=b2nhgs&amp;port=618&amp;weight=298&amp;createTime=1640751173617&amp;maxConns=38
+<pre><code>curl   -i http://your_ip:8080/api/upstream/insertOrUpdateServer?server=yz620z&amp;failTimeout=703&amp;createTime=1640757788987&amp;status=nhou7v&amp;monitorStatus=813&amp;maxFails=898&amp;id=109&amp;upstreamId=109&amp;port=75&amp;weight=958&amp;updateTime=1640757788987&amp;maxConns=293
 </code></pre>
 <p><strong>Response-fields:</strong></p>
 <table>
@@ -253,8 +253,8 @@
 <p><strong>Response-example:</strong></p>
 <pre><code>{
 	&quot;success&quot;:true,
-	&quot;status&quot;:&quot;o3ty7l&quot;,
-	&quot;msg&quot;:&quot;ko1wg4&quot;,
+	&quot;status&quot;:&quot;vqmcgc&quot;,
+	&quot;msg&quot;:&quot;7cs2h6&quot;,
 	&quot;obj&quot;:{
 		&quot;waring&quot;:&quot;You may have used non-display generics.&quot;
 	}
@@ -262,7 +262,7 @@
 </code></pre>
 
     <footer class="page-footer">
-        <span class="copyright">Generated by smart-doc at 2021-12-29 12:12:52</span>
+        <span class="copyright">Generated by smart-doc at 2021-12-29 14:03:06</span>
         <span class="footer-modification">Suggestions, contact, support and error reporting on
             <a href="https://gitee.com/smart-doc-team/smart-doc" target="_blank">Gitee</a> or
             <a href="https://github.com/smart-doc-group/smart-doc" target="_blank">Github</a>

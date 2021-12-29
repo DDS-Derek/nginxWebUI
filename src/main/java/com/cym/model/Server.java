@@ -23,6 +23,7 @@ public class Server extends BaseModel {
 	String serverName;
 	/**
 	 * 监听ip端口 (格式 ip:port或port)
+	 * @required
 	 */
 	@ApiModelProperty("*监听ip端口 (格式 ip:port或port)")
 	String listen;

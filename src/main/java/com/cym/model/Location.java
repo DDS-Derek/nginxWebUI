@@ -17,14 +17,16 @@ import io.swagger.annotations.ApiModelProperty;
 @Table
 public class Location extends BaseModel {
 	/**
-	 * *所属反向代理serverId
+	 * 所属反向代理serverId
+	 * @required
 	 */
 	@ApiModelProperty("*所属反向代理serverId")
 	String serverId;
 	/**
-	 * *监控路径 例:/
+	 * 监控路径 例:/
+	 * @required
 	 */
-	@ApiModelProperty("*监控路径 例:/")
+	@ApiModelProperty("监控路径 例:/")
 	String path;
 	/**
 	 * 代理类型 0:动态代理(默认) 1:静态代理 2:负载均衡 3:空白代理

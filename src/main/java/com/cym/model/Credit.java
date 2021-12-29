@@ -9,7 +9,6 @@ public class Credit extends BaseModel {
 	/**
 	 * 远程调用token
 	 */
-	@SingleIndex(unique = true)
 	String key;
 
 	String adminId;

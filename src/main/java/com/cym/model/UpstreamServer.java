@@ -17,17 +17,20 @@ import io.swagger.annotations.ApiModelProperty;
 @Table
 public class UpstreamServer extends BaseModel {
 	/**
-	 * *负载均衡upstream的id
+	 * 负载均衡upstream的id
+	 * @required
 	 */
 	@ApiModelProperty("*负载均衡upstream的id")
 	String upstreamId;
 	/**
-	 * *负载节点ip (例:10.10.10.1)
+	 * 负载节点ip (例:10.10.10.1)
+	 * @required
 	 */
 	@ApiModelProperty("*负载节点ip (例:10.10.10.1)")
 	String server;
 	/**
-	 * *负载节点端口 (例:8080)
+	 * 负载节点端口 (例:8080)
+	 * @required
 	 */
 	@ApiModelProperty("*负载节点端口 (例:8080)")
 	Integer port;

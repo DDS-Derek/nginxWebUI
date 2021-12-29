@@ -17,7 +17,8 @@ import io.swagger.annotations.ApiModelProperty;
 @Table
 public class Upstream extends BaseModel {
 	/**
-	 * *负载均衡名称
+	 * 负载均衡名称
+	 * @required
 	 */
 	@ApiModelProperty("*负载均衡名称")
 	String name;
