@@ -6,7 +6,7 @@
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
     <meta http-equiv="Pragma" content="no-cache" />
     <meta http-equiv="Expires" content="0" />
-    <link rel="stylesheet" href="markdown.css?v=1640703804813"/>
+    <link rel="stylesheet" href="markdown.css?v=1640742237775"/>
     <title>证书接口</title>
 </head>
 <body>
@@ -23,13 +23,13 @@
 <tr><th>Parameter</th><th>Type</th><th>Description</th><th>Required</th><th>Since</th></tr>
 </thead>
 <tbody>
-<tr><td>current</td><td>int32</td><td>No comments found.</td><td>true</td><td>-</td></tr>
-<tr><td>limit</td><td>int32</td><td>No comments found.</td><td>true</td><td>-</td></tr>
-<tr><td>keywords</td><td>string</td><td>No comments found.</td><td>true</td><td>-</td></tr>
+<tr><td>current</td><td>int32</td><td>当前页数(从1开始)</td><td>true</td><td>-</td></tr>
+<tr><td>limit</td><td>int32</td><td>每页数量(默认为10)</td><td>true</td><td>-</td></tr>
+<tr><td>keywords</td><td>string</td><td>查询关键字</td><td>true</td><td>-</td></tr>
 </tbody>
 </table>
 <p><strong>Request-example:</strong></p>
-<pre><code>curl   -i http://localhost:8080/api/cert/getPage?limit=10&amp;current=2slsch&amp;keywords=45l07s
+<pre><code>curl   -i http://localhost:8080/api/cert/getPage?keywords=n7mnwy&amp;current=q29g2j&amp;limit=10
 </code></pre>
 <p><strong>Response-fields:</strong></p>
 <table>
@@ -71,35 +71,35 @@
 <p><strong>Response-example:</strong></p>
 <pre><code>{
 	&quot;success&quot;:true,
-	&quot;status&quot;:&quot;7190z5&quot;,
-	&quot;msg&quot;:&quot;piwxid&quot;,
+	&quot;status&quot;:&quot;nbz2p5&quot;,
+	&quot;msg&quot;:&quot;fr6v99&quot;,
 	&quot;obj&quot;:{
-		&quot;count&quot;:801,
-		&quot;curr&quot;:251,
+		&quot;count&quot;:105,
+		&quot;curr&quot;:404,
 		&quot;limit&quot;:10,
 		&quot;records&quot;:[
 			{
-				&quot;id&quot;:&quot;82&quot;,
-				&quot;createTime&quot;:1640703805875,
-				&quot;updateTime&quot;:1640703805875,
-				&quot;domain&quot;:&quot;xn--fw2a.net&quot;,
-				&quot;pem&quot;:&quot;pzo6nm&quot;,
-				&quot;key&quot;:&quot;hiwb89&quot;,
-				&quot;type&quot;:892,
-				&quot;makeTime&quot;:1640703805875,
-				&quot;autoRenew&quot;:283,
-				&quot;dnsType&quot;:&quot;jikmn2&quot;,
-				&quot;dpId&quot;:&quot;82&quot;,
-				&quot;dpKey&quot;:&quot;6vgpml&quot;,
-				&quot;aliKey&quot;:&quot;4c95dw&quot;,
-				&quot;aliSecret&quot;:&quot;k822vv&quot;,
-				&quot;cfEmail&quot;:&quot;航.潘@hotmail.com&quot;,
-				&quot;cfKey&quot;:&quot;2m7w6d&quot;,
-				&quot;gdKey&quot;:&quot;chhi2n&quot;,
-				&quot;gdSecret&quot;:&quot;n6i7fi&quot;,
-				&quot;hwUsername&quot;:&quot;哲瀚.丁&quot;,
-				&quot;hwPassword&quot;:&quot;50vq0a&quot;,
-				&quot;hwProjectID&quot;:&quot;82&quot;
+				&quot;id&quot;:&quot;137&quot;,
+				&quot;createTime&quot;:1640742239244,
+				&quot;updateTime&quot;:1640742239244,
+				&quot;domain&quot;:&quot;xn--vj1a.io&quot;,
+				&quot;pem&quot;:&quot;0zxa56&quot;,
+				&quot;key&quot;:&quot;p9iwjt&quot;,
+				&quot;type&quot;:985,
+				&quot;makeTime&quot;:1640742239244,
+				&quot;autoRenew&quot;:834,
+				&quot;dnsType&quot;:&quot;2ov7kz&quot;,
+				&quot;dpId&quot;:&quot;137&quot;,
+				&quot;dpKey&quot;:&quot;1dubi6&quot;,
+				&quot;aliKey&quot;:&quot;344vez&quot;,
+				&quot;aliSecret&quot;:&quot;ugu0fx&quot;,
+				&quot;cfEmail&quot;:&quot;正豪.阎@yahoo.com&quot;,
+				&quot;cfKey&quot;:&quot;tex61n&quot;,
+				&quot;gdKey&quot;:&quot;e0orda&quot;,
+				&quot;gdSecret&quot;:&quot;owfpyf&quot;,
+				&quot;hwUsername&quot;:&quot;君浩.黄&quot;,
+				&quot;hwPassword&quot;:&quot;mofg83&quot;,
+				&quot;hwProjectID&quot;:&quot;137&quot;
 			}
 		]
 	}
@@ -140,7 +140,7 @@
 </tbody>
 </table>
 <p><strong>Request-example:</strong></p>
-<pre><code>curl   -i http://localhost:8080/api/cert/addOver?dpKey=g6ztzu&amp;autoRenew=387&amp;aliKey=ffj5xb&amp;cfEmail=航.潘@hotmail.com&amp;key=zkb4rm&amp;updateTime=1640703805875&amp;domain=xn--fw2a.net&amp;hwUsername=哲瀚.丁&amp;id=82&amp;createTime=1640703805875&amp;pem=dnyaid&amp;dpId=82&amp;type=771&amp;aliSecret=j7gttj&amp;gdKey=85p3qv&amp;hwPassword=h6v6s7&amp;dnsType=kew6yb&amp;gdSecret=vuajf0&amp;makeTime=1640703805875&amp;hwProjectID=82&amp;cfKey=v4gzky
+<pre><code>curl   -i http://localhost:8080/api/cert/addOver?autoRenew=543&amp;id=137&amp;type=455&amp;gdSecret=acp4qe&amp;hwUsername=君浩.黄&amp;updateTime=1640742239244&amp;domain=xn--vj1a.io&amp;dpId=137&amp;cfKey=zvf21e&amp;aliKey=hufww1&amp;gdKey=6mbl9v&amp;cfEmail=正豪.阎@yahoo.com&amp;aliSecret=m7txf8&amp;hwProjectID=137&amp;dnsType=fhb4uc&amp;dpKey=92ldln&amp;createTime=1640742239244&amp;pem=8l1yk5&amp;key=ui27ya&amp;makeTime=1640742239244&amp;hwPassword=yy5biv
 </code></pre>
 <p><strong>Response-fields:</strong></p>
 <table>
@@ -157,8 +157,8 @@
 <p><strong>Response-example:</strong></p>
 <pre><code>{
 	&quot;success&quot;:true,
-	&quot;status&quot;:&quot;a2n8mt&quot;,
-	&quot;msg&quot;:&quot;vs7wj0&quot;,
+	&quot;status&quot;:&quot;sc8lao&quot;,
+	&quot;msg&quot;:&quot;hyluqy&quot;,
 	&quot;obj&quot;:{
 		&quot;waring&quot;:&quot;You may have used non-display generics.&quot;
 	}
@@ -175,11 +175,11 @@
 <tr><th>Parameter</th><th>Type</th><th>Description</th><th>Required</th><th>Since</th></tr>
 </thead>
 <tbody>
-<tr><td>certId</td><td>string</td><td>No comments found.</td><td>true</td><td>-</td></tr>
+<tr><td>certId</td><td>string</td><td>证书id</td><td>true</td><td>-</td></tr>
 </tbody>
 </table>
 <p><strong>Request-example:</strong></p>
-<pre><code>curl   -i http://localhost:8080/api/cert/getTxtValue?certId=82
+<pre><code>curl   -i http://localhost:8080/api/cert/getTxtValue?certId=137
 </code></pre>
 <p><strong>Response-fields:</strong></p>
 <table>
@@ -203,17 +203,17 @@
 <p><strong>Response-example:</strong></p>
 <pre><code>{
 	&quot;success&quot;:true,
-	&quot;status&quot;:&quot;51ily9&quot;,
-	&quot;msg&quot;:&quot;hgqw1e&quot;,
+	&quot;status&quot;:&quot;ul8b1x&quot;,
+	&quot;msg&quot;:&quot;8hd37n&quot;,
 	&quot;obj&quot;:[
 		{
-			&quot;id&quot;:&quot;82&quot;,
-			&quot;createTime&quot;:1640703805875,
-			&quot;updateTime&quot;:1640703805875,
-			&quot;certId&quot;:&quot;82&quot;,
-			&quot;domain&quot;:&quot;xn--fw2a.net&quot;,
-			&quot;type&quot;:&quot;k5vdy1&quot;,
-			&quot;value&quot;:&quot;0rabq6&quot;
+			&quot;id&quot;:&quot;137&quot;,
+			&quot;createTime&quot;:1640742239244,
+			&quot;updateTime&quot;:1640742239244,
+			&quot;certId&quot;:&quot;137&quot;,
+			&quot;domain&quot;:&quot;xn--vj1a.io&quot;,
+			&quot;type&quot;:&quot;m5mkwb&quot;,
+			&quot;value&quot;:&quot;cjpetb&quot;
 		}
 	]
 }
@@ -229,12 +229,12 @@
 <tr><th>Parameter</th><th>Type</th><th>Description</th><th>Required</th><th>Since</th></tr>
 </thead>
 <tbody>
-<tr><td>id</td><td>string</td><td>No comments found.</td><td>true</td><td>-</td></tr>
-<tr><td>autoRenew</td><td>int32</td><td>No comments found.</td><td>true</td><td>-</td></tr>
+<tr><td>id</td><td>string</td><td>证书id</td><td>true</td><td>-</td></tr>
+<tr><td>autoRenew</td><td>int32</td><td>是否自动续签:0否 1是</td><td>true</td><td>-</td></tr>
 </tbody>
 </table>
 <p><strong>Request-example:</strong></p>
-<pre><code>curl   -i http://localhost:8080/api/cert/setAutoRenew?autoRenew=ristfu&amp;id=82
+<pre><code>curl   -i http://localhost:8080/api/cert/setAutoRenew?id=137&amp;autoRenew=s78r1t
 </code></pre>
 <p><strong>Response-fields:</strong></p>
 <table>
@@ -251,8 +251,8 @@
 <p><strong>Response-example:</strong></p>
 <pre><code>{
 	&quot;success&quot;:true,
-	&quot;status&quot;:&quot;6jm1ki&quot;,
-	&quot;msg&quot;:&quot;hyhjql&quot;,
+	&quot;status&quot;:&quot;13pkoj&quot;,
+	&quot;msg&quot;:&quot;2txg08&quot;,
 	&quot;obj&quot;:{
 		&quot;waring&quot;:&quot;You may have used non-display generics.&quot;
 	}
@@ -269,11 +269,11 @@
 <tr><th>Parameter</th><th>Type</th><th>Description</th><th>Required</th><th>Since</th></tr>
 </thead>
 <tbody>
-<tr><td>id</td><td>string</td><td>No comments found.</td><td>true</td><td>-</td></tr>
+<tr><td>id</td><td>string</td><td>证书id</td><td>true</td><td>-</td></tr>
 </tbody>
 </table>
 <p><strong>Request-example:</strong></p>
-<pre><code>curl   -i http://localhost:8080/api/cert/del?id=82
+<pre><code>curl   -i http://localhost:8080/api/cert/del?id=137
 </code></pre>
 <p><strong>Response-fields:</strong></p>
 <table>
@@ -290,8 +290,8 @@
 <p><strong>Response-example:</strong></p>
 <pre><code>{
 	&quot;success&quot;:true,
-	&quot;status&quot;:&quot;1hk3rk&quot;,
-	&quot;msg&quot;:&quot;v8u5dm&quot;,
+	&quot;status&quot;:&quot;8iqg56&quot;,
+	&quot;msg&quot;:&quot;w32lbq&quot;,
 	&quot;obj&quot;:{
 		&quot;waring&quot;:&quot;You may have used non-display generics.&quot;
 	}
@@ -308,12 +308,12 @@
 <tr><th>Parameter</th><th>Type</th><th>Description</th><th>Required</th><th>Since</th></tr>
 </thead>
 <tbody>
-<tr><td>id</td><td>string</td><td>No comments found.</td><td>true</td><td>-</td></tr>
-<tr><td>type</td><td>string</td><td>No comments found.</td><td>true</td><td>-</td></tr>
+<tr><td>id</td><td>string</td><td>证书id</td><td>true</td><td>-</td></tr>
+<tr><td>type</td><td>string</td><td>申请类型 issue:申请 renew:续签</td><td>true</td><td>-</td></tr>
 </tbody>
 </table>
 <p><strong>Request-example:</strong></p>
-<pre><code>curl   -i http://localhost:8080/api/cert/apply?id=82&amp;type=nw84nd
+<pre><code>curl   -i http://localhost:8080/api/cert/apply?type=ih4b72&amp;id=137
 </code></pre>
 <p><strong>Response-fields:</strong></p>
 <table>
@@ -337,17 +337,17 @@
 <p><strong>Response-example:</strong></p>
 <pre><code>{
 	&quot;success&quot;:true,
-	&quot;status&quot;:&quot;jxs7pf&quot;,
-	&quot;msg&quot;:&quot;ez11kh&quot;,
+	&quot;status&quot;:&quot;qe9eit&quot;,
+	&quot;msg&quot;:&quot;g7953e&quot;,
 	&quot;obj&quot;:[
 		{
-			&quot;id&quot;:&quot;82&quot;,
-			&quot;createTime&quot;:1640703805875,
-			&quot;updateTime&quot;:1640703805875,
-			&quot;certId&quot;:&quot;82&quot;,
-			&quot;domain&quot;:&quot;xn--fw2a.net&quot;,
-			&quot;type&quot;:&quot;od9ela&quot;,
-			&quot;value&quot;:&quot;hrnydx&quot;
+			&quot;id&quot;:&quot;137&quot;,
+			&quot;createTime&quot;:1640742239244,
+			&quot;updateTime&quot;:1640742239244,
+			&quot;certId&quot;:&quot;137&quot;,
+			&quot;domain&quot;:&quot;xn--vj1a.io&quot;,
+			&quot;type&quot;:&quot;xbeiqs&quot;,
+			&quot;value&quot;:&quot;fi4ub8&quot;
 		}
 	]
 }
@@ -363,18 +363,18 @@
 <tr><th>Parameter</th><th>Type</th><th>Description</th><th>Required</th><th>Since</th></tr>
 </thead>
 <tbody>
-<tr><td>id</td><td>string</td><td>No comments found.</td><td>true</td><td>-</td></tr>
+<tr><td>id</td><td>string</td><td>证书id</td><td>true</td><td>-</td></tr>
 </tbody>
 </table>
 <p><strong>Request-example:</strong></p>
-<pre><code>curl   -i http://localhost:8080/api/cert/download?id=82
+<pre><code>curl   -i http://localhost:8080/api/cert/download?id=137
 </code></pre>
 <p><strong>Response-example:</strong></p>
 <pre><code>This api return nothing.
 </code></pre>
 
     <footer class="page-footer">
-        <span class="copyright">Generated by smart-doc at 2021-12-28 23:03:24</span>
+        <span class="copyright">Generated by smart-doc at 2021-12-29 09:43:57</span>
         <span class="footer-modification">Suggestions, contact, support and error reporting on
             <a href="https://gitee.com/smart-doc-team/smart-doc" target="_blank">Gitee</a> or
             <a href="https://github.com/smart-doc-group/smart-doc" target="_blank">Github</a>

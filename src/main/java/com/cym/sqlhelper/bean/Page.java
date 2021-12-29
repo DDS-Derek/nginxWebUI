@@ -8,20 +8,22 @@ import java.util.List;
  * 
  */
 public class Page<T> {
-	//("总记录数")
+	/**
+	 * 总记录数
+	 */
 	Long count = 0l;
-	//("起始页(从1开始)")
+	/**
+	 * 起始页(从1开始)
+	 */
 	Integer curr = 1;
-
-	//("每页记录数")
+	/**
+	 * 每页记录数
+	 */
 	Integer limit = 10;
-
-	//("列表内容")
+	/**
+	 * 列表内容
+	 */
 	List records = Collections.emptyList();
-
-//	public <T> List<T> getRecords(Class<T> clazz) {
-//		return (List<T>) records;
-//	}
 
 	public List getRecords() {
 		return records;
