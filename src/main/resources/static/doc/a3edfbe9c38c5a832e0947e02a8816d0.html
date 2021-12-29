@@ -6,7 +6,7 @@
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
     <meta http-equiv="Pragma" content="no-cache" />
     <meta http-equiv="Expires" content="0" />
-    <link rel="stylesheet" href="markdown.css?v=1640750997280"/>
+    <link rel="stylesheet" href="markdown.css?v=1640751172156"/>
     <title>反向代理(server)接口</title>
 </head>
 <body>
@@ -29,7 +29,7 @@
 </tbody>
 </table>
 <p><strong>Request-example:</strong></p>
-<pre><code>curl   -i http://your_ip:8080/api/server/getPage?current=doxrot&amp;limit=10&amp;keywords=urcduu
+<pre><code>curl   -i http://your_ip:8080/api/server/getPage?limit=10&amp;current=nkrdjd&amp;keywords=rxau6k
 </code></pre>
 <p><strong>Response-fields:</strong></p>
 <table>
@@ -58,46 +58,40 @@
 <tr><td>     └─key</td><td>string</td><td>ssl证书key文件路径</td><td>-</td></tr>
 <tr><td>     └─proxyType</td><td>int32</td><td>代理类型 0:http(默认) 1:tcp 2:udp</td><td>-</td></tr>
 <tr><td>     └─proxyUpstreamId</td><td>string</td><td>代理upstream的id</td><td>-</td></tr>
-<tr><td>     └─pemStr</td><td>string</td><td>No comments found.</td><td>-</td></tr>
-<tr><td>     └─keyStr</td><td>string</td><td>No comments found.</td><td>-</td></tr>
 <tr><td>     └─enable</td><td>boolean</td><td>是否启用 true:启用(默认) false:禁用</td><td>-</td></tr>
 <tr><td>     └─descr</td><td>string</td><td>描述</td><td>-</td></tr>
 <tr><td>     └─protocols</td><td>string</td><td>加密协议 (默认:TLSv1 TLSv1.1 TLSv1.2 TLSv1.3)</td><td>-</td></tr>
 <tr><td>     └─passwordId</td><td>string</td><td>使用的password文件Id</td><td>-</td></tr>
-<tr><td>     └─seq</td><td>int64</td><td>No comments found.</td><td>-</td></tr>
 </tbody>
 </table>
 <p><strong>Response-example:</strong></p>
 <pre><code>{
 	&quot;success&quot;:true,
-	&quot;status&quot;:&quot;1bgxk8&quot;,
-	&quot;msg&quot;:&quot;78srhg&quot;,
+	&quot;status&quot;:&quot;5m58jj&quot;,
+	&quot;msg&quot;:&quot;vu74k6&quot;,
 	&quot;obj&quot;:{
-		&quot;count&quot;:308,
-		&quot;curr&quot;:947,
+		&quot;count&quot;:752,
+		&quot;curr&quot;:775,
 		&quot;limit&quot;:10,
 		&quot;records&quot;:[
 			{
-				&quot;id&quot;:&quot;157&quot;,
-				&quot;serverName&quot;:&quot;靖琪.熊&quot;,
-				&quot;listen&quot;:&quot;kyuzxh&quot;,
-				&quot;def&quot;:681,
-				&quot;rewrite&quot;:194,
-				&quot;rewriteListen&quot;:&quot;a4cjfu&quot;,
-				&quot;ssl&quot;:635,
-				&quot;http2&quot;:392,
-				&quot;proxyProtocol&quot;:28,
-				&quot;pem&quot;:&quot;3h810i&quot;,
-				&quot;key&quot;:&quot;9hw0oo&quot;,
-				&quot;proxyType&quot;:916,
-				&quot;proxyUpstreamId&quot;:&quot;157&quot;,
-				&quot;pemStr&quot;:&quot;6kiq0s&quot;,
-				&quot;keyStr&quot;:&quot;lbi4w3&quot;,
+				&quot;id&quot;:&quot;32&quot;,
+				&quot;serverName&quot;:&quot;哲瀚.陆&quot;,
+				&quot;listen&quot;:&quot;bn7s72&quot;,
+				&quot;def&quot;:63,
+				&quot;rewrite&quot;:80,
+				&quot;rewriteListen&quot;:&quot;sjbnt4&quot;,
+				&quot;ssl&quot;:105,
+				&quot;http2&quot;:500,
+				&quot;proxyProtocol&quot;:141,
+				&quot;pem&quot;:&quot;j2dljh&quot;,
+				&quot;key&quot;:&quot;qqboob&quot;,
+				&quot;proxyType&quot;:269,
+				&quot;proxyUpstreamId&quot;:&quot;32&quot;,
 				&quot;enable&quot;:true,
-				&quot;descr&quot;:&quot;2gszxs&quot;,
-				&quot;protocols&quot;:&quot;j72y9q&quot;,
-				&quot;passwordId&quot;:&quot;157&quot;,
-				&quot;seq&quot;:694
+				&quot;descr&quot;:&quot;7l6oao&quot;,
+				&quot;protocols&quot;:&quot;myreuo&quot;,
+				&quot;passwordId&quot;:&quot;32&quot;
 			}
 		]
 	}
@@ -134,7 +128,7 @@
 </tbody>
 </table>
 <p><strong>Request-example:</strong></p>
-<pre><code>curl   -i http://your_ip:8080/api/server/insertOrUpdate?ssl=407&amp;enable=true&amp;rewrite=41&amp;pem=a3re7d&amp;protocols=drvd23&amp;proxyProtocol=202&amp;proxyUpstreamId=157&amp;descr=een5xg&amp;def=405&amp;listen=pc337j&amp;key=kyd516&amp;http2=609&amp;proxyType=259&amp;serverName=靖琪.熊&amp;passwordId=157&amp;id=157&amp;rewriteListen=q3v14b
+<pre><code>curl   -i http://your_ip:8080/api/server/insertOrUpdate?descr=15nh3g&amp;proxyProtocol=303&amp;protocols=wtv8he&amp;def=732&amp;key=6tgin6&amp;serverName=哲瀚.陆&amp;pemStr=uct6aa&amp;proxyType=635&amp;proxyUpstreamId=32&amp;http2=443&amp;passwordId=32&amp;pem=z70wym&amp;createTime=1640751173617&amp;rewrite=32&amp;rewriteListen=ojfxth&amp;seq=889&amp;id=32&amp;updateTime=1640751173617&amp;ssl=583&amp;listen=3aglab&amp;enable=true&amp;keyStr=6f8p4q
 </code></pre>
 <p><strong>Response-fields:</strong></p>
 <table>
@@ -151,8 +145,8 @@
 <p><strong>Response-example:</strong></p>
 <pre><code>{
 	&quot;success&quot;:true,
-	&quot;status&quot;:&quot;fecq4n&quot;,
-	&quot;msg&quot;:&quot;8g050p&quot;,
+	&quot;status&quot;:&quot;jjc6ks&quot;,
+	&quot;msg&quot;:&quot;fbffb9&quot;,
 	&quot;obj&quot;:{
 		
 	}
@@ -173,7 +167,7 @@
 </tbody>
 </table>
 <p><strong>Request-example:</strong></p>
-<pre><code>curl   -i http://your_ip:8080/api/server/delete?id=157
+<pre><code>curl   -i http://your_ip:8080/api/server/delete?id=32
 </code></pre>
 <p><strong>Response-fields:</strong></p>
 <table>
@@ -190,8 +184,8 @@
 <p><strong>Response-example:</strong></p>
 <pre><code>{
 	&quot;success&quot;:true,
-	&quot;status&quot;:&quot;d2q8pd&quot;,
-	&quot;msg&quot;:&quot;vkxg25&quot;,
+	&quot;status&quot;:&quot;6suk4m&quot;,
+	&quot;msg&quot;:&quot;86s76c&quot;,
 	&quot;obj&quot;:{
 		
 	}
@@ -212,7 +206,7 @@
 </tbody>
 </table>
 <p><strong>Request-example:</strong></p>
-<pre><code>curl   -i http://your_ip:8080/api/server/getLocationByServerId?serverId=157
+<pre><code>curl   -i http://your_ip:8080/api/server/getLocationByServerId?serverId=32
 </code></pre>
 <p><strong>Response-fields:</strong></p>
 <table>
@@ -228,7 +222,6 @@
 <tr><td>└─serverId</td><td>string</td><td>*所属反向代理serverId</td><td>-</td></tr>
 <tr><td>└─path</td><td>string</td><td>*监控路径 例:/</td><td>-</td></tr>
 <tr><td>└─type</td><td>int32</td><td>代理类型 0:动态代理(默认) 1:静态代理 2:负载均衡 3:空白代理</td><td>-</td></tr>
-<tr><td>└─locationParamJson</td><td>string</td><td>No comments found.</td><td>-</td></tr>
 <tr><td>└─value</td><td>string</td><td>动态代理目标 (例:http://10.10.10.1:8080/)</td><td>-</td></tr>
 <tr><td>└─upstreamType</td><td>string</td><td>代理负载协议,http or https</td><td>-</td></tr>
 <tr><td>└─upstreamId</td><td>string</td><td>代理负载均衡upstream的id</td><td>-</td></tr>
@@ -243,24 +236,23 @@
 <p><strong>Response-example:</strong></p>
 <pre><code>{
 	&quot;success&quot;:true,
-	&quot;status&quot;:&quot;68k3bw&quot;,
-	&quot;msg&quot;:&quot;p7j7jv&quot;,
+	&quot;status&quot;:&quot;wu7rr0&quot;,
+	&quot;msg&quot;:&quot;fo5190&quot;,
 	&quot;obj&quot;:[
 		{
-			&quot;id&quot;:&quot;157&quot;,
-			&quot;serverId&quot;:&quot;157&quot;,
-			&quot;path&quot;:&quot;8gwn67&quot;,
-			&quot;type&quot;:84,
-			&quot;locationParamJson&quot;:&quot;9yemxn&quot;,
-			&quot;value&quot;:&quot;25outb&quot;,
-			&quot;upstreamType&quot;:&quot;nuqqpu&quot;,
-			&quot;upstreamId&quot;:&quot;157&quot;,
-			&quot;upstreamPath&quot;:&quot;805gyx&quot;,
-			&quot;rootPath&quot;:&quot;hk731a&quot;,
-			&quot;rootPage&quot;:&quot;2dcdq3&quot;,
-			&quot;rootType&quot;:&quot;qjdgi2&quot;,
-			&quot;header&quot;:805,
-			&quot;websocket&quot;:92
+			&quot;id&quot;:&quot;32&quot;,
+			&quot;serverId&quot;:&quot;32&quot;,
+			&quot;path&quot;:&quot;xv4y95&quot;,
+			&quot;type&quot;:368,
+			&quot;value&quot;:&quot;neyiv7&quot;,
+			&quot;upstreamType&quot;:&quot;qkd1if&quot;,
+			&quot;upstreamId&quot;:&quot;32&quot;,
+			&quot;upstreamPath&quot;:&quot;dtifsi&quot;,
+			&quot;rootPath&quot;:&quot;rp2lf5&quot;,
+			&quot;rootPage&quot;:&quot;bbarau&quot;,
+			&quot;rootType&quot;:&quot;daa06l&quot;,
+			&quot;header&quot;:490,
+			&quot;websocket&quot;:340
 		}
 	]
 }
@@ -292,7 +284,7 @@
 </tbody>
 </table>
 <p><strong>Request-example:</strong></p>
-<pre><code>curl   -i http://your_ip:8080/api/server/insertOrUpdateLocation?header=41&amp;type=654&amp;websocket=653&amp;upstreamType=ska0ql&amp;rootPath=p9ddwk&amp;id=157&amp;upstreamId=157&amp;serverId=157&amp;upstreamPath=g2ltdd&amp;path=jxu73h&amp;rootType=oi08hs&amp;rootPage=qln915&amp;value=ob8x3u
+<pre><code>curl   -i http://your_ip:8080/api/server/insertOrUpdateLocation?rootType=2y0mrf&amp;upstreamPath=aso43k&amp;header=601&amp;upstreamId=32&amp;id=32&amp;type=540&amp;updateTime=1640751173617&amp;serverId=32&amp;websocket=377&amp;createTime=1640751173617&amp;locationParamJson=3ivco9&amp;value=20z5yu&amp;upstreamType=xutcap&amp;rootPage=kyhc64&amp;path=rewp2t&amp;rootPath=cmjaf2
 </code></pre>
 <p><strong>Response-fields:</strong></p>
 <table>
@@ -309,8 +301,8 @@
 <p><strong>Response-example:</strong></p>
 <pre><code>{
 	&quot;success&quot;:true,
-	&quot;status&quot;:&quot;pz16z5&quot;,
-	&quot;msg&quot;:&quot;zan67l&quot;,
+	&quot;status&quot;:&quot;oipo8v&quot;,
+	&quot;msg&quot;:&quot;ks9uuf&quot;,
 	&quot;obj&quot;:{
 		
 	}
@@ -331,7 +323,7 @@
 </tbody>
 </table>
 <p><strong>Request-example:</strong></p>
-<pre><code>curl   -i http://your_ip:8080/api/server/deleteLocation?id=157
+<pre><code>curl   -i http://your_ip:8080/api/server/deleteLocation?id=32
 </code></pre>
 <p><strong>Response-fields:</strong></p>
 <table>
@@ -348,8 +340,8 @@
 <p><strong>Response-example:</strong></p>
 <pre><code>{
 	&quot;success&quot;:true,
-	&quot;status&quot;:&quot;h7n35u&quot;,
-	&quot;msg&quot;:&quot;wpd6ag&quot;,
+	&quot;status&quot;:&quot;bnpznb&quot;,
+	&quot;msg&quot;:&quot;by55o0&quot;,
 	&quot;obj&quot;:{
 		
 	}
@@ -357,7 +349,7 @@
 </code></pre>
 
     <footer class="page-footer">
-        <span class="copyright">Generated by smart-doc at 2021-12-29 12:09:57</span>
+        <span class="copyright">Generated by smart-doc at 2021-12-29 12:12:52</span>
         <span class="footer-modification">Suggestions, contact, support and error reporting on
             <a href="https://gitee.com/smart-doc-team/smart-doc" target="_blank">Gitee</a> or
             <a href="https://github.com/smart-doc-group/smart-doc" target="_blank">Github</a>
