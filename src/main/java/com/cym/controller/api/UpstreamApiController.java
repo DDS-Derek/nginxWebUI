@@ -35,7 +35,6 @@ public class UpstreamApiController extends BaseController {
 	 * @param keywords 查询关键字
 	 * 
 	 */
-	@SuppressWarnings("unchecked")
 	@ApiOperation("获取upstream分页列表")
 	@Mapping("getPage")
 	public JsonResult<Page<Upstream>> getPage(@ApiParam("当前页数(从1开始)") Integer current, //
