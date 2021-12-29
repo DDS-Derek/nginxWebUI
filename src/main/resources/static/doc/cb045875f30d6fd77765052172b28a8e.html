@@ -6,19 +6,19 @@
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
     <meta http-equiv="Pragma" content="no-cache" />
     <meta http-equiv="Expires" content="0" />
-    <link rel="stylesheet" href="markdown.css?v=1640747935155"/>
+    <link rel="stylesheet" href="markdown.css?v=1640749963455"/>
     <title>nginx接口</title>
 </head>
 <body>
 <div class="markdown-body">
     <h1>nginx接口</h1>
 <h2>获取nginx状态</h2>
-<p><strong>URL:</strong> <code>http://localhost:8080/api/nginx/nginxStatus</code></p>
+<p><strong>URL:</strong> <code>http://your_id:8080/api/nginx/nginxStatus</code></p>
 <p><strong>Type:</strong> <code>ANY</code></p>
 <p><strong>Content-Type:</strong> <code>application/x-www-form-urlencoded;charset=utf-8</code></p>
 <p><strong>Description:</strong> 获取nginx状态</p>
 <p><strong>Request-example:</strong></p>
-<pre><code>curl -X ANY  -i http://localhost:8080/api/nginx/nginxStatus
+<pre><code>curl -X ANY  -i http://your_id:8080/api/nginx/nginxStatus
 </code></pre>
 <p><strong>Response-fields:</strong></p>
 <table>
@@ -35,20 +35,20 @@
 <p><strong>Response-example:</strong></p>
 <pre><code>{
 	&quot;success&quot;:true,
-	&quot;status&quot;:&quot;2hmzag&quot;,
-	&quot;msg&quot;:&quot;dxveao&quot;,
+	&quot;status&quot;:&quot;blw6th&quot;,
+	&quot;msg&quot;:&quot;4j9112&quot;,
 	&quot;obj&quot;:{
 		
 	}
 }
 </code></pre>
 <h2>替换conf文件</h2>
-<p><strong>URL:</strong> <code>http://localhost:8080/api/nginx/replace</code></p>
+<p><strong>URL:</strong> <code>http://your_id:8080/api/nginx/replace</code></p>
 <p><strong>Type:</strong> <code>ANY</code></p>
 <p><strong>Content-Type:</strong> <code>application/x-www-form-urlencoded;charset=utf-8</code></p>
 <p><strong>Description:</strong> 替换conf文件</p>
 <p><strong>Request-example:</strong></p>
-<pre><code>curl -X ANY  -i http://localhost:8080/api/nginx/replace
+<pre><code>curl -X ANY  -i http://your_id:8080/api/nginx/replace
 </code></pre>
 <p><strong>Response-fields:</strong></p>
 <table>
@@ -65,20 +65,20 @@
 <p><strong>Response-example:</strong></p>
 <pre><code>{
 	&quot;success&quot;:true,
-	&quot;status&quot;:&quot;am4gfd&quot;,
-	&quot;msg&quot;:&quot;jcxga6&quot;,
+	&quot;status&quot;:&quot;0xj7oc&quot;,
+	&quot;msg&quot;:&quot;fgqjmw&quot;,
 	&quot;obj&quot;:{
 		
 	}
 }
 </code></pre>
 <h2>效验conf文件</h2>
-<p><strong>URL:</strong> <code>http://localhost:8080/api/nginx/check</code></p>
+<p><strong>URL:</strong> <code>http://your_id:8080/api/nginx/check</code></p>
 <p><strong>Type:</strong> <code>ANY</code></p>
 <p><strong>Content-Type:</strong> <code>application/x-www-form-urlencoded;charset=utf-8</code></p>
 <p><strong>Description:</strong> 效验conf文件</p>
 <p><strong>Request-example:</strong></p>
-<pre><code>curl -X ANY  -i http://localhost:8080/api/nginx/check
+<pre><code>curl -X ANY  -i http://your_id:8080/api/nginx/check
 </code></pre>
 <p><strong>Response-fields:</strong></p>
 <table>
@@ -95,20 +95,20 @@
 <p><strong>Response-example:</strong></p>
 <pre><code>{
 	&quot;success&quot;:true,
-	&quot;status&quot;:&quot;moi2oq&quot;,
-	&quot;msg&quot;:&quot;zw2n5m&quot;,
+	&quot;status&quot;:&quot;4lqcfq&quot;,
+	&quot;msg&quot;:&quot;3w0jkt&quot;,
 	&quot;obj&quot;:{
 		
 	}
 }
 </code></pre>
 <h2>重载conf文件</h2>
-<p><strong>URL:</strong> <code>http://localhost:8080/api/nginx/reload</code></p>
+<p><strong>URL:</strong> <code>http://your_id:8080/api/nginx/reload</code></p>
 <p><strong>Type:</strong> <code>ANY</code></p>
 <p><strong>Content-Type:</strong> <code>application/x-www-form-urlencoded;charset=utf-8</code></p>
 <p><strong>Description:</strong> 重载conf文件</p>
 <p><strong>Request-example:</strong></p>
-<pre><code>curl -X ANY  -i http://localhost:8080/api/nginx/reload
+<pre><code>curl -X ANY  -i http://your_id:8080/api/nginx/reload
 </code></pre>
 <p><strong>Response-fields:</strong></p>
 <table>
@@ -125,20 +125,20 @@
 <p><strong>Response-example:</strong></p>
 <pre><code>{
 	&quot;success&quot;:true,
-	&quot;status&quot;:&quot;12b3yy&quot;,
-	&quot;msg&quot;:&quot;cstqy9&quot;,
+	&quot;status&quot;:&quot;230f1k&quot;,
+	&quot;msg&quot;:&quot;gma29v&quot;,
 	&quot;obj&quot;:{
 		
 	}
 }
 </code></pre>
 <h2>获取nginx启动命令</h2>
-<p><strong>URL:</strong> <code>http://localhost:8080/api/nginx/getNginxStartCmd</code></p>
+<p><strong>URL:</strong> <code>http://your_id:8080/api/nginx/getNginxStartCmd</code></p>
 <p><strong>Type:</strong> <code>ANY</code></p>
 <p><strong>Content-Type:</strong> <code>application/x-www-form-urlencoded;charset=utf-8</code></p>
 <p><strong>Description:</strong> 获取nginx启动命令</p>
 <p><strong>Request-example:</strong></p>
-<pre><code>curl -X ANY  -i http://localhost:8080/api/nginx/getNginxStartCmd
+<pre><code>curl -X ANY  -i http://your_id:8080/api/nginx/getNginxStartCmd
 </code></pre>
 <p><strong>Response-fields:</strong></p>
 <table>
@@ -155,21 +155,21 @@
 <p><strong>Response-example:</strong></p>
 <pre><code>{
 	&quot;success&quot;:true,
-	&quot;status&quot;:&quot;sqc4eg&quot;,
-	&quot;msg&quot;:&quot;xd3hjw&quot;,
+	&quot;status&quot;:&quot;4pf85f&quot;,
+	&quot;msg&quot;:&quot;kqh7r6&quot;,
 	&quot;obj&quot;:[
-		&quot;0zrllk&quot;,
-		&quot;ajw5cp&quot;
+		&quot;pdkugz&quot;,
+		&quot;6vcpgo&quot;
 	]
 }
 </code></pre>
 <h2>获取nginx停止命令</h2>
-<p><strong>URL:</strong> <code>http://localhost:8080/api/nginx/getNginxStopCmd</code></p>
+<p><strong>URL:</strong> <code>http://your_id:8080/api/nginx/getNginxStopCmd</code></p>
 <p><strong>Type:</strong> <code>ANY</code></p>
 <p><strong>Content-Type:</strong> <code>application/x-www-form-urlencoded;charset=utf-8</code></p>
 <p><strong>Description:</strong> 获取nginx停止命令</p>
 <p><strong>Request-example:</strong></p>
-<pre><code>curl -X ANY  -i http://localhost:8080/api/nginx/getNginxStopCmd
+<pre><code>curl -X ANY  -i http://your_id:8080/api/nginx/getNginxStopCmd
 </code></pre>
 <p><strong>Response-fields:</strong></p>
 <table>
@@ -186,16 +186,16 @@
 <p><strong>Response-example:</strong></p>
 <pre><code>{
 	&quot;success&quot;:true,
-	&quot;status&quot;:&quot;pod5kw&quot;,
-	&quot;msg&quot;:&quot;9nawaa&quot;,
+	&quot;status&quot;:&quot;sfp7dj&quot;,
+	&quot;msg&quot;:&quot;mj4ue2&quot;,
 	&quot;obj&quot;:[
-		&quot;7j5i6z&quot;,
-		&quot;y63zsg&quot;
+		&quot;vfmlwj&quot;,
+		&quot;w7n9bb&quot;
 	]
 }
 </code></pre>
 <h2>执行nginx命令</h2>
-<p><strong>URL:</strong> <code>http://localhost:8080/api/nginx/runNginxCmd</code></p>
+<p><strong>URL:</strong> <code>http://your_id:8080/api/nginx/runNginxCmd</code></p>
 <p><strong>Type:</strong> <code>ANY</code></p>
 <p><strong>Content-Type:</strong> <code>application/x-www-form-urlencoded;charset=utf-8</code></p>
 <p><strong>Description:</strong> 执行nginx命令</p>
@@ -209,7 +209,7 @@
 </tbody>
 </table>
 <p><strong>Request-example:</strong></p>
-<pre><code>curl   -i http://localhost:8080/api/nginx/runNginxCmd?cmd=jsxc20
+<pre><code>curl   -i http://your_id:8080/api/nginx/runNginxCmd?cmd=ee418d
 </code></pre>
 <p><strong>Response-fields:</strong></p>
 <table>
@@ -226,8 +226,8 @@
 <p><strong>Response-example:</strong></p>
 <pre><code>{
 	&quot;success&quot;:true,
-	&quot;status&quot;:&quot;c61iac&quot;,
-	&quot;msg&quot;:&quot;34rodm&quot;,
+	&quot;status&quot;:&quot;qgj8fl&quot;,
+	&quot;msg&quot;:&quot;v7w5kz&quot;,
 	&quot;obj&quot;:{
 		
 	}
@@ -235,7 +235,7 @@
 </code></pre>
 
     <footer class="page-footer">
-        <span class="copyright">Generated by smart-doc at 2021-12-29 11:18:55</span>
+        <span class="copyright">Generated by smart-doc at 2021-12-29 11:52:43</span>
         <span class="footer-modification">Suggestions, contact, support and error reporting on
             <a href="https://gitee.com/smart-doc-team/smart-doc" target="_blank">Gitee</a> or
             <a href="https://github.com/smart-doc-group/smart-doc" target="_blank">Github</a>

@@ -6,14 +6,14 @@
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
     <meta http-equiv="Pragma" content="no-cache" />
     <meta http-equiv="Expires" content="0" />
-    <link rel="stylesheet" href="markdown.css?v=1640747935155"/>
+    <link rel="stylesheet" href="markdown.css?v=1640749963455"/>
     <title>额外参数接口</title>
 </head>
 <body>
 <div class="markdown-body">
     <h1>额外参数接口</h1>
 <h2>根据项目获取参数列表</h2>
-<p><strong>URL:</strong> <code>http://localhost:8080/api/param/getList</code></p>
+<p><strong>URL:</strong> <code>http://your_id:8080/api/param/getList</code></p>
 <p><strong>Type:</strong> <code>ANY</code></p>
 <p><strong>Content-Type:</strong> <code>application/x-www-form-urlencoded;charset=utf-8</code></p>
 <p><strong>Description:</strong> 根据项目获取参数列表</p>
@@ -29,7 +29,7 @@
 </tbody>
 </table>
 <p><strong>Request-example:</strong></p>
-<pre><code>curl   -i http://localhost:8080/api/param/getList?serverId=96&amp;locationId=96&amp;upstreamId=96
+<pre><code>curl   -i http://your_id:8080/api/param/getList?serverId=140&amp;locationId=140&amp;upstreamId=140
 </code></pre>
 <p><strong>Response-fields:</strong></p>
 <table>
@@ -41,7 +41,7 @@
 <tr><td>status</td><td>string</td><td>请求状态 200:请求成功 401:token无效 500:服务器错误</td><td>-</td></tr>
 <tr><td>msg</td><td>string</td><td>错误信息</td><td>-</td></tr>
 <tr><td>obj</td><td>object</td><td>返回内容</td><td>-</td></tr>
-<tr><td>└─id</td><td>string</td><td>No comments found.</td><td>-</td></tr>
+<tr><td>└─id</td><td>string</td><td>主键</td><td>-</td></tr>
 <tr><td>└─createTime</td><td>int64</td><td>No comments found.</td><td>-</td></tr>
 <tr><td>└─updateTime</td><td>int64</td><td>No comments found.</td><td>-</td></tr>
 <tr><td>└─serverId</td><td>string</td><td>所属反向代理id</td><td>-</td></tr>
@@ -57,27 +57,27 @@
 <p><strong>Response-example:</strong></p>
 <pre><code>{
 	&quot;success&quot;:true,
-	&quot;status&quot;:&quot;kjfkyj&quot;,
-	&quot;msg&quot;:&quot;3a1b84&quot;,
+	&quot;status&quot;:&quot;41c42n&quot;,
+	&quot;msg&quot;:&quot;cko2pr&quot;,
 	&quot;obj&quot;:[
 		{
-			&quot;id&quot;:&quot;96&quot;,
-			&quot;createTime&quot;:1640747936586,
-			&quot;updateTime&quot;:1640747936586,
-			&quot;serverId&quot;:&quot;96&quot;,
-			&quot;locationId&quot;:&quot;96&quot;,
-			&quot;upstreamId&quot;:&quot;96&quot;,
-			&quot;templateId&quot;:&quot;96&quot;,
-			&quot;name&quot;:&quot;炎彬.任&quot;,
-			&quot;value&quot;:&quot;w18hix&quot;,
-			&quot;templateValue&quot;:&quot;7hjp8w&quot;,
-			&quot;templateName&quot;:&quot;炎彬.任&quot;
+			&quot;id&quot;:&quot;140&quot;,
+			&quot;createTime&quot;:1640749965510,
+			&quot;updateTime&quot;:1640749965510,
+			&quot;serverId&quot;:&quot;140&quot;,
+			&quot;locationId&quot;:&quot;140&quot;,
+			&quot;upstreamId&quot;:&quot;140&quot;,
+			&quot;templateId&quot;:&quot;140&quot;,
+			&quot;name&quot;:&quot;凯瑞.薛&quot;,
+			&quot;value&quot;:&quot;knafyy&quot;,
+			&quot;templateValue&quot;:&quot;go4spu&quot;,
+			&quot;templateName&quot;:&quot;凯瑞.薛&quot;
 		}
 	]
 }
 </code></pre>
 <h2>添加或编辑参数</h2>
-<p><strong>URL:</strong> <code>http://localhost:8080/api/param/insertOrUpdate</code></p>
+<p><strong>URL:</strong> <code>http://your_id:8080/api/param/insertOrUpdate</code></p>
 <p><strong>Type:</strong> <code>ANY</code></p>
 <p><strong>Content-Type:</strong> <code>application/x-www-form-urlencoded;charset=utf-8</code></p>
 <p><strong>Description:</strong> 添加或编辑参数</p>
@@ -87,21 +87,16 @@
 <tr><th>Parameter</th><th>Type</th><th>Description</th><th>Required</th><th>Since</th></tr>
 </thead>
 <tbody>
-<tr><td>id</td><td>string</td><td>No comments found.</td><td>false</td><td>-</td></tr>
-<tr><td>createTime</td><td>int64</td><td>No comments found.</td><td>false</td><td>-</td></tr>
-<tr><td>updateTime</td><td>int64</td><td>No comments found.</td><td>false</td><td>-</td></tr>
+<tr><td>id</td><td>string</td><td>主键</td><td>false</td><td>-</td></tr>
 <tr><td>serverId</td><td>string</td><td>所属反向代理id</td><td>false</td><td>-</td></tr>
 <tr><td>locationId</td><td>string</td><td>所属代理目标id</td><td>false</td><td>-</td></tr>
 <tr><td>upstreamId</td><td>string</td><td>所属负载均衡id</td><td>false</td><td>-</td></tr>
-<tr><td>templateId</td><td>string</td><td>No comments found.</td><td>false</td><td>-</td></tr>
 <tr><td>name</td><td>string</td><td>参数名</td><td>false</td><td>-</td></tr>
 <tr><td>value</td><td>string</td><td>参数值</td><td>false</td><td>-</td></tr>
-<tr><td>templateValue</td><td>string</td><td>No comments found.</td><td>false</td><td>-</td></tr>
-<tr><td>templateName</td><td>string</td><td>No comments found.</td><td>false</td><td>-</td></tr>
 </tbody>
 </table>
 <p><strong>Request-example:</strong></p>
-<pre><code>curl   -i http://localhost:8080/api/param/insertOrUpdate?serverId=96&amp;locationId=96&amp;name=炎彬.任&amp;value=pdjqda&amp;updateTime=1640747936586&amp;createTime=1640747936586&amp;templateId=96&amp;templateValue=1weq3x&amp;templateName=炎彬.任&amp;id=96&amp;upstreamId=96
+<pre><code>curl   -i http://your_id:8080/api/param/insertOrUpdate?name=凯瑞.薛&amp;serverId=140&amp;locationId=140&amp;upstreamId=140&amp;id=140&amp;value=byirlg
 </code></pre>
 <p><strong>Response-fields:</strong></p>
 <table>
@@ -118,15 +113,15 @@
 <p><strong>Response-example:</strong></p>
 <pre><code>{
 	&quot;success&quot;:true,
-	&quot;status&quot;:&quot;j2en20&quot;,
-	&quot;msg&quot;:&quot;0sppoy&quot;,
+	&quot;status&quot;:&quot;at1l4e&quot;,
+	&quot;msg&quot;:&quot;rrdu9b&quot;,
 	&quot;obj&quot;:{
 		
 	}
 }
 </code></pre>
 <h2>删除额外参数</h2>
-<p><strong>URL:</strong> <code>http://localhost:8080/api/param/del</code></p>
+<p><strong>URL:</strong> <code>http://your_id:8080/api/param/del</code></p>
 <p><strong>Type:</strong> <code>ANY</code></p>
 <p><strong>Content-Type:</strong> <code>application/x-www-form-urlencoded;charset=utf-8</code></p>
 <p><strong>Description:</strong> 删除额外参数</p>
@@ -140,7 +135,7 @@
 </tbody>
 </table>
 <p><strong>Request-example:</strong></p>
-<pre><code>curl   -i http://localhost:8080/api/param/del?id=96
+<pre><code>curl   -i http://your_id:8080/api/param/del?id=140
 </code></pre>
 <p><strong>Response-fields:</strong></p>
 <table>
@@ -157,8 +152,8 @@
 <p><strong>Response-example:</strong></p>
 <pre><code>{
 	&quot;success&quot;:true,
-	&quot;status&quot;:&quot;abwao8&quot;,
-	&quot;msg&quot;:&quot;kdoc0h&quot;,
+	&quot;status&quot;:&quot;bq7e1u&quot;,
+	&quot;msg&quot;:&quot;2nxa1k&quot;,
 	&quot;obj&quot;:{
 		
 	}
@@ -166,7 +161,7 @@
 </code></pre>
 
     <footer class="page-footer">
-        <span class="copyright">Generated by smart-doc at 2021-12-29 11:18:55</span>
+        <span class="copyright">Generated by smart-doc at 2021-12-29 11:52:43</span>
         <span class="footer-modification">Suggestions, contact, support and error reporting on
             <a href="https://gitee.com/smart-doc-team/smart-doc" target="_blank">Gitee</a> or
             <a href="https://github.com/smart-doc-group/smart-doc" target="_blank">Github</a>

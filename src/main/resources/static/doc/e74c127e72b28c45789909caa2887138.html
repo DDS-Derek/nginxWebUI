@@ -6,20 +6,20 @@
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
     <meta http-equiv="Pragma" content="no-cache" />
     <meta http-equiv="Expires" content="0" />
-    <link rel="stylesheet" href="markdown.css?v=1640747935155"/>
+    <link rel="stylesheet" href="markdown.css?v=1640749963455"/>
     <title>基础参数接口</title>
 </head>
 <body>
 <div class="markdown-body">
     <h1>基础参数接口</h1>
 <h2>获取Http参数</h2>
-<p><strong>URL:</strong> <code>http://localhost:8080/api/basic/getHttp</code></p>
+<p><strong>URL:</strong> <code>http://your_id:8080/api/basic/getHttp</code></p>
 <p><strong>Type:</strong> <code>ANY</code></p>
 <p><strong>Author:</strong> CYM</p>
 <p><strong>Content-Type:</strong> <code>application/x-www-form-urlencoded;charset=utf-8</code></p>
 <p><strong>Description:</strong> 获取Http参数</p>
 <p><strong>Request-example:</strong></p>
-<pre><code>curl -X ANY  -i http://localhost:8080/api/basic/getHttp
+<pre><code>curl -X ANY  -i http://your_id:8080/api/basic/getHttp
 </code></pre>
 <p><strong>Response-fields:</strong></p>
 <table>
@@ -31,7 +31,7 @@
 <tr><td>status</td><td>string</td><td>请求状态 200:请求成功 401:token无效 500:服务器错误</td><td>-</td></tr>
 <tr><td>msg</td><td>string</td><td>错误信息</td><td>-</td></tr>
 <tr><td>obj</td><td>object</td><td>返回内容</td><td>-</td></tr>
-<tr><td>└─id</td><td>string</td><td>No comments found.</td><td>-</td></tr>
+<tr><td>└─id</td><td>string</td><td>主键</td><td>-</td></tr>
 <tr><td>└─createTime</td><td>int64</td><td>No comments found.</td><td>-</td></tr>
 <tr><td>└─updateTime</td><td>int64</td><td>No comments found.</td><td>-</td></tr>
 <tr><td>└─name</td><td>string</td><td>参数名</td><td>-</td></tr>
@@ -43,23 +43,23 @@
 <p><strong>Response-example:</strong></p>
 <pre><code>{
 	&quot;success&quot;:true,
-	&quot;status&quot;:&quot;04n0x5&quot;,
-	&quot;msg&quot;:&quot;vvtnzy&quot;,
+	&quot;status&quot;:&quot;ocjxkw&quot;,
+	&quot;msg&quot;:&quot;z9ouot&quot;,
 	&quot;obj&quot;:[
 		{
-			&quot;id&quot;:&quot;96&quot;,
-			&quot;createTime&quot;:1640747936586,
-			&quot;updateTime&quot;:1640747936586,
-			&quot;name&quot;:&quot;炎彬.任&quot;,
-			&quot;value&quot;:&quot;xyf78y&quot;,
-			&quot;unit&quot;:&quot;rx6m49&quot;,
-			&quot;seq&quot;:369
+			&quot;id&quot;:&quot;140&quot;,
+			&quot;createTime&quot;:1640749965510,
+			&quot;updateTime&quot;:1640749965510,
+			&quot;name&quot;:&quot;凯瑞.薛&quot;,
+			&quot;value&quot;:&quot;ytlcbu&quot;,
+			&quot;unit&quot;:&quot;b7qka3&quot;,
+			&quot;seq&quot;:138
 		}
 	]
 }
 </code></pre>
 <h2>添加或编辑Http参数</h2>
-<p><strong>URL:</strong> <code>http://localhost:8080/api/basic/insertOrUpdateHttp</code></p>
+<p><strong>URL:</strong> <code>http://your_id:8080/api/basic/insertOrUpdateHttp</code></p>
 <p><strong>Type:</strong> <code>ANY</code></p>
 <p><strong>Author:</strong> CYM</p>
 <p><strong>Content-Type:</strong> <code>application/x-www-form-urlencoded;charset=utf-8</code></p>
@@ -70,17 +70,14 @@
 <tr><th>Parameter</th><th>Type</th><th>Description</th><th>Required</th><th>Since</th></tr>
 </thead>
 <tbody>
-<tr><td>id</td><td>string</td><td>No comments found.</td><td>false</td><td>-</td></tr>
-<tr><td>createTime</td><td>int64</td><td>No comments found.</td><td>false</td><td>-</td></tr>
-<tr><td>updateTime</td><td>int64</td><td>No comments found.</td><td>false</td><td>-</td></tr>
+<tr><td>id</td><td>string</td><td>主键</td><td>false</td><td>-</td></tr>
 <tr><td>name</td><td>string</td><td>参数名</td><td>false</td><td>-</td></tr>
 <tr><td>value</td><td>string</td><td>参数值</td><td>false</td><td>-</td></tr>
 <tr><td>unit</td><td>string</td><td>参数单位</td><td>false</td><td>-</td></tr>
-<tr><td>seq</td><td>int64</td><td>No comments found.</td><td>false</td><td>-</td></tr>
 </tbody>
 </table>
 <p><strong>Request-example:</strong></p>
-<pre><code>curl   -i http://localhost:8080/api/basic/insertOrUpdateHttp?unit=r1qijt&amp;updateTime=1640747936586&amp;id=96&amp;createTime=1640747936586&amp;name=炎彬.任&amp;seq=85&amp;value=ou1lw8
+<pre><code>curl   -i http://your_id:8080/api/basic/insertOrUpdateHttp?value=11jb9o&amp;name=凯瑞.薛&amp;id=140&amp;unit=amt6bv
 </code></pre>
 <p><strong>Response-fields:</strong></p>
 <table>
@@ -92,7 +89,7 @@
 <tr><td>status</td><td>string</td><td>请求状态 200:请求成功 401:token无效 500:服务器错误</td><td>-</td></tr>
 <tr><td>msg</td><td>string</td><td>错误信息</td><td>-</td></tr>
 <tr><td>obj</td><td>object</td><td>返回内容</td><td>-</td></tr>
-<tr><td>└─id</td><td>string</td><td>No comments found.</td><td>-</td></tr>
+<tr><td>└─id</td><td>string</td><td>主键</td><td>-</td></tr>
 <tr><td>└─createTime</td><td>int64</td><td>No comments found.</td><td>-</td></tr>
 <tr><td>└─updateTime</td><td>int64</td><td>No comments found.</td><td>-</td></tr>
 <tr><td>└─name</td><td>string</td><td>参数名</td><td>-</td></tr>
@@ -104,21 +101,21 @@
 <p><strong>Response-example:</strong></p>
 <pre><code>{
 	&quot;success&quot;:true,
-	&quot;status&quot;:&quot;1ikzrr&quot;,
-	&quot;msg&quot;:&quot;lhesqt&quot;,
+	&quot;status&quot;:&quot;pwmej6&quot;,
+	&quot;msg&quot;:&quot;4aej4p&quot;,
 	&quot;obj&quot;:{
-		&quot;id&quot;:&quot;96&quot;,
-		&quot;createTime&quot;:1640747936586,
-		&quot;updateTime&quot;:1640747936586,
-		&quot;name&quot;:&quot;炎彬.任&quot;,
-		&quot;value&quot;:&quot;6udrj2&quot;,
-		&quot;unit&quot;:&quot;tqvs0v&quot;,
-		&quot;seq&quot;:164
+		&quot;id&quot;:&quot;140&quot;,
+		&quot;createTime&quot;:1640749965510,
+		&quot;updateTime&quot;:1640749965510,
+		&quot;name&quot;:&quot;凯瑞.薛&quot;,
+		&quot;value&quot;:&quot;m7o3b9&quot;,
+		&quot;unit&quot;:&quot;nsuzcw&quot;,
+		&quot;seq&quot;:351
 	}
 }
 </code></pre>
 <h2>删除Http参数</h2>
-<p><strong>URL:</strong> <code>http://localhost:8080/api/basic/delHttp</code></p>
+<p><strong>URL:</strong> <code>http://your_id:8080/api/basic/delHttp</code></p>
 <p><strong>Type:</strong> <code>ANY</code></p>
 <p><strong>Author:</strong> CYM</p>
 <p><strong>Content-Type:</strong> <code>application/x-www-form-urlencoded;charset=utf-8</code></p>
@@ -129,11 +126,11 @@
 <tr><th>Parameter</th><th>Type</th><th>Description</th><th>Required</th><th>Since</th></tr>
 </thead>
 <tbody>
-<tr><td>id</td><td>string</td><td>No comments found.</td><td>true</td><td>-</td></tr>
+<tr><td>id</td><td>string</td><td>http参数id</td><td>true</td><td>-</td></tr>
 </tbody>
 </table>
 <p><strong>Request-example:</strong></p>
-<pre><code>curl   -i http://localhost:8080/api/basic/delHttp?id=96
+<pre><code>curl   -i http://your_id:8080/api/basic/delHttp?id=140
 </code></pre>
 <p><strong>Response-fields:</strong></p>
 <table>
@@ -150,21 +147,21 @@
 <p><strong>Response-example:</strong></p>
 <pre><code>{
 	&quot;success&quot;:true,
-	&quot;status&quot;:&quot;ygrt7x&quot;,
-	&quot;msg&quot;:&quot;cy22hj&quot;,
+	&quot;status&quot;:&quot;gp9a8j&quot;,
+	&quot;msg&quot;:&quot;9mjht4&quot;,
 	&quot;obj&quot;:{
 		&quot;waring&quot;:&quot;You may have used non-display generics.&quot;
 	}
 }
 </code></pre>
 <h2>获取基础参数</h2>
-<p><strong>URL:</strong> <code>http://localhost:8080/api/basic/getBasic</code></p>
+<p><strong>URL:</strong> <code>http://your_id:8080/api/basic/getBasic</code></p>
 <p><strong>Type:</strong> <code>ANY</code></p>
 <p><strong>Author:</strong> CYM</p>
 <p><strong>Content-Type:</strong> <code>application/x-www-form-urlencoded;charset=utf-8</code></p>
 <p><strong>Description:</strong> 获取基础参数</p>
 <p><strong>Request-example:</strong></p>
-<pre><code>curl -X ANY  -i http://localhost:8080/api/basic/getBasic
+<pre><code>curl -X ANY  -i http://your_id:8080/api/basic/getBasic
 </code></pre>
 <p><strong>Response-fields:</strong></p>
 <table>
@@ -176,7 +173,7 @@
 <tr><td>status</td><td>string</td><td>请求状态 200:请求成功 401:token无效 500:服务器错误</td><td>-</td></tr>
 <tr><td>msg</td><td>string</td><td>错误信息</td><td>-</td></tr>
 <tr><td>obj</td><td>object</td><td>返回内容</td><td>-</td></tr>
-<tr><td>└─id</td><td>string</td><td>No comments found.</td><td>-</td></tr>
+<tr><td>└─id</td><td>string</td><td>主键</td><td>-</td></tr>
 <tr><td>└─createTime</td><td>int64</td><td>No comments found.</td><td>-</td></tr>
 <tr><td>└─updateTime</td><td>int64</td><td>No comments found.</td><td>-</td></tr>
 <tr><td>└─name</td><td>string</td><td>参数名</td><td>-</td></tr>
@@ -187,22 +184,22 @@
 <p><strong>Response-example:</strong></p>
 <pre><code>{
 	&quot;success&quot;:true,
-	&quot;status&quot;:&quot;1ktg7s&quot;,
-	&quot;msg&quot;:&quot;ljqfmj&quot;,
+	&quot;status&quot;:&quot;zp91o6&quot;,
+	&quot;msg&quot;:&quot;l90tu8&quot;,
 	&quot;obj&quot;:[
 		{
-			&quot;id&quot;:&quot;96&quot;,
-			&quot;createTime&quot;:1640747936586,
-			&quot;updateTime&quot;:1640747936586,
-			&quot;name&quot;:&quot;炎彬.任&quot;,
-			&quot;value&quot;:&quot;3gror3&quot;,
-			&quot;seq&quot;:323
+			&quot;id&quot;:&quot;140&quot;,
+			&quot;createTime&quot;:1640749965510,
+			&quot;updateTime&quot;:1640749965510,
+			&quot;name&quot;:&quot;凯瑞.薛&quot;,
+			&quot;value&quot;:&quot;8vvequ&quot;,
+			&quot;seq&quot;:573
 		}
 	]
 }
 </code></pre>
 <h2>添加或编辑基础参数</h2>
-<p><strong>URL:</strong> <code>http://localhost:8080/api/basic/insertOrUpdateBasic</code></p>
+<p><strong>URL:</strong> <code>http://your_id:8080/api/basic/insertOrUpdateBasic</code></p>
 <p><strong>Type:</strong> <code>ANY</code></p>
 <p><strong>Author:</strong> CYM</p>
 <p><strong>Content-Type:</strong> <code>application/x-www-form-urlencoded;charset=utf-8</code></p>
@@ -213,16 +210,13 @@
 <tr><th>Parameter</th><th>Type</th><th>Description</th><th>Required</th><th>Since</th></tr>
 </thead>
 <tbody>
-<tr><td>id</td><td>string</td><td>No comments found.</td><td>false</td><td>-</td></tr>
-<tr><td>createTime</td><td>int64</td><td>No comments found.</td><td>false</td><td>-</td></tr>
-<tr><td>updateTime</td><td>int64</td><td>No comments found.</td><td>false</td><td>-</td></tr>
+<tr><td>id</td><td>string</td><td>主键</td><td>false</td><td>-</td></tr>
 <tr><td>name</td><td>string</td><td>参数名</td><td>false</td><td>-</td></tr>
 <tr><td>value</td><td>string</td><td>参数值</td><td>false</td><td>-</td></tr>
-<tr><td>seq</td><td>int64</td><td>No comments found.</td><td>false</td><td>-</td></tr>
 </tbody>
 </table>
 <p><strong>Request-example:</strong></p>
-<pre><code>curl   -i http://localhost:8080/api/basic/insertOrUpdateBasic?name=炎彬.任&amp;seq=527&amp;value=eqmckz&amp;createTime=1640747936586&amp;updateTime=1640747936586&amp;id=96
+<pre><code>curl   -i http://your_id:8080/api/basic/insertOrUpdateBasic?value=430gnx&amp;id=140&amp;name=凯瑞.薛
 </code></pre>
 <p><strong>Response-fields:</strong></p>
 <table>
@@ -234,7 +228,7 @@
 <tr><td>status</td><td>string</td><td>请求状态 200:请求成功 401:token无效 500:服务器错误</td><td>-</td></tr>
 <tr><td>msg</td><td>string</td><td>错误信息</td><td>-</td></tr>
 <tr><td>obj</td><td>object</td><td>返回内容</td><td>-</td></tr>
-<tr><td>└─id</td><td>string</td><td>No comments found.</td><td>-</td></tr>
+<tr><td>└─id</td><td>string</td><td>主键</td><td>-</td></tr>
 <tr><td>└─createTime</td><td>int64</td><td>No comments found.</td><td>-</td></tr>
 <tr><td>└─updateTime</td><td>int64</td><td>No comments found.</td><td>-</td></tr>
 <tr><td>└─name</td><td>string</td><td>参数名</td><td>-</td></tr>
@@ -245,20 +239,20 @@
 <p><strong>Response-example:</strong></p>
 <pre><code>{
 	&quot;success&quot;:true,
-	&quot;status&quot;:&quot;mmgriw&quot;,
-	&quot;msg&quot;:&quot;2zrftp&quot;,
+	&quot;status&quot;:&quot;9hgajt&quot;,
+	&quot;msg&quot;:&quot;nl1c6r&quot;,
 	&quot;obj&quot;:{
-		&quot;id&quot;:&quot;96&quot;,
-		&quot;createTime&quot;:1640747936586,
-		&quot;updateTime&quot;:1640747936586,
-		&quot;name&quot;:&quot;炎彬.任&quot;,
-		&quot;value&quot;:&quot;ohg787&quot;,
-		&quot;seq&quot;:529
+		&quot;id&quot;:&quot;140&quot;,
+		&quot;createTime&quot;:1640749965510,
+		&quot;updateTime&quot;:1640749965510,
+		&quot;name&quot;:&quot;凯瑞.薛&quot;,
+		&quot;value&quot;:&quot;os29x5&quot;,
+		&quot;seq&quot;:978
 	}
 }
 </code></pre>
 <h2>删除基础参数</h2>
-<p><strong>URL:</strong> <code>http://localhost:8080/api/basic/delBasic</code></p>
+<p><strong>URL:</strong> <code>http://your_id:8080/api/basic/delBasic</code></p>
 <p><strong>Type:</strong> <code>ANY</code></p>
 <p><strong>Author:</strong> CYM</p>
 <p><strong>Content-Type:</strong> <code>application/x-www-form-urlencoded;charset=utf-8</code></p>
@@ -269,11 +263,11 @@
 <tr><th>Parameter</th><th>Type</th><th>Description</th><th>Required</th><th>Since</th></tr>
 </thead>
 <tbody>
-<tr><td>id</td><td>string</td><td>No comments found.</td><td>true</td><td>-</td></tr>
+<tr><td>id</td><td>string</td><td>基础参数id</td><td>true</td><td>-</td></tr>
 </tbody>
 </table>
 <p><strong>Request-example:</strong></p>
-<pre><code>curl   -i http://localhost:8080/api/basic/delBasic?id=96
+<pre><code>curl   -i http://your_id:8080/api/basic/delBasic?id=140
 </code></pre>
 <p><strong>Response-fields:</strong></p>
 <table>
@@ -290,21 +284,21 @@
 <p><strong>Response-example:</strong></p>
 <pre><code>{
 	&quot;success&quot;:true,
-	&quot;status&quot;:&quot;8zn64j&quot;,
-	&quot;msg&quot;:&quot;wfpl4d&quot;,
+	&quot;status&quot;:&quot;x65tjl&quot;,
+	&quot;msg&quot;:&quot;o0jtnt&quot;,
 	&quot;obj&quot;:{
 		&quot;waring&quot;:&quot;You may have used non-display generics.&quot;
 	}
 }
 </code></pre>
 <h2>获取Stream参数</h2>
-<p><strong>URL:</strong> <code>http://localhost:8080/api/basic/getStream</code></p>
+<p><strong>URL:</strong> <code>http://your_id:8080/api/basic/getStream</code></p>
 <p><strong>Type:</strong> <code>ANY</code></p>
 <p><strong>Author:</strong> CYM</p>
 <p><strong>Content-Type:</strong> <code>application/x-www-form-urlencoded;charset=utf-8</code></p>
 <p><strong>Description:</strong> 获取Stream参数</p>
 <p><strong>Request-example:</strong></p>
-<pre><code>curl -X ANY  -i http://localhost:8080/api/basic/getStream
+<pre><code>curl -X ANY  -i http://your_id:8080/api/basic/getStream
 </code></pre>
 <p><strong>Response-fields:</strong></p>
 <table>
@@ -316,7 +310,7 @@
 <tr><td>status</td><td>string</td><td>请求状态 200:请求成功 401:token无效 500:服务器错误</td><td>-</td></tr>
 <tr><td>msg</td><td>string</td><td>错误信息</td><td>-</td></tr>
 <tr><td>obj</td><td>object</td><td>返回内容</td><td>-</td></tr>
-<tr><td>└─id</td><td>string</td><td>No comments found.</td><td>-</td></tr>
+<tr><td>└─id</td><td>string</td><td>主键</td><td>-</td></tr>
 <tr><td>└─createTime</td><td>int64</td><td>No comments found.</td><td>-</td></tr>
 <tr><td>└─updateTime</td><td>int64</td><td>No comments found.</td><td>-</td></tr>
 <tr><td>└─name</td><td>string</td><td>参数名</td><td>-</td></tr>
@@ -327,22 +321,22 @@
 <p><strong>Response-example:</strong></p>
 <pre><code>{
 	&quot;success&quot;:true,
-	&quot;status&quot;:&quot;6ockf9&quot;,
-	&quot;msg&quot;:&quot;nssadh&quot;,
+	&quot;status&quot;:&quot;wkk3ve&quot;,
+	&quot;msg&quot;:&quot;zcink5&quot;,
 	&quot;obj&quot;:[
 		{
-			&quot;id&quot;:&quot;96&quot;,
-			&quot;createTime&quot;:1640747936586,
-			&quot;updateTime&quot;:1640747936586,
-			&quot;name&quot;:&quot;炎彬.任&quot;,
-			&quot;value&quot;:&quot;3tzq94&quot;,
-			&quot;seq&quot;:174
+			&quot;id&quot;:&quot;140&quot;,
+			&quot;createTime&quot;:1640749965510,
+			&quot;updateTime&quot;:1640749965510,
+			&quot;name&quot;:&quot;凯瑞.薛&quot;,
+			&quot;value&quot;:&quot;0kdx3k&quot;,
+			&quot;seq&quot;:215
 		}
 	]
 }
 </code></pre>
 <h2>添加或编辑Stream参数</h2>
-<p><strong>URL:</strong> <code>http://localhost:8080/api/basic/insertOrUpdateStream</code></p>
+<p><strong>URL:</strong> <code>http://your_id:8080/api/basic/insertOrUpdateStream</code></p>
 <p><strong>Type:</strong> <code>ANY</code></p>
 <p><strong>Author:</strong> CYM</p>
 <p><strong>Content-Type:</strong> <code>application/x-www-form-urlencoded;charset=utf-8</code></p>
@@ -353,16 +347,13 @@
 <tr><th>Parameter</th><th>Type</th><th>Description</th><th>Required</th><th>Since</th></tr>
 </thead>
 <tbody>
-<tr><td>id</td><td>string</td><td>No comments found.</td><td>false</td><td>-</td></tr>
-<tr><td>createTime</td><td>int64</td><td>No comments found.</td><td>false</td><td>-</td></tr>
-<tr><td>updateTime</td><td>int64</td><td>No comments found.</td><td>false</td><td>-</td></tr>
+<tr><td>id</td><td>string</td><td>主键</td><td>false</td><td>-</td></tr>
 <tr><td>name</td><td>string</td><td>参数名</td><td>false</td><td>-</td></tr>
 <tr><td>value</td><td>string</td><td>参数值</td><td>false</td><td>-</td></tr>
-<tr><td>seq</td><td>int64</td><td>No comments found.</td><td>false</td><td>-</td></tr>
 </tbody>
 </table>
 <p><strong>Request-example:</strong></p>
-<pre><code>curl   -i http://localhost:8080/api/basic/insertOrUpdateStream?seq=978&amp;createTime=1640747936586&amp;name=炎彬.任&amp;value=j9tqtm&amp;id=96&amp;updateTime=1640747936586
+<pre><code>curl   -i http://your_id:8080/api/basic/insertOrUpdateStream?value=bmy3f5&amp;id=140&amp;name=凯瑞.薛
 </code></pre>
 <p><strong>Response-fields:</strong></p>
 <table>
@@ -374,7 +365,7 @@
 <tr><td>status</td><td>string</td><td>请求状态 200:请求成功 401:token无效 500:服务器错误</td><td>-</td></tr>
 <tr><td>msg</td><td>string</td><td>错误信息</td><td>-</td></tr>
 <tr><td>obj</td><td>object</td><td>返回内容</td><td>-</td></tr>
-<tr><td>└─id</td><td>string</td><td>No comments found.</td><td>-</td></tr>
+<tr><td>└─id</td><td>string</td><td>主键</td><td>-</td></tr>
 <tr><td>└─createTime</td><td>int64</td><td>No comments found.</td><td>-</td></tr>
 <tr><td>└─updateTime</td><td>int64</td><td>No comments found.</td><td>-</td></tr>
 <tr><td>└─name</td><td>string</td><td>参数名</td><td>-</td></tr>
@@ -385,20 +376,20 @@
 <p><strong>Response-example:</strong></p>
 <pre><code>{
 	&quot;success&quot;:true,
-	&quot;status&quot;:&quot;bs2isc&quot;,
-	&quot;msg&quot;:&quot;nf5o9c&quot;,
+	&quot;status&quot;:&quot;wiv723&quot;,
+	&quot;msg&quot;:&quot;but3rx&quot;,
 	&quot;obj&quot;:{
-		&quot;id&quot;:&quot;96&quot;,
-		&quot;createTime&quot;:1640747936586,
-		&quot;updateTime&quot;:1640747936586,
-		&quot;name&quot;:&quot;炎彬.任&quot;,
-		&quot;value&quot;:&quot;fl7i6o&quot;,
-		&quot;seq&quot;:482
+		&quot;id&quot;:&quot;140&quot;,
+		&quot;createTime&quot;:1640749965510,
+		&quot;updateTime&quot;:1640749965510,
+		&quot;name&quot;:&quot;凯瑞.薛&quot;,
+		&quot;value&quot;:&quot;0qljwj&quot;,
+		&quot;seq&quot;:956
 	}
 }
 </code></pre>
 <h2>删除Stream参数</h2>
-<p><strong>URL:</strong> <code>http://localhost:8080/api/basic/delStream</code></p>
+<p><strong>URL:</strong> <code>http://your_id:8080/api/basic/delStream</code></p>
 <p><strong>Type:</strong> <code>ANY</code></p>
 <p><strong>Author:</strong> CYM</p>
 <p><strong>Content-Type:</strong> <code>application/x-www-form-urlencoded;charset=utf-8</code></p>
@@ -409,11 +400,11 @@
 <tr><th>Parameter</th><th>Type</th><th>Description</th><th>Required</th><th>Since</th></tr>
 </thead>
 <tbody>
-<tr><td>id</td><td>string</td><td>No comments found.</td><td>true</td><td>-</td></tr>
+<tr><td>id</td><td>string</td><td>Stream参数id</td><td>true</td><td>-</td></tr>
 </tbody>
 </table>
 <p><strong>Request-example:</strong></p>
-<pre><code>curl   -i http://localhost:8080/api/basic/delStream?id=96
+<pre><code>curl   -i http://your_id:8080/api/basic/delStream?id=140
 </code></pre>
 <p><strong>Response-fields:</strong></p>
 <table>
@@ -430,8 +421,8 @@
 <p><strong>Response-example:</strong></p>
 <pre><code>{
 	&quot;success&quot;:true,
-	&quot;status&quot;:&quot;jy3aqa&quot;,
-	&quot;msg&quot;:&quot;mzn0ka&quot;,
+	&quot;status&quot;:&quot;oscruj&quot;,
+	&quot;msg&quot;:&quot;nwe2ol&quot;,
 	&quot;obj&quot;:{
 		&quot;waring&quot;:&quot;You may have used non-display generics.&quot;
 	}
@@ -439,7 +430,7 @@
 </code></pre>
 
     <footer class="page-footer">
-        <span class="copyright">Generated by smart-doc at 2021-12-29 11:18:55</span>
+        <span class="copyright">Generated by smart-doc at 2021-12-29 11:52:43</span>
         <span class="footer-modification">Suggestions, contact, support and error reporting on
             <a href="https://gitee.com/smart-doc-team/smart-doc" target="_blank">Gitee</a> or
             <a href="https://github.com/smart-doc-group/smart-doc" target="_blank">Github</a>
