@@ -42,6 +42,11 @@ public class MainController extends BaseController {
 		modelAndView.view("/adminPage/index.html");
 		return modelAndView;
 	}
+	
+	@Mapping("doc.html")
+	public void doc(Context context) {
+		context.redirect("doc/api.html");
+	}
 
 	@Mapping("/adminPage/main/upload")
 	public JsonResult upload(Context context, UploadedFile file) {
