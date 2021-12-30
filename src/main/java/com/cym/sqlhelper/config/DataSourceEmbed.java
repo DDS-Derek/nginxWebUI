@@ -28,7 +28,7 @@ public class DataSourceEmbed {
 	@Init(index = 20)
 	public void init() {
 		// 创建dataSource
-		if (databaseType.equalsIgnoreCase("sqlite")) {
+		if (databaseType.equalsIgnoreCase("sqlite") || databaseType.equalsIgnoreCase("h2")) {
 			String dbPath = homeConfig.home + "h2";
 			HikariConfig dbConfig = new HikariConfig();
 			dbConfig.setJdbcUrl(("jdbc:h2:" + dbPath));

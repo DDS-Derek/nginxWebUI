@@ -13,7 +13,7 @@ solon:
 
 spring:
   database:
-    type: mysql
+    type: h2
   datasource:
     url: 
     username: 

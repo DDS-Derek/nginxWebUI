@@ -18,7 +18,7 @@ import com.cym.sqlhelper.utils.SqlHelper;
 import com.cym.utils.SystemTool;
 import com.cym.utils.TailLogThread;
 
-@ServerEndpoint("/adminPage/logTail/{id}/{guid}")
+@ServerEndpoint("/adminPage/logTail/websocket")
 public class LogTailController implements Listener {
 	Logger logger = LoggerFactory.getLogger(this.getClass());
 	Map<String, Process> processMap = new HashMap<>();
@@ -27,15 +27,13 @@ public class LogTailController implements Listener {
 	@Inject
 	SqlHelper sqlHelper;
 
-	
-
 	/**
 	 * 新的WebSocket请求开启
 	 */
 	@Override
 	public void onOpen(Session session) {
-		String id = session.sessionId();
-		String guid =  session.sessionId();
+		String id = session.param("id");
+		String guid =  session.param("guid");
 		try {
 			// 执行tail -f命令
 			Log log = sqlHelper.findById(id, Log.class);
@@ -75,7 +73,7 @@ public class LogTailController implements Listener {
 	 */
 	@Override
 	public void onClose(Session session) {
-		String guid = session.sessionId();
+		String guid = session.param("guid");
 		try {
 			InputStream inputStream = inputStreamMap.get(guid);
 			Process process = processMap.get(guid);
