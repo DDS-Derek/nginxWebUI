@@ -22,13 +22,15 @@ public class SqliteToH2 {
 	HomeConfig homeConfig;
 	@Inject
 	DataSourceEmbed dataSourceEmbed;
+	@Inject("${spring.database.type}")
+	String databaseType;
 
 	DataSource dataSourceTemp;
-	
+
 	@Init(index = 50)
 	public void init() {
 		// 检查是否存在sqlite.db, 进行数据备份
-		if (FileUtil.exist(homeConfig.home + "sqlite.db")) {
+		if (databaseType.equals("sqlite") && FileUtil.exist(homeConfig.home + "sqlite.db")) {
 			// 创建sqliteDataSource
 			dataSourceTemp = dataSourceEmbed.getDataSource();
 			DataSource dataSource = new SimpleDataSource("jdbc:sqlite:" + homeConfig.home + "sqlite.db", "", "");
@@ -37,7 +39,7 @@ public class SqliteToH2 {
 			// 导出数据
 			importOrExportUtil.exportDb(homeConfig.home + "dateBak.zip");
 
-			// 重新构建dataSource 
+			// 重新构建dataSource
 			dataSourceEmbed.setDataSource(dataSourceTemp);
 
 			// 导入数据库

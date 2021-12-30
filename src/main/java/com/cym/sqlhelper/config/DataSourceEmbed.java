@@ -7,30 +7,43 @@ import org.noear.solon.annotation.Init;
 import org.noear.solon.annotation.Inject;
 
 import com.cym.config.HomeConfig;
-import com.cym.sqlhelper.utils.ImportOrExportUtil;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
-
-import cn.hutool.core.io.FileUtil;
 
 @Component
 public class DataSourceEmbed {
 	@Inject
 	HomeConfig homeConfig;
+	@Inject("${spring.database.type}")
+	String databaseType;
+	@Inject("${spring.datasource.url}")
+	String url;
+	@Inject("${spring.datasource.username}")
+	String username;
+	@Inject("${spring.datasource.password}")
+	String password;
 
 	DataSource dataSource;
 
 	@Init(index = 20)
 	public void init() {
 		// 创建dataSource
-		String dbPath = homeConfig.home + "h2";
-		HikariConfig dbConfig = new HikariConfig();
-		dbConfig.setJdbcUrl(("jdbc:h2:" + dbPath));
-		dbConfig.setUsername("sa");
-		dbConfig.setPassword("");
-		dbConfig.setMaximumPoolSize(1);
-		dataSource = new HikariDataSource(dbConfig);
-
+		if (databaseType.equals("sqlite")) {
+			String dbPath = homeConfig.home + "h2";
+			HikariConfig dbConfig = new HikariConfig();
+			dbConfig.setJdbcUrl(("jdbc:h2:" + dbPath));
+			dbConfig.setUsername("sa");
+			dbConfig.setPassword("");
+			dbConfig.setMaximumPoolSize(1);
+			dataSource = new HikariDataSource(dbConfig);
+		} else if (databaseType.equals("mysql")) {
+			HikariConfig dbConfig = new HikariConfig();
+			dbConfig.setJdbcUrl(url);
+			dbConfig.setUsername(username);
+			dbConfig.setPassword(password);
+			dbConfig.setMaximumPoolSize(1);
+			dataSource = new HikariDataSource(dbConfig);
+		}
 	}
 
 	public DataSource getDataSource() {
