@@ -17,6 +17,12 @@
 		<dependency>
 			<groupId>org.noear</groupId>
 			<artifactId>solon-web</artifactId>
+			<exclusions>
+				<exclusion>
+					<groupId>org.noear</groupId>
+					<artifactId>solon.boot.jlhttp</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 	
 		<dependency>
@@ -36,10 +42,7 @@
 			<groupId>org.noear</groupId>
 			<artifactId>solon.schedule</artifactId>
 		</dependency>
-		<dependency>
-			<groupId>org.noear</groupId>
-			<artifactId>solon.boot.websocket</artifactId>
-		</dependency>
+		
 		<dependency>
 			<groupId>org.noear</groupId>
 			<artifactId>solon-test</artifactId>
@@ -181,12 +184,6 @@
 				</executions>
 			</plugin>
 
-			<!-- <plugin> <groupId>com.github.shalousun</groupId> <artifactId>smart-doc-maven-plugin</artifactId> 
-				<version>2.3.5</version> <configuration> <configFile>./src/main/resources/smart-doc.json</configFile> 
-				<projectName>nginxWebUI</projectName> <excludes> <exclude>com.alibaba:fastjson</exclude> 
-				</excludes> <includes> <include>com.alibaba:fastjson</include> </includes> 
-				</configuration> <executions> <execution> <phase>compile</phase> <goals> 
-				<goal>html</goal> </goals> </execution> </executions> </plugin> -->
 		</plugins>
 	</build>
 
