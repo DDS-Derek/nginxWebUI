@@ -299,7 +299,7 @@ public class AppFilter implements Filter {
 		for (Iterator itr = parameterMap.entrySet().iterator(); itr.hasNext();) {
 			Map.Entry me = (Map.Entry) itr.next();
 
-			for (String value : (String[]) me.getValue()) {
+			for (String value : (List<String>) me.getValue()) {
 				body.add(me.getKey() + "=" + URLEncoder.encode(value, "UTF-8"));
 			}
 
@@ -309,7 +309,7 @@ public class AppFilter implements Filter {
 	}
 
 	private String buildUrl(String ctxStr, Context ctx, Remote remote) {
-		String url = ctx.path().replace(ctxStr, "//" + remote.getIp() + ":" + remote.getPort() + "/");
+		String url = ctx.url().replace(ctxStr, "//" + remote.getIp() + ":" + remote.getPort() + "/");
 
 		if (url.startsWith("http")) {
 			url = url.replace("http:", "").replace("https:", "");
