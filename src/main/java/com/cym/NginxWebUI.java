@@ -42,6 +42,9 @@ public class NginxWebUI {
 
 		Solon.start(NginxWebUI.class, args, app -> {
 			app.onError(e -> e.printStackTrace());
+			app.before(c -> {
+				c.pathNew(c.path().replace("//", "/"));
+			});
 
 			app.enableWebSocket(true);
 

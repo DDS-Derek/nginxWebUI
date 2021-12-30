@@ -93,7 +93,7 @@ public class LogController extends BaseController {
 		String host = Context.current().header("Host");
 
 		String ctxWs = appFilter.getCtxStr(httpHost, host, realPort);
-		modelAndView.put("ctxWs", ctxWs.replace("8080", "18080")); 
+		modelAndView.put("ctxWs", ctxWs); 
 		
 		modelAndView.view("/adminPage/log/tail.html");
 		return modelAndView;
