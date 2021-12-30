@@ -28,7 +28,7 @@ public class DataSourceEmbed {
 	@Init(index = 20)
 	public void init() {
 		// 创建dataSource
-		if (databaseType.equals("sqlite")) {
+		if (databaseType.equalsIgnoreCase("sqlite")) {
 			String dbPath = homeConfig.home + "h2";
 			HikariConfig dbConfig = new HikariConfig();
 			dbConfig.setJdbcUrl(("jdbc:h2:" + dbPath));
@@ -36,7 +36,7 @@ public class DataSourceEmbed {
 			dbConfig.setPassword("");
 			dbConfig.setMaximumPoolSize(1);
 			dataSource = new HikariDataSource(dbConfig);
-		} else if (databaseType.equals("mysql")) {
+		} else if (databaseType.equalsIgnoreCase("mysql")) {
 			HikariConfig dbConfig = new HikariConfig();
 			dbConfig.setJdbcUrl(url);
 			dbConfig.setUsername(username);

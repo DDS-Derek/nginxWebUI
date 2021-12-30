@@ -13,7 +13,7 @@ solon:
 
 spring:
   database:
-    type: sqlite
+    type: mysql
   datasource:
     url: 
     username: 
