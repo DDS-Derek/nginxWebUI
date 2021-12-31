@@ -24,7 +24,7 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
-	
+
 		<dependency>
 			<groupId>org.noear</groupId>
 			<artifactId>solon.boot.jetty</artifactId>
@@ -33,7 +33,7 @@
 			<groupId>org.noear</groupId>
 			<artifactId>solon.boot.jetty.add.websocket</artifactId>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.noear</groupId>
 			<artifactId>logback-solon-plugin</artifactId>
@@ -42,7 +42,7 @@
 			<groupId>org.noear</groupId>
 			<artifactId>solon.schedule</artifactId>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.noear</groupId>
 			<artifactId>solon-test</artifactId>
@@ -113,7 +113,7 @@
 		<dependency>
 			<groupId>com.zaxxer</groupId>
 			<artifactId>HikariCP</artifactId>
-			<version>5.0.0</version>
+			<version>4.0.3</version>
 		</dependency>
 		<dependency>
 			<groupId>com.github.whvcse</groupId>
