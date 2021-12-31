@@ -20,6 +20,7 @@ solon:
       file:
         name: ${project.home}/log/${solon.app.name}
         level: INFO
+        
 spring:
   database:
     type: h2
