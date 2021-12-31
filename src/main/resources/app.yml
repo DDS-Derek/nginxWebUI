@@ -18,7 +18,7 @@ solon:
         level: "WARN"
     appender:
       file:
-        name: d:/${solon.app.name}
+        name: ${project.home}/log/${solon.app.name}
         level: INFO
 spring:
   database:
