@@ -45,7 +45,6 @@ public class TemplateController extends BaseController {
 	}
 
 	@Mapping("addOver")
-	
 	public JsonResult addOver(Template template,String paramJson) {
 		
 		if (StrUtil.isEmpty(template.getId())) {
@@ -68,7 +67,6 @@ public class TemplateController extends BaseController {
 	}
 
 	@Mapping("detail")
-	
 	public JsonResult detail(String id) {
 		Template template = sqlHelper.findById(id, Template.class);
 		TemplateExt templateExt = new TemplateExt();
@@ -81,7 +79,6 @@ public class TemplateController extends BaseController {
 	}
 
 	@Mapping("del")
-	
 	public JsonResult del(String id) {
 
 		templateService.del(id);
@@ -89,7 +86,6 @@ public class TemplateController extends BaseController {
 	}
 	
 	@Mapping("getTemplate")
-	
 	public JsonResult getTemplate() {
 
 		return renderSuccess(sqlHelper.findAll(Template.class));

@@ -128,7 +128,6 @@ public class ServerController extends BaseController {
 	}
 
 	@Mapping("addOver")
-	
 	public JsonResult addOver(String serverJson, String serverParamJson, String locationJson) {
 		Server server = JSONUtil.toBean(serverJson, Server.class);
 		List<Location> locations = JSONUtil.toList(JSONUtil.parseArray(locationJson), Location.class);
@@ -151,14 +150,12 @@ public class ServerController extends BaseController {
 	}
 
 	@Mapping("setEnable")
-	
 	public JsonResult setEnable(Server server) {
 		sqlHelper.updateById(server);
 		return renderSuccess();
 	}
 
 	@Mapping("detail")
-	
 	public JsonResult detail(String id) {
 		Server server = sqlHelper.findById(id, Server.class);
 
@@ -177,7 +174,6 @@ public class ServerController extends BaseController {
 	}
 
 	@Mapping("del")
-	
 	public JsonResult del(String id) {
 		serverService.deleteById(id);
 
@@ -193,7 +189,6 @@ public class ServerController extends BaseController {
 //	}
 
 	@Mapping("importServer")
-	
 	public JsonResult importServer(String nginxPath) {
 
 		if (StrUtil.isEmpty(nginxPath) || !FileUtil.exist(nginxPath)) {
@@ -210,7 +205,6 @@ public class ServerController extends BaseController {
 	}
 
 	@Mapping("testPort")
-	
 	public JsonResult testPort() {
 		List<Server> servers = sqlHelper.findAll(Server.class);
 
@@ -240,7 +234,6 @@ public class ServerController extends BaseController {
 	}
 
 	@Mapping("editDescr")
-	
 	public JsonResult editDescr(String id, String descr) {
 		Server server = new Server();
 		server.setId(id);
@@ -251,7 +244,6 @@ public class ServerController extends BaseController {
 	}
 
 	@Mapping("preview")
-	
 	public JsonResult preview(String id, String type) {
 		NgxBlock ngxBlock = null;
 		if (type.equals("server")) {
@@ -288,14 +280,12 @@ public class ServerController extends BaseController {
 	}
 
 	@Mapping("setOrder")
-	
 	public JsonResult setOrder(String id, Integer count) {
 		serverService.setSeq(id, count);
 		return renderSuccess();
 	}
 	
 	@Mapping("getDescr")
-	
 	public JsonResult getDescr(String id) {
 		Server server = sqlHelper.findById(id, Server.class);
 		

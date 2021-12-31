@@ -63,7 +63,6 @@ public class AdminController extends BaseController {
 	}
 
 	@Mapping("addOver")
-	
 	public JsonResult addOver(Admin admin, String[] parentId) {
 		if (StrUtil.isEmpty(admin.getId())) {
 			Long count = adminService.getCountByName(admin.getName());
@@ -89,7 +88,6 @@ public class AdminController extends BaseController {
 	}
 
 	@Mapping("detail")
-	
 	public JsonResult detail(String id) {
 		AdminExt adminExt = new AdminExt();
 		adminExt.setAdmin(sqlHelper.findById(id, Admin.class));
@@ -99,7 +97,6 @@ public class AdminController extends BaseController {
 	}
 
 	@Mapping("del")
-	
 	public JsonResult del(String id) {
 		sqlHelper.deleteById(id, Admin.class);
 
@@ -107,7 +104,6 @@ public class AdminController extends BaseController {
 	}
 
 	@Mapping("getMailSetting")
-	
 	public JsonResult getMailSetting() {
 		Map<String, String> map = new HashMap<>();
 
@@ -123,7 +119,6 @@ public class AdminController extends BaseController {
 	}
 
 	@Mapping("updateMailSetting")
-	
 	public JsonResult updateMailSetting(String mailType, String mail_user, String mail_host, String mail_port, String mail_from, String mail_pass, String mail_ssl,String mail_interval) {
 		settingService.set("mail_host", mail_host);
 		settingService.set("mail_port", mail_port);
@@ -137,7 +132,6 @@ public class AdminController extends BaseController {
 	}
 
 	@Mapping("testMail")
-	
 	public JsonResult testMail(String mail) {
 		if (StrUtil.isEmpty(mail)) {
 			return renderError(m.get("adminStr.emailEmpty"));
@@ -153,7 +147,6 @@ public class AdminController extends BaseController {
 	
 	
 	@Mapping("testAuth")
-	
 	public JsonResult testAuth(String key, String code) {
 		
 		Boolean rs = authUtils.testKey(key, code);
@@ -185,7 +178,6 @@ public class AdminController extends BaseController {
 	
 
 	@Mapping("getGroupTree")
-	
 	public JsonResult getGroupTree() {
 
 		List<Group> groups = groupService.getListByParent(null);

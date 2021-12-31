@@ -71,7 +71,6 @@ public class LoginController extends BaseController {
 	}
 
 	@Mapping("login")
-	
 	public JsonResult submitLogin(String name, String pass, String code, String authCode, String remember) {
 		// 解码
 		if (StrUtil.isNotEmpty(name)) {
@@ -120,7 +119,6 @@ public class LoginController extends BaseController {
 	}
 
 	@Mapping("autoLogin")
-	
 	public JsonResult autoLogin(String adminId) {
 
 		// 用户名密码

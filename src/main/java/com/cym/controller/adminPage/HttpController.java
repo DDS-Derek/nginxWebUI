@@ -36,7 +36,6 @@ public class HttpController extends BaseController {
 	}
 
 	@Mapping("addOver")
-	
 	public JsonResult addOver(Http http) {
 		if (StrUtil.isEmpty(http.getId())) {
 			http.setSeq(SnowFlakeUtils.getId());
@@ -47,7 +46,6 @@ public class HttpController extends BaseController {
 	}
 
 	@Mapping("addTemplate")
-	
 	public JsonResult addTemplate(String templateId) {
 		httpService.addTemplate(templateId);
 
@@ -55,13 +53,11 @@ public class HttpController extends BaseController {
 	}
 
 	@Mapping("detail")
-	
 	public JsonResult detail(String id) {
 		return renderSuccess(sqlHelper.findById(id, Http.class));
 	}
 
 	@Mapping("del")
-	
 	public JsonResult del(String id) {
 		sqlHelper.deleteById(id, Http.class);
 
@@ -69,7 +65,6 @@ public class HttpController extends BaseController {
 	}
 
 	@Mapping("addGiudeOver")
-	
 	public JsonResult addGiudeOver(String json, Boolean logStatus, Boolean webSocket) {
 		List<Http> https = JSONUtil.toList(JSONUtil.parseArray(json), Http.class);
 
@@ -107,7 +102,6 @@ public class HttpController extends BaseController {
 
 
 	@Mapping("setOrder")
-	
 	public JsonResult setOrder(String id, Integer count) {
 		httpService.setSeq(id, count);
 		return renderSuccess();

@@ -56,7 +56,6 @@ public class CertController extends BaseController {
 	}
 
 	@Mapping("addOver")
-
 	public JsonResult addOver(Cert cert, String[] domains, String[] types, String[] values) {
 		if (certService.hasSame(cert)) {
 			return renderError(m.get("certStr.same"));
@@ -68,20 +67,17 @@ public class CertController extends BaseController {
 	}
 
 	@Mapping("setAutoRenew")
-
 	public JsonResult setAutoRenew(Cert cert) {
 		sqlHelper.updateById(cert);
 		return renderSuccess();
 	}
 
 	@Mapping("detail")
-
 	public JsonResult detail(String id) {
 		return renderSuccess(sqlHelper.findById(id, Cert.class));
 	}
 
 	@Mapping("del")
-
 	public JsonResult del(String id) {
 		Cert cert = sqlHelper.findById(id, Cert.class);
 		String path = InitConfig.acmeShDir + cert.getDomain();
@@ -93,7 +89,6 @@ public class CertController extends BaseController {
 	}
 
 	@Mapping("apply")
-
 	public JsonResult apply(String id, String type) {
 		if (!SystemTool.isLinux()) {
 			return renderError(m.get("certStr.error2"));
@@ -234,7 +229,6 @@ public class CertController extends BaseController {
 	}
 
 	@Mapping("getTxtValue")
-
 	public JsonResult getTxtValue(String id) {
 
 		List<CertCode> certCodes = certService.getCertCodes(id);

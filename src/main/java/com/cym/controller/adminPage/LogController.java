@@ -48,7 +48,6 @@ public class LogController extends BaseController {
 	}
 
 	@Mapping("addOver")
-	
 	public JsonResult addOver(Log log) {
 		if (logService.hasDir(log.getPath(), log.getId())) {
 			return renderError(m.get("logStr.sameDir"));
@@ -63,13 +62,11 @@ public class LogController extends BaseController {
 	}
 
 	@Mapping("detail")
-	
 	public JsonResult detail(String id) {
 		return renderSuccess(sqlHelper.findById(id, Log.class));
 	}
 
 	@Mapping("del")
-	
 	public JsonResult del(String id) {
 		sqlHelper.deleteById(id, Log.class);
 		return renderSuccess();

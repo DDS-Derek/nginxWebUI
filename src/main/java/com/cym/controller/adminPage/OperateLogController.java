@@ -29,7 +29,6 @@ public class OperateLogController extends BaseController{
 	
 	
 	@Mapping("detail")
-	
 	public JsonResult detail(String id) {
 		return renderSuccess(sqlHelper.findById(id, OperateLog.class));
 	}

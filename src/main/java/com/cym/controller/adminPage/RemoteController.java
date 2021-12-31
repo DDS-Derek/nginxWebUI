@@ -66,7 +66,6 @@ public class RemoteController extends BaseController {
 	Integer port;
 
 	@Mapping("version")
-	
 	public Map<String, Object> version() {
 		Map<String, Object> map = new HashMap<>();
 		map.put("version", projectVersion);
@@ -96,7 +95,6 @@ public class RemoteController extends BaseController {
 	}
 
 	@Mapping("allTable")
-	
 	public List<Remote> allTable() {
 		Admin admin = getAdmin();
 		List<Remote> remoteList = sqlHelper.findAll(Remote.class);
@@ -175,7 +173,6 @@ public class RemoteController extends BaseController {
 	}
 
 	@Mapping("addGroupOver")
-	
 	public JsonResult addGroupOver(Group group) {
 		if (StrUtil.isNotEmpty(group.getParentId()) && StrUtil.isNotEmpty(group.getId()) && group.getId().equals(group.getParentId())) {
 			return renderError(m.get("remoteStr.parentGroupMsg"));
@@ -186,13 +183,11 @@ public class RemoteController extends BaseController {
 	}
 
 	@Mapping("groupDetail")
-	
 	public JsonResult groupDetail(String id) {
 		return renderSuccess(sqlHelper.findById(id, Group.class));
 	}
 
 	@Mapping("delGroup")
-	
 	public JsonResult delGroup(String id) {
 
 		groupService.delete(id);
@@ -200,7 +195,6 @@ public class RemoteController extends BaseController {
 	}
 
 	@Mapping("getGroupTree")
-	
 	public JsonResult getGroupTree() {
 		Admin admin = getAdmin();
 
@@ -243,7 +237,6 @@ public class RemoteController extends BaseController {
 	}
 
 	@Mapping("getCmdRemote")
-	
 	public JsonResult getCmdRemote() {
 		Admin admin = getAdmin();
 
@@ -290,7 +283,6 @@ public class RemoteController extends BaseController {
 	}
 
 	@Mapping("cmdOver")
-	
 	public JsonResult cmdOver(String[] remoteId, String cmd, Integer interval) {
 		if (remoteId == null || remoteId.length == 0) {
 			return renderSuccess(m.get("remoteStr.noSelect"));
@@ -366,7 +358,6 @@ public class RemoteController extends BaseController {
 	}
 
 	@Mapping("asyc")
-	
 	public JsonResult asyc(String fromId, String[] remoteId, String[] asycData) {
 		if (StrUtil.isEmpty(fromId) || remoteId == null || remoteId.length == 0) {
 			return renderError(m.get("remoteStr.noChoice"));
@@ -410,7 +401,6 @@ public class RemoteController extends BaseController {
 	}
 
 	@Mapping("getAsycPack")
-	
 	public String getAsycPack(String[] asycData) {
 		AsycPack asycPack = confService.getAsycPack(asycData);
 
@@ -418,7 +408,6 @@ public class RemoteController extends BaseController {
 	}
 
 	@Mapping("setAsycPack")
-	
 	public JsonResult setAsycPack(String json, String adminName) {
 		AsycPack asycPack = JSONUtil.toBean(json, AsycPack.class);
 		if (StrUtil.isEmpty(adminName)) {
@@ -431,7 +420,6 @@ public class RemoteController extends BaseController {
 	}
 
 	@Mapping("addOver")
-	
 	public JsonResult addOver(Remote remote, String code, String auth) {
 		remote.setIp(remote.getIp().trim());
 
@@ -451,7 +439,6 @@ public class RemoteController extends BaseController {
 	}
 
 	@Mapping("getAuth")
-	
 	public JsonResult getAuth(Remote remote) {
 		try {
 			Map<String, Object> map = new HashMap<>();
@@ -478,13 +465,11 @@ public class RemoteController extends BaseController {
 	}
 
 	@Mapping("detail")
-	
 	public JsonResult detail(String id) {
 		return renderSuccess(sqlHelper.findById(id, Remote.class));
 	}
 
 	@Mapping("del")
-	
 	public JsonResult del(String id) {
 		sqlHelper.deleteById(id, Remote.class);
 
@@ -492,7 +477,6 @@ public class RemoteController extends BaseController {
 	}
 
 	@Mapping("content")
-	
 	public JsonResult content(String id) {
 
 		Remote remote = sqlHelper.findById(id, Remote.class);
@@ -503,7 +487,6 @@ public class RemoteController extends BaseController {
 	}
 
 	@Mapping("readContent")
-	
 	public String readContent() {
 
 		String nginxPath = settingService.get("nginxPath");
@@ -517,7 +500,6 @@ public class RemoteController extends BaseController {
 	}
 
 	@Mapping("change")
-	
 	public JsonResult change(String id,Context context) {
 		Remote remote = sqlHelper.findById(id, Remote.class);
 
@@ -533,7 +515,6 @@ public class RemoteController extends BaseController {
 	}
 
 	@Mapping("nginxStatus")
-	
 	public JsonResult nginxStatus() {
 		Map<String, String> map = new HashMap<>();
 		map.put("mail", settingService.get("mail"));
@@ -545,7 +526,6 @@ public class RemoteController extends BaseController {
 	}
 
 	@Mapping("nginxOver")
-	
 	public JsonResult nginxOver(String mail, String nginxMonitor) {
 		settingService.set("mail", mail);
 		settingService.set("nginxMonitor", nginxMonitor);
@@ -554,7 +534,6 @@ public class RemoteController extends BaseController {
 	}
 
 	@Mapping("setMonitor")
-	
 	public JsonResult setMonitor(String id, Integer monitor) {
 		if (!"local".equals(id)) {
 			Remote remote = new Remote();

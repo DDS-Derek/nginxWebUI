@@ -40,7 +40,6 @@ public class BakController extends BaseController {
 	}
 
 	@Mapping("getCompare")
-	
 	public JsonResult getCompare(String id) {
 		Bak bak = sqlHelper.findById(id, Bak.class);
 
@@ -57,14 +56,12 @@ public class BakController extends BaseController {
 	}
 
 	@Mapping("content")
-	
 	public JsonResult content(String id) {
 		Bak bak = sqlHelper.findById(id, Bak.class);
 		return renderSuccess(bak);
 	}
 
 	@Mapping("replace")
-	
 	public JsonResult replace(String id) {
 		Bak bak = sqlHelper.findById(id, Bak.class);
 
@@ -93,14 +90,12 @@ public class BakController extends BaseController {
 
 	
 	@Mapping("del")
-	
 	public JsonResult del(String id) {
 		bakService.del(id);
 		return renderSuccess();
 	}
 
 	@Mapping("delAll")
-	
 	public JsonResult delAll() {
 		bakService.delAll();
 

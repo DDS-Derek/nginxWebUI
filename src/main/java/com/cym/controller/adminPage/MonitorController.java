@@ -47,7 +47,6 @@ public class MonitorController extends BaseController {
 	}
 
 	@Mapping("check")
-
 	public JsonResult check() {
 
 		MonitorInfo monitorInfo = monitorService.getMonitorInfoOshi();
@@ -56,7 +55,6 @@ public class MonitorController extends BaseController {
 	}
 
 	@Mapping("network")
-
 	public JsonResult network() {
 		NetworkInfo networkInfo = NetWorkUtil.getNetworkDownUp();
 		// System.err.println(JSONUtil.toJsonStr(networkInfo));
@@ -64,7 +62,6 @@ public class MonitorController extends BaseController {
 	}
 
 	@Mapping("addNginxGiudeOver")
-
 	public JsonResult addNginxGiudeOver(String nginxDir, String nginxExe) {
 
 		settingService.set("nginxDir", nginxDir);

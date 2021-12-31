@@ -35,7 +35,6 @@ public class PasswordController extends BaseController {
 	}
 
 	@Mapping("addOver")
-	
 	public JsonResult addOver(Password password) throws IOException {
 
 		if (StrUtil.isEmpty(password.getId())) {
@@ -71,7 +70,6 @@ public class PasswordController extends BaseController {
 	}
 
 	@Mapping("del")
-	
 	public JsonResult del(String id) {
 		Password password = sqlHelper.findById(id, Password.class);
 		sqlHelper.deleteById(id, Password.class);
@@ -81,7 +79,6 @@ public class PasswordController extends BaseController {
 	}
 
 	@Mapping("detail")
-	
 	public JsonResult detail(String id) {
 		return renderSuccess(sqlHelper.findById(id, Password.class));
 	}

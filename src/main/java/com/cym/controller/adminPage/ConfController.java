@@ -81,7 +81,6 @@ public class ConfController extends BaseController {
 	}
 
 	@Mapping(value = "nginxStatus")
-
 	public JsonResult nginxStatus() {
 		if (NginxUtils.isRun()) {
 			return renderSuccess(m.get("confStr.nginxStatus") + "：<span class='green'>" + m.get("confStr.running") + "</span>");
@@ -92,7 +91,6 @@ public class ConfController extends BaseController {
 	}
 
 	@Mapping(value = "replace")
-
 	public JsonResult replace(String json, String adminName) {
 
 		if (StrUtil.isEmpty(json)) {
@@ -163,7 +161,6 @@ public class ConfController extends BaseController {
 	 * @return
 	 */
 	@Mapping(value = "checkBase")
-
 	public JsonResult checkBase() {
 		String nginxExe = settingService.get("nginxExe");
 		String nginxDir = settingService.get("nginxDir");
@@ -210,7 +207,6 @@ public class ConfController extends BaseController {
 	 * @return
 	 */
 	@Mapping(value = "check")
-
 	public JsonResult check(String nginxPath, String nginxExe, String nginxDir, String json) {
 		if (nginxExe == null) {
 			nginxExe = settingService.get("nginxExe");
@@ -267,7 +263,6 @@ public class ConfController extends BaseController {
 	}
 
 	@Mapping(value = "saveCmd")
-
 	public JsonResult saveCmd(String nginxPath, String nginxExe, String nginxDir) {
 		nginxPath = ToolUtils.handlePath(nginxPath);
 		settingService.set("nginxPath", nginxPath);
@@ -282,7 +277,6 @@ public class ConfController extends BaseController {
 	}
 
 	@Mapping(value = "reload")
-
 	public synchronized JsonResult reload(String nginxPath, String nginxExe, String nginxDir) {
 		if (nginxPath == null) {
 			nginxPath = settingService.get("nginxPath");
@@ -318,7 +312,6 @@ public class ConfController extends BaseController {
 	}
 
 	@Mapping(value = "runCmd")
-
 	public JsonResult runCmd(String cmd, String type) {
 		if (StrUtil.isNotEmpty(type)) {
 			settingService.set(type, cmd);
@@ -349,13 +342,11 @@ public class ConfController extends BaseController {
 	}
 
 	@Mapping(value = "getLastCmd")
-
 	public JsonResult getLastCmd(String type) {
 		return renderSuccess(settingService.get(type));
 	}
 
 	@Mapping(value = "loadConf")
-
 	public JsonResult loadConf() {
 		String decompose = settingService.get("decompose");
 
@@ -364,7 +355,6 @@ public class ConfController extends BaseController {
 	}
 
 	@Mapping(value = "loadOrg")
-
 	public JsonResult loadOrg(String nginxPath) {
 		String decompose = settingService.get("decompose");
 		ConfExt confExt = confService.buildConf(StrUtil.isNotEmpty(decompose) && decompose.equals("true"), false);
@@ -394,14 +384,12 @@ public class ConfController extends BaseController {
 	}
 
 	@Mapping(value = "decompose")
-
 	public JsonResult decompose(String decompose) {
 		settingService.set("decompose", decompose);
 		return renderSuccess();
 	}
 
 	@Mapping(value = "update")
-
 	public JsonResult update() {
 		versionConfig.getNewVersion();
 		if (Integer.parseInt(currentVersion.replace(".", "").replace("v", "")) < Integer.parseInt(versionConfig.getVersion().getVersion().replace(".", "").replace("v", ""))) {
@@ -413,13 +401,11 @@ public class ConfController extends BaseController {
 	}
 
 	@Mapping(value = "getKey")
-
 	public JsonResult getKey(String key) {
 		return renderSuccess(settingService.get(key));
 	}
 
 	@Mapping(value = "setKey")
-
 	public JsonResult setKey(String key, String val) {
 		settingService.set(key, val);
 		return renderSuccess();

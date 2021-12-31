@@ -107,7 +107,6 @@ public class UpstreamController extends BaseController {
 	}
 
 	@Mapping("addOver")
-	
 	public JsonResult addOver(String upstreamJson, String upstreamParamJson, String upstreamServerJson) {
 		Upstream upstream = JSONUtil.toBean(upstreamJson, Upstream.class);
 		List<UpstreamServer> upstreamServers = JSONUtil.toList(JSONUtil.parseArray(upstreamServerJson), UpstreamServer.class);
@@ -135,7 +134,6 @@ public class UpstreamController extends BaseController {
 	}
 
 	@Mapping("detail")
-	
 	public JsonResult detail(String id) {
 
 		UpstreamExt upstreamExt = new UpstreamExt();
@@ -148,7 +146,6 @@ public class UpstreamController extends BaseController {
 	}
 
 	@Mapping("del")
-	
 	public JsonResult del(String id) {
 
 		upstreamService.deleteById(id);
@@ -157,7 +154,6 @@ public class UpstreamController extends BaseController {
 	}
 
 	@Mapping("setMonitor")
-	
 	public JsonResult setMonitor(String id, Integer monitor) {
 		Upstream upstream = new Upstream();
 		upstream.setId(id);
@@ -168,7 +164,6 @@ public class UpstreamController extends BaseController {
 	}
 
 	@Mapping("upstreamStatus")
-	
 	public JsonResult upstreamStatus() {
 		Map<String, String> map = new HashMap<>();
 		map.put("mail", settingService.get("mail"));
@@ -180,7 +175,6 @@ public class UpstreamController extends BaseController {
 	}
 
 	@Mapping("upstreamOver")
-	
 	public JsonResult upstreamOver(String mail, String upstreamMonitor) {
 		settingService.set("mail", mail);
 		settingService.set("upstreamMonitor", upstreamMonitor);
@@ -193,7 +187,6 @@ public class UpstreamController extends BaseController {
 	}
 	
 	@Mapping("setOrder")
-	
 	public JsonResult setOrder(String id, Integer count) {
 		upstreamService.setSeq(id, count);
 		return renderSuccess();

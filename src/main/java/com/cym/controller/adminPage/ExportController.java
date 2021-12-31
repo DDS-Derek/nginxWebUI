@@ -70,7 +70,6 @@ public class ExportController extends BaseController {
 	}
 
 	@Mapping(value = "dataImport")
-
 	public JsonResult dataImport(String json, Context context, String adminName) {
 		AsycPack asycPack = JSONUtil.toBean(json, AsycPack.class);
 		if (StrUtil.isEmpty(adminName)) {

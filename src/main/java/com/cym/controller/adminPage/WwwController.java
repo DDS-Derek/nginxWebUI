@@ -36,7 +36,6 @@ public class WwwController extends BaseController {
 	}
 
 	@Mapping("addOver")
-	
 	public JsonResult addOver(Www www, String dirTemp) {
 		if (wwwService.hasDir(www.getDir(),www.getId())) {
 			return renderError(m.get("wwwStr.sameDir"));
@@ -65,7 +64,6 @@ public class WwwController extends BaseController {
 
 
 	@Mapping("del")
-	
 	public JsonResult del(String id) {
 		sqlHelper.deleteById(id, Www.class);
 
@@ -73,7 +71,6 @@ public class WwwController extends BaseController {
 	}
 
 	@Mapping("detail")
-	
 	public JsonResult detail(String id) {
 		Www www = sqlHelper.findById(id, Www.class);
 

@@ -31,7 +31,6 @@ public class BasicController extends BaseController {
 	}
 
 	@Mapping("addOver")
-	
 	public JsonResult addOver(Basic basic) {
 		if (StrUtil.isEmpty(basic.getId())) {
 			basic.setSeq( SnowFlakeUtils.getId());
@@ -42,7 +41,6 @@ public class BasicController extends BaseController {
 	}
 
 	@Mapping("setOrder")
-	
 	public JsonResult setOrder(String id, Integer count) {
 		basicService.setSeq(id, count);
 
@@ -50,13 +48,11 @@ public class BasicController extends BaseController {
 	}
 	
 	@Mapping("detail")
-	
 	public JsonResult detail(String id) {
 		return renderSuccess(sqlHelper.findById(id, Basic.class));
 	}
 
 	@Mapping("del")
-	
 	public JsonResult del(String id) {
 		sqlHelper.deleteById(id, Basic.class);
 

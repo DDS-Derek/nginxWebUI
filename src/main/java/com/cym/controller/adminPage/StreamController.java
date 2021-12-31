@@ -31,7 +31,6 @@ public class StreamController extends BaseController {
 	}
 
 	@Mapping("addOver")
-	
 	public JsonResult addOver(Stream stream) {
 		if (StrUtil.isEmpty(stream.getId())) {
 			stream.setSeq( SnowFlakeUtils.getId());
@@ -43,7 +42,6 @@ public class StreamController extends BaseController {
 	
 
 	@Mapping("addTemplate")
-	
 	public JsonResult addTemplate(String templateId) {
 		streamService.addTemplate(templateId);
 		
@@ -51,13 +49,11 @@ public class StreamController extends BaseController {
 	}
 
 	@Mapping("detail")
-	
 	public JsonResult detail(String id) {
 		return renderSuccess(sqlHelper.findById(id, Stream.class));
 	}
 
 	@Mapping("del")
-	
 	public JsonResult del(String id) {
 		sqlHelper.deleteById(id, Stream.class);
 
@@ -65,7 +61,6 @@ public class StreamController extends BaseController {
 	}
 
 	@Mapping("setOrder")
-	
 	public JsonResult setOrder(String id, Integer count) {
 		streamService.setSeq(id, count);
 
