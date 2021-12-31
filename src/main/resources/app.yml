@@ -10,11 +10,16 @@ project:
 solon:
   app.name: nginxWebUI
   view.mapping.html: FreemarkerRender
-  logging.logger:
-  "org.eclipse.jetty":
-    level: "WARN"
-  "com.zaxxer":
-    level: "WARN"
+  logging:
+    logger:
+      "org.eclipse.jetty":
+        level: "WARN"
+      "com.zaxxer":
+        level: "WARN"
+    appender:
+      file:
+        name: d:/${solon.app.name}
+        level: INFO
 spring:
   database:
     type: h2

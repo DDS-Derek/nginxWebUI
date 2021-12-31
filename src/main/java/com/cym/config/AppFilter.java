@@ -70,48 +70,43 @@ public class AppFilter implements Filter {
 
 	@Override
 	public void doFilter(Context ctx, FilterChain chain) throws Throwable {
-		try {
 
-			// 全局过滤器
-			if (!ctx.path().contains("/lib/") //
-					&& !ctx.path().contains("/js/") //
-					&& !ctx.path().contains("/doc/") //
-					&& !ctx.path().contains("/img/") //
-					&& !ctx.path().contains("/css/")) {
-				if (!frontInterceptor(ctx)) {
-					return;
-				}
+		// 全局过滤器
+		if (!ctx.path().contains("/lib/") //
+				&& !ctx.path().contains("/js/") //
+				&& !ctx.path().contains("/doc/") //
+				&& !ctx.path().contains("/img/") //
+				&& !ctx.path().contains("/css/")) {
+			if (!frontInterceptor(ctx)) {
+				return;
 			}
-
-			// 登录过滤器
-			if (ctx.path().contains("/adminPage/") //
-					&& !ctx.path().contains("/lib/") //
-					&& !ctx.path().contains("/doc/") //
-					&& !ctx.path().contains("/js/") //
-					&& !ctx.path().contains("/img/") //
-					&& !ctx.path().contains("/css/")) {
-				if (!adminInterceptor(ctx)) {
-					return;
-				}
-			}
-
-			// api过滤器
-			if (ctx.path().contains("/api/") //
-					&& !ctx.path().contains("/lib/") //
-					&& !ctx.path().contains("/doc/") //
-					&& !ctx.path().contains("/js/") //
-					&& !ctx.path().contains("/img/") //
-					&& !ctx.path().contains("/css/")) {
-				if (!apiInterceptor(ctx)) {
-					return;
-				}
-			}
-
-			chain.doFilter(ctx);
-
-		} catch (Throwable e) {
-			e.printStackTrace();
 		}
+
+		// 登录过滤器
+		if (ctx.path().contains("/adminPage/") //
+				&& !ctx.path().contains("/lib/") //
+				&& !ctx.path().contains("/doc/") //
+				&& !ctx.path().contains("/js/") //
+				&& !ctx.path().contains("/img/") //
+				&& !ctx.path().contains("/css/")) {
+			if (!adminInterceptor(ctx)) {
+				return;
+			}
+		}
+
+		// api过滤器
+		if (ctx.path().contains("/api/") //
+				&& !ctx.path().contains("/lib/") //
+				&& !ctx.path().contains("/doc/") //
+				&& !ctx.path().contains("/js/") //
+				&& !ctx.path().contains("/img/") //
+				&& !ctx.path().contains("/css/")) {
+			if (!apiInterceptor(ctx)) {
+				return;
+			}
+		}
+
+		chain.doFilter(ctx);
 
 	}
 
@@ -235,7 +230,7 @@ public class AppFilter implements Filter {
 
 		ctx.attrSet("showAdmin", ctx.param("showAdmin"));
 		ctx.attrSet("admin", ctx.session("admin"));
-		
+
 		// 显示版本更新
 		if (versionConfig.getVersion() != null) {
 			ctx.attrSet("newVersion", versionConfig.getVersion());
