@@ -18,7 +18,7 @@ import com.cym.sqlhelper.utils.SqlHelper;
 import com.cym.utils.SystemTool;
 import com.cym.utils.TailLogThread;
 
-@ServerEndpoint("/adminPage/logTail/websocket**")
+@ServerEndpoint("/adminPage/logTail/websocket")
 public class LogTailController implements Listener {
 	Logger logger = LoggerFactory.getLogger(this.getClass());
 	Map<String, Process> processMap = new HashMap<>();
