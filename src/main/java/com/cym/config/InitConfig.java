@@ -161,7 +161,7 @@ public class InitConfig {
 		
 		logger.info("nginxWebUI启动完毕");
 		
-		int i =1 /0;
+		
 	}
 
 	/**
