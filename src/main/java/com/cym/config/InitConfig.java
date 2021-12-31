@@ -136,8 +136,8 @@ public class InitConfig {
 				}
 			}
 
-			// 判断是否是容器中
-			if (inDocker()) {
+			// 判断是否存在nginx命令
+			if (hasNginx()) {
 				// 设置nginx执行文件
 				settingService.set("nginxExe", "nginx");
 			}
@@ -164,6 +164,15 @@ public class InitConfig {
 		
 	}
 
+	private boolean hasNginx() {
+		String rs = RuntimeUtil.execForStr("which nginx");
+		if(StrUtil.isNotEmpty(rs)) {
+			return true;
+		}
+		
+		return false;
+	}
+
 	/**
 	 * 是否在docker中
 	 * 
@@ -172,7 +181,6 @@ public class InitConfig {
 	private Boolean inDocker() {
 		List<String> rs = RuntimeUtil.execForLines("cat /proc/1/cgroup");
 		for (String str : rs) {
-//			logger.info(str);
 			if (str.contains("docker")) {
 				logger.info("I am in docker");
 				return true;
