@@ -43,8 +43,6 @@ public class LoginController extends BaseController {
 	VersionConfig versionConfig;
 	@Inject
 	AuthUtils authUtils;
-	@Inject("${project.version}")
-	String currentVersion;
 
 	@Inject
 	SettingService settingService;
