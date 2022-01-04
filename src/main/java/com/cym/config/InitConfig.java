@@ -158,7 +158,7 @@ public class InitConfig {
 			}
 		}
 
-		logger.info("nginxWebUI启动完毕");
+		logger.info("nginxWebUI start over");
 		
 		
 	}
