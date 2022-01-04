@@ -33,15 +33,14 @@
 				<form action="${ctx}/adminPage/cert" id="searchForm" method="post">
 					<div class="layui-form">
 						<div class="layui-inline">
-							<button type="button" class="layui-btn layui-btn-normal"
-								onclick="add()">${certStr.add}</button>
+							<button type="button" class="layui-btn layui-btn-normal layui-btn-sm" onclick="add()">${certStr.add}</button>
 						</div>
 						
 						<div class="layui-inline">
-							<input type="text" name="keywords" class="layui-input" value="${keywords}" onkeydown="if(event.keyCode==13)return false;">
+							<input type="text" name="keywords" class="layui-input layui-input-sm" value="${keywords}" onkeydown="if(event.keyCode==13)return false;">
 						</div>
 
-						<button type="button" class="layui-btn" onclick="search()">${commonStr.search}</button>
+						<button type="button" class="layui-btn layui-btn-sm" onclick="search()">${commonStr.search}</button>
 						
 						<div class="layui-inline">
 							<div class="layui-form-mid layui-word-aux proxyHttp">${certStr.tips}</div>
@@ -52,7 +51,7 @@
 					<input type="hidden" name="limit" value="${page.limit}">
 				</form>
 
-				<table class="layui-table layui-form">
+				<table class="layui-table layui-form" lay-size="sm">
 					<thead>
 						<tr>
 							<th>${certStr.domain}</th>
@@ -309,7 +308,7 @@
 
 				<div class="layui-form-item">
 					<div>${certStr.dnsDescr}</div>
-					<table class="layui-table layui-form">
+					<table class="layui-table layui-form" lay-size="sm">
 						<thead>
 							<tr>
 								<th>${certStr.hostRecords}</th>

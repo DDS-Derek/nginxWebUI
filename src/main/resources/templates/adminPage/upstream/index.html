@@ -61,25 +61,25 @@
 				<form action="${ctx}/adminPage/upstream" id="searchForm" method="post">
 					<div class="layui-form">
 						<div class="layui-inline">
-							<button type="button" class="layui-btn layui-btn-normal" onclick="add()">${upstreamStr.add}</button>
+							<button type="button" class="layui-btn layui-btn-sm layui-btn-normal" onclick="add()">${upstreamStr.add}</button>
 						</div>
 
 						<div class="layui-inline">
 							<label class="layui-form-label">${upstreamStr.keywords}</label>
 						</div>
 						<div class="layui-input-inline">
-							<input type="text" name="keywords" class="layui-input" value="${keywords}" onkeydown="if(event.keyCode==13)return false;">
+							<input type="text" name="keywords" class="layui-input layui-input-sm" value="${keywords}" onkeydown="if(event.keyCode==13)return false;">
 						</div>
 
-						<button type="button" class="layui-btn" onclick="search()">${commonStr.search}</button>
+						<button type="button" class="layui-btn layui-btn-sm" onclick="search()">${commonStr.search}</button>
 
-						<button type="button" class="layui-btn layui-btn-normal" onclick="upstreamMonitor()">${upstreamStr.upstreamMonitor}</button>
+						<button type="button" class="layui-btn layui-btn-sm layui-btn-normal" onclick="upstreamMonitor()">${upstreamStr.upstreamMonitor}</button>
 						<input type="hidden" name="curr" value="${page.curr}">
 						<input type="hidden" name="limit" value="${page.limit}">
 					</div>
 				</form>
 
-				<table class="layui-table layui-form" >
+				<table class="layui-table layui-form" lay-size="sm">
 					<thead>
 						<tr>
 							<th>${upstreamStr.proxyType}</th>
@@ -188,7 +188,7 @@
 
 				<div class="layui-form-item">
 
-					<table class="layui-table">
+					<table class="layui-table" lay-size="sm">
 						<thead>
 							<tr>
 								<th>ip <span class="red">*</span></th>
@@ -271,7 +271,7 @@
 			</div>
 			<div class="layui-form-item">
 				<input type="hidden" id="targertId">
-				<table class="layui-table">
+				<table class="layui-table" lay-size="sm">
 					<thead>
 						<tr>
 							<th>${commonStr.name}</th>

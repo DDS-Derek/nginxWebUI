@@ -20,17 +20,17 @@
 				<form action="${ctx}/adminPage/stream" id="searchForm" method="post">
 					<div class="layui-form">
 						<div class="layui-inline">
-							<button type="button" class="layui-btn layui-btn-normal" onclick="add()">${stream.add}</button> 
+							<button type="button" class="layui-btn layui-btn-sm layui-btn-normal" onclick="add()">${stream.add}</button> 
 							
-							<button type="button" class="layui-btn" onclick="selectTemplateAsStream()">${upstreamStr.selectTemplateAsParam}</button>
+							<button type="button" class="layui-btn layui-btn-sm" onclick="selectTemplateAsStream()">${upstreamStr.selectTemplateAsParam}</button>
 							
-							<button type="button" class="layui-btn layui-btn-normal" onclick="preview(null,'stream')">${commonStr.preview}</button>
+							<button type="button" class="layui-btn layui-btn-sm layui-btn-normal" onclick="preview(null,'stream')">${commonStr.preview}</button>
 							
 						</div>
 					</div>
 				</form>
 
-				<table class="layui-table">
+				<table class="layui-table" lay-size="sm">
 					<thead>
 						<tr>
 							<th>${commonStr.name}</th>

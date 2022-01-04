@@ -20,14 +20,14 @@
 				<form action="${ctx}/adminPage/password" id="searchForm" method="post">
 					<div class="layui-form">
 						<div class="layui-inline">
-							<button type="button" class="layui-btn layui-btn-normal" onclick="add()">${commonStr.add}</button>
+							<button type="button" class="layui-btn layui-btn-sm layui-btn-normal" onclick="add()">${commonStr.add}</button>
 						</div>
 
 						<input type="hidden" name="curr" value="${page.curr}"> <input type="hidden" name="limit" value="${page.limit}">
 					</div>
 				</form>
 
-				<table class="layui-table">
+				<table class="layui-table" lay-size="sm">
 					<thead>
 						<tr>
 							<th>${passwordStr.name}</th>
