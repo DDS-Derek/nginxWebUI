@@ -56,8 +56,6 @@ public class ConfController extends BaseController {
 	@Inject
 	VersionConfig versionConfig;
 
-	@Inject("${project.version}")
-	String currentVersion;
 
 	@Mapping("")
 	public ModelAndView index(ModelAndView modelAndView) {
@@ -392,8 +390,8 @@ public class ConfController extends BaseController {
 	@Mapping(value = "update")
 	public JsonResult update() {
 		versionConfig.getNewVersion();
-		if (Integer.parseInt(currentVersion.replace(".", "").replace("v", "")) < Integer.parseInt(versionConfig.getVersion().getVersion().replace(".", "").replace("v", ""))) {
-			mainController.autoUpdate(versionConfig.getVersion().getUrl());
+		if (Integer.parseInt(versionConfig.currentVersion.replace(".", "").replace("v", "")) < Integer.parseInt(versionConfig.getNewVersion().getVersion().replace(".", "").replace("v", ""))) {
+			mainController.autoUpdate(versionConfig.getNewVersion().getUrl());
 			return renderSuccess(m.get("confStr.updateSuccess"));
 		} else {
 			return renderSuccess(m.get("confStr.noNeedUpdate"));

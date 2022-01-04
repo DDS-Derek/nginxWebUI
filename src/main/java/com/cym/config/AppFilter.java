@@ -60,8 +60,6 @@ public class AppFilter implements Filter {
 	@Inject
 	VersionConfig versionConfig;
 
-	@Inject("${project.version}")
-	String currentVersion;
 
 	@Inject
 	PropertiesUtils propertiesUtils;
@@ -224,18 +222,18 @@ public class AppFilter implements Filter {
 
 		ctx.attrSet("ctx", ctxStr);
 
-		ctx.attrSet("jsrandom", currentVersion);
-		ctx.attrSet("currentVersion", currentVersion);
+		ctx.attrSet("jsrandom", versionConfig.currentVersion);
+		ctx.attrSet("currentVersion", versionConfig.currentVersion);
 		ctx.attrSet("projectName", projectName);
 
 		ctx.attrSet("showAdmin", ctx.param("showAdmin"));
 		ctx.attrSet("admin", ctx.session("admin"));
 
 		// 显示版本更新
-		if (versionConfig.getVersion() != null) {
-			ctx.attrSet("newVersion", versionConfig.getVersion());
+		if (versionConfig.getNewVersion() != null) {
+			ctx.attrSet("newVersion", versionConfig.getNewVersion());
 
-			if (Integer.parseInt(currentVersion.replace(".", "").replace("v", "")) < Integer.parseInt(versionConfig.getVersion().getVersion().replace(".", "").replace("v", ""))) {
+			if (Integer.parseInt(versionConfig.currentVersion.replace(".", "").replace("v", "")) < Integer.parseInt(versionConfig.getNewVersion().getVersion().replace(".", "").replace("v", ""))) {
 				ctx.attrSet("hasNewVersion", 1);
 			}
 		}
