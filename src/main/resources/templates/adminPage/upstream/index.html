@@ -70,10 +70,13 @@
 						<div class="layui-input-inline">
 							<input type="text" name="keywords" class="layui-input layui-input-sm" value="${keywords}" onkeydown="if(event.keyCode==13)return false;">
 						</div>
-
+						<div class="layui-inline">
 						<button type="button" class="layui-btn layui-btn-sm" onclick="search()">${commonStr.search}</button>
-
+						</div>
+						<div class="layui-inline">
 						<button type="button" class="layui-btn layui-btn-sm layui-btn-normal" onclick="upstreamMonitor()">${upstreamStr.upstreamMonitor}</button>
+						</div>
+						
 						<input type="hidden" name="curr" value="${page.curr}">
 						<input type="hidden" name="limit" value="${page.limit}">
 					</div>
@@ -118,16 +121,28 @@
 								<td><input type="checkbox" name="switch" lay-filter="monitor" value="${ext.upstream.id}" ${(ext.upstream.monitor==1)?string( 'checked','')}  lay-text="ON|OFF" lay-skin="switch"></td>
 							</#if>
 							<td>
-								<button type="button" class="layui-btn layui-btn-sm layui-btn-normal" onclick="preview('${ext.upstream.id}','upstream')">${commonStr.preview}</button>
-									
-								<button class="layui-btn layui-btn-sm" onclick="edit('${ext.upstream.id}', false)">${commonStr.edit}</button>
-								<button class="layui-btn layui-btn-sm" onclick="clone('${ext.upstream.id}')">${commonStr.clone}</button>
+								<div class="layui-inline">
+								<button type="button" class="layui-btn layui-btn-sm layui-btn-normal " onclick="preview('${ext.upstream.id}','upstream')">${commonStr.preview}</button>
+								</div>
+								<div class="layui-inline">
+								<button class="layui-btn layui-btn-sm " onclick="edit('${ext.upstream.id}', false)">${commonStr.edit}</button>
+								</div>
 								
+								<div class="layui-inline">
+								<button class="layui-btn layui-btn-sm " onclick="clone('${ext.upstream.id}')">${commonStr.clone}</button>
+								</div>
 								
-								<button class="layui-btn layui-btn-danger layui-btn-sm" onclick="del('${ext.upstream.id}')">${commonStr.del}</button>
+								<div class="layui-inline">
+								<button class="layui-btn layui-btn-danger layui-btn-sm " onclick="del('${ext.upstream.id}')">${commonStr.del}</button>
+								</div>
 								
-								<button class="layui-btn layui-btn-normal layui-btn-sm" onclick="setOrder('${ext.upstream.id}', 1)">${commonStr.up}</button>
-								<button class="layui-btn layui-btn-normal layui-btn-sm" onclick="setOrder('${ext.upstream.id}', -1)">${commonStr.down}</button>
+								<div class="layui-inline">
+								<button class="layui-btn layui-btn-normal layui-btn-sm " onclick="setOrder('${ext.upstream.id}', 1)">${commonStr.up}</button>
+								</div>
+								
+								<div class="layui-inline">
+								<button class="layui-btn layui-btn-normal layui-btn-sm " onclick="setOrder('${ext.upstream.id}', -1)">${commonStr.down}</button>
+								</div>
 							</td>
 						</tr>
 						</#list>

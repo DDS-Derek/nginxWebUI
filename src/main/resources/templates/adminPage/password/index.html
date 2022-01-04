@@ -43,8 +43,12 @@
 							<td>${password.descr}</td>
 							<td>${password.path}</td>
 							<td>
-								<button class="layui-btn layui-btn-sm" onclick="edit('${password.id}')">${commonStr.edit}</button>
-								<button class="layui-btn layui-btn-danger layui-btn-sm" onclick="del('${password.id}')">${commonStr.del}</button>
+								<div class="layui-inline">
+								<button class="layui-btn layui-btn-sm " onclick="edit('${password.id}')">${commonStr.edit}</button>
+								</div>
+								<div class="layui-inline">
+								<button class="layui-btn layui-btn-danger layui-btn-sm " onclick="del('${password.id}')">${commonStr.del}</button>
+								</div>
 							</td>
 						</tr>
 						</#list>

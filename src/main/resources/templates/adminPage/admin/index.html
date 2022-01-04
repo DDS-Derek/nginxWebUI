@@ -74,8 +74,12 @@
 							<td><#if admin.api> ${commonStr.yes} </#if> <#if !admin.api> ${commonStr.no} </#if></td>
 							<td><#if admin.type==0> ${adminStr.adminUser} </#if> <#if admin.type==1> ${adminStr.limitUser} </#if> </td>
 							<td>
-								<button class="layui-btn layui-btn-sm" onclick="edit('${admin.id}')">${commonStr.edit}</button>
-								<button class="layui-btn layui-btn-danger layui-btn-sm" onclick="del('${admin.id}')">${commonStr.del}</button>
+								<div class="layui-inline">
+									<button class="layui-btn layui-btn-sm" onclick="edit('${admin.id}')">${commonStr.edit}</button>
+								</div>
+								<div class="layui-inline">
+									<button class="layui-btn layui-btn-danger layui-btn-sm" onclick="del('${admin.id}')">${commonStr.del}</button>
+								</div>
 							</td>
 						</tr>
 						</#list>

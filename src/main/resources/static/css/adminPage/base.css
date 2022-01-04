@@ -66,8 +66,3 @@ textarea {
 .layui-input-sm {
 	height: 30px;
 } 
-
-/* btn间隔 */
-.layui-btn+.layui-btn {
-	margin-left: 3px;
-}

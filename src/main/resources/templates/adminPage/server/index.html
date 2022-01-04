@@ -42,7 +42,7 @@
 
 .blk {
 	display: inline-block;
-	width: 105px;
+	width: 85px;
 	text-align: right;
 }
 
@@ -110,9 +110,10 @@
 						<div class="layui-inline">
 							<input type="text" name="keywords" class="layui-input layui-input-sm"  value="${keywords}" onkeydown="if(event.keyCode==13)return false;">
 						</div>
-
-						<button type="button" class="layui-btn layui-btn-sm" onclick="search()">${commonStr.search}</button>
-
+						
+						<div class="layui-inline">
+							<button type="button" class="layui-btn layui-btn-sm" onclick="search()">${commonStr.search}</button>
+						</div>
 
 						<input type="hidden" name="curr" value="${page.curr}">
 						<input type="hidden" name="limit" value="${page.limit}">
@@ -194,14 +195,29 @@
 
 
 								<td>
-									<button type="button" class="layui-btn layui-btn-sm layui-btn-normal" onclick="preview('${ext.server.id}','server')">${commonStr.preview}</button>
+									<div class="layui-inline">
+									<button type="button" class="layui-btn layui-btn-sm layui-btn-normal " onclick="preview('${ext.server.id}','server')">${commonStr.preview}</button>
+									</div>
 									
-									<button type="button" class="layui-btn layui-btn-sm" onclick="edit('${ext.server.id}', false)">${commonStr.edit}</button>
-									<button type="button" class="layui-btn layui-btn-sm" onclick="clone('${ext.server.id}')">${commonStr.clone}</button>
-									<button type="button" class="layui-btn layui-btn-danger layui-btn-sm" onclick="del('${ext.server.id}')">${commonStr.del}</button>
+									<div class="layui-inline">
+									<button type="button" class="layui-btn layui-btn-sm " onclick="edit('${ext.server.id}', false)">${commonStr.edit}</button>
+									</div>
 									
-									<button class="layui-btn layui-btn-normal layui-btn-sm" onclick="setOrder('${ext.server.id}', 1)">${commonStr.up}</button>
-									<button class="layui-btn layui-btn-normal layui-btn-sm" onclick="setOrder('${ext.server.id}', -1)">${commonStr.down}</button>
+									<div class="layui-inline">
+									<button type="button" class="layui-btn layui-btn-sm " onclick="clone('${ext.server.id}')">${commonStr.clone}</button>
+									</div>
+									
+									<div class="layui-inline">
+									<button type="button" class="layui-btn layui-btn-danger layui-btn-sm " onclick="del('${ext.server.id}')">${commonStr.del}</button>
+									</div>
+									
+									<div class="layui-inline">
+									<button class="layui-btn layui-btn-normal layui-btn-sm " onclick="setOrder('${ext.server.id}', 1)">${commonStr.up}</button>
+									</div>
+									
+									<div class="layui-inline">
+									<button class="layui-btn layui-btn-normal layui-btn-sm " onclick="setOrder('${ext.server.id}', -1)">${commonStr.down}</button>
+									</div>
 								</td>
 							</tr>
 							</#list>
