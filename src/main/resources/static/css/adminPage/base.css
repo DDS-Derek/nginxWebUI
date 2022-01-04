@@ -60,9 +60,15 @@ textarea {
 }
 
 .layui-form-switch {
-	margin-top: 0px;
+	margin-top: 3px;
+	margin-bottom: 3px;
 }
 
 .layui-input-sm {
 	height: 30px;
 } 
+
+.layui-btn{
+	margin-top: 1px;
+	margin-bottom: 1px;
+}
