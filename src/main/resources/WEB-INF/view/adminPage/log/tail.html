@@ -37,7 +37,7 @@
 			var ctxWs = `${ctxWs}`;
 			
 			var guid = Math.random();
-			var websocket = new WebSocket(protocol + ctxWs + `/adminPage/logTail/websocket?id=${id}&guid=` + guid);
+			var websocket = new WebSocket(protocol + ctxWs + `/adminPage/logTail/${id}/` + guid);
 			websocket.onmessage = function(event) {
 				if(run){
 					// 接收服务端的实时日志并添加到HTML页面中
