@@ -16,19 +16,18 @@ public class Doc {
 	public void generate() {
 		ApiConfig config = new ApiConfig();
 
-		config.setServerUrl("http://your_ip:8080");
+		config.setServerUrl("http://your_ip:port");
 
 		// 设置用md5加密html文件名,不设置为true，html的文件名将直接为controller的名称
-		config.setMd5EncryptedHtmlName(true);
-		config.setStrict(false);// true会严格要求注释，推荐设置true
+		config.setStrict(true);// true会严格要求注释，推荐设置true
 		config.setOutPath(DocGlobalConstants.HTML_DOC_OUT_PATH);// 输出到static/doc下
 
 		// 不指定SourcePaths默认加载代码为项目src/main/java下的,如果项目的某一些实体来自外部代码可以一起加载
 		config.setSourceCodePaths(//
-				SourceCodePath.path().setDesc("smart-doc").setPath("src/main/java/com/cym/controller/api/"), //
-				SourceCodePath.path().setDesc("smart-doc").setPath("src/main/java/com/cym/model/"), //
-				SourceCodePath.path().setDesc("smart-doc").setPath("src/main/java/com/cym/sqlhelper/"), //
-				SourceCodePath.path().setDesc("smart-doc").setPath("src/main/java/com/cym/utils/") //
+				SourceCodePath.path().setPath("src/main/java/com/cym/controller/api/"), //
+				SourceCodePath.path().setPath("src/main/java/com/cym/model/"), //
+				SourceCodePath.path().setPath("src/main/java/com/cym/sqlhelper/"), //
+				SourceCodePath.path().setPath("src/main/java/com/cym/utils/") //
 		);
 
 		long start = System.currentTimeMillis();
