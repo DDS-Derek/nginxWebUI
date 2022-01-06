@@ -177,20 +177,20 @@ public class InitConfig {
 	 * 
 	 * @return
 	 */
-	private Boolean inDocker() {
-		List<String> rs = RuntimeUtil.execForLines("cat /proc/1/cgroup");
-		for (String str : rs) {
-			if (str.contains("docker")) {
-				logger.info("I am in docker");
-				return true;
-			}
-			if (str.contains("kubepods")) {
-				logger.info("I am in k8s");
-				return true;
-			}
-		}
-		logger.info("I am not in docker");
-		return false;
-	}
+//	private Boolean inDocker() {
+//		List<String> rs = RuntimeUtil.execForLines("cat /proc/1/cgroup");
+//		for (String str : rs) {
+//			if (str.contains("docker")) {
+//				logger.info("I am in docker");
+//				return true;
+//			}
+//			if (str.contains("kubepods")) {
+//				logger.info("I am in k8s");
+//				return true;
+//			}
+//		}
+//		logger.info("I am not in docker");
+//		return false;
+//	}
 
 }
