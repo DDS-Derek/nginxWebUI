@@ -6,14 +6,14 @@
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
     <meta http-equiv="Pragma" content="no-cache" />
     <meta http-equiv="Expires" content="0" />
-    <link rel="stylesheet" href="markdown.css?v=1640833897836"/>
+    <link rel="stylesheet" href="markdown.css?v=1641432279456"/>
     <title>反向代理(server)接口</title>
 </head>
 <body>
 <div class="markdown-body">
     <h1>反向代理(server)接口</h1>
 <h2>获取server分页列表</h2>
-<p><strong>URL:</strong> <code>http://your_ip:8080/api/server/getPage</code></p>
+<p><strong>URL:</strong> <code>http://your_ip:port/api/server/getPage</code></p>
 <p><strong>Type:</strong> <code>ANY</code></p>
 <p><strong>Content-Type:</strong> <code>application/x-www-form-urlencoded;charset=utf-8</code></p>
 <p><strong>Description:</strong> 获取server分页列表</p>
@@ -29,7 +29,7 @@
 </tbody>
 </table>
 <p><strong>Request-example:</strong></p>
-<pre><code>curl   -i http://your_ip:8080/api/server/getPage?limit=10&amp;keywords=kgs3xu&amp;current=zlv31f
+<pre><code>curl   -i http://your_ip:port/api/server/getPage?current=aiiof6&amp;keywords=sqbwlv&amp;limit=10
 </code></pre>
 <p><strong>Response-fields:</strong></p>
 <table>
@@ -67,38 +67,38 @@
 <p><strong>Response-example:</strong></p>
 <pre><code>{
 	&quot;success&quot;:true,
-	&quot;status&quot;:&quot;572ieo&quot;,
-	&quot;msg&quot;:&quot;uoyix1&quot;,
+	&quot;status&quot;:&quot;srwv6w&quot;,
+	&quot;msg&quot;:&quot;1uddhz&quot;,
 	&quot;obj&quot;:{
-		&quot;count&quot;:413,
-		&quot;curr&quot;:146,
+		&quot;count&quot;:472,
+		&quot;curr&quot;:209,
 		&quot;limit&quot;:10,
 		&quot;records&quot;:[
 			{
-				&quot;id&quot;:&quot;67&quot;,
-				&quot;serverName&quot;:&quot;炎彬.沈&quot;,
-				&quot;listen&quot;:&quot;u53k3e&quot;,
-				&quot;def&quot;:267,
-				&quot;rewrite&quot;:424,
-				&quot;rewriteListen&quot;:&quot;3joos5&quot;,
-				&quot;ssl&quot;:493,
-				&quot;http2&quot;:508,
-				&quot;proxyProtocol&quot;:158,
-				&quot;pem&quot;:&quot;eb3zbu&quot;,
-				&quot;key&quot;:&quot;o3swcs&quot;,
-				&quot;proxyType&quot;:678,
-				&quot;proxyUpstreamId&quot;:&quot;67&quot;,
+				&quot;id&quot;:&quot;75&quot;,
+				&quot;serverName&quot;:&quot;鸿煊.廖&quot;,
+				&quot;listen&quot;:&quot;ft8yxl&quot;,
+				&quot;def&quot;:121,
+				&quot;rewrite&quot;:289,
+				&quot;rewriteListen&quot;:&quot;xlw6rs&quot;,
+				&quot;ssl&quot;:121,
+				&quot;http2&quot;:644,
+				&quot;proxyProtocol&quot;:710,
+				&quot;pem&quot;:&quot;rc61ca&quot;,
+				&quot;key&quot;:&quot;9a9bum&quot;,
+				&quot;proxyType&quot;:81,
+				&quot;proxyUpstreamId&quot;:&quot;75&quot;,
 				&quot;enable&quot;:true,
-				&quot;descr&quot;:&quot;f2ozyj&quot;,
-				&quot;protocols&quot;:&quot;2dfw7f&quot;,
-				&quot;passwordId&quot;:&quot;67&quot;
+				&quot;descr&quot;:&quot;azcx2c&quot;,
+				&quot;protocols&quot;:&quot;l1jho7&quot;,
+				&quot;passwordId&quot;:&quot;75&quot;
 			}
 		]
 	}
 }
 </code></pre>
 <h2>添加或编辑server</h2>
-<p><strong>URL:</strong> <code>http://your_ip:8080/api/server/insertOrUpdate</code></p>
+<p><strong>URL:</strong> <code>http://your_ip:port/api/server/insertOrUpdate</code></p>
 <p><strong>Type:</strong> <code>ANY</code></p>
 <p><strong>Content-Type:</strong> <code>application/x-www-form-urlencoded;charset=utf-8</code></p>
 <p><strong>Description:</strong> 添加或编辑server</p>
@@ -128,7 +128,7 @@
 </tbody>
 </table>
 <p><strong>Request-example:</strong></p>
-<pre><code>curl   -i http://your_ip:8080/api/server/insertOrUpdate?http2=177&amp;createTime=1640833899378&amp;proxyProtocol=599&amp;serverName=炎彬.沈&amp;rewrite=669&amp;pemStr=hk3mun&amp;listen=jo2562&amp;descr=7ue43b&amp;def=811&amp;id=67&amp;pem=73p7mp&amp;proxyUpstreamId=67&amp;protocols=c65mda&amp;updateTime=1640833899378&amp;passwordId=67&amp;key=4oceut&amp;enable=true&amp;keyStr=q4txgi&amp;seq=109&amp;proxyType=243&amp;ssl=621&amp;rewriteListen=bb2xzr
+<pre><code>curl   -i http://your_ip:port/api/server/insertOrUpdate?rewrite=86&amp;enable=true&amp;createTime=1641432281219&amp;def=489&amp;updateTime=1641432281219&amp;protocols=ob7zws&amp;id=75&amp;seq=18&amp;key=tqojgo&amp;rewriteListen=l44tmc&amp;proxyType=277&amp;pem=oqoyun&amp;descr=7ieq3k&amp;listen=vkzmn4&amp;pemStr=2mpa3s&amp;serverName=鸿煊.廖&amp;http2=97&amp;ssl=22&amp;keyStr=l5vzhb&amp;passwordId=75&amp;proxyProtocol=479&amp;proxyUpstreamId=75
 </code></pre>
 <p><strong>Response-fields:</strong></p>
 <table>
@@ -145,15 +145,15 @@
 <p><strong>Response-example:</strong></p>
 <pre><code>{
 	&quot;success&quot;:true,
-	&quot;status&quot;:&quot;kp3q0y&quot;,
-	&quot;msg&quot;:&quot;7ru2wf&quot;,
+	&quot;status&quot;:&quot;xkjsxc&quot;,
+	&quot;msg&quot;:&quot;6wqy7f&quot;,
 	&quot;obj&quot;:{
 		
 	}
 }
 </code></pre>
 <h2>删除server</h2>
-<p><strong>URL:</strong> <code>http://your_ip:8080/api/server/delete</code></p>
+<p><strong>URL:</strong> <code>http://your_ip:port/api/server/delete</code></p>
 <p><strong>Type:</strong> <code>ANY</code></p>
 <p><strong>Content-Type:</strong> <code>application/x-www-form-urlencoded;charset=utf-8</code></p>
 <p><strong>Description:</strong> 删除server</p>
@@ -167,7 +167,7 @@
 </tbody>
 </table>
 <p><strong>Request-example:</strong></p>
-<pre><code>curl   -i http://your_ip:8080/api/server/delete?id=67
+<pre><code>curl   -i http://your_ip:port/api/server/delete?id=75
 </code></pre>
 <p><strong>Response-fields:</strong></p>
 <table>
@@ -184,15 +184,15 @@
 <p><strong>Response-example:</strong></p>
 <pre><code>{
 	&quot;success&quot;:true,
-	&quot;status&quot;:&quot;knvasu&quot;,
-	&quot;msg&quot;:&quot;t7zeb6&quot;,
+	&quot;status&quot;:&quot;lrnbo6&quot;,
+	&quot;msg&quot;:&quot;u70abc&quot;,
 	&quot;obj&quot;:{
 		
 	}
 }
 </code></pre>
 <h2>根据serverId获取location列表</h2>
-<p><strong>URL:</strong> <code>http://your_ip:8080/api/server/getLocationByServerId</code></p>
+<p><strong>URL:</strong> <code>http://your_ip:port/api/server/getLocationByServerId</code></p>
 <p><strong>Type:</strong> <code>ANY</code></p>
 <p><strong>Content-Type:</strong> <code>application/x-www-form-urlencoded;charset=utf-8</code></p>
 <p><strong>Description:</strong> 根据serverId获取location列表</p>
@@ -206,7 +206,7 @@
 </tbody>
 </table>
 <p><strong>Request-example:</strong></p>
-<pre><code>curl   -i http://your_ip:8080/api/server/getLocationByServerId?serverId=67
+<pre><code>curl   -i http://your_ip:port/api/server/getLocationByServerId?serverId=75
 </code></pre>
 <p><strong>Response-fields:</strong></p>
 <table>
@@ -236,29 +236,29 @@
 <p><strong>Response-example:</strong></p>
 <pre><code>{
 	&quot;success&quot;:true,
-	&quot;status&quot;:&quot;itaaca&quot;,
-	&quot;msg&quot;:&quot;hd0drn&quot;,
+	&quot;status&quot;:&quot;fknufj&quot;,
+	&quot;msg&quot;:&quot;v4ofjl&quot;,
 	&quot;obj&quot;:[
 		{
-			&quot;id&quot;:&quot;67&quot;,
-			&quot;serverId&quot;:&quot;67&quot;,
-			&quot;path&quot;:&quot;9jxb4q&quot;,
-			&quot;type&quot;:26,
-			&quot;value&quot;:&quot;a9tjpp&quot;,
-			&quot;upstreamType&quot;:&quot;qgy4ll&quot;,
-			&quot;upstreamId&quot;:&quot;67&quot;,
-			&quot;upstreamPath&quot;:&quot;381z3w&quot;,
-			&quot;rootPath&quot;:&quot;x77vdt&quot;,
-			&quot;rootPage&quot;:&quot;1c0a7i&quot;,
-			&quot;rootType&quot;:&quot;iue4f0&quot;,
-			&quot;header&quot;:813,
-			&quot;websocket&quot;:422
+			&quot;id&quot;:&quot;75&quot;,
+			&quot;serverId&quot;:&quot;75&quot;,
+			&quot;path&quot;:&quot;pyx5bu&quot;,
+			&quot;type&quot;:634,
+			&quot;value&quot;:&quot;u5tn03&quot;,
+			&quot;upstreamType&quot;:&quot;mxte36&quot;,
+			&quot;upstreamId&quot;:&quot;75&quot;,
+			&quot;upstreamPath&quot;:&quot;f28kb4&quot;,
+			&quot;rootPath&quot;:&quot;c9n0da&quot;,
+			&quot;rootPage&quot;:&quot;cempmk&quot;,
+			&quot;rootType&quot;:&quot;cni4h0&quot;,
+			&quot;header&quot;:979,
+			&quot;websocket&quot;:86
 		}
 	]
 }
 </code></pre>
 <h2>添加或编辑location</h2>
-<p><strong>URL:</strong> <code>http://your_ip:8080/api/server/insertOrUpdateLocation</code></p>
+<p><strong>URL:</strong> <code>http://your_ip:port/api/server/insertOrUpdateLocation</code></p>
 <p><strong>Type:</strong> <code>ANY</code></p>
 <p><strong>Content-Type:</strong> <code>application/x-www-form-urlencoded;charset=utf-8</code></p>
 <p><strong>Description:</strong> 添加或编辑location</p>
@@ -284,7 +284,7 @@
 </tbody>
 </table>
 <p><strong>Request-example:</strong></p>
-<pre><code>curl   -i http://your_ip:8080/api/server/insertOrUpdateLocation?path=r6jxp4&amp;rootPage=2v2vic&amp;createTime=1640833899378&amp;type=510&amp;value=wx20dn&amp;upstreamId=67&amp;id=67&amp;rootPath=chs327&amp;header=728&amp;websocket=63&amp;upstreamType=gpo14r&amp;locationParamJson=o38g0r&amp;rootType=dhwj02&amp;serverId=67&amp;upstreamPath=bw6uia&amp;updateTime=1640833899378
+<pre><code>curl   -i http://your_ip:port/api/server/insertOrUpdateLocation?upstreamPath=1antzb&amp;rootPage=thg8qs&amp;createTime=1641432281219&amp;path=5wv8oc&amp;value=fgnwnr&amp;type=493&amp;locationParamJson=763735&amp;header=960&amp;serverId=75&amp;id=75&amp;rootType=r4w4it&amp;websocket=462&amp;upstreamType=nti2vl&amp;rootPath=v9k7zl&amp;upstreamId=75&amp;updateTime=1641432281219
 </code></pre>
 <p><strong>Response-fields:</strong></p>
 <table>
@@ -301,15 +301,15 @@
 <p><strong>Response-example:</strong></p>
 <pre><code>{
 	&quot;success&quot;:true,
-	&quot;status&quot;:&quot;j5nzjn&quot;,
-	&quot;msg&quot;:&quot;nrfut4&quot;,
+	&quot;status&quot;:&quot;tejyqh&quot;,
+	&quot;msg&quot;:&quot;rmawsq&quot;,
 	&quot;obj&quot;:{
 		
 	}
 }
 </code></pre>
 <h2>删除location</h2>
-<p><strong>URL:</strong> <code>http://your_ip:8080/api/server/deleteLocation</code></p>
+<p><strong>URL:</strong> <code>http://your_ip:port/api/server/deleteLocation</code></p>
 <p><strong>Type:</strong> <code>ANY</code></p>
 <p><strong>Content-Type:</strong> <code>application/x-www-form-urlencoded;charset=utf-8</code></p>
 <p><strong>Description:</strong> 删除location</p>
@@ -323,7 +323,7 @@
 </tbody>
 </table>
 <p><strong>Request-example:</strong></p>
-<pre><code>curl   -i http://your_ip:8080/api/server/deleteLocation?id=67
+<pre><code>curl   -i http://your_ip:port/api/server/deleteLocation?id=75
 </code></pre>
 <p><strong>Response-fields:</strong></p>
 <table>
@@ -340,8 +340,8 @@
 <p><strong>Response-example:</strong></p>
 <pre><code>{
 	&quot;success&quot;:true,
-	&quot;status&quot;:&quot;t4y2jr&quot;,
-	&quot;msg&quot;:&quot;i6fxxf&quot;,
+	&quot;status&quot;:&quot;8okzvj&quot;,
+	&quot;msg&quot;:&quot;08vfzs&quot;,
 	&quot;obj&quot;:{
 		
 	}
@@ -349,7 +349,7 @@
 </code></pre>
 
     <footer class="page-footer">
-        <span class="copyright">Generated by smart-doc at 2021-12-30 11:11:37</span>
+        <span class="copyright">Generated by smart-doc at 2022-01-06 09:24:39</span>
         <span class="footer-modification">Suggestions, contact, support and error reporting on
             <a href="https://gitee.com/smart-doc-team/smart-doc" target="_blank">Gitee</a> or
             <a href="https://github.com/smart-doc-group/smart-doc" target="_blank">Github</a>

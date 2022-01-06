@@ -6,14 +6,14 @@
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
     <meta http-equiv="Pragma" content="no-cache" />
     <meta http-equiv="Expires" content="0" />
-    <link rel="stylesheet" href="markdown.css?v=1640833897836"/>
+    <link rel="stylesheet" href="markdown.css?v=1641432279456"/>
     <title>负载均衡(upstream)接口</title>
 </head>
 <body>
 <div class="markdown-body">
     <h1>负载均衡(upstream)接口</h1>
 <h2>获取upstream分页列表</h2>
-<p><strong>URL:</strong> <code>http://your_ip:8080/api/upstream/getPage</code></p>
+<p><strong>URL:</strong> <code>http://your_ip:port/api/upstream/getPage</code></p>
 <p><strong>Type:</strong> <code>ANY</code></p>
 <p><strong>Content-Type:</strong> <code>application/x-www-form-urlencoded;charset=utf-8</code></p>
 <p><strong>Description:</strong> 获取upstream分页列表</p>
@@ -29,7 +29,7 @@
 </tbody>
 </table>
 <p><strong>Request-example:</strong></p>
-<pre><code>curl   -i http://your_ip:8080/api/upstream/getPage?keywords=o1ksma&amp;current=mbwpny&amp;limit=10
+<pre><code>curl   -i http://your_ip:port/api/upstream/getPage?limit=10&amp;keywords=r9yx2u&amp;current=e5yn31
 </code></pre>
 <p><strong>Response-fields:</strong></p>
 <table>
@@ -55,26 +55,26 @@
 <p><strong>Response-example:</strong></p>
 <pre><code>{
 	&quot;success&quot;:true,
-	&quot;status&quot;:&quot;gi2buf&quot;,
-	&quot;msg&quot;:&quot;e4ysdi&quot;,
+	&quot;status&quot;:&quot;phoqeb&quot;,
+	&quot;msg&quot;:&quot;d0qgeb&quot;,
 	&quot;obj&quot;:{
-		&quot;count&quot;:634,
-		&quot;curr&quot;:722,
+		&quot;count&quot;:610,
+		&quot;curr&quot;:447,
 		&quot;limit&quot;:10,
 		&quot;records&quot;:[
 			{
-				&quot;id&quot;:&quot;67&quot;,
-				&quot;name&quot;:&quot;炎彬.沈&quot;,
-				&quot;tactics&quot;:&quot;r2b6il&quot;,
-				&quot;proxyType&quot;:421,
-				&quot;monitor&quot;:103
+				&quot;id&quot;:&quot;75&quot;,
+				&quot;name&quot;:&quot;鸿煊.廖&quot;,
+				&quot;tactics&quot;:&quot;bmkapw&quot;,
+				&quot;proxyType&quot;:796,
+				&quot;monitor&quot;:118
 			}
 		]
 	}
 }
 </code></pre>
 <h2>添加或编辑upstream</h2>
-<p><strong>URL:</strong> <code>http://your_ip:8080/api/upstream/insertOrUpdate</code></p>
+<p><strong>URL:</strong> <code>http://your_ip:port/api/upstream/insertOrUpdate</code></p>
 <p><strong>Type:</strong> <code>ANY</code></p>
 <p><strong>Content-Type:</strong> <code>application/x-www-form-urlencoded;charset=utf-8</code></p>
 <p><strong>Description:</strong> 添加或编辑upstream</p>
@@ -92,7 +92,7 @@
 </tbody>
 </table>
 <p><strong>Request-example:</strong></p>
-<pre><code>curl   -i http://your_ip:8080/api/upstream/insertOrUpdate?createTime=1640833899378&amp;name=炎彬.沈&amp;id=67&amp;tactics=gr0ytk&amp;proxyType=474&amp;monitor=774&amp;seq=329&amp;updateTime=1640833899378
+<pre><code>curl   -i http://your_ip:port/api/upstream/insertOrUpdate?createTime=1641432281219&amp;seq=817&amp;name=鸿煊.廖&amp;tactics=f2f337&amp;proxyType=513&amp;id=75&amp;monitor=485&amp;updateTime=1641432281219
 </code></pre>
 <p><strong>Response-fields:</strong></p>
 <table>
@@ -109,15 +109,15 @@
 <p><strong>Response-example:</strong></p>
 <pre><code>{
 	&quot;success&quot;:true,
-	&quot;status&quot;:&quot;h8l1xo&quot;,
-	&quot;msg&quot;:&quot;5eloc5&quot;,
+	&quot;status&quot;:&quot;3swsxu&quot;,
+	&quot;msg&quot;:&quot;ac60b4&quot;,
 	&quot;obj&quot;:{
 		
 	}
 }
 </code></pre>
 <h2>删除upstream</h2>
-<p><strong>URL:</strong> <code>http://your_ip:8080/api/upstream/delete</code></p>
+<p><strong>URL:</strong> <code>http://your_ip:port/api/upstream/delete</code></p>
 <p><strong>Type:</strong> <code>ANY</code></p>
 <p><strong>Content-Type:</strong> <code>application/x-www-form-urlencoded;charset=utf-8</code></p>
 <p><strong>Description:</strong> 删除upstream</p>
@@ -131,7 +131,7 @@
 </tbody>
 </table>
 <p><strong>Request-example:</strong></p>
-<pre><code>curl   -i http://your_ip:8080/api/upstream/delete?id=67
+<pre><code>curl   -i http://your_ip:port/api/upstream/delete?id=75
 </code></pre>
 <p><strong>Response-fields:</strong></p>
 <table>
@@ -148,15 +148,15 @@
 <p><strong>Response-example:</strong></p>
 <pre><code>{
 	&quot;success&quot;:true,
-	&quot;status&quot;:&quot;9ymrzr&quot;,
-	&quot;msg&quot;:&quot;6zfutd&quot;,
+	&quot;status&quot;:&quot;q0r2mj&quot;,
+	&quot;msg&quot;:&quot;udhso1&quot;,
 	&quot;obj&quot;:{
 		
 	}
 }
 </code></pre>
 <h2>根据upstreamId获取server列表</h2>
-<p><strong>URL:</strong> <code>http://your_ip:8080/api/upstream/getServerByUpstreamId</code></p>
+<p><strong>URL:</strong> <code>http://your_ip:port/api/upstream/getServerByUpstreamId</code></p>
 <p><strong>Type:</strong> <code>ANY</code></p>
 <p><strong>Content-Type:</strong> <code>application/x-www-form-urlencoded;charset=utf-8</code></p>
 <p><strong>Description:</strong> 根据upstreamId获取server列表</p>
@@ -170,7 +170,7 @@
 </tbody>
 </table>
 <p><strong>Request-example:</strong></p>
-<pre><code>curl   -i http://your_ip:8080/api/upstream/getServerByUpstreamId?upstreamId=67
+<pre><code>curl   -i http://your_ip:port/api/upstream/getServerByUpstreamId?upstreamId=75
 </code></pre>
 <p><strong>Response-fields:</strong></p>
 <table>
@@ -196,25 +196,25 @@
 <p><strong>Response-example:</strong></p>
 <pre><code>{
 	&quot;success&quot;:true,
-	&quot;status&quot;:&quot;2lgptu&quot;,
-	&quot;msg&quot;:&quot;gv253u&quot;,
+	&quot;status&quot;:&quot;pfjn56&quot;,
+	&quot;msg&quot;:&quot;r7gk6a&quot;,
 	&quot;obj&quot;:[
 		{
-			&quot;id&quot;:&quot;67&quot;,
-			&quot;upstreamId&quot;:&quot;67&quot;,
-			&quot;server&quot;:&quot;h9besc&quot;,
-			&quot;port&quot;:479,
-			&quot;weight&quot;:517,
-			&quot;failTimeout&quot;:867,
-			&quot;maxFails&quot;:75,
-			&quot;maxConns&quot;:50,
-			&quot;status&quot;:&quot;0th8su&quot;
+			&quot;id&quot;:&quot;75&quot;,
+			&quot;upstreamId&quot;:&quot;75&quot;,
+			&quot;server&quot;:&quot;x283q4&quot;,
+			&quot;port&quot;:370,
+			&quot;weight&quot;:154,
+			&quot;failTimeout&quot;:431,
+			&quot;maxFails&quot;:350,
+			&quot;maxConns&quot;:519,
+			&quot;status&quot;:&quot;tp92h6&quot;
 		}
 	]
 }
 </code></pre>
 <h2>添加或编辑server</h2>
-<p><strong>URL:</strong> <code>http://your_ip:8080/api/upstream/insertOrUpdateServer</code></p>
+<p><strong>URL:</strong> <code>http://your_ip:port/api/upstream/insertOrUpdateServer</code></p>
 <p><strong>Type:</strong> <code>ANY</code></p>
 <p><strong>Content-Type:</strong> <code>application/x-www-form-urlencoded;charset=utf-8</code></p>
 <p><strong>Description:</strong> 添加或编辑server</p>
@@ -236,7 +236,7 @@
 </tbody>
 </table>
 <p><strong>Request-example:</strong></p>
-<pre><code>curl   -i http://your_ip:8080/api/upstream/insertOrUpdateServer?maxFails=85&amp;status=dix7cl&amp;updateTime=1640833899378&amp;port=356&amp;upstreamId=67&amp;server=qy4zdg&amp;createTime=1640833899378&amp;monitorStatus=192&amp;weight=582&amp;maxConns=288&amp;failTimeout=860&amp;id=67
+<pre><code>curl   -i http://your_ip:port/api/upstream/insertOrUpdateServer?maxFails=186&amp;upstreamId=75&amp;weight=630&amp;monitorStatus=446&amp;id=75&amp;port=210&amp;createTime=1641432281219&amp;server=z1ebrk&amp;updateTime=1641432281219&amp;failTimeout=230&amp;maxConns=580&amp;status=qdxirm
 </code></pre>
 <p><strong>Response-fields:</strong></p>
 <table>
@@ -253,8 +253,8 @@
 <p><strong>Response-example:</strong></p>
 <pre><code>{
 	&quot;success&quot;:true,
-	&quot;status&quot;:&quot;5beabg&quot;,
-	&quot;msg&quot;:&quot;g0dzzf&quot;,
+	&quot;status&quot;:&quot;mg9tvh&quot;,
+	&quot;msg&quot;:&quot;hz9bnu&quot;,
 	&quot;obj&quot;:{
 		&quot;waring&quot;:&quot;You may have used non-display generics.&quot;
 	}
@@ -262,7 +262,7 @@
 </code></pre>
 
     <footer class="page-footer">
-        <span class="copyright">Generated by smart-doc at 2021-12-30 11:11:37</span>
+        <span class="copyright">Generated by smart-doc at 2022-01-06 09:24:39</span>
         <span class="footer-modification">Suggestions, contact, support and error reporting on
             <a href="https://gitee.com/smart-doc-team/smart-doc" target="_blank">Gitee</a> or
             <a href="https://github.com/smart-doc-group/smart-doc" target="_blank">Github</a>

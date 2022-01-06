@@ -6,20 +6,20 @@
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
     <meta http-equiv="Pragma" content="no-cache" />
     <meta http-equiv="Expires" content="0" />
-    <link rel="stylesheet" href="markdown.css?v=1640833897836"/>
+    <link rel="stylesheet" href="markdown.css?v=1641432279456"/>
     <title>基础参数接口</title>
 </head>
 <body>
 <div class="markdown-body">
     <h1>基础参数接口</h1>
 <h2>获取Http参数</h2>
-<p><strong>URL:</strong> <code>http://your_ip:8080/api/basic/getHttp</code></p>
+<p><strong>URL:</strong> <code>http://your_ip:port/api/basic/getHttp</code></p>
 <p><strong>Type:</strong> <code>ANY</code></p>
 <p><strong>Author:</strong> CYM</p>
 <p><strong>Content-Type:</strong> <code>application/x-www-form-urlencoded;charset=utf-8</code></p>
 <p><strong>Description:</strong> 获取Http参数</p>
 <p><strong>Request-example:</strong></p>
-<pre><code>curl -X ANY  -i http://your_ip:8080/api/basic/getHttp
+<pre><code>curl -X ANY  -i http://your_ip:port/api/basic/getHttp
 </code></pre>
 <p><strong>Response-fields:</strong></p>
 <table>
@@ -40,20 +40,20 @@
 <p><strong>Response-example:</strong></p>
 <pre><code>{
 	&quot;success&quot;:true,
-	&quot;status&quot;:&quot;19hprf&quot;,
-	&quot;msg&quot;:&quot;tw0mqm&quot;,
+	&quot;status&quot;:&quot;ziomf5&quot;,
+	&quot;msg&quot;:&quot;ffov7f&quot;,
 	&quot;obj&quot;:[
 		{
-			&quot;id&quot;:&quot;67&quot;,
-			&quot;name&quot;:&quot;炎彬.沈&quot;,
-			&quot;value&quot;:&quot;x7jsjz&quot;,
-			&quot;unit&quot;:&quot;9tzkhn&quot;
+			&quot;id&quot;:&quot;75&quot;,
+			&quot;name&quot;:&quot;鸿煊.廖&quot;,
+			&quot;value&quot;:&quot;1zk2iw&quot;,
+			&quot;unit&quot;:&quot;u2htzy&quot;
 		}
 	]
 }
 </code></pre>
 <h2>添加或编辑Http参数</h2>
-<p><strong>URL:</strong> <code>http://your_ip:8080/api/basic/insertOrUpdateHttp</code></p>
+<p><strong>URL:</strong> <code>http://your_ip:port/api/basic/insertOrUpdateHttp</code></p>
 <p><strong>Type:</strong> <code>ANY</code></p>
 <p><strong>Author:</strong> CYM</p>
 <p><strong>Content-Type:</strong> <code>application/x-www-form-urlencoded;charset=utf-8</code></p>
@@ -71,7 +71,7 @@
 </tbody>
 </table>
 <p><strong>Request-example:</strong></p>
-<pre><code>curl   -i http://your_ip:8080/api/basic/insertOrUpdateHttp?name=炎彬.沈&amp;createTime=1640833899378&amp;updateTime=1640833899378&amp;unit=4706em&amp;id=67&amp;seq=356&amp;value=qrfj1u
+<pre><code>curl   -i http://your_ip:port/api/basic/insertOrUpdateHttp?seq=820&amp;createTime=1641432281219&amp;updateTime=1641432281219&amp;unit=v45c5d&amp;value=z850k6&amp;id=75&amp;name=鸿煊.廖
 </code></pre>
 <p><strong>Response-fields:</strong></p>
 <table>
@@ -92,18 +92,18 @@
 <p><strong>Response-example:</strong></p>
 <pre><code>{
 	&quot;success&quot;:true,
-	&quot;status&quot;:&quot;lgt2lh&quot;,
-	&quot;msg&quot;:&quot;ex9eh0&quot;,
+	&quot;status&quot;:&quot;5e3f42&quot;,
+	&quot;msg&quot;:&quot;z5516s&quot;,
 	&quot;obj&quot;:{
-		&quot;id&quot;:&quot;67&quot;,
-		&quot;name&quot;:&quot;炎彬.沈&quot;,
-		&quot;value&quot;:&quot;px2vm8&quot;,
-		&quot;unit&quot;:&quot;ogtvbo&quot;
+		&quot;id&quot;:&quot;75&quot;,
+		&quot;name&quot;:&quot;鸿煊.廖&quot;,
+		&quot;value&quot;:&quot;t3kr56&quot;,
+		&quot;unit&quot;:&quot;ux1909&quot;
 	}
 }
 </code></pre>
 <h2>删除Http参数</h2>
-<p><strong>URL:</strong> <code>http://your_ip:8080/api/basic/delHttp</code></p>
+<p><strong>URL:</strong> <code>http://your_ip:port/api/basic/delHttp</code></p>
 <p><strong>Type:</strong> <code>ANY</code></p>
 <p><strong>Author:</strong> CYM</p>
 <p><strong>Content-Type:</strong> <code>application/x-www-form-urlencoded;charset=utf-8</code></p>
@@ -118,7 +118,7 @@
 </tbody>
 </table>
 <p><strong>Request-example:</strong></p>
-<pre><code>curl   -i http://your_ip:8080/api/basic/delHttp?id=67
+<pre><code>curl   -i http://your_ip:port/api/basic/delHttp?id=75
 </code></pre>
 <p><strong>Response-fields:</strong></p>
 <table>
@@ -135,21 +135,21 @@
 <p><strong>Response-example:</strong></p>
 <pre><code>{
 	&quot;success&quot;:true,
-	&quot;status&quot;:&quot;0uehfj&quot;,
-	&quot;msg&quot;:&quot;ktowsp&quot;,
+	&quot;status&quot;:&quot;5vog92&quot;,
+	&quot;msg&quot;:&quot;8or6b5&quot;,
 	&quot;obj&quot;:{
 		&quot;waring&quot;:&quot;You may have used non-display generics.&quot;
 	}
 }
 </code></pre>
 <h2>获取基础参数</h2>
-<p><strong>URL:</strong> <code>http://your_ip:8080/api/basic/getBasic</code></p>
+<p><strong>URL:</strong> <code>http://your_ip:port/api/basic/getBasic</code></p>
 <p><strong>Type:</strong> <code>ANY</code></p>
 <p><strong>Author:</strong> CYM</p>
 <p><strong>Content-Type:</strong> <code>application/x-www-form-urlencoded;charset=utf-8</code></p>
 <p><strong>Description:</strong> 获取基础参数</p>
 <p><strong>Request-example:</strong></p>
-<pre><code>curl -X ANY  -i http://your_ip:8080/api/basic/getBasic
+<pre><code>curl -X ANY  -i http://your_ip:port/api/basic/getBasic
 </code></pre>
 <p><strong>Response-fields:</strong></p>
 <table>
@@ -169,19 +169,19 @@
 <p><strong>Response-example:</strong></p>
 <pre><code>{
 	&quot;success&quot;:true,
-	&quot;status&quot;:&quot;q4k8o4&quot;,
-	&quot;msg&quot;:&quot;mcei69&quot;,
+	&quot;status&quot;:&quot;297ing&quot;,
+	&quot;msg&quot;:&quot;k130p7&quot;,
 	&quot;obj&quot;:[
 		{
-			&quot;id&quot;:&quot;67&quot;,
-			&quot;name&quot;:&quot;炎彬.沈&quot;,
-			&quot;value&quot;:&quot;fuleux&quot;
+			&quot;id&quot;:&quot;75&quot;,
+			&quot;name&quot;:&quot;鸿煊.廖&quot;,
+			&quot;value&quot;:&quot;38bu3k&quot;
 		}
 	]
 }
 </code></pre>
 <h2>添加或编辑基础参数</h2>
-<p><strong>URL:</strong> <code>http://your_ip:8080/api/basic/insertOrUpdateBasic</code></p>
+<p><strong>URL:</strong> <code>http://your_ip:port/api/basic/insertOrUpdateBasic</code></p>
 <p><strong>Type:</strong> <code>ANY</code></p>
 <p><strong>Author:</strong> CYM</p>
 <p><strong>Content-Type:</strong> <code>application/x-www-form-urlencoded;charset=utf-8</code></p>
@@ -198,7 +198,7 @@
 </tbody>
 </table>
 <p><strong>Request-example:</strong></p>
-<pre><code>curl   -i http://your_ip:8080/api/basic/insertOrUpdateBasic?seq=238&amp;name=炎彬.沈&amp;value=wcy0eh&amp;id=67&amp;updateTime=1640833899378&amp;createTime=1640833899378
+<pre><code>curl   -i http://your_ip:port/api/basic/insertOrUpdateBasic?seq=239&amp;id=75&amp;name=鸿煊.廖&amp;createTime=1641432281219&amp;value=653zww&amp;updateTime=1641432281219
 </code></pre>
 <p><strong>Response-fields:</strong></p>
 <table>
@@ -218,17 +218,17 @@
 <p><strong>Response-example:</strong></p>
 <pre><code>{
 	&quot;success&quot;:true,
-	&quot;status&quot;:&quot;t7ak50&quot;,
-	&quot;msg&quot;:&quot;602wba&quot;,
+	&quot;status&quot;:&quot;97i17z&quot;,
+	&quot;msg&quot;:&quot;wnhxnt&quot;,
 	&quot;obj&quot;:{
-		&quot;id&quot;:&quot;67&quot;,
-		&quot;name&quot;:&quot;炎彬.沈&quot;,
-		&quot;value&quot;:&quot;gauhkq&quot;
+		&quot;id&quot;:&quot;75&quot;,
+		&quot;name&quot;:&quot;鸿煊.廖&quot;,
+		&quot;value&quot;:&quot;y7ld7r&quot;
 	}
 }
 </code></pre>
 <h2>删除基础参数</h2>
-<p><strong>URL:</strong> <code>http://your_ip:8080/api/basic/delBasic</code></p>
+<p><strong>URL:</strong> <code>http://your_ip:port/api/basic/delBasic</code></p>
 <p><strong>Type:</strong> <code>ANY</code></p>
 <p><strong>Author:</strong> CYM</p>
 <p><strong>Content-Type:</strong> <code>application/x-www-form-urlencoded;charset=utf-8</code></p>
@@ -243,7 +243,7 @@
 </tbody>
 </table>
 <p><strong>Request-example:</strong></p>
-<pre><code>curl   -i http://your_ip:8080/api/basic/delBasic?id=67
+<pre><code>curl   -i http://your_ip:port/api/basic/delBasic?id=75
 </code></pre>
 <p><strong>Response-fields:</strong></p>
 <table>
@@ -260,21 +260,21 @@
 <p><strong>Response-example:</strong></p>
 <pre><code>{
 	&quot;success&quot;:true,
-	&quot;status&quot;:&quot;vzr27e&quot;,
-	&quot;msg&quot;:&quot;ld3ker&quot;,
+	&quot;status&quot;:&quot;gm20gs&quot;,
+	&quot;msg&quot;:&quot;p48bkw&quot;,
 	&quot;obj&quot;:{
 		&quot;waring&quot;:&quot;You may have used non-display generics.&quot;
 	}
 }
 </code></pre>
 <h2>获取Stream参数</h2>
-<p><strong>URL:</strong> <code>http://your_ip:8080/api/basic/getStream</code></p>
+<p><strong>URL:</strong> <code>http://your_ip:port/api/basic/getStream</code></p>
 <p><strong>Type:</strong> <code>ANY</code></p>
 <p><strong>Author:</strong> CYM</p>
 <p><strong>Content-Type:</strong> <code>application/x-www-form-urlencoded;charset=utf-8</code></p>
 <p><strong>Description:</strong> 获取Stream参数</p>
 <p><strong>Request-example:</strong></p>
-<pre><code>curl -X ANY  -i http://your_ip:8080/api/basic/getStream
+<pre><code>curl -X ANY  -i http://your_ip:port/api/basic/getStream
 </code></pre>
 <p><strong>Response-fields:</strong></p>
 <table>
@@ -294,19 +294,19 @@
 <p><strong>Response-example:</strong></p>
 <pre><code>{
 	&quot;success&quot;:true,
-	&quot;status&quot;:&quot;uifwmc&quot;,
-	&quot;msg&quot;:&quot;oz4rpv&quot;,
+	&quot;status&quot;:&quot;5zce3m&quot;,
+	&quot;msg&quot;:&quot;r1xb9w&quot;,
 	&quot;obj&quot;:[
 		{
-			&quot;id&quot;:&quot;67&quot;,
-			&quot;name&quot;:&quot;炎彬.沈&quot;,
-			&quot;value&quot;:&quot;a96d77&quot;
+			&quot;id&quot;:&quot;75&quot;,
+			&quot;name&quot;:&quot;鸿煊.廖&quot;,
+			&quot;value&quot;:&quot;cofc3h&quot;
 		}
 	]
 }
 </code></pre>
 <h2>添加或编辑Stream参数</h2>
-<p><strong>URL:</strong> <code>http://your_ip:8080/api/basic/insertOrUpdateStream</code></p>
+<p><strong>URL:</strong> <code>http://your_ip:port/api/basic/insertOrUpdateStream</code></p>
 <p><strong>Type:</strong> <code>ANY</code></p>
 <p><strong>Author:</strong> CYM</p>
 <p><strong>Content-Type:</strong> <code>application/x-www-form-urlencoded;charset=utf-8</code></p>
@@ -323,7 +323,7 @@
 </tbody>
 </table>
 <p><strong>Request-example:</strong></p>
-<pre><code>curl   -i http://your_ip:8080/api/basic/insertOrUpdateStream?createTime=1640833899378&amp;id=67&amp;seq=29&amp;value=uxehko&amp;updateTime=1640833899378&amp;name=炎彬.沈
+<pre><code>curl   -i http://your_ip:port/api/basic/insertOrUpdateStream?updateTime=1641432281219&amp;createTime=1641432281219&amp;id=75&amp;seq=360&amp;name=鸿煊.廖&amp;value=jc2ywn
 </code></pre>
 <p><strong>Response-fields:</strong></p>
 <table>
@@ -343,17 +343,17 @@
 <p><strong>Response-example:</strong></p>
 <pre><code>{
 	&quot;success&quot;:true,
-	&quot;status&quot;:&quot;lffoih&quot;,
-	&quot;msg&quot;:&quot;xzcjjy&quot;,
+	&quot;status&quot;:&quot;a5xp16&quot;,
+	&quot;msg&quot;:&quot;zbtuxo&quot;,
 	&quot;obj&quot;:{
-		&quot;id&quot;:&quot;67&quot;,
-		&quot;name&quot;:&quot;炎彬.沈&quot;,
-		&quot;value&quot;:&quot;x7ozob&quot;
+		&quot;id&quot;:&quot;75&quot;,
+		&quot;name&quot;:&quot;鸿煊.廖&quot;,
+		&quot;value&quot;:&quot;mky4s8&quot;
 	}
 }
 </code></pre>
 <h2>删除Stream参数</h2>
-<p><strong>URL:</strong> <code>http://your_ip:8080/api/basic/delStream</code></p>
+<p><strong>URL:</strong> <code>http://your_ip:port/api/basic/delStream</code></p>
 <p><strong>Type:</strong> <code>ANY</code></p>
 <p><strong>Author:</strong> CYM</p>
 <p><strong>Content-Type:</strong> <code>application/x-www-form-urlencoded;charset=utf-8</code></p>
@@ -368,7 +368,7 @@
 </tbody>
 </table>
 <p><strong>Request-example:</strong></p>
-<pre><code>curl   -i http://your_ip:8080/api/basic/delStream?id=67
+<pre><code>curl   -i http://your_ip:port/api/basic/delStream?id=75
 </code></pre>
 <p><strong>Response-fields:</strong></p>
 <table>
@@ -385,8 +385,8 @@
 <p><strong>Response-example:</strong></p>
 <pre><code>{
 	&quot;success&quot;:true,
-	&quot;status&quot;:&quot;x1aqry&quot;,
-	&quot;msg&quot;:&quot;u10ruo&quot;,
+	&quot;status&quot;:&quot;favzy9&quot;,
+	&quot;msg&quot;:&quot;lkbisx&quot;,
 	&quot;obj&quot;:{
 		&quot;waring&quot;:&quot;You may have used non-display generics.&quot;
 	}
@@ -394,7 +394,7 @@
 </code></pre>
 
     <footer class="page-footer">
-        <span class="copyright">Generated by smart-doc at 2021-12-30 11:11:37</span>
+        <span class="copyright">Generated by smart-doc at 2022-01-06 09:24:39</span>
         <span class="footer-modification">Suggestions, contact, support and error reporting on
             <a href="https://gitee.com/smart-doc-team/smart-doc" target="_blank">Gitee</a> or
             <a href="https://github.com/smart-doc-group/smart-doc" target="_blank">Github</a>
