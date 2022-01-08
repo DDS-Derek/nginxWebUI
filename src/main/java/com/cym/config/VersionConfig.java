@@ -36,7 +36,6 @@ public class VersionConfig {
 		// 获取版本号
 		try {
 			currentVersion = getFromPom();
-			System.out.println(currentVersion);
 		} catch (Exception e) {
 			logger.info(e.getMessage(), e);
 		}

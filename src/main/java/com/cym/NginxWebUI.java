@@ -33,9 +33,6 @@ public class NginxWebUI {
 			// 删掉多余的jar
 			removeJar();
 
-			// 展示logo
-			showLogo();
-
 		} catch (Exception e) {
 			logger.error(e.getMessage(), e);
 		}
@@ -57,16 +54,6 @@ public class NginxWebUI {
 		});
 	}
 
-	private static void showLogo() throws IOException {
-		ClassPathResource resource = new ClassPathResource("banner.txt");
-		BufferedReader reader = resource.getReader(Charset.forName("utf-8"));
-		String str = "";
-		// 使用readLine() 比较方便的读取一行
-		while (null != (str = reader.readLine())) {
-			System.out.println(str);
-		}
-		reader.close();// 关闭流
-	}
 
 	public static void killSelf() {
 		RuntimeMXBean runtimeMXBean = ManagementFactory.getRuntimeMXBean();

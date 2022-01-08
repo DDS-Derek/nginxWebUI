@@ -1,8 +1,10 @@
 package com.cym.config;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,11 +41,13 @@ public class InitConfig {
 
 	@Inject
 	HomeConfig homeConfig;
-	
-	
+
 	public static String acmeSh;
 	public static String acmeShDir;
 	public static String home;
+
+	@Inject
+	VersionConfig versionConfig;
 
 	@Inject
 	SettingService settingService;
@@ -54,13 +58,13 @@ public class InitConfig {
 	@Inject
 	JdbcTemplate jdbcTemplate;
 
-	@Init(index = 40)
+	@Init
 	public void init() throws IOException {
-		
+
 		InitConfig.home = homeConfig.home;
 		InitConfig.acmeShDir = homeConfig.home + ".acme.sh/";
 		InitConfig.acmeSh = homeConfig.home + ".acme.sh/acme.sh";
-		
+
 		if (!FilePermissionUtil.canWrite(new File(home))) {
 			logger.error(home + " " + "directory does not have writable permission. Please specify it again.");
 			logger.error(home + " " + "目录没有可写权限,请重新指定.");
@@ -158,39 +162,38 @@ public class InitConfig {
 			}
 		}
 
-		logger.info("nginxWebUI start over");
-		
-		
+
+		// 展示logo
+		showLogo();
+
 	}
 
 	private boolean hasNginx() {
 		String rs = RuntimeUtil.execForStr("which nginx");
-		if(StrUtil.isNotEmpty(rs)) {
+		if (StrUtil.isNotEmpty(rs)) {
 			return true;
 		}
-		
+
 		return false;
 	}
 
-	/**
-	 * 是否在docker中
-	 * 
-	 * @return
-	 */
-//	private Boolean inDocker() {
-//		List<String> rs = RuntimeUtil.execForLines("cat /proc/1/cgroup");
-//		for (String str : rs) {
-//			if (str.contains("docker")) {
-//				logger.info("I am in docker");
-//				return true;
-//			}
-//			if (str.contains("kubepods")) {
-//				logger.info("I am in k8s");
-//				return true;
-//			}
-//		}
-//		logger.info("I am not in docker");
-//		return false;
-//	}
+	private void showLogo() throws IOException {
+		ClassPathResource resource = new ClassPathResource("banner.txt");
+		BufferedReader reader = resource.getReader(Charset.forName("utf-8"));
+		String str = null;
+		StringBuilder stringBuilder = new StringBuilder();
+		// 使用readLine() 比较方便的读取一行
+		while (null != (str = reader.readLine())) {
+			stringBuilder.append(str + "\n");
+		}
+		reader.close();// 关闭流
+		
+		stringBuilder.append("NginxWebUI " + versionConfig.currentVersion  + "\n");
+		
+		logger.info(stringBuilder.toString());
+
+		
+	}
+
 
 }

@@ -25,7 +25,7 @@ public class DataSourceEmbed {
 
 	DataSource dataSource;
 
-	@Init(index = 20)
+	@Init
 	public void init() {
 		// 创建dataSource
 		if (databaseType.equalsIgnoreCase("sqlite") || databaseType.equalsIgnoreCase("h2")) {

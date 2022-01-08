@@ -27,7 +27,7 @@ public class SqliteToH2 {
 
 	DataSource dataSourceTemp;
 
-	@Init(index = 50)
+	@Init
 	public void init() {
 		// 检查是否存在sqlite.db, 进行数据备份
 		if (databaseType.equals("sqlite") && FileUtil.exist(homeConfig.home + "sqlite.db")) {
