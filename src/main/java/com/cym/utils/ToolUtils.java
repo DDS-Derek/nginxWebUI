@@ -18,7 +18,7 @@ public class ToolUtils {
 	 * @return
 	 */
 	public static String handlePath(String path) {
-		return path.replace("\\", "/");
+		return path.replace("\\", "/").replace("//", "/");
 	}
 	
 	/**
