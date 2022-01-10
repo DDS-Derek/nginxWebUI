@@ -64,7 +64,7 @@ public class InitConfig {
 		if (findPass) {
 			List<Admin> admins = sqlHelper.findAll(Admin.class);
 			for (Admin admin : admins) {
-				System.out.println("用户名:" + admin.getName() + " 密码:" + admin.getPass());
+				System.out.println(m.get("adminStr.name") + ":" + admin.getName() + " " + m.get("adminStr.pass") + ":" + admin.getPass());
 			}
 			System.exit(1);
 		}
