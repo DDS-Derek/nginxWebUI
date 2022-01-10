@@ -70,6 +70,8 @@ public class ScheduleTask {
 	HttpService httpService;
 	@Inject
 	MessageUtils m;
+	@Inject
+	HomeConfig homeConfig;
 
 	// 续签证书
 	@Scheduled(cron = "0 0 2 * * ?")
@@ -145,7 +147,7 @@ public class ScheduleTask {
 	public void delBak() {
 
 		long time = System.currentTimeMillis();
-		File dir = new File(InitConfig.home + "bak/");
+		File dir = new File(homeConfig.home + "bak/");
 		if (dir.exists()) {
 			for (File file : dir.listFiles()) {
 				if (file.getName().contains("nginx.conf.") && (file.getName().endsWith(".zip") || file.getName().endsWith(".bak"))) {

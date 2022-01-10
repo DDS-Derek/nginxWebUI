@@ -41,10 +41,6 @@ public class InitConfig {
 	@Inject
 	HomeConfig homeConfig;
 
-	public static String acmeSh;
-	public static String acmeShDir;
-	public static String home;
-
 	@Inject
 	VersionConfig versionConfig;
 
@@ -59,16 +55,6 @@ public class InitConfig {
 
 	@Init
 	public void init() throws IOException {
-
-		InitConfig.home = homeConfig.home;
-		InitConfig.acmeShDir = homeConfig.home + ".acme.sh/";
-		InitConfig.acmeSh = homeConfig.home + ".acme.sh/acme.sh";
-
-		if (!FilePermissionUtil.canWrite(new File(home))) {
-			logger.error(home + " " + "directory does not have writable permission. Please specify it again.");
-			logger.error(home + " " + "目录没有可写权限,请重新指定.");
-			System.exit(1);
-		}
 
 		// 初始化base值
 		Long count = sqlHelper.findAllCount(Basic.class);
@@ -89,19 +75,19 @@ public class InitConfig {
 		}
 
 		// 释放nginx.conf,mime.types
-		if (!FileUtil.exist(home + "nginx.conf")) {
+		if (!FileUtil.exist(homeConfig.home + "nginx.conf")) {
 			ClassPathResource resource = new ClassPathResource("nginx.conf");
-			FileUtil.writeFromStream(resource.getStream(), home + "nginx.conf");
+			FileUtil.writeFromStream(resource.getStream(), homeConfig.home + "nginx.conf");
 		}
-		if (!FileUtil.exist(home + "mime.types")) {
+		if (!FileUtil.exist(homeConfig.home + "mime.types")) {
 			ClassPathResource resource = new ClassPathResource("mime.types");
-			FileUtil.writeFromStream(resource.getStream(), home + "mime.types");
+			FileUtil.writeFromStream(resource.getStream(), homeConfig.home + "mime.types");
 		}
 
 		// 设置nginx配置文件
 		String nginxPath = settingService.get("nginxPath");
 		if (StrUtil.isEmpty(nginxPath)) {
-			nginxPath = home + "nginx.conf";
+			nginxPath = homeConfig.home + "nginx.conf";
 			// 设置nginx.conf路径
 			settingService.set("nginxPath", nginxPath);
 		}
@@ -110,21 +96,21 @@ public class InitConfig {
 			// 释放acme全新包
 			ClassPathResource resource = new ClassPathResource("acme.zip");
 			InputStream inputStream = resource.getStream();
-			FileUtil.writeFromStream(inputStream, InitConfig.home + "acme.zip");
-			FileUtil.mkdir(acmeShDir);
-			ZipUtil.unzip(home + "acme.zip", acmeShDir);
-			FileUtil.del(home + "acme.zip");
+			FileUtil.writeFromStream(inputStream, homeConfig.home + "acme.zip");
+			FileUtil.mkdir(homeConfig.acmeShDir);
+			ZipUtil.unzip(homeConfig.home + "acme.zip", homeConfig.acmeShDir);
+			FileUtil.del(homeConfig.home + "acme.zip");
 
 			// 修改acme.sh文件
-			List<String> res = FileUtil.readUtf8Lines(acmeSh);
+			List<String> res = FileUtil.readUtf8Lines(homeConfig.acmeSh);
 			for (int i = 0; i < res.size(); i++) {
 				if (res.get(i).contains("DEFAULT_INSTALL_HOME=\"$HOME/.$PROJECT_NAME\"")) {
-					res.set(i, "DEFAULT_INSTALL_HOME=\"" + acmeShDir + "\"");
+					res.set(i, "DEFAULT_INSTALL_HOME=\"" + homeConfig.acmeShDir + "\"");
 				}
 			}
 
-			FileUtil.writeUtf8Lines(res, acmeSh);
-			RuntimeUtil.exec("chmod a+x " + acmeSh);
+			FileUtil.writeUtf8Lines(res, homeConfig.acmeSh);
+			RuntimeUtil.exec("chmod a+x " + homeConfig.acmeSh);
 
 			// 查找ngx_stream_module模块
 			if (!basicService.contain("ngx_stream_module.so")) {
@@ -187,7 +173,7 @@ public class InitConfig {
 		}
 		reader.close();// 关闭流
 		
-		stringBuilder.append("NginxWebUI " + versionConfig.currentVersion  + "\n");
+		stringBuilder.append("nginxWebUI " + versionConfig.currentVersion  + "\n");
 		
 		logger.info(stringBuilder.toString());
 

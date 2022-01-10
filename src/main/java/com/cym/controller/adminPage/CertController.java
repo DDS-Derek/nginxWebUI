@@ -80,7 +80,7 @@ public class CertController extends BaseController {
 	@Mapping("del")
 	public JsonResult del(String id) {
 		Cert cert = sqlHelper.findById(id, Cert.class);
-		String path = InitConfig.acmeShDir + cert.getDomain();
+		String path = homeConfig.acmeShDir + cert.getDomain();
 		if (FileUtil.exist(path)) {
 			FileUtil.del(path);
 		}
@@ -126,12 +126,12 @@ public class CertController extends BaseController {
 					dnsType = "dns_huaweicloud";
 				}
 
-				cmd = InitConfig.acmeSh + " --issue --force --dns " + dnsType + " -d " + cert.getDomain() + " --server letsencrypt";
+				cmd = homeConfig.acmeSh + " --issue --force --dns " + dnsType + " -d " + cert.getDomain() + " --server letsencrypt";
 			} else if (cert.getType() == 2) {
 				if (certService.hasCode(cert.getId())) {
-					cmd = InitConfig.acmeSh + " --renew --force --dns -d " + cert.getDomain() + " --server letsencrypt --yes-I-know-dns-manual-mode-enough-go-ahead-please";
+					cmd = homeConfig.acmeSh + " --renew --force --dns -d " + cert.getDomain() + " --server letsencrypt --yes-I-know-dns-manual-mode-enough-go-ahead-please";
 				} else {
-					cmd = InitConfig.acmeSh + " --issue --force --dns -d " + cert.getDomain() + " --server letsencrypt --yes-I-know-dns-manual-mode-enough-go-ahead-please";
+					cmd = homeConfig.acmeSh + " --issue --force --dns -d " + cert.getDomain() + " --server letsencrypt --yes-I-know-dns-manual-mode-enough-go-ahead-please";
 				}
 
 			}
@@ -139,9 +139,9 @@ public class CertController extends BaseController {
 			// 续签,以第一个域名为证书名
 			if (cert.getType() == 0) {
 				String domain = cert.getDomain().split(",")[0];
-				cmd = InitConfig.acmeSh + " --renew --force -d " + domain;
+				cmd = homeConfig.acmeSh + " --renew --force -d " + domain;
 			} else if (cert.getType() == 2) {
-				cmd = InitConfig.acmeSh + " --renew --force -d " + cert.getDomain() + " --server letsencrypt --yes-I-know-dns-manual-mode-enough-go-ahead-please";
+				cmd = homeConfig.acmeSh + " --renew --force -d " + cert.getDomain() + " --server letsencrypt --yes-I-know-dns-manual-mode-enough-go-ahead-please";
 			}
 		}
 		logger.info(cmd);
@@ -152,13 +152,13 @@ public class CertController extends BaseController {
 		if (rs.contains("Your cert is in")) {
 			// 申请成功, 将证书复制到/home/nginxWebUI
 			String domain = cert.getDomain().split(",")[0];
-			String certDir = InitConfig.acmeShDir + domain + "/";
+			String certDir = homeConfig.acmeShDir + domain + "/";
 
-			String dest = InitConfig.home + "cert/" + domain + ".fullchain.cer";
+			String dest = homeConfig.home + "cert/" + domain + ".fullchain.cer";
 			FileUtil.copy(new File(certDir + "fullchain.cer"), new File(dest), true);
 			cert.setPem(dest);
 
-			dest = InitConfig.home + "cert/" + domain + ".key";
+			dest = homeConfig.home + "cert/" + domain + ".key";
 			FileUtil.copy(new File(certDir + domain + ".key"), new File(dest), true);
 			cert.setKey(dest);
 
@@ -239,7 +239,7 @@ public class CertController extends BaseController {
 	public void download(String id) throws IOException {
 		Cert cert = sqlHelper.findById(id, Cert.class);
 		if (StrUtil.isNotEmpty(cert.getPem()) && StrUtil.isNotEmpty(cert.getKey())) {
-			String dir = InitConfig.home + "/temp/cert";
+			String dir = homeConfig.home + "/temp/cert";
 			FileUtil.del(dir);
 			FileUtil.del(dir + ".zip");
 			FileUtil.mkdir(dir);

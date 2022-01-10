@@ -12,7 +12,7 @@ import org.noear.solon.extend.aspect.annotation.Service;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.cym.config.InitConfig;
+import com.cym.config.HomeConfig;
 import com.cym.ext.AsycPack;
 import com.cym.ext.ConfExt;
 import com.cym.ext.ConfFile;
@@ -62,6 +62,8 @@ public class ConfService {
 	TemplateService templateService;
 	@Inject
 	OperateLogService operateLogService;
+	@Inject
+	HomeConfig homeConfig;
 
 	public synchronized ConfExt buildConf(Boolean decompose, Boolean check) {
 		ConfExt confExt = new ConfExt();
@@ -69,7 +71,7 @@ public class ConfService {
 
 		String nginxPath = settingService.get("nginxPath");
 		if (check) {
-			nginxPath = InitConfig.home + "temp/nginx.conf";
+			nginxPath = homeConfig.home + "temp/nginx.conf";
 		}
 		try {
 

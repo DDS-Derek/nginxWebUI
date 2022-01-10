@@ -55,7 +55,7 @@ public class MainController extends BaseController {
 			file.transferTo(temp);
 
 			// 移动文件
-			File dest = new File(InitConfig.home + "cert/" + file.name);
+			File dest = new File(homeConfig.home + "cert/" + file.name);
 			FileUtil.move(temp, dest, true);
 
 			String localType = (String) context.session("localType");

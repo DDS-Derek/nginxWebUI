@@ -52,7 +52,7 @@ public class PasswordController extends BaseController {
 			FileUtil.del(passwordOrg.getPath());
 		}
 
-		password.setPath(InitConfig.home + "password/" + password.getName());
+		password.setPath(homeConfig.home + "password/" + password.getName());
 
 		String value = "";
 		if (SystemTool.isWindows()) {

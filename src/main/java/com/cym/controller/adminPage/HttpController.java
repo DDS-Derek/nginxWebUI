@@ -72,13 +72,13 @@ public class HttpController extends BaseController {
 
 			Http http = new Http();
 			http.setName("access_log");
-			http.setValue(InitConfig.home + "log/access.log");
+			http.setValue(homeConfig.home + "log/access.log");
 			http.setUnit("");
 			https.add(http);
 
 			http = new Http();
 			http.setName("error_log");
-			http.setValue(InitConfig.home + "log/error.log");
+			http.setValue(homeConfig.home + "log/error.log");
 			http.setUnit("");
 			https.add(http);
 

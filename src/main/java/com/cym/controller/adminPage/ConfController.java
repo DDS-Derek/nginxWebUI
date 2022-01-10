@@ -71,7 +71,7 @@ public class ConfController extends BaseController {
 		String decompose = settingService.get("decompose");
 		modelAndView.put("decompose", decompose);
 
-		modelAndView.put("tmp", InitConfig.home + "temp/nginx.conf");
+		modelAndView.put("tmp", homeConfig.home + "temp/nginx.conf");
 
 		modelAndView.view("/adminPage/conf/index.html");
 		return modelAndView;
@@ -165,15 +165,15 @@ public class ConfController extends BaseController {
 		String rs = null;
 		String cmd = null;
 
-		FileUtil.del(InitConfig.home + "temp");
-		String fileTemp = InitConfig.home + "temp/nginx.conf";
+		FileUtil.del(homeConfig.home + "temp");
+		String fileTemp = homeConfig.home + "temp/nginx.conf";
 
 		try {
 			ConfExt confExt = confService.buildConf(false, true);
 			FileUtil.writeString(confExt.getConf(), fileTemp, CharsetUtil.CHARSET_UTF_8);
 
 			ClassPathResource resource = new ClassPathResource("mime.types");
-			FileUtil.writeFromStream(resource.getStream(), InitConfig.home + "temp/mime.types");
+			FileUtil.writeFromStream(resource.getStream(), homeConfig.home + "temp/mime.types");
 
 			cmd = nginxExe + " -t -c " + fileTemp;
 			if (StrUtil.isNotEmpty(nginxDir)) {
@@ -225,15 +225,15 @@ public class ConfController extends BaseController {
 
 		// 替换分解域名include路径中的目标conf.d为temp/conf.d
 		String confDir = ToolUtils.handlePath(new File(nginxPath).getParent()) + "conf.d/";
-		String tempDir = InitConfig.home + "temp" + "conf.d/";
+		String tempDir = homeConfig.home + "temp" + "conf.d/";
 		List<String> subName = jsonObject.getJSONArray("subName").toList(String.class);
 		for (String sn : subName) {
 			nginxContent = nginxContent.replace("include " + confDir + sn, //
 					"include " + tempDir + sn);
 		}
 
-		FileUtil.del(InitConfig.home + "temp");
-		String fileTemp = InitConfig.home + "temp/nginx.conf";
+		FileUtil.del(homeConfig.home + "temp");
+		String fileTemp = homeConfig.home + "temp/nginx.conf";
 
 		confService.replace(fileTemp, nginxContent, subContent, subName, false, null);
 
@@ -242,7 +242,7 @@ public class ConfController extends BaseController {
 
 		try {
 			ClassPathResource resource = new ClassPathResource("mime.types");
-			FileUtil.writeFromStream(resource.getStream(), InitConfig.home + "temp/mime.types");
+			FileUtil.writeFromStream(resource.getStream(), homeConfig.home + "temp/mime.types");
 
 			cmd = nginxExe + " -t -c " + fileTemp;
 			if (StrUtil.isNotEmpty(nginxDir)) {

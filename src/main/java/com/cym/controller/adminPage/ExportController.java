@@ -83,45 +83,8 @@ public class ExportController extends BaseController {
 
 	@Mapping("logExport")
 	public DownloadedFile logExport(Context context) throws FileNotFoundException {
-		File file = new File(InitConfig.home + "log/nginxWebUI.log");
+		File file = new File(homeConfig.home + "log/nginxWebUI.log");
 		if (file.exists()) {
-//			// 配置文件下载
-//			context.header("content-type", "application/octet-stream");
-//			context.contentType("application/octet-stream");
-//			// 下载文件能正常显示中文
-//			context.header("Content-Disposition", "attachment;filename=" + URLEncoder.encode(file.getName(), "UTF-8"));
-//			// 实现文件下载
-//			byte[] buffer = new byte[1024];
-//			FileInputStream fis = null;
-//			BufferedInputStream bis = null;
-//			try {
-//				fis = new FileInputStream(file);
-//				bis = new BufferedInputStream(fis);
-//				OutputStream os = context.outputStream();
-//				int i = bis.read(buffer);
-//				while (i != -1) {
-//					os.write(buffer, 0, i);
-//					i = bis.read(buffer);
-//				}
-//			} catch (Exception e) {
-//				logger.error(e.getMessage(), e);
-//			} finally {
-//				if (bis != null) {
-//					try {
-//						bis.close();
-//					} catch (IOException e) {
-//						logger.error(e.getMessage(), e);
-//					}
-//				}
-//				if (fis != null) {
-//					try {
-//						fis.close();
-//					} catch (IOException e) {
-//						logger.error(e.getMessage(), e);
-//					}
-//				}
-//			}
-
 			DownloadedFile downloadedFile = new DownloadedFile("application/octet-stream", new FileInputStream(file), file.getName());
 			return downloadedFile;
 		}

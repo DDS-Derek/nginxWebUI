@@ -3,6 +3,7 @@ package com.cym.utils;
 import org.noear.solon.annotation.Inject;
 import org.noear.solon.core.handle.Context;
 
+import com.cym.config.HomeConfig;
 import com.cym.model.Admin;
 import com.cym.service.AdminService;
 import com.cym.sqlhelper.utils.SqlHelper;
@@ -18,6 +19,8 @@ public class BaseController {
 	protected AdminService adminService;
 	@Inject
 	protected MessageUtils m;
+	@Inject
+	protected HomeConfig homeConfig;
 
 	protected JsonResult renderError() {
 		JsonResult result = new JsonResult();
