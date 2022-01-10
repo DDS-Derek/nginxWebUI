@@ -56,7 +56,6 @@ public class ConfController extends BaseController {
 	@Inject
 	VersionConfig versionConfig;
 
-
 	@Mapping("")
 	public ModelAndView index(ModelAndView modelAndView) {
 
@@ -217,17 +216,21 @@ public class ConfController extends BaseController {
 		String nginxContent = Base64.decodeStr(jsonObject.getStr("nginxContent"), CharsetUtil.CHARSET_UTF_8);
 		nginxContent = URLDecoder.decode(nginxContent, CharsetUtil.CHARSET_UTF_8).replace("<wave>", "~");
 
-		File pathFile = new File(nginxPath);
-		File tempFile = new File(InitConfig.home + "temp");
-		nginxContent = nginxContent.replace("include " + ToolUtils.handlePath(pathFile.getParent()), "include " + ToolUtils.handlePath(tempFile.getPath()));
-
 		List<String> subContent = jsonObject.getJSONArray("subContent").toList(String.class);
 		for (int i = 0; i < subContent.size(); i++) {
 			String content = Base64.decodeStr(subContent.get(i), CharsetUtil.CHARSET_UTF_8);
 			content = URLDecoder.decode(content, CharsetUtil.CHARSET_UTF_8).replace("<wave>", "~");
 			subContent.set(i, content);
 		}
+
+		// 替换分解域名include路径中的目标conf.d为temp/conf.d
+		String confDir = ToolUtils.handlePath(new File(nginxPath).getParent()) + "conf.d/";
+		String tempDir = InitConfig.home + "temp" + "conf.d/";
 		List<String> subName = jsonObject.getJSONArray("subName").toList(String.class);
+		for (String sn : subName) {
+			nginxContent = nginxContent.replace("include " + confDir + sn, //
+					"include " + tempDir + sn);
+		}
 
 		FileUtil.del(InitConfig.home + "temp");
 		String fileTemp = InitConfig.home + "temp/nginx.conf";

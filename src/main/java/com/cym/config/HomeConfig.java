@@ -8,6 +8,7 @@ import org.noear.solon.annotation.Inject;
 
 import com.cym.utils.JarUtil;
 import com.cym.utils.SystemTool;
+import com.cym.utils.ToolUtils;
 
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.util.StrUtil;
@@ -35,6 +36,9 @@ public class HomeConfig {
 		if (SystemTool.isWindows() && !home.contains(":")) {
 			home = JarUtil.getCurrentFilePath().split(":")[0] + ":" + home;
 		}
+
+		// 如果最后没有/, 加上/
+		home = ToolUtils.endDir(ToolUtils.handlePath(home));
 	}
 
 }

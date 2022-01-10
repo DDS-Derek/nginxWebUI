@@ -21,7 +21,6 @@ import com.cym.service.SettingService;
 import com.cym.sqlhelper.utils.JdbcTemplate;
 import com.cym.sqlhelper.utils.SqlHelper;
 import com.cym.utils.FilePermissionUtil;
-import com.cym.utils.JarUtil;
 import com.cym.utils.MessageUtils;
 import com.cym.utils.NginxUtils;
 import com.cym.utils.SystemTool;
