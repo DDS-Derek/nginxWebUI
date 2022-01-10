@@ -300,9 +300,9 @@ pkill java
 java -jar nginxWebUI.jar --project.home=/home/nginxWebUI/ --project.findPass=true
 ```
 
---project.home为项目文件所在目录
+--project.home 为项目文件所在目录
 
---project.findPass为是否打印用户名密码
+--project.findPass 为是否打印用户名密码
 
 运行成功后即可打印出全部用户名密码
 
