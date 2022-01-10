@@ -14,6 +14,7 @@ import org.noear.solon.annotation.Inject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.cym.model.Admin;
 import com.cym.model.Basic;
 import com.cym.model.Http;
 import com.cym.service.BasicService;
@@ -36,7 +37,7 @@ import cn.hutool.core.util.ZipUtil;
 public class InitConfig {
 	Logger logger = LoggerFactory.getLogger(this.getClass());
 	@Inject
-	protected MessageUtils m;
+	MessageUtils m;
 
 	@Inject
 	HomeConfig homeConfig;
@@ -53,8 +54,20 @@ public class InitConfig {
 	@Inject
 	JdbcTemplate jdbcTemplate;
 
+	@Inject("${project.findPass}")
+	Boolean findPass;
+
 	@Init
 	public void init() throws IOException {
+
+		// 打印密码
+		if (findPass) {
+			List<Admin> admins = sqlHelper.findAll(Admin.class);
+			for (Admin admin : admins) {
+				System.out.println("用户名:" + admin.getName() + " 密码:" + admin.getPass());
+			}
+			System.exit(1);
+		}
 
 		// 初始化base值
 		Long count = sqlHelper.findAllCount(Basic.class);
@@ -147,7 +160,6 @@ public class InitConfig {
 			}
 		}
 
-
 		// 展示logo
 		showLogo();
 
@@ -172,13 +184,11 @@ public class InitConfig {
 			stringBuilder.append(str + "\n");
 		}
 		reader.close();// 关闭流
-		
-		stringBuilder.append("nginxWebUI " + versionConfig.currentVersion  + "\n");
-		
+
+		stringBuilder.append("nginxWebUI " + versionConfig.currentVersion + "\n");
+
 		logger.info(stringBuilder.toString());
 
-		
 	}
-
 
 }
