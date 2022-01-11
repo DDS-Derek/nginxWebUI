@@ -6,7 +6,7 @@
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
     <meta http-equiv="Pragma" content="no-cache" />
     <meta http-equiv="Expires" content="0" />
-    <link rel="stylesheet" href="markdown.css?v=1641432279456"/>
+    <link rel="stylesheet" href="markdown.css?v=1641871594082"/>
     <title>负载均衡(upstream)接口</title>
 </head>
 <body>
@@ -29,7 +29,7 @@
 </tbody>
 </table>
 <p><strong>Request-example:</strong></p>
-<pre><code>curl   -i http://your_ip:port/api/upstream/getPage?limit=10&amp;keywords=r9yx2u&amp;current=e5yn31
+<pre><code>curl   -i http://your_ip:port/api/upstream/getPage?keywords=il4qyy&amp;current=7gzzcb&amp;limit=10
 </code></pre>
 <p><strong>Response-fields:</strong></p>
 <table>
@@ -55,19 +55,19 @@
 <p><strong>Response-example:</strong></p>
 <pre><code>{
 	&quot;success&quot;:true,
-	&quot;status&quot;:&quot;phoqeb&quot;,
-	&quot;msg&quot;:&quot;d0qgeb&quot;,
+	&quot;status&quot;:&quot;35c1i9&quot;,
+	&quot;msg&quot;:&quot;sv9i6d&quot;,
 	&quot;obj&quot;:{
-		&quot;count&quot;:610,
-		&quot;curr&quot;:447,
+		&quot;count&quot;:788,
+		&quot;curr&quot;:672,
 		&quot;limit&quot;:10,
 		&quot;records&quot;:[
 			{
-				&quot;id&quot;:&quot;75&quot;,
-				&quot;name&quot;:&quot;鸿煊.廖&quot;,
-				&quot;tactics&quot;:&quot;bmkapw&quot;,
-				&quot;proxyType&quot;:796,
-				&quot;monitor&quot;:118
+				&quot;id&quot;:&quot;45&quot;,
+				&quot;name&quot;:&quot;鹤轩.白&quot;,
+				&quot;tactics&quot;:&quot;iytgxk&quot;,
+				&quot;proxyType&quot;:355,
+				&quot;monitor&quot;:427
 			}
 		]
 	}
@@ -92,7 +92,7 @@
 </tbody>
 </table>
 <p><strong>Request-example:</strong></p>
-<pre><code>curl   -i http://your_ip:port/api/upstream/insertOrUpdate?createTime=1641432281219&amp;seq=817&amp;name=鸿煊.廖&amp;tactics=f2f337&amp;proxyType=513&amp;id=75&amp;monitor=485&amp;updateTime=1641432281219
+<pre><code>curl   -i http://your_ip:port/api/upstream/insertOrUpdate?monitor=375&amp;seq=601&amp;name=鹤轩.白&amp;createTime=1641871596310&amp;proxyType=161&amp;updateTime=1641871596310&amp;id=45&amp;tactics=u1w8hj
 </code></pre>
 <p><strong>Response-fields:</strong></p>
 <table>
@@ -109,8 +109,8 @@
 <p><strong>Response-example:</strong></p>
 <pre><code>{
 	&quot;success&quot;:true,
-	&quot;status&quot;:&quot;3swsxu&quot;,
-	&quot;msg&quot;:&quot;ac60b4&quot;,
+	&quot;status&quot;:&quot;exbvq7&quot;,
+	&quot;msg&quot;:&quot;ztgxoa&quot;,
 	&quot;obj&quot;:{
 		
 	}
@@ -131,7 +131,7 @@
 </tbody>
 </table>
 <p><strong>Request-example:</strong></p>
-<pre><code>curl   -i http://your_ip:port/api/upstream/delete?id=75
+<pre><code>curl   -i http://your_ip:port/api/upstream/delete?id=45
 </code></pre>
 <p><strong>Response-fields:</strong></p>
 <table>
@@ -148,8 +148,8 @@
 <p><strong>Response-example:</strong></p>
 <pre><code>{
 	&quot;success&quot;:true,
-	&quot;status&quot;:&quot;q0r2mj&quot;,
-	&quot;msg&quot;:&quot;udhso1&quot;,
+	&quot;status&quot;:&quot;d7usdq&quot;,
+	&quot;msg&quot;:&quot;8w31e6&quot;,
 	&quot;obj&quot;:{
 		
 	}
@@ -170,7 +170,7 @@
 </tbody>
 </table>
 <p><strong>Request-example:</strong></p>
-<pre><code>curl   -i http://your_ip:port/api/upstream/getServerByUpstreamId?upstreamId=75
+<pre><code>curl   -i http://your_ip:port/api/upstream/getServerByUpstreamId?upstreamId=45
 </code></pre>
 <p><strong>Response-fields:</strong></p>
 <table>
@@ -196,19 +196,19 @@
 <p><strong>Response-example:</strong></p>
 <pre><code>{
 	&quot;success&quot;:true,
-	&quot;status&quot;:&quot;pfjn56&quot;,
-	&quot;msg&quot;:&quot;r7gk6a&quot;,
+	&quot;status&quot;:&quot;id0wta&quot;,
+	&quot;msg&quot;:&quot;f09dys&quot;,
 	&quot;obj&quot;:[
 		{
-			&quot;id&quot;:&quot;75&quot;,
-			&quot;upstreamId&quot;:&quot;75&quot;,
-			&quot;server&quot;:&quot;x283q4&quot;,
-			&quot;port&quot;:370,
-			&quot;weight&quot;:154,
-			&quot;failTimeout&quot;:431,
-			&quot;maxFails&quot;:350,
-			&quot;maxConns&quot;:519,
-			&quot;status&quot;:&quot;tp92h6&quot;
+			&quot;id&quot;:&quot;45&quot;,
+			&quot;upstreamId&quot;:&quot;45&quot;,
+			&quot;server&quot;:&quot;37yflf&quot;,
+			&quot;port&quot;:78,
+			&quot;weight&quot;:848,
+			&quot;failTimeout&quot;:107,
+			&quot;maxFails&quot;:943,
+			&quot;maxConns&quot;:174,
+			&quot;status&quot;:&quot;4ters3&quot;
 		}
 	]
 }
@@ -236,7 +236,7 @@
 </tbody>
 </table>
 <p><strong>Request-example:</strong></p>
-<pre><code>curl   -i http://your_ip:port/api/upstream/insertOrUpdateServer?maxFails=186&amp;upstreamId=75&amp;weight=630&amp;monitorStatus=446&amp;id=75&amp;port=210&amp;createTime=1641432281219&amp;server=z1ebrk&amp;updateTime=1641432281219&amp;failTimeout=230&amp;maxConns=580&amp;status=qdxirm
+<pre><code>curl   -i http://your_ip:port/api/upstream/insertOrUpdateServer?upstreamId=45&amp;createTime=1641871596310&amp;maxConns=830&amp;id=45&amp;weight=735&amp;status=briecg&amp;port=391&amp;updateTime=1641871596310&amp;failTimeout=538&amp;maxFails=420&amp;server=glqt6c&amp;monitorStatus=608
 </code></pre>
 <p><strong>Response-fields:</strong></p>
 <table>
@@ -253,8 +253,8 @@
 <p><strong>Response-example:</strong></p>
 <pre><code>{
 	&quot;success&quot;:true,
-	&quot;status&quot;:&quot;mg9tvh&quot;,
-	&quot;msg&quot;:&quot;hz9bnu&quot;,
+	&quot;status&quot;:&quot;hm8psm&quot;,
+	&quot;msg&quot;:&quot;shliao&quot;,
 	&quot;obj&quot;:{
 		&quot;waring&quot;:&quot;You may have used non-display generics.&quot;
 	}
@@ -262,7 +262,7 @@
 </code></pre>
 
     <footer class="page-footer">
-        <span class="copyright">Generated by smart-doc at 2022-01-06 09:24:39</span>
+        <span class="copyright">Generated by smart-doc at 2022-01-11 11:26:34</span>
         <span class="footer-modification">Suggestions, contact, support and error reporting on
             <a href="https://gitee.com/smart-doc-team/smart-doc" target="_blank">Gitee</a> or
             <a href="https://github.com/smart-doc-group/smart-doc" target="_blank">Github</a>

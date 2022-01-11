@@ -1,11 +1,17 @@
 package com.cym;
 
-import com.power.common.util.DateTimeUtil;
+import java.io.File;
+import java.nio.charset.Charset;
+import java.util.List;
+
+import org.junit.Test;
+import org.noear.solonhat.smartdoc.SolonHtmlApiDocBuilder;
+
 import com.power.doc.constants.DocGlobalConstants;
 import com.power.doc.model.ApiConfig;
 import com.power.doc.model.SourceCodePath;
-import org.junit.Test;
-import org.noear.solonhat.smartdoc.SolonHtmlApiDocBuilder;
+
+import cn.hutool.core.io.FileUtil;
 
 public class Doc {
 
@@ -30,9 +36,27 @@ public class Doc {
 				SourceCodePath.path().setPath("src/main/java/com/cym/utils/") //
 		);
 
-		long start = System.currentTimeMillis();
 		SolonHtmlApiDocBuilder.buildApiDoc(config);
-		long end = System.currentTimeMillis();
-		DateTimeUtil.printRunTime(end, start);
+
+		// 最后加两句js,调整div高度
+		File file = new File(DocGlobalConstants.HTML_DOC_OUT_PATH, "api.html");
+		List<String> lines = FileUtil.readLines(file, Charset.forName("utf-8"));
+		for (int i = 0; i < lines.size(); i++) {
+			if (lines.get(i).contains("<div class=\"book-summary\">")) {
+				lines.set(i, "<div class=\"book-summary\" id=\"menu\">");
+			}
+
+			if (lines.get(i).contains("</script>")) {
+				lines.set(i, "var h = document.getElementById(\"book_iframe\").height -20; \n" //
+						+ "document.getElementById(\"menu\").style.height = h + 'px'; \n"//
+						+ "document.getElementById(\"menu\").style.overflow = 'auto'; \n" //
+						+ "</script>");
+				break;
+			}
+
+		}
+		FileUtil.writeLines(lines, file, Charset.forName("utf-8"));
+
+		System.out.println("生成完毕");
 	}
 }
