@@ -14,25 +14,22 @@ import com.cym.utils.BaseController;
 import com.cym.utils.JsonResult;
 
 import cn.hutool.core.io.FileUtil;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+
 /**
  * 密码文件接口
  */
-@Api(tags = "密码文件接口")
 @Mapping("/api/password")
 @Controller
-public class PasswordApiController extends BaseController{
+public class PasswordApiController extends BaseController {
 	@Inject
 	PasswordService passwordService;
 	@Inject
 	PasswordController passwordController;
-	
+
 	/**
 	 * 获取全部密码文件列表
 	 * 
 	 */
-	@ApiOperation("获取全部密码文件列表")
 	@Mapping("getList")
 	public JsonResult<List<Password>> getList() {
 		List<Password> list = sqlHelper.findAll(Password.class);
@@ -41,10 +38,10 @@ public class PasswordApiController extends BaseController{
 
 	/**
 	 * 添加或编辑密码文件
+	 * 
 	 * @param password 密码文件
 	 * 
 	 */
-	@ApiOperation("添加或编辑密码文件")
 	@Mapping("insertOrUpdate")
 	public JsonResult<?> insertOrUpdate(Password password) throws IOException {
 		return renderSuccess(passwordController.addOver(password));
@@ -52,10 +49,10 @@ public class PasswordApiController extends BaseController{
 
 	/**
 	 * 删除密码文件
+	 * 
 	 * @param id 密码文件id
 	 * 
 	 */
-	@ApiOperation("删除密码文件")
 	@Mapping("del")
 	public JsonResult<?> del(String id) {
 		Password password = sqlHelper.findById(id, Password.class);

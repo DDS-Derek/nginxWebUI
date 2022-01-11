@@ -4,51 +4,39 @@ import com.cym.sqlhelper.bean.BaseModel;
 import com.cym.sqlhelper.config.Table;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-
 /**
  * 
  * 额外参数
  *
  */
-@ApiModel("额外参数")
 @Table
 public class Param extends BaseModel {
 	/**
 	 * 所属反向代理id
 	 */
-	@ApiModelProperty("所属反向代理id")
 	String serverId;
 	/**
 	 * 所属代理目标id
 	 */
-	@ApiModelProperty("所属代理目标id")
 	String locationId;
 	/**
 	 * 所属负载均衡id
 	 */
-	@ApiModelProperty("所属负载均衡id")
 	String upstreamId;
 	
 	@JsonIgnore
-	@ApiModelProperty(hidden = true)
 	String templateId;
 	/**
 	 * 参数名
 	 */
-	@ApiModelProperty("参数名")
 	String name;
 	/**
 	 * 参数值
 	 */
-	@ApiModelProperty("参数值")
 	String value;
 	@JsonIgnore
-	@ApiModelProperty(hidden = true)
 	String templateValue;
 	@JsonIgnore
-	@ApiModelProperty(hidden = true)
 	String templateName;
 	
 	

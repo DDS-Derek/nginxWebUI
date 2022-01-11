@@ -5,85 +5,68 @@ import com.cym.sqlhelper.config.InitValue;
 import com.cym.sqlhelper.config.Table;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-
 /**
  * 
  * 代理目标location
  *
  */
-@ApiModel("代理目标location")
 @Table
 public class Location extends BaseModel {
 	/**
 	 * 所属反向代理serverId
 	 * @required
 	 */
-	@ApiModelProperty("*所属反向代理serverId")
 	String serverId;
 	/**
 	 * 监控路径 例:/
 	 * @required
 	 */
-	@ApiModelProperty("监控路径 例:/")
 	String path;
 	/**
 	 * 代理类型 0:动态代理(默认) 1:静态代理 2:负载均衡 3:空白代理
 	 */
-	@ApiModelProperty("代理类型 0:动态代理(默认) 1:静态代理 2:负载均衡 3:空白代理")
 	@InitValue("0")
 	Integer type;
 	@JsonIgnore
-	@ApiModelProperty(hidden = true, name = "额外参数")
 	String locationParamJson;
 
 	/**
 	 * 动态代理目标 (例:http://10.10.10.1:8080/)
 	 */
-	@ApiModelProperty("动态代理目标 (例:http://10.10.10.1:8080/)")
 	String value;
 	/**
 	 * 代理负载协议,http or https
 	 */
-	@ApiModelProperty("代理负载协议,http or https")
 	@InitValue("http")
 	String upstreamType;
 	/**
 	 * 代理负载均衡upstream的id
 	 */
-	@ApiModelProperty("代理负载均衡upstream的id")
 	String upstreamId; 
 	/**
 	 * 代理负载额外路径,默认为空
 	 */
-	@ApiModelProperty("代理负载额外路径,默认为空")
 	String upstreamPath;
 	/**
 	 * 静态代理路径 (例:/home/www)
 	 */
-	@ApiModelProperty("静态代理路径 (例:/home/www)")
 	String rootPath;
 	/**
 	 * 静态代理默认页面 (例:index.html)
 	 */
-	@ApiModelProperty("静态代理默认页面 (例:index.html)")
 	String rootPage;
 	/**
 	 * 静态代理类型 root:根路径模式 alias:别名模式
 	 */
-	@ApiModelProperty("静态代理类型 root:根路径模式 alias:别名模式")
 	String rootType;
 	/**
 	 * 是否携带Host参数 0否 1是(默认)
 	 */
-	@ApiModelProperty("是否携带Host参数 0否 1是(默认)")
 	@InitValue("1")
 	Integer header; 
 	/**
 	 * 是否开启websocket支持 0否(默认) 1是
 	 */
-	@ApiModelProperty("是否开启websocket支持 0否(默认) 1是")
 	@InitValue("0")
 	Integer websocket;
 

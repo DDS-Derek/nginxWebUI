@@ -16,13 +16,10 @@ import com.cym.utils.JsonResult;
 import com.cym.utils.SnowFlakeUtils;
 
 import cn.hutool.core.util.StrUtil;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
+
 /**
  * 反向代理(server)接口
  */
-@Api(tags = "反向代理(server)接口")
 @Mapping("/api/server")
 @Controller
 public class ServerApiController extends BaseController {
@@ -33,16 +30,16 @@ public class ServerApiController extends BaseController {
 
 	/**
 	 * 获取server分页列表
-	 * @param current 当前页数(从1开始)
-	 * @param limit 每页数量(默认为10)
+	 * 
+	 * @param current  当前页数(从1开始)
+	 * @param limit    每页数量(默认为10)
 	 * @param keywords 查询关键字
-	 *  
+	 * 
 	 */
-	@ApiOperation("获取server分页列表")
 	@Mapping("getPage")
-	public JsonResult<Page<Server>> getPage(@ApiParam("当前页数(从1开始)") Integer current, //
-			@ApiParam("每页数量(默认为10)") Integer limit, //
-			@ApiParam("查询关键字") String keywords) {
+	public JsonResult<Page<Server>> getPage(Integer current, //
+			Integer limit, //
+			String keywords) {
 		Page page = new Page();
 		page.setCurr(current);
 		page.setLimit(limit);
@@ -53,10 +50,10 @@ public class ServerApiController extends BaseController {
 
 	/**
 	 * 添加或编辑server
+	 * 
 	 * @param server 反向代理server
 	 * 
 	 */
-	@ApiOperation("添加或编辑server")
 	@Mapping("insertOrUpdate")
 	public JsonResult<?> insertOrUpdate(Server server) {
 		if (StrUtil.isEmpty(server.getListen())) {
@@ -72,10 +69,10 @@ public class ServerApiController extends BaseController {
 
 	/**
 	 * 删除server
+	 * 
 	 * @param id 反向代理id
 	 * 
 	 */
-	@ApiOperation("删除server")
 	@Mapping("delete")
 	public JsonResult<?> delete(String id) {
 		serverService.deleteById(id);
@@ -85,10 +82,10 @@ public class ServerApiController extends BaseController {
 
 	/**
 	 * 根据serverId获取location列表
+	 * 
 	 * @param serverId 反向代理id
 	 * 
 	 */
-	@ApiOperation("根据serverId获取location列表")
 	@Mapping("getLocationByServerId")
 	public JsonResult<List<Location>> getLocationByServerId(String serverId) {
 		List<Location> locationList = serverService.getLocationByServerId(serverId);
@@ -101,10 +98,10 @@ public class ServerApiController extends BaseController {
 
 	/**
 	 * 添加或编辑location
+	 * 
 	 * @param location 代理目标location
 	 * 
 	 */
-	@ApiOperation("添加或编辑location")
 	@Mapping("insertOrUpdateLocation")
 	public JsonResult<?> insertOrUpdateLocation(Location location) {
 		if (StrUtil.isEmpty(location.getServerId())) {
@@ -119,16 +116,15 @@ public class ServerApiController extends BaseController {
 
 	/**
 	 * 删除location
+	 * 
 	 * @param id 代理目标location的id
 	 * 
 	 */
-	@ApiOperation("删除location")
 	@Mapping("deleteLocation")
 	public JsonResult<?> deleteLocation(String id) {
 		sqlHelper.deleteById(id, Location.class);
 
 		return renderSuccess();
 	}
-
 
 }

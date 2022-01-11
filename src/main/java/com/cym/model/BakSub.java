@@ -3,19 +3,12 @@ package com.cym.model;
 import com.cym.sqlhelper.bean.BaseModel;
 import com.cym.sqlhelper.config.Table;
 
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-
-@ApiModel("备份子文件")
 @Table
 public class BakSub extends BaseModel{
-	@ApiModelProperty("主文件id")
 	String bakId;
 	
-	@ApiModelProperty("名称")
 	String name;
 	
-	@ApiModelProperty("内容")
 	String content;
 
 	public String getBakId() {

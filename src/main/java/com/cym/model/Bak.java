@@ -3,15 +3,9 @@ package com.cym.model;
 import com.cym.sqlhelper.bean.BaseModel;
 import com.cym.sqlhelper.config.Table;
 
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-
-@ApiModel("备份文件")
 @Table
 public class Bak extends BaseModel{
-	@ApiModelProperty("时间")
 	String time;
-	@ApiModelProperty("主文件内容")
 	String content;
 
 

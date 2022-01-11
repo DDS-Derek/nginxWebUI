@@ -16,15 +16,11 @@ import com.cym.utils.BaseController;
 import com.cym.utils.JsonResult;
 
 import cn.hutool.core.util.StrUtil;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
 
 /**
  * 证书接口
  *
  */
-@Api(tags = "证书接口")
 @Mapping("/api/cert")
 @Controller
 public class CertApiController extends BaseController {
@@ -36,16 +32,16 @@ public class CertApiController extends BaseController {
 
 	/**
 	 * 获取证书分页列表
-	 * @param current 当前页数(从1开始)
-	 * @param limit 每页数量(默认为10)
+	 * 
+	 * @param current  当前页数(从1开始)
+	 * @param limit    每页数量(默认为10)
 	 * @param keywords 查询关键字
 	 * 
 	 */
-	@ApiOperation("获取证书分页列表")
 	@Mapping("getPage")
-	public JsonResult<Page<Cert>> getPage(@ApiParam("当前页数(从1开始)") Integer current, //
-			@ApiParam("每页数量(默认为10)") Integer limit, //
-			@ApiParam("查询关键字") String keywords) {
+	public JsonResult<Page<Cert>> getPage(Integer current, //
+			Integer limit, //
+			String keywords) {
 		Page page = new Page();
 		page.setCurr(current);
 		page.setLimit(limit);
@@ -56,10 +52,10 @@ public class CertApiController extends BaseController {
 
 	/**
 	 * 添加或编辑证书
+	 * 
 	 * @param cert 证书
 	 * 
 	 */
-	@ApiOperation("添加或编辑证书")
 	@Mapping("addOver")
 	public JsonResult addOver(Cert cert) {
 		if (StrUtil.isEmpty(cert.getDomain())) {
@@ -89,10 +85,10 @@ public class CertApiController extends BaseController {
 
 	/**
 	 * 获取域名解析码
+	 * 
 	 * @param certId 证书id
 	 * 
 	 */
-	@ApiOperation("获取域名解析码")
 	@Mapping("getTxtValue")
 	public JsonResult<List<CertCode>> getTxtValue(String certId) {
 		List<CertCode> certCodes = certService.getCertCodes(certId);
@@ -101,13 +97,13 @@ public class CertApiController extends BaseController {
 
 	/**
 	 * 设置证书自动续签
-	 * @param id 证书id
+	 * 
+	 * @param id        证书id
 	 * @param autoRenew 是否自动续签:0否 1是
 	 * 
 	 */
-	@ApiOperation("设置证书自动续签")
 	@Mapping("setAutoRenew")
-	public JsonResult setAutoRenew(@ApiParam("证书id") String id, @ApiParam("是否自动续签:0否 1是") Integer autoRenew) {
+	public JsonResult setAutoRenew(String id, Integer autoRenew) {
 		Cert cert = new Cert();
 		cert.setId(id);
 		cert.setAutoRenew(autoRenew);
@@ -118,10 +114,10 @@ public class CertApiController extends BaseController {
 
 	/**
 	 * 删除证书
+	 * 
 	 * @param id 证书id
 	 * 
 	 */
-	@ApiOperation("删除证书")
 	@Mapping("del")
 	public JsonResult del(String id) {
 		return certController.del(id);
@@ -129,13 +125,13 @@ public class CertApiController extends BaseController {
 
 	/**
 	 * 执行申请
-	 * @param id 证书id
+	 * 
+	 * @param id   证书id
 	 * @param type 申请类型 issue:申请 renew:续签
 	 * 
 	 */
-	@ApiOperation("执行申请")
 	@Mapping("apply")
-	public JsonResult<List<CertCode>> apply(@ApiParam("证书id") String id, @ApiParam("申请类型 issue:申请 renew:续签") String type) {
+	public JsonResult<List<CertCode>> apply(String id, String type) {
 
 		JsonResult jsonResult = certController.apply(id, type);
 
@@ -148,12 +144,12 @@ public class CertApiController extends BaseController {
 
 	/**
 	 * 下载证书文件
+	 * 
 	 * @param id 证书id
 	 * 
 	 */
-	@ApiOperation("下载证书文件")
 	@Mapping("download")
-	public void download(@ApiParam("证书id") String id) throws IOException {
+	public void download(String id) throws IOException {
 		certController.download(id);
 	}
 }

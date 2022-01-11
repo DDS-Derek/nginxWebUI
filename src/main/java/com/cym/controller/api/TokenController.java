@@ -12,12 +12,9 @@ import com.cym.service.AdminService;
 import com.cym.utils.BaseController;
 import com.cym.utils.JsonResult;
 
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiParam;
 /**
  * 获取token
  */
-@Api(tags = "获取token")
 @Mapping("token")
 @Controller
 public class TokenController extends BaseController {
@@ -31,7 +28,7 @@ public class TokenController extends BaseController {
 	 * @param pass 密码
 	 */
 	@Mapping("getToken")
-	public JsonResult getToken(@ApiParam("用户名") String name, @ApiParam("密码") String pass) {
+	public JsonResult getToken(String name, String pass) {
 
 		// 用户名密码
 		Admin admin = adminService.login(name, pass);

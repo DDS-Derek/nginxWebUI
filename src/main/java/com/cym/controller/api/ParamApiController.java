@@ -13,13 +13,10 @@ import com.cym.utils.BaseController;
 import com.cym.utils.JsonResult;
 
 import cn.hutool.core.util.StrUtil;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
+
 /**
  * 额外参数接口
  */
-@Api(tags = "额外参数接口")
 @Mapping("/api/param")
 @Controller
 public class ParamApiController extends BaseController {
@@ -29,16 +26,16 @@ public class ParamApiController extends BaseController {
 
 	/**
 	 * 根据项目获取参数列表
-	 * @param serverId 所属反向代理id
+	 * 
+	 * @param serverId   所属反向代理id
 	 * @param locationId 所属代理目标id
 	 * @param upstreamId 所属负载均衡id
 	 * 
 	 */
-	@ApiOperation("根据项目获取参数列表")
 	@Mapping("getList")
-	public JsonResult<List<Param>> getList(@ApiParam("所属反向代理id") String serverId, //
-			@ApiParam("所属代理目标id") String locationId, //
-			@ApiParam("所属负载均衡id") String upstreamId) {
+	public JsonResult<List<Param>> getList(String serverId, //
+			String locationId, //
+			String upstreamId) {
 		if (StrUtil.isEmpty(serverId) && StrUtil.isEmpty(locationId) && StrUtil.isEmpty(upstreamId)) {
 			return renderError(m.get("apiStr.paramError"));
 		}
@@ -49,10 +46,10 @@ public class ParamApiController extends BaseController {
 
 	/**
 	 * 添加或编辑参数
+	 * 
 	 * @param param 额外参数
 	 * 
 	 */
-	@ApiOperation("添加或编辑参数")
 	@Mapping("insertOrUpdate")
 	public JsonResult<?> insertOrUpdate(Param param) throws IOException {
 		Integer count = 0;
@@ -77,10 +74,10 @@ public class ParamApiController extends BaseController {
 
 	/**
 	 * 删除额外参数
+	 * 
 	 * @param id 参数id
 	 * 
 	 */
-	@ApiOperation("删除额外参数")
 	@Mapping("del")
 	public JsonResult<?> del(String id) {
 		sqlHelper.deleteById(id, Param.class);

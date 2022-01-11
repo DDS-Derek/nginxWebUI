@@ -16,14 +16,10 @@ import com.cym.utils.NginxUtils;
 
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.http.HtmlUtil;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
 
 /**
  * nginx接口
  */
-@Api(tags = "nginx接口")
 @Mapping("/api/nginx")
 @Controller
 public class NginxApiController extends BaseController {
@@ -37,7 +33,6 @@ public class NginxApiController extends BaseController {
 	/**
 	 * 获取nginx状态
 	 */
-	@ApiOperation("获取nginx状态")
 	@Mapping("nginxStatus")
 	public JsonResult<?> nginxStatus() {
 		if (NginxUtils.isRun()) {
@@ -51,7 +46,6 @@ public class NginxApiController extends BaseController {
 	 * 替换conf文件
 	 * 
 	 */
-	@ApiOperation("替换conf文件")
 	@Mapping("replace")
 	public JsonResult<?> replace() {
 		JsonResult jsonResult = confController.replace(confController.getReplaceJson(), null);
@@ -66,7 +60,6 @@ public class NginxApiController extends BaseController {
 	 * 效验conf文件
 	 * 
 	 */
-	@ApiOperation("效验conf文件")
 	@Mapping("check")
 	public JsonResult<?> checkBase() {
 		JsonResult jsonResult = confController.checkBase();
@@ -81,7 +74,6 @@ public class NginxApiController extends BaseController {
 	 * 重载conf文件
 	 * 
 	 */
-	@ApiOperation("重载conf文件")
 	@Mapping("reload")
 	public synchronized JsonResult<?> reload() {
 		JsonResult jsonResult = confController.reload(null, null, null);
@@ -96,7 +88,6 @@ public class NginxApiController extends BaseController {
 	 * 获取nginx启动命令
 	 * 
 	 */
-	@ApiOperation("获取nginx启动命令")
 	@Mapping("getNginxStartCmd")
 	public JsonResult<List<String>> getNginxStartCmd() {
 		String nginxExe = settingService.get("nginxExe");
@@ -119,7 +110,6 @@ public class NginxApiController extends BaseController {
 	 * 获取nginx停止命令
 	 * 
 	 */
-	@ApiOperation("获取nginx停止命令")
 	@Mapping("getNginxStopCmd")
 	public JsonResult<List<String>> getNginxStopCmd() {
 		String nginxExe = settingService.get("nginxExe");
@@ -145,9 +135,8 @@ public class NginxApiController extends BaseController {
 	 * @param cmd 命令内容
 	 * 
 	 */
-	@ApiOperation("执行nginx命令")
 	@Mapping("runNginxCmd")
-	public JsonResult<?> runNginxCmd(@ApiParam("命令内容") String cmd) {
+	public JsonResult<?> runNginxCmd(String cmd) {
 
 		JsonResult jsonResult = confController.runCmd(cmd, null);
 		jsonResult.setObj(HtmlUtil.cleanHtmlTag(jsonResult.getObj().toString()));

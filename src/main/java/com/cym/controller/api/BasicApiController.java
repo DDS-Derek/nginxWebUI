@@ -17,15 +17,13 @@ import com.cym.utils.JsonResult;
 import com.cym.utils.SnowFlakeUtils;
 
 import cn.hutool.core.util.StrUtil;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
 
 /**
  * 基础参数接口
+ * 
  * @author CYM
  *
  */
-@Api(tags = "基础参数接口")
 @Mapping("/api/basic")
 @Controller
 public class BasicApiController extends BaseController {
@@ -40,7 +38,6 @@ public class BasicApiController extends BaseController {
 	 * 获取Http参数
 	 * 
 	 */
-	@ApiOperation("获取Http参数")
 	@Mapping("getHttp")
 	public JsonResult<List<Http>> getHttp() {
 		return renderSuccess(httpService.findAll());
@@ -48,10 +45,10 @@ public class BasicApiController extends BaseController {
 
 	/**
 	 * 添加或编辑Http参数
+	 * 
 	 * @param http Http参数
 	 *
 	 */
-	@ApiOperation("添加或编辑Http参数")
 	@Mapping("insertOrUpdateHttp")
 	public JsonResult<Http> insertOrUpdateHttp(Http http) {
 		if (StrUtil.isEmpty(http.getName()) || StrUtil.isEmpty(http.getValue())) {
@@ -67,10 +64,10 @@ public class BasicApiController extends BaseController {
 
 	/**
 	 * 删除Http参数
+	 * 
 	 * @param id http参数id
 	 * 
 	 */
-	@ApiOperation("删除Http参数")
 	@Mapping("delHttp")
 	public JsonResult delHttp(String id) {
 		sqlHelper.deleteById(id, Http.class);
@@ -81,7 +78,6 @@ public class BasicApiController extends BaseController {
 	 * 获取基础参数
 	 * 
 	 */
-	@ApiOperation("获取基础参数")
 	@Mapping("getBasic")
 	public JsonResult<List<Basic>> getBasic() {
 		return renderSuccess(basicService.findAll());
@@ -89,16 +85,16 @@ public class BasicApiController extends BaseController {
 
 	/**
 	 * 添加或编辑基础参数
+	 * 
 	 * @param basic 基础参数
 	 * 
 	 */
-	@ApiOperation("添加或编辑基础参数")
 	@Mapping("insertOrUpdateBasic")
 	public JsonResult<Basic> insertOrUpdateBasic(Basic basic) {
 		if (StrUtil.isEmpty(basic.getName()) || StrUtil.isEmpty(basic.getValue())) {
 			return renderError(m.get("apiStr.noContent"));
 		}
-		
+
 		if (StrUtil.isEmpty(basic.getId())) {
 			basic.setSeq(SnowFlakeUtils.getId());
 		}
@@ -108,10 +104,10 @@ public class BasicApiController extends BaseController {
 
 	/**
 	 * 删除基础参数
+	 * 
 	 * @param id 基础参数id
 	 * 
 	 */
-	@ApiOperation("删除基础参数")
 	@Mapping("delBasic")
 	public JsonResult delBasic(String id) {
 		sqlHelper.deleteById(id, Basic.class);
@@ -122,7 +118,6 @@ public class BasicApiController extends BaseController {
 	 * 获取Stream参数
 	 * 
 	 */
-	@ApiOperation("获取Stream参数")
 	@Mapping("getStream")
 	public JsonResult<List<Stream>> getStream() {
 		return renderSuccess(streamService.findAll());
@@ -130,10 +125,10 @@ public class BasicApiController extends BaseController {
 
 	/**
 	 * 添加或编辑Stream参数
+	 * 
 	 * @param stream Stream参数
 	 * 
 	 */
-	@ApiOperation("添加或编辑Stream参数")
 	@Mapping("insertOrUpdateStream")
 	public JsonResult<Stream> insertOrUpdateStream(Stream stream) {
 		if (StrUtil.isEmpty(stream.getName()) || StrUtil.isEmpty(stream.getValue())) {
@@ -148,10 +143,10 @@ public class BasicApiController extends BaseController {
 
 	/**
 	 * 删除Stream参数
+	 * 
 	 * @param id Stream参数id
 	 * 
 	 */
-	@ApiOperation("删除Stream参数")
 	@Mapping("delStream")
 	public JsonResult delStream(String id) {
 		sqlHelper.deleteById(id, Stream.class);

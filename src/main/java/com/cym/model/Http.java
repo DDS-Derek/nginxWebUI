@@ -4,33 +4,25 @@ import com.cym.sqlhelper.bean.BaseModel;
 import com.cym.sqlhelper.config.Table;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-
 /**
  * Http参数
  *
  */
-@ApiModel("Http参数")
 @Table
 public class Http extends BaseModel {
 	/**
 	 * 参数名
 	 */
-	@ApiModelProperty("参数名")
 	String name;
 	/**
 	 * 参数值
 	 */
-	@ApiModelProperty("参数值")
 	String value;
 	/**
 	 * 参数单位
 	 */
-	@ApiModelProperty("参数单位")
 	String unit;
 	@JsonIgnore
-	@ApiModelProperty(hidden = true)
 	Long seq;
 
 	public Http() {
