@@ -143,7 +143,7 @@ public class AppFilter implements Filter {
 
 		Boolean isLogin = (Boolean) ctx.session("isLogin");
 		if (!((isLogin != null && isLogin) || isCredit)) {
-			ctx.redirect(ctxStr + "/adminPage/login");
+			ctx.redirect("/adminPage/login");
 			return false;
 		}
 
