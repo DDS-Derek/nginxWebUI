@@ -202,7 +202,7 @@ public class AppFilter implements Filter {
 
 			} catch (Exception e) {
 				logger.error(e.getMessage(), e);
-				ctx.redirect((ctxStr + "/adminPage/login/noServer"));
+				ctx.redirect("/adminPage/login/noServer");
 			}
 			return false;
 		}
