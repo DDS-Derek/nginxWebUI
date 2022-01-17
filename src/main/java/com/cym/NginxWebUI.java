@@ -46,6 +46,10 @@ public class NginxWebUI {
 			app.onEvent(freemarker.template.Configuration.class, cfg -> {
 				cfg.setSetting("classic_compatible", "true");
 				cfg.setSetting("number_format", "0.##");
+				
+				cfg.setSetting("locale", "UTF-8");
+				cfg.setSetting("default_encoding", "UTF-8");
+				cfg.setSetting("url_escaping_charset", "UTF-8");
 			});
 
 		});
