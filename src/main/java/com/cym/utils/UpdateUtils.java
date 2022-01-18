@@ -43,7 +43,7 @@ public class UpdateUtils {
 			param += " --knife4j.production=" + production;
 		}
 
-		if (!"sqlite".equals(type) && !"h2".equals(type)) {
+		if ("mysql".equals(type.toLowerCase())) {
 			param += " --spring.database.type=" + type //
 					+ " --spring.datasource.url=" + url //
 					+ " --spring.datasource.username=" + username //
