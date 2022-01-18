@@ -38,12 +38,12 @@ public class UpdateUtils {
 
 		String param = " --server.port=" + port //
 				+ " --project.home=" + home;
-		
+
 		if (StrUtil.isNotEmpty(production)) {
 			param += " --knife4j.production=" + production;
 		}
-		
-		if (!"sqlite".equals(type)) {
+
+		if (!"sqlite".equals(type) && !"h2".equals(type)) {
 			param += " --spring.database.type=" + type //
 					+ " --spring.datasource.url=" + url //
 					+ " --spring.datasource.username=" + username //
