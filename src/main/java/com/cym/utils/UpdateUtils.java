@@ -50,7 +50,7 @@ public class UpdateUtils {
 					+ " --spring.datasource.password=" + password;
 		}
 
-		cmd = "nohup java -jar -Xmx64m " + path.replace(".update", "") + param + " > /dev/null &";
+		cmd = "nohup java -jar -Dfile.encoding=UTF-8 " + path.replace(".update", "") + param + " > /dev/null &";
 		LOG.info(cmd);
 		RuntimeUtil.exec(cmd);
 
