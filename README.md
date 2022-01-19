@@ -322,13 +322,11 @@ systemctl start nginxwebui.service
 
 #### 接口开发
 
-本系统提供http接口调用, 只要在启动参数添加 --knife4j.production=false, 再打开 http://xxx.xxx.xxx.xxx:8080/doc.html 即可查看knife4j接口页面.
+本系统提供http接口调用, 打开 http://xxx.xxx.xxx.xxx:8080/doc.html 即可查看smart-doc接口页面.
 
-接口调用需要在header中添加token, 其中token的获取需要在管理员管理中, 打开用户的接口调用权限, 然后通过用户名密码调用获取token接口, 才能得到token, 然后在knife4j的文档管理中设置全局token. 
+接口调用需要在http请求header中添加token, 其中token的获取需要先在管理员管理中, 打开用户的接口调用权限, 然后通过用户名密码调用获取token接口, 才能得到token 
 
-注意: 参数说明中, 带*前缀的均是必填项
-
-![输入图片说明](http://www.nginxwebui.cn/img/knife4j.png "knife4j.png")
+![输入图片说明](http://www.nginxwebui.cn/img/smart-doc.png "smart-doc.png")
 
 #### 找回密码
 

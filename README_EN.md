@@ -311,14 +311,11 @@ Provides one-click synchronization to synchronize data configuration and certifi
 
 #### Interface development 
 
-This system provides the HTTP interface to invoke, as long as the boot parameters added --knife4j.production=false, then open the page http://xxx.xxx.xxx.xxx:8080/doc.html to view the knife4j interface.  
+This system provides the HTTP interface to invoke. Open the page http://xxx.xxx.xxx.xxx:8080/doc.html to view the smart-doc interface.  
 
-Interface invocation needs to add a token in the header. To obtain the token, you need to open the interface invocation permission of the user in the administrator management, and then invoke the token interface through the user name and password to get the token. Then set the global token in the document management of Knife4j.  
+The interface invocation requires adding a token to the HTTP request header. To obtain the token, you need to enable the interface invocation permission of the user in the administrator management system, and then invoke the interface to obtain the token using the user name and password.  
 
-Note: In the parameter description, all fields with * prefix are required.
-
-
-![输入图片说明](http://www.nginxwebui.cn/img/knife4j.png "knife4j.png")
+![输入图片说明](http://www.nginxwebui.cn/img/smart-doc.png "smart-doc.png")
 
 #### Forgot Password
 
