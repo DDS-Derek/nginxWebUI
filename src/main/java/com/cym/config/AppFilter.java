@@ -60,7 +60,6 @@ public class AppFilter implements Filter {
 	@Inject
 	VersionConfig versionConfig;
 
-
 	@Inject
 	PropertiesUtils propertiesUtils;
 	@Inject
@@ -128,11 +127,7 @@ public class AppFilter implements Filter {
 	}
 
 	private boolean adminInterceptor(Context ctx) {
-		String httpHost = ctx.header("X-Forwarded-Host");
-		String realPort = ctx.header("X-Forwarded-Port");
-		String host = ctx.header("Host");
-
-		String ctxStr = getCtxStr(httpHost, host, realPort);
+		String ctxStr = getCtxStr(ctx);
 
 		if (ctx.path().contains("adminPage/login")) {
 			return true;
@@ -211,11 +206,7 @@ public class AppFilter implements Filter {
 	}
 
 	private boolean frontInterceptor(Context ctx) {
-		String httpHost = ctx.header("X-Forwarded-Host");
-		String realPort = ctx.header("X-Forwarded-Port");
-		String host = ctx.header("Host");
-
-		String ctxStr = getCtxStr(httpHost, host, realPort);
+		String ctxStr = getCtxStr(ctx);
 		if (StrUtil.isNotEmpty(ctx.param("ctx"))) {
 			ctxStr = Base64.decodeStr(ctx.param("ctx"));
 		}
@@ -324,16 +315,22 @@ public class AppFilter implements Filter {
 				"&ctx=" + Base64.encode(ctxStr);
 	}
 
-	public String getCtxStr(String httpHost, String host, String realPort) {
-		String ctx = "//";
-		if (StrUtil.isNotEmpty(httpHost)) {
-			ctx += httpHost;
-		} else {
-			ctx += host;
-			if (!host.contains(":") && StrUtil.isNotEmpty(realPort)) {
-				ctx += ":" + realPort;
-			}
-		}
-		return ctx;
+	public String getCtxStr(Context ctx) {
+//		String httpHost = ctx.header("X-Forwarded-Host");
+//		String realPort = ctx.header("X-Forwarded-Port");
+//		String host = ctx.header("Host");
+//		String ctx = "//";
+//		if (StrUtil.isNotEmpty(httpHost)) {
+//			ctx += httpHost;
+//		} else {
+//			ctx += host;
+//			if (!host.contains(":") && StrUtil.isNotEmpty(realPort)) {
+//				ctx += ":" + realPort;
+//			}
+//		}
+//		return ctx;
+
+		return ctx.url().split("/")[0] + "//" + ctx.url().split("/")[2];
 	}
+
 }
