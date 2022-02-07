@@ -39,7 +39,6 @@ public class NginxWebUI {
 			
 			app.before(c -> {
 				String path = c.path();
-				System.out.println(path);
 				while (path.contains("//")) {
 					path = path.replace("//", "/");
 				}
