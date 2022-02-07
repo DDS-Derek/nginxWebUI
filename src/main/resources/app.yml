@@ -1,6 +1,7 @@
 server:
   port: 8080
- 
+  request:
+      maxRequestSize: 2048mb
 project:
   sqlPrint: false
   beanPackage: com.cym.model
@@ -8,10 +9,13 @@ project:
   findPass: false
   
 solon:
-  app.name: nginxWebUI
+  app:
+    name: nginxWebUI
   mime:
     pdf: "application/octet-stream"
-  view.mapping.html: FreemarkerRender
+  view:
+    mapping:
+      html: FreemarkerRender
   logging:
     logger:
       "org.eclipse.jetty":

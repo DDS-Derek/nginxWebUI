@@ -33,7 +33,8 @@ public class NginxWebUI {
 			logger.error(e.getMessage(), e);
 		}
 		
-		  
+		System.setProperty("org.eclipse.jetty.server.Request.maxFormContentSize", "-1");
+		
 		Solon.start(NginxWebUI.class, args, app -> {
 			app.onError(e -> logger.info(e.getMessage(), e));
 			
