@@ -9,6 +9,8 @@ project:
   
 solon:
   app.name: nginxWebUI
+  mime:
+    pdf: "application/octet-stream"
   view.mapping.html: FreemarkerRender
   logging:
     logger:
@@ -20,7 +22,7 @@ solon:
       file:
         name: ${project.home}/log/${solon.app.name}
         level: INFO
-        
+
 spring:
   database:
     type: h2
