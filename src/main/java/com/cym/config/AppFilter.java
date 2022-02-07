@@ -331,7 +331,7 @@ public class AppFilter implements Filter {
 //		}
 //		return ctx;
 
-		return ctx.url().split("/")[0] + "//" + ctx.url().split("/")[2];
+		return "//" + ctx.url().split("/")[2];
 	}
 
 }
