@@ -67,16 +67,13 @@ public class AppFilter implements Filter {
 
 	@Override
 	public void doFilter(Context ctx, FilterChain chain) throws Throwable {
-
 		// 全局过滤器
 		if (!ctx.path().contains("/lib/") //
 				&& !ctx.path().contains("/js/") //
 				&& !ctx.path().contains("/doc/") //
 				&& !ctx.path().contains("/img/") //
 				&& !ctx.path().contains("/css/")) {
-			if (!frontInterceptor(ctx)) {
-				return;
-			}
+			frontInterceptor(ctx);
 		}
 
 		// 登录过滤器
@@ -87,6 +84,8 @@ public class AppFilter implements Filter {
 				&& !ctx.path().contains("/img/") //
 				&& !ctx.path().contains("/css/")) {
 			if (!adminInterceptor(ctx)) {
+				// 设置为已处理
+				ctx.setHandled(true);
 				return;
 			}
 		}
@@ -99,6 +98,8 @@ public class AppFilter implements Filter {
 				&& !ctx.path().contains("/img/") //
 				&& !ctx.path().contains("/css/")) {
 			if (!apiInterceptor(ctx)) {
+				// 设置为已处理
+				ctx.setHandled(true);
 				return;
 			}
 		}
@@ -174,10 +175,10 @@ public class AppFilter implements Filter {
 					String body = buldBody(ctx.paramsMap(), remote, admin);
 					rs = HttpUtil.post(url, body);
 				}
-
+				
 				ctx.charset("utf-8");
 				ctx.contentType("text/html;charset=utf-8");
-
+				
 				if (JSONUtil.isJson(rs)) {
 					String date = DateUtil.format(new Date(), "yyyy-MM-dd_HH-mm-ss");
 					ctx.header("Content-Type", "application/octet-stream");
@@ -199,13 +200,14 @@ public class AppFilter implements Filter {
 				logger.error(e.getMessage(), e);
 				ctx.redirect("/adminPage/login/noServer");
 			}
+			
 			return false;
 		}
 
 		return true;
 	}
 
-	private boolean frontInterceptor(Context ctx) {
+	private void frontInterceptor(Context ctx) {
 		String ctxStr = getCtxStr(ctx);
 		if (StrUtil.isNotEmpty(ctx.param("ctx"))) {
 			ctxStr = Base64.decodeStr(ctx.param("ctx"));
@@ -273,7 +275,6 @@ public class AppFilter implements Filter {
 			ctx.attrSet("langType", "Switch to English");
 		}
 
-		return true;
 	}
 
 	private String buldBody(Map<String, List<String>> parameterMap, Remote remote, Admin admin) throws UnsupportedEncodingException {

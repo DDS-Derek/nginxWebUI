@@ -38,7 +38,12 @@ public class NginxWebUI {
 			app.onError(e -> logger.info(e.getMessage(), e));
 			
 			app.before(c -> {
-				c.pathNew(c.path().replace("//", "/"));
+				String path = c.path();
+				System.out.println(path);
+				while (path.contains("//")) {
+					path = path.replace("//", "/");
+				}
+				c.pathNew(path);
 			});
 
 			app.enableWebSocket(true);
