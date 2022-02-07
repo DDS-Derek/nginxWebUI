@@ -116,5 +116,5 @@ function tail(id,path){
 }
 
 function down(id){
-	window.open(ctx+"adminPage/log/down?id=" + id);
+	window.open(ctx + "/adminPage/log/down?id=" + id);
 }
