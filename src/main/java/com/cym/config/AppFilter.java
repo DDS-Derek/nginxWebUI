@@ -175,10 +175,10 @@ public class AppFilter implements Filter {
 					String body = buldBody(ctx.paramsMap(), remote, admin);
 					rs = HttpUtil.post(url, body);
 				}
-				
+
 				ctx.charset("utf-8");
 				ctx.contentType("text/html;charset=utf-8");
-				
+
 				if (JSONUtil.isJson(rs)) {
 					String date = DateUtil.format(new Date(), "yyyy-MM-dd_HH-mm-ss");
 					ctx.header("Content-Type", "application/octet-stream");
@@ -200,7 +200,7 @@ public class AppFilter implements Filter {
 				logger.error(e.getMessage(), e);
 				ctx.redirect("/adminPage/login/noServer");
 			}
-			
+
 			return false;
 		}
 
@@ -316,22 +316,28 @@ public class AppFilter implements Filter {
 				"&ctx=" + Base64.encode(ctxStr);
 	}
 
-	public String getCtxStr(Context ctx) {
-//		String httpHost = ctx.header("X-Forwarded-Host");
-//		String realPort = ctx.header("X-Forwarded-Port");
-//		String host = ctx.header("Host");
-//		String ctx = "//";
-//		if (StrUtil.isNotEmpty(httpHost)) {
-//			ctx += httpHost;
-//		} else {
-//			ctx += host;
-//			if (!host.contains(":") && StrUtil.isNotEmpty(realPort)) {
-//				ctx += ":" + realPort;
-//			}
-//		}
-//		return ctx;
+	public String getCtxStr(Context context) {
+		String httpHost = context.header("X-Forwarded-Host");
+		String realPort = context.header("X-Forwarded-Port");
+		String host = context.header("Host");
 
-		return "//" + ctx.url().split("/")[2];
+		String ctx = "//";
+		if (StrUtil.isNotEmpty(httpHost)) {
+			ctx += httpHost;
+		} else if (StrUtil.isNotEmpty(host)) {
+			ctx += host;
+			if (!host.contains(":") && StrUtil.isNotEmpty(realPort)) {
+				ctx += ":" + realPort;
+			}
+		} else {
+			host = context.url().split("/")[2];
+			ctx += host;
+			if (!host.contains(":") && StrUtil.isNotEmpty(realPort)) {
+				ctx += ":" + realPort;
+			}
+		}
+		return ctx;
+
 	}
 
 }
