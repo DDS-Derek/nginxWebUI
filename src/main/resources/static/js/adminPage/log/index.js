@@ -98,6 +98,27 @@ function del(id){
 }
 
 
+function clean(){
+	if(confirm(logStr.cleanConfirm)){
+		$.ajax({
+			type : 'POST',
+			url : ctx + '/adminPage/log/clean',
+			dataType : 'json',
+			success : function(data) {
+				if (data.success) {
+					location.reload();
+				}else{
+					layer.msg(data.msg)
+				}
+			},
+			error : function() {
+				layer.alert(commonStr.errorInfo);
+			}
+		});
+	}
+}
+
+
 function selectRootCustom(){
 	rootSelect.selectOne(function callBack(val){
 		$("#path").val(val);

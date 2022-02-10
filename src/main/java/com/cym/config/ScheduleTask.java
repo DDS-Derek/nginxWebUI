@@ -47,7 +47,8 @@ public class ScheduleTask {
 	Logger logger = LoggerFactory.getLogger(this.getClass());
 	@Inject("${server.port}")
 	Integer port;
-
+	@Inject("${solon.logging.appender.file.maxHistory}")
+	Integer maxHistory;
 	@Inject
 	SqlHelper sqlHelper;
 	@Inject
@@ -92,7 +93,6 @@ public class ScheduleTask {
 	}
 
 	// 分隔日志,每天
-	// @Scheduled(cron = "0/10 * * * * ?")
 	@Scheduled(cron = "0 55 23 * * ?")
 	public void diviLog() {
 		Http access = httpService.getName("access_log");
@@ -132,7 +132,7 @@ public class ScheduleTask {
 						String[] array = file.getName().split("[.]");
 						String dateStr = array[array.length - 2];
 						DateTime dateTime = DateUtil.parse(dateStr, "yyyy-MM-dd");
-						if (time - dateTime.getTime() > TimeUnit.DAYS.toMillis(8)) {
+						if (time - dateTime.getTime() > TimeUnit.DAYS.toMillis(maxHistory)) {
 							FileUtil.del(file);
 						}
 					}
@@ -143,28 +143,28 @@ public class ScheduleTask {
 	}
 
 	// 删除7天前的备份
-	@Scheduled(cron = "0 0 0 * * ?")
-	public void delBak() {
-
-		long time = System.currentTimeMillis();
-		File dir = new File(homeConfig.home + "bak/");
-		if (dir.exists()) {
-			for (File file : dir.listFiles()) {
-				if (file.getName().contains("nginx.conf.") && (file.getName().endsWith(".zip") || file.getName().endsWith(".bak"))) {
-					String dateStr = file.getName().replace("nginx.conf.", "").replace(".zip", "").replace(".bak", "").split("_")[0];
-					DateTime date = null;
-					if (dateStr.length() != 10) {
-						FileUtil.del(file);
-					} else {
-						date = DateUtil.parse(dateStr, "yyyy-MM-dd");
-						if (time - date.getTime() > TimeUnit.DAYS.toMillis(8)) {
-							FileUtil.del(file);
-						}
-					}
-				}
-			}
-		}
-	}
+//	@Scheduled(cron = "0 0 0 * * ?")
+//	public void delBak() {
+//
+//		long time = System.currentTimeMillis();
+//		File dir = new File(homeConfig.home + "bak/");
+//		if (dir.exists()) {
+//			for (File file : dir.listFiles()) {
+//				if (file.getName().contains("nginx.conf.") && (file.getName().endsWith(".zip") || file.getName().endsWith(".bak"))) {
+//					String dateStr = file.getName().replace("nginx.conf.", "").replace(".zip", "").replace(".bak", "").split("_")[0];
+//					DateTime date = null;
+//					if (dateStr.length() != 10) {
+//						FileUtil.del(file);
+//					} else {
+//						date = DateUtil.parse(dateStr, "yyyy-MM-dd");
+//						if (time - date.getTime() > TimeUnit.DAYS.toMillis(maxHistory)) {
+//							FileUtil.del(file);
+//						}
+//					}
+//				}
+//			}
+//		}
+//	}
 
 	// 检查远程服务器
 	@Scheduled(cron = "0/30 * * * * ?")

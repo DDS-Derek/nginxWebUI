@@ -24,7 +24,8 @@ solon:
       file:
         name: ${project.home}/log/${solon.app.name}
         level: INFO
-
+        maxFileSize: "100 MB"
+        maxHistory: "7"
 spring:
   database:
     type: h2

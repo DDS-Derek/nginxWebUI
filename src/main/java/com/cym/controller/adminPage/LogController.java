@@ -18,6 +18,7 @@ import com.cym.model.Log;
 import com.cym.service.LogService;
 import com.cym.service.SettingService;
 import com.cym.sqlhelper.bean.Page;
+import com.cym.sqlhelper.utils.ConditionAndWrapper;
 import com.cym.utils.BaseController;
 import com.cym.utils.JsonResult;
 import com.cym.utils.SystemTool;
@@ -72,6 +73,13 @@ public class LogController extends BaseController {
 		return renderSuccess();
 	}
 
+	@Mapping("clean")
+	public JsonResult clean() {
+		sqlHelper.deleteByQuery(new ConditionAndWrapper(), Log.class);
+		return renderSuccess();
+	}
+
+	
 	@Mapping("tail")
 	public ModelAndView tail(ModelAndView modelAndView, String id, String protocol) {
 		modelAndView.put("id", id);
