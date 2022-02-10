@@ -11,8 +11,6 @@ project:
 solon:
   app:
     name: nginxWebUI
-  mime:
-    pdf: "application/octet-stream"
   view:
     mapping:
       html: FreemarkerRender
