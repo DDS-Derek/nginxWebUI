@@ -1,7 +1,8 @@
 server:
   port: 8080
   request:
-      maxRequestSize: 2048mb
+    maxRequestSize: 2048mb
+    
 project:
   sqlPrint: false
   beanPackage: com.cym.model
