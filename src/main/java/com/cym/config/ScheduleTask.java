@@ -29,6 +29,8 @@ import com.cym.service.RemoteService;
 import com.cym.service.SettingService;
 import com.cym.service.UpstreamService;
 import com.cym.sqlhelper.utils.SqlHelper;
+import com.cym.utils.BLogFileTailer;
+import com.cym.utils.FilePointer;
 import com.cym.utils.MessageUtils;
 import com.cym.utils.SendMailUtils;
 import com.cym.utils.TelnetUtils;
@@ -73,6 +75,8 @@ public class ScheduleTask {
 	MessageUtils m;
 	@Inject
 	HomeConfig homeConfig;
+	@Inject
+	BLogFileTailer bLogFileTailer;
 
 	// 续签证书
 	@Scheduled(cron = "0 0 2 * * ?")
@@ -105,6 +109,18 @@ public class ScheduleTask {
 			cutLog(error);
 		}
 
+	}
+
+	// 删除BLogFileTailer过期的guid
+	@Scheduled(cron = "0 0 0 * * ?")
+	public void cleanBLogFileTailer() {
+		for (String key : bLogFileTailer.filePointerMap.keySet()) {
+			FilePointer filePointer = bLogFileTailer.filePointerMap.get(key);
+			
+			if(System.currentTimeMillis() - filePointer.getLastTime() > 24 * 60 * 60 * 1000) {
+				bLogFileTailer.filePointerMap.remove(key);
+			}
+		}
 	}
 
 	private void cutLog(Http http) {

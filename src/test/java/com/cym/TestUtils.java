@@ -1,13 +1,14 @@
 package com.cym;
 
+import java.io.File;
+
 import org.junit.Test;
 
-import cn.hutool.core.lang.UUID;
+import com.cym.utils.BLogFileTailer;
 
 public class TestUtils {
 
 	@Test
-	public void generate() {
-		System.out.println(UUID.randomUUID());
+	public void testTailB() {
 	}
 }

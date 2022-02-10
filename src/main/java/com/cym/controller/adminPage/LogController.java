@@ -19,6 +19,7 @@ import com.cym.service.LogService;
 import com.cym.service.SettingService;
 import com.cym.sqlhelper.bean.Page;
 import com.cym.sqlhelper.utils.ConditionAndWrapper;
+import com.cym.utils.BLogFileTailer;
 import com.cym.utils.BaseController;
 import com.cym.utils.JsonResult;
 import com.cym.utils.SystemTool;
@@ -37,9 +38,10 @@ public class LogController extends BaseController {
 	LogService logService;
 	@Inject
 	AppFilter appFilter;
-
+	@Inject
+	BLogFileTailer bLogFileTailer;
 	@Mapping("")
-	public ModelAndView index( ModelAndView modelAndView, Page page) {
+	public ModelAndView index(ModelAndView modelAndView, Page page) {
 		page = logService.search(page);
 		modelAndView.put("page", page);
 
@@ -79,7 +81,6 @@ public class LogController extends BaseController {
 		return renderSuccess();
 	}
 
-	
 	@Mapping("tail")
 	public ModelAndView tail(ModelAndView modelAndView, String id, String protocol) {
 		modelAndView.put("id", id);
@@ -94,18 +95,17 @@ public class LogController extends BaseController {
 		}
 
 		String ctxWs = appFilter.getCtxStr(Context.current());
-		modelAndView.put("ctxWs", ctxWs); 
-		
+		modelAndView.put("ctxWs", ctxWs);
+
 		modelAndView.view("/adminPage/log/tail.html");
 		return modelAndView;
 	}
 
-	
 	@Mapping("down")
 	public void down(ModelAndView modelAndView, String id) throws FileNotFoundException {
 		Log log = sqlHelper.findById(id, Log.class);
 		File file = new File(log.getPath());
-		
+
 		Context.current().contentType("application/octet-stream");
 		String headerKey = "Content-Disposition";
 		String headerValue = "attachment; filename=" + URLUtil.encode(file.getName());
@@ -113,6 +113,17 @@ public class LogController extends BaseController {
 
 		InputStream inputStream = new FileInputStream(file);
 		Context.current().output(inputStream);
+	}
+
+	@Mapping("tailCmd")
+	public JsonResult tailCmd(String id, String guid, Boolean run) throws Exception {
+		Thread.sleep(1000);
+		Log log = sqlHelper.findById(id, Log.class);
+		String rs = "";
+		if (run) {
+			rs = bLogFileTailer.run(guid, log.getPath());
+		}
+		return renderSuccess(rs);
 	}
 
 }
