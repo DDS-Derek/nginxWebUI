@@ -110,18 +110,6 @@ public class ScheduleTask {
 
 	}
 
-//	// 删除BLogFileTailer过期的guid
-//	@Scheduled(cron = "0 0 0 * * ?")
-//	public void cleanBLogFileTailer() {
-//		for (String key : bLogFileTailer.filePointerMap.keySet()) {
-//			FilePointer filePointer = bLogFileTailer.filePointerMap.get(key);
-//			
-//			if(System.currentTimeMillis() - filePointer.getLastTime() > 24 * 60 * 60 * 1000) {
-//				bLogFileTailer.filePointerMap.remove(key);
-//			}
-//		}
-//	}
-
 	private void cutLog(Http http) {
 		String path = http.getValue();
 
@@ -157,29 +145,6 @@ public class ScheduleTask {
 
 	}
 
-	// 删除7天前的备份
-//	@Scheduled(cron = "0 0 0 * * ?")
-//	public void delBak() {
-//
-//		long time = System.currentTimeMillis();
-//		File dir = new File(homeConfig.home + "bak/");
-//		if (dir.exists()) {
-//			for (File file : dir.listFiles()) {
-//				if (file.getName().contains("nginx.conf.") && (file.getName().endsWith(".zip") || file.getName().endsWith(".bak"))) {
-//					String dateStr = file.getName().replace("nginx.conf.", "").replace(".zip", "").replace(".bak", "").split("_")[0];
-//					DateTime date = null;
-//					if (dateStr.length() != 10) {
-//						FileUtil.del(file);
-//					} else {
-//						date = DateUtil.parse(dateStr, "yyyy-MM-dd");
-//						if (time - date.getTime() > TimeUnit.DAYS.toMillis(maxHistory)) {
-//							FileUtil.del(file);
-//						}
-//					}
-//				}
-//			}
-//		}
-//	}
 
 	// 检查远程服务器
 	@Scheduled(cron = "0/30 * * * * ?")
