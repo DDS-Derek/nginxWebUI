@@ -1,7 +1,6 @@
 package com.cym.utils;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Vector;
@@ -28,7 +27,6 @@ public class BLogFileTailer {
 				public void expired(String guid, Tailer tailer) {
 					tailer.stop();
 					tailer = null;
-					System.out.println(guid + ":stop");
 				}
 			}).build();//
 
@@ -45,7 +43,6 @@ public class BLogFileTailer {
 
 				@Override
 				public void handle(String line) {
-					System.out.println(guid + "-->" + line);
 					if (lineMap.get(guid) == null) {
 						lineMap.put(guid, new Vector<String>());
 					}
