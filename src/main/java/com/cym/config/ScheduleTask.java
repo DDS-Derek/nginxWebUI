@@ -30,7 +30,6 @@ import com.cym.service.SettingService;
 import com.cym.service.UpstreamService;
 import com.cym.sqlhelper.utils.SqlHelper;
 import com.cym.utils.BLogFileTailer;
-import com.cym.utils.FilePointer;
 import com.cym.utils.MessageUtils;
 import com.cym.utils.SendMailUtils;
 import com.cym.utils.TelnetUtils;
@@ -111,17 +110,17 @@ public class ScheduleTask {
 
 	}
 
-	// 删除BLogFileTailer过期的guid
-	@Scheduled(cron = "0 0 0 * * ?")
-	public void cleanBLogFileTailer() {
-		for (String key : bLogFileTailer.filePointerMap.keySet()) {
-			FilePointer filePointer = bLogFileTailer.filePointerMap.get(key);
-			
-			if(System.currentTimeMillis() - filePointer.getLastTime() > 24 * 60 * 60 * 1000) {
-				bLogFileTailer.filePointerMap.remove(key);
-			}
-		}
-	}
+//	// 删除BLogFileTailer过期的guid
+//	@Scheduled(cron = "0 0 0 * * ?")
+//	public void cleanBLogFileTailer() {
+//		for (String key : bLogFileTailer.filePointerMap.keySet()) {
+//			FilePointer filePointer = bLogFileTailer.filePointerMap.get(key);
+//			
+//			if(System.currentTimeMillis() - filePointer.getLastTime() > 24 * 60 * 60 * 1000) {
+//				bLogFileTailer.filePointerMap.remove(key);
+//			}
+//		}
+//	}
 
 	private void cutLog(Http http) {
 		String path = http.getValue();

@@ -126,6 +126,13 @@
 			<artifactId>maven-model</artifactId>
 			<version>3.0</version>
 		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/net.jodah/expiringmap -->
+		<dependency>
+			<groupId>net.jodah</groupId>
+			<artifactId>expiringmap</artifactId>
+			<version>0.5.10</version>
+		</dependency>
 	</dependencies>
 
 

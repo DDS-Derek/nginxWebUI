@@ -3,28 +3,32 @@ package com.cym.utils;
 import java.io.File;
 import java.io.IOException;
 import java.io.RandomAccessFile;
-import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 import org.noear.solon.annotation.Component;
 
+import net.jodah.expiringmap.ExpirationPolicy;
+import net.jodah.expiringmap.ExpiringMap;
+
 @Component
 public class BLogFileTailer {
-
-	public Map<String, FilePointer> filePointerMap = new HashMap<>();
+	// 定时过期map
+	public Map<String, Long> filePointerMap =  
+			ExpiringMap.builder()
+            .expiration(60, TimeUnit.SECONDS)
+            .expirationPolicy(ExpirationPolicy.ACCESSED)
+            .build();
 
 	public String run(String guid, String path) {
-
+		System.out.println(filePointerMap);
+		
 		Long pointer = null;
 		if (filePointerMap.get(guid) != null) {
-			FilePointer filePointer = filePointerMap.get(guid);
-			filePointer.setLastTime(System.currentTimeMillis());
-			pointer = filePointer.getPointer();
+			pointer = filePointerMap.get(guid);
 		} else {
 			pointer = 0l;
-			FilePointer filePointer = new FilePointer(pointer, System.currentTimeMillis());
-			filePointerMap.put(guid, filePointer);
-			pointer = filePointer.getPointer();
+			filePointerMap.put(guid, pointer);
 		}
 		File logfile = new File(path);
 
@@ -36,8 +40,7 @@ public class BLogFileTailer {
 			// 新文件的长度小于上一次读取文件的长度时，从头开始读
 			if (fileLength < pointer) {
 				pointer = 0l;
-				FilePointer filePointer = new FilePointer(pointer, System.currentTimeMillis());
-				filePointerMap.put(guid, filePointer);
+				filePointerMap.put(guid, pointer);
 			}
 
 			// 新文件长度大于上一次读取文件的长度时
@@ -58,8 +61,7 @@ public class BLogFileTailer {
 				// RandomAccessFile.getFilePointer():记录文件指针
 				pointer = file.getFilePointer();
 				// 存放到map变量中
-				FilePointer filePointer = new FilePointer(pointer, System.currentTimeMillis());
-				filePointerMap.put(guid, filePointer);
+				filePointerMap.put(guid, pointer);
 			}
 			file.close();
 		} catch (IOException e) {
