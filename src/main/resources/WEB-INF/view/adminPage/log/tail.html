@@ -11,8 +11,7 @@
 
 
 	<div style="position: fixed; top: 10px; right: 30px;">
-		<button class="layui-btn layui-btn-sm" type="button" onclick="stop()">${loginStr.pause}</button>
-		<button class="layui-btn layui-btn-sm layui-btn-normal" type="button" onclick="goon()">${loginStr.continue}</button>
+		<button class="layui-btn layui-btn-sm" id="stopOrStart" type="button" onclick="stopOrStart()">${loginStr.pause}</button>
 	</div>
 
 	<input type="hidden" id="id" value="${id}">

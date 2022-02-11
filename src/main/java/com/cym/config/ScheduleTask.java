@@ -242,9 +242,9 @@ public class ScheduleTask {
 	}
 
 
-	// 分隔日志,每天
-	@Scheduled(cron = "* * * * * ?")
-	public void test() {
-		FileUtil.appendString(DateUtil.format(new Date(), "HH:mm:ss") + "\n", "D:/test.txt", Charset.forName("UTF-8"));
-	}
+//	// 分隔日志,每天
+//	@Scheduled(cron = "* * * * * ?")
+//	public void test() {
+//		FileUtil.appendString(DateUtil.format(new Date(), "HH:mm:ss") + "\n", "D:/test.txt", Charset.forName("UTF-8"));
+//	}
 }

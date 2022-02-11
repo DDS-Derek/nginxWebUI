@@ -43,10 +43,12 @@ function startTail() {
 	}
 }
 
-function stop() {
-	run = false;
-}
-
-function goon() {
-	run = true;
+function stopOrStart() {
+	if (run) {
+		run = false;
+		$("#stopOrStart").html(loginStr.continue);
+	} else {
+		run = true;
+		$("#stopOrStart").html(loginStr.pause);
+	}
 }
