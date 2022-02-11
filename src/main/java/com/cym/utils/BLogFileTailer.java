@@ -1,74 +1,74 @@
 package com.cym.utils;
 
 import java.io.File;
-import java.io.IOException;
-import java.io.RandomAccessFile;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
+import java.util.Vector;
 import java.util.concurrent.TimeUnit;
 
 import org.noear.solon.annotation.Component;
 
+import cn.hutool.core.io.LineHandler;
+import cn.hutool.core.io.file.Tailer;
+import cn.hutool.core.util.StrUtil;
+import net.jodah.expiringmap.ExpirationListener;
 import net.jodah.expiringmap.ExpirationPolicy;
 import net.jodah.expiringmap.ExpiringMap;
 
 @Component
 public class BLogFileTailer {
 	// 定时过期map
-	public Map<String, Long> filePointerMap =  
-			ExpiringMap.builder()
-            .expiration(60, TimeUnit.SECONDS)
-            .expirationPolicy(ExpirationPolicy.ACCESSED)
-            .build();
+	public Map<String, Tailer> tailerMap = ExpiringMap//
+			.builder()//
+			.expiration(10, TimeUnit.SECONDS)//
+			.expirationPolicy(ExpirationPolicy.ACCESSED)//
+			.expirationListener(new ExpirationListener<String, Tailer>() {
+				@Override
+				public void expired(String guid, Tailer tailer) {
+					tailer.stop();
+					tailer = null;
+					System.out.println(guid + ":stop");
+				}
+			}).build();//
+
+	public Map<String, Vector<String>> lineMap = ExpiringMap//
+			.builder()//
+			.expiration(10, TimeUnit.SECONDS)//
+			.expirationPolicy(ExpirationPolicy.ACCESSED)//
+			.build();//
 
 	public String run(String guid, String path) {
-		System.out.println(filePointerMap);
-		
-		Long pointer = null;
-		if (filePointerMap.get(guid) != null) {
-			pointer = filePointerMap.get(guid);
-		} else {
-			pointer = 0l;
-			filePointerMap.put(guid, pointer);
-		}
-		File logfile = new File(path);
 
-		String str = "";
-		try {
-			RandomAccessFile file = new RandomAccessFile(logfile, "r");
-			long fileLength = logfile.length(); // 新文件的长度
+		if (tailerMap.get(guid) == null) {
+			Tailer tailer = new Tailer(new File(path), new LineHandler() {
 
-			// 新文件的长度小于上一次读取文件的长度时，从头开始读
-			if (fileLength < pointer) {
-				pointer = 0l;
-				filePointerMap.put(guid, pointer);
-			}
-
-			// 新文件长度大于上一次读取文件的长度时
-			// 通过 FilePointer 从上一次读取文件的结尾开始读
-			if (fileLength > pointer) {
-				// RandomAccessFile.seek():表示从文件的第几个位置开始搜索
-				file.seek(pointer);
-				String line = file.readLine();
-				while (line != null) {
-					// 过滤掉：当读取到换行符 '/n' 的时候,会读取到一行的内容为空字符串
-					if ("".equals(line)) {
-						line = file.readLine();
-						continue;
+				@Override
+				public void handle(String line) {
+					System.out.println(guid + "-->" + line);
+					if (lineMap.get(guid) == null) {
+						lineMap.put(guid, new Vector<String>());
 					}
-					str += "<div>" + line.replaceAll(" ", "&nbsp;").replaceAll("	", "&emsp;") + "</div>";
-					line = file.readLine(); // 读取下一行数据
+
+					lineMap.get(guid).add("<div>" + line + "</div>");
 				}
-				// RandomAccessFile.getFilePointer():记录文件指针
-				pointer = file.getFilePointer();
-				// 存放到map变量中
-				filePointerMap.put(guid, pointer);
-			}
-			file.close();
-		} catch (IOException e) {
-			// 异常信息
-			e.printStackTrace();
+			});
+			tailer.start(true);
+
+			tailerMap.put(guid, tailer);
 		}
 
-		return str;
+		List<String> list = lineMap.get(guid);
+		if (list != null && list.size() > 0) {
+
+			// 清除到500行
+			while (list.size() > 500) {
+				list.remove(0);
+			}
+
+			return StrUtil.join("", list);
+		}
+		return "";
 	}
+
 }

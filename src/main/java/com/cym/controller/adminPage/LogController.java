@@ -40,6 +40,7 @@ public class LogController extends BaseController {
 	AppFilter appFilter;
 	@Inject
 	BLogFileTailer bLogFileTailer;
+
 	@Mapping("")
 	public ModelAndView index(ModelAndView modelAndView, Page page) {
 		page = logService.search(page);
@@ -84,19 +85,6 @@ public class LogController extends BaseController {
 	@Mapping("tail")
 	public ModelAndView tail(ModelAndView modelAndView, String id, String protocol) {
 		modelAndView.put("id", id);
-		// 获取远程机器的协议
-		if (StrUtil.isNotEmpty(protocol)) {
-			if (protocol.equals("https")) {
-				modelAndView.put("protocol", "wss:");
-			}
-			if (protocol.equals("http")) {
-				modelAndView.put("protocol", "ws:");
-			}
-		}
-
-		String ctxWs = appFilter.getCtxStr(Context.current());
-		modelAndView.put("ctxWs", ctxWs);
-
 		modelAndView.view("/adminPage/log/tail.html");
 		return modelAndView;
 	}
@@ -116,13 +104,13 @@ public class LogController extends BaseController {
 	}
 
 	@Mapping("tailCmd")
-	public JsonResult tailCmd(String id, String guid, Boolean run) throws Exception {
-		Thread.sleep(1000);
+	public JsonResult tailCmd(String id, String guid) throws Exception {
 		Log log = sqlHelper.findById(id, Log.class);
-		String rs = "";
-		if (run) {
-			rs = bLogFileTailer.run(guid, log.getPath());
+		if (!FileUtil.exist(log.getPath())) {
+			return renderSuccess("");
 		}
+
+		String rs = bLogFileTailer.run(guid, log.getPath());
 		return renderSuccess(rs);
 	}
 

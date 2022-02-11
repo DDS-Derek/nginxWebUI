@@ -1,6 +1,7 @@
 package com.cym.config;
 
 import java.io.File;
+import java.nio.charset.Charset;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -145,7 +146,6 @@ public class ScheduleTask {
 
 	}
 
-
 	// 检查远程服务器
 	@Scheduled(cron = "0/30 * * * * ?")
 	public void nginxTasks() {
@@ -239,5 +239,12 @@ public class ScheduleTask {
 				settingService.set("lastUpstreamSend", String.valueOf(System.currentTimeMillis()));
 			}
 		}
+	}
+
+
+	// 分隔日志,每天
+	@Scheduled(cron = "* * * * * ?")
+	public void test() {
+		FileUtil.appendString(DateUtil.format(new Date(), "HH:mm:ss") + "\n", "D:/test.txt", Charset.forName("UTF-8"));
 	}
 }
