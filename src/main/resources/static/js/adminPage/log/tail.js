@@ -1,5 +1,5 @@
 var run = true;
-var guid = new guid();
+var guid = guid();
 
 $(function() {
 	setInterval(startTail, 1000);
