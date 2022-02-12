@@ -18,22 +18,12 @@ function startTail() {
 			success: function(data) {
 				if (data.success) {
 					// 接收服务端的实时日志并添加到HTML页面中
-					$("#log-container div").html(data.obj);
+					$("#log-container").html(data.obj);
 					// 滚动条滚动到最低部
 					if (data.obj != "") {
-						$("#log-container").scrollTop($("#log-container div").height() - $("#log-container").height());
+						//$("#log-container").scrollTop($("#log-container div").height() - $("#log-container").height());
+						window.scrollTo(0, document.body.scrollHeight);
 					}
-
-					// 超过1000行, 清空多余的行
-					/*
-					if ($("#log-container div").children().length > 1000) {
-						var delCount = $("#log-container div").children().length - 1000;
-						$("#log-container div div").each(function() {
-							$(this).remove();
-						});
-					}
-					*/
-
 				}
 			},
 			error: function() {

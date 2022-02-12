@@ -20,7 +20,7 @@ public class BLogFileTailer {
 	// 定时过期map
 	public Map<String, Tailer> tailerMap = ExpiringMap//
 			.builder()//
-			.expiration(10, TimeUnit.SECONDS)//
+			.expiration(20, TimeUnit.SECONDS)//
 			.expirationPolicy(ExpirationPolicy.ACCESSED)//
 			.expirationListener(new ExpirationListener<String, Tailer>() {
 				@Override
@@ -32,7 +32,7 @@ public class BLogFileTailer {
 
 	public Map<String, Vector<String>> lineMap = ExpiringMap//
 			.builder()//
-			.expiration(10, TimeUnit.SECONDS)//
+			.expiration(20, TimeUnit.SECONDS)//
 			.expirationPolicy(ExpirationPolicy.ACCESSED)//
 			.build();//
 
@@ -49,7 +49,7 @@ public class BLogFileTailer {
 
 					lineMap.get(guid).add("<div>" + line + "</div>");
 				}
-			});
+			}, 50);
 			tailer.start(true);
 
 			tailerMap.put(guid, tailer);

@@ -241,10 +241,11 @@ public class ScheduleTask {
 		}
 	}
 
-
-//	// 分隔日志,每天
-//	@Scheduled(cron = "* * * * * ?")
+	// 测试任务
+//	@Scheduled(cron = "0/2 * * * * ?")
 //	public void test() {
-//		FileUtil.appendString(DateUtil.format(new Date(), "HH:mm:ss") + "\n", "D:/test.txt", Charset.forName("UTF-8"));
+//		for (int i = 0; i < 20; i++) {
+//			FileUtil.appendString(System.currentTimeMillis() + "\n\r", "D:/test.txt", Charset.forName("UTF-8"));
+//		}
 //	}
 }
