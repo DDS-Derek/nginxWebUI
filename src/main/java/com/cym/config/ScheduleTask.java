@@ -242,10 +242,9 @@ public class ScheduleTask {
 	}
 
 	// 测试任务
-//	@Scheduled(cron = "0/2 * * * * ?")
-//	public void test() {
-//		for (int i = 0; i < 20; i++) {
-//			FileUtil.appendString(System.currentTimeMillis() + "\n\r", "D:/test.txt", Charset.forName("UTF-8"));
-//		}
+//	@Scheduled(cron = "* * * * * ?")
+//	public void test() throws InterruptedException {
+//		Thread.sleep(3000);
+//		System.out.println(DateUtil.format(new Date(), "HHmmss"));
 //	}
 }
