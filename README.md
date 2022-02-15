@@ -111,8 +111,6 @@ Windows: java -jar -Dfile.encoding=UTF-8 D:/home/nginxWebUI/nginxWebUI.jar --ser
 
 --spring.datasource.password=pass  数据库密码
 
---knife4j.production=false  false:打开接口调试页面 true:关闭接口调试页面
-
 注意命令最后加一个&号, 表示项目后台运行
 
 #### docker安装说明

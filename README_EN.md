@@ -104,8 +104,6 @@ Parameter description (both non-required)
 
 --spring.datasource.password=pass  Databases password
 
---knife4j.production=false  false:Open interface debugging page. true:Close interface debugging page.
-
 Note that the command ends with an & to indicate that the project is running in the background
 
 #### docker installation instructions 
