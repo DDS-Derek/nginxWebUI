@@ -32,7 +32,7 @@ password: Admin123
 
 #### Technical note
 
-This project is a Web system based on solon. The database use SQLite, so there is no need to install any database on the server.
+This project is a Web system based on solon. The database use h2, so there is no need to install any database on the server.
 
 This system applies for the certificate through Let's ENCRYPT and USES acme.sh script to automatically apply for and renew the certificate. Once the certificate is renewed, it will be renewed at 2 am every day, and only certificates exceeding 60 days will be renewed.
 
