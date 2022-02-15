@@ -102,7 +102,7 @@ Parameter description (both non-required)
 
 --spring.datasource.password=pass  Databases password
 
-Note that the command ends with an & to indicate that the project is running in the background
+Note that the Linux command ends with an & to indicate that the project is running in the background
 
 #### docker installation instructions 
 
