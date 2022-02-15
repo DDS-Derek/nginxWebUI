@@ -97,13 +97,11 @@ Windows: java -jar -Dfile.encoding=UTF-8 D:/home/nginxWebUI/nginxWebUI.jar --ser
 
 参数说明(都是非必填)
 
--Xmx64m 最大分配内存数
-
 --server.port 占用端口, 默认以8080端口启动
 
 --project.home 项目配置文件目录，存放数据库文件，证书文件，日志等, 默认为/home/nginxWebUI/
 
---spring.database.type=mysql 使用其他数据库，不填为使用本地sqlite，选项包括mysql和postgresql
+--spring.database.type=mysql 使用其他数据库，不填为使用本地h2数据库，可选mysql
 
 --spring.datasource.url=jdbc:mysql://ip:port/nginxwebui 数据库url
 

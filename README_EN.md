@@ -90,13 +90,11 @@ Windows: java -jar -Dfile.encoding=UTF-8 D:/home/nginxWebUI/nginxWebUI.jar --ser
 
 Parameter description (both non-required)
 
--Xmx64m Maximum number of memory allocated
-
 --server.port Occupied port, default starts at port 8080
 
 --project.home Project profile directory for database files, certificate files, logs, etc. Default is /home/nginxwebui/
 
---spring.database.type=mysql Use other databases, not filled with native SQLite, options include mysql and postgresql
+--spring.database.type=mysql Use other databases, not filled with native h2, options include mysql
 
 --spring.datasource.url=jdbc:mysql://ip:port/nginxwebui Databases url
 
