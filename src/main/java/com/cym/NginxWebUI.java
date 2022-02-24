@@ -62,7 +62,6 @@ public class NginxWebUI {
 		Set<String> pids = new HashSet<String>();
 
 		if (SystemTool.isWindows()) {
-			// 获取端口号
 			String port = getPort(args);
 			list = RuntimeUtil.execForLines("netstat -aon");
 			for (String line : list) {
@@ -86,7 +85,7 @@ public class NginxWebUI {
 		}
 
 		for (String pid : pids) {
-			logger.info("杀掉进程:" + pid);
+			logger.info("杀掉旧进程:" + pid);
 			if (SystemTool.isWindows()) {
 				RuntimeUtil.exec("taskkill /im " + pid + " /f");
 			} else if (SystemTool.isLinux()) {
