@@ -4,7 +4,9 @@ import java.io.File;
 import java.lang.management.ManagementFactory;
 import java.lang.management.RuntimeMXBean;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.noear.solon.Solon;
 import org.noear.solon.schedule.annotation.EnableScheduling;
@@ -24,7 +26,7 @@ public class NginxWebUI {
 	public static void main(String[] args) {
 		try {
 			// 尝试杀掉旧版本
-			killSelf();
+			killSelf(args);
 
 			// 删掉多余的jar
 			removeJar();
@@ -32,10 +34,10 @@ public class NginxWebUI {
 		} catch (Exception e) {
 			logger.error(e.getMessage(), e);
 		}
-		
+
 		Solon.start(NginxWebUI.class, args, app -> {
 			app.onError(e -> logger.info(e.getMessage(), e));
-			
+
 			app.before(c -> {
 				String path = c.path();
 				while (path.contains("//")) {
@@ -43,8 +45,6 @@ public class NginxWebUI {
 				}
 				c.pathNew(path);
 			});
-
-			app.enableWebSocket(true);
 
 			app.onEvent(freemarker.template.Configuration.class, cfg -> {
 				cfg.setSetting("classic_compatible", "true");
@@ -54,25 +54,25 @@ public class NginxWebUI {
 		});
 	}
 
-
-	public static void killSelf() {
+	public static void killSelf(String[] args) {
 		RuntimeMXBean runtimeMXBean = ManagementFactory.getRuntimeMXBean();
 		String myPid = runtimeMXBean.getName().split("@")[0];
 
 		List<String> list = new ArrayList<String>();
-		List<String> pids = new ArrayList<String>();
+		Set<String> pids = new HashSet<String>();
 
 		if (SystemTool.isWindows()) {
-			list = RuntimeUtil.execForLines("wmic process get commandline,ProcessId /value");
-			pids = new ArrayList<String>();
-
+			// 获取端口号
+			String port = getPort(args);
+			list = RuntimeUtil.execForLines("netstat -aon");
 			for (int i = 0; i < list.size(); i++) {
-				if (list.get(i).contains("java") && list.get(i).contains("nginxWebUI") && list.get(i).contains(".jar")) {
-					String pid = list.get(i + 2).split("=")[1];
+				if(list.get(i).contains(":" + port)) {
+					String pid = list.get(i).split("LISTENING")[1].trim();
 					if (!pid.equals(myPid)) {
 						pids.add(pid);
 					}
 				}
+				
 			}
 		} else if (SystemTool.isLinux()) {
 			list = RuntimeUtil.execForLines("ps -ef");
@@ -82,7 +82,6 @@ public class NginxWebUI {
 					String pid = strs[1];
 
 					if (!pid.equals(myPid)) {
-						logger.info("找到进程:" + line);
 						pids.add(pid);
 					}
 				}
@@ -100,6 +99,15 @@ public class NginxWebUI {
 
 	}
 
+	private static String getPort(String[] args) {
+		for (String arg : args) {
+			if (arg.contains("--server.port")) {
+				return arg.split("=")[1];
+			}
+		}
+		return "8080";
+	}
+
 	private static void removeJar() {
 		File[] list = new File(JarUtil.getCurrentFilePath()).getParentFile().listFiles();
 		for (File file : list) {
@@ -110,4 +118,6 @@ public class NginxWebUI {
 		}
 	}
 
+	
+	
 }
