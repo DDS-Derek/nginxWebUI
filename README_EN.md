@@ -165,47 +165,6 @@ services:
 ```
 
 
-#### How do I ensure that the service I want to broker is already running when I install Docker
-
-Docker installation, sometimes after restarting the machine, all containers will automatically start, but in order to ensure that the nginxwebui can be normal proxy, generally need to nginxwebui after all other proxy services start, then, you can rewrite the container default [entrypoint.sh](entrypoint.sh) as follows：
-
-```
-#!/bin/sh
-
-## If you need additional packages, you can also install them at startup, such as the http-js mod for Nginx
-apk add --update nginx-mod-http-js
-
-## Nginxwebui is responsible for the proxy and you need to confirm whether the IP address or hostname is enabled before nginxwebui. Note that the IP address is better fixed
-hosts="code-server flexget 10.0.0.19 172.18.0.3"
-
-## Check whether all the services to be brokered are online
-for host in $hosts; do
-    until ping -c 2 $host &>/dev/null; do
-        echo "wait $host online..."  ## You can modify it yourself
-        sleep 1
-    done
-    continue
-done
-echo "All services are online，start run nginxwebui..."
-
-## Run the original entrypoint.sh
-cd /home
-exec java -jar -Xmx64m nginxWebUI.jar ${BOOT_OPTIONS} > /dev/null
-```
-
-Then create the container with the above`entrypoint.sh` （Notice Adding executable permissions `chmod +x entrypoint.sh`）Cover the inside of the container `/usr/local/bin/entrypoint.sh`，Just add the mapping：
-
-```
-docker run -itd \
-  -v /home/nginxWebUI:/home/nginxWebUI \
-  -v /your_modify_path/entrypoint.sh: /usr/local/bin/entrypoint.sh \
-  -e BOOT_OPTIONS="--server.port=8080" \
-  --privileged=true \
-  --net=host 
-  cym1102/nginxwebui:latest
-```
-
-
 #### Compile 
 
 Compile the package with Maven
