@@ -65,22 +65,19 @@ public class NginxWebUI {
 			// 获取端口号
 			String port = getPort(args);
 			list = RuntimeUtil.execForLines("netstat -aon");
-			for (int i = 0; i < list.size(); i++) {
-				if(list.get(i).contains(":" + port)) {
-					String pid = list.get(i).split("LISTENING")[1].trim();
+			for (String line : list) {
+				if (line.contains(":" + port) && line.contains("LISTENING")) {
+					String pid = line.split("LISTENING")[1].trim();
 					if (!pid.equals(myPid)) {
 						pids.add(pid);
 					}
 				}
-				
 			}
 		} else if (SystemTool.isLinux()) {
 			list = RuntimeUtil.execForLines("ps -ef");
 			for (String line : list) {
 				if (line.contains("java") && line.contains("nginxWebUI") && line.contains(".jar")) {
-					String[] strs = line.split("\\s+");
-					String pid = strs[1];
-
+					String pid = line.split("\\s+")[1].trim();
 					if (!pid.equals(myPid)) {
 						pids.add(pid);
 					}
@@ -118,6 +115,4 @@ public class NginxWebUI {
 		}
 	}
 
-	
-	
 }
