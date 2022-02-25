@@ -30,7 +30,6 @@ public class NginxWebUI {
 
 			// 删掉多余的jar
 			removeJar();
-
 		} catch (Exception e) {
 			logger.error(e.getMessage(), e);
 		}
