@@ -27,7 +27,7 @@ After the deployment of this project, the configuration of nginx no longer need 
 ```
 Demo address: http://test.nginxwebui.cn:8080
 User: admin
-password: Admin123
+password: admin
 ```
 
 #### Technical note

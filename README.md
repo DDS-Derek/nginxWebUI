@@ -32,7 +32,7 @@ nginx本身功能复杂, nginxWebUI并不能涵盖nginx所有功能, 但能覆�
 ```
 演示地址: http://test.nginxwebui.cn:8080
 用户名: admin
-密码: Admin123
+密码: admin
 ```
 
 
