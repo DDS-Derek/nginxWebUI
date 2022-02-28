@@ -159,6 +159,27 @@
 			</plugin>
 
 			<plugin>
+				<groupId>com.github.shalousun</groupId>
+				<artifactId>smart-doc-maven-plugin</artifactId>
+				<version>2.3.9</version>
+				<configuration>
+					<!--指定生成文档的使用的配置文件,配置文件放在自己的项目中-->
+					<configFile>./src/main/resources/smart-doc.json</configFile>
+					<!--指定项目名称-->
+					<projectName>nginxWebUI</projectName>
+				</configuration>
+				<executions>
+					<execution>
+						<!--如果不需要在执行编译时启动smart-doc，则将phase注释掉-->
+						<phase>compile</phase>
+						<goals>
+							<goal>html</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-assembly-plugin</artifactId>
 				<version>3.3.0</version>
