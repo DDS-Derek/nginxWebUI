@@ -129,12 +129,12 @@ public class CertController extends BaseController {
 					dnsType = "dns_huaweicloud";
 				}
 
-				cmd = homeConfig.acmeSh + " --issue --force --dns " + dnsType + " -d " + cert.getDomain() + " --server letsencrypt";
+				cmd = homeConfig.acmeSh + " --issue --force --dns " + dnsType + " -d " + cert.getDomain() + " --keylength ec-256 --server letsencrypt";
 			} else if (cert.getType() == 2) {
 				if (certService.hasCode(cert.getId())) {
 					cmd = homeConfig.acmeSh + " --renew --force --dns -d " + cert.getDomain() + " --server letsencrypt --yes-I-know-dns-manual-mode-enough-go-ahead-please";
 				} else {
-					cmd = homeConfig.acmeSh + " --issue --force --dns -d " + cert.getDomain() + " --server letsencrypt --yes-I-know-dns-manual-mode-enough-go-ahead-please";
+					cmd = homeConfig.acmeSh + " --issue --force --dns -d " + cert.getDomain() + " --keylength ec-256 --server letsencrypt --yes-I-know-dns-manual-mode-enough-go-ahead-please";
 				}
 
 			}
