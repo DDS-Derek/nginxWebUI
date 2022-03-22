@@ -2,7 +2,6 @@ package com.cym.model;
 
 import com.cym.sqlhelper.bean.BaseModel;
 import com.cym.sqlhelper.config.InitValue;
-import com.cym.sqlhelper.config.SingleIndex;
 import com.cym.sqlhelper.config.Table;
 
 /**
@@ -15,7 +14,6 @@ public class Cert extends BaseModel {
 	/**
 	 * 域名
 	 */
-	@SingleIndex(unique = true)
 	String domain; 
 	/**
 	 * pem文件路径

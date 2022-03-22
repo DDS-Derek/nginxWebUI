@@ -1,25 +1,19 @@
 package com.cym.controller.adminPage;
 
-import java.io.BufferedInputStream;
-import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.OutputStream;
-import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.noear.solon.annotation.Controller;
 import org.noear.solon.annotation.Inject;
 import org.noear.solon.annotation.Mapping;
-import org.noear.solon.core.handle.Context;
 import org.noear.solon.core.handle.DownloadedFile;
 import org.noear.solon.core.handle.ModelAndView;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.cym.config.InitConfig;
 import com.cym.model.Cert;
 import com.cym.model.CertCode;
 import com.cym.service.CertService;
@@ -52,6 +46,12 @@ public class CertController extends BaseController {
 	public ModelAndView index(ModelAndView modelAndView, Page page, String keywords) {
 		page = certService.getPage(keywords, page);
 
+		for (Cert cert : (List<Cert>) page.getRecords()) {
+			if (cert.getType() == 0 || cert.getType() == 2) {
+				cert.setDomain(cert.getDomain() + "(" + cert.getEncryption() + ")");
+			}
+		}
+
 		modelAndView.put("keywords", keywords);
 		modelAndView.put("page", page);
 		modelAndView.view("/adminPage/cert/index.html");
@@ -60,9 +60,9 @@ public class CertController extends BaseController {
 
 	@Mapping("addOver")
 	public JsonResult addOver(Cert cert, String[] domains, String[] types, String[] values) {
-		if (certService.hasSame(cert)) {
-			return renderError(m.get("certStr.same"));
-		}
+//		if (certService.hasSame(cert)) {
+//			return renderError(m.get("certStr.same"));
+//		}
 
 		certService.insertOrUpdate(cert, domains, types, values);
 

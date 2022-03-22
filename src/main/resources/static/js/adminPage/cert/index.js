@@ -176,10 +176,14 @@ function edit(id, clone) {
 					$("#domain").attr("disabled", true);
 					$("#domain").addClass("disabled");
 					
-					if(cert.pem!=null && cert.pem!='' && cert.key!=null&& cert.key!=''){
+					if(cert.pem!=null && cert.pem!='' && cert.key!=null && cert.key!=''){
 						$("#type").attr("disabled", true);
+						$("#encryption").attr("disabled", true);
+						$("#encryption").addClass("disabled");
 					} else {
 						$("#type").attr("disabled", false);
+						$("#encryption").attr("disabled", false);
+						$("#encryption").removeClass("disabled");
 					}
 					
 					$("#id").val(cert.id);
@@ -188,6 +192,8 @@ function edit(id, clone) {
 				} else {
 					$("#domain").attr("disabled", false);
 					$("#domain").removeClass("disabled");
+					$("#encryption").attr("disabled", false);
+					$("#encryption").removeClass("disabled");
 					$("#type").attr("disabled", false);
 					
 					$("#id").val("");

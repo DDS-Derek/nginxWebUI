@@ -94,7 +94,11 @@ public class ServerController extends BaseController {
 		modelAndView.put("upstreamTcpList", upstreamTcpList);
 		modelAndView.put("upstreamTcpSize", upstreamTcpList.size());
 
-		modelAndView.put("certList", sqlHelper.findAll(Cert.class));
+		List<Cert> certs = sqlHelper.findAll(Cert.class);
+		for (Cert cert : certs) {
+			cert.setDomain(cert.getDomain() + "(" + cert.getEncryption() + ")");
+		}
+		modelAndView.put("certList", certs);
 		modelAndView.put("wwwList", sqlHelper.findAll(Www.class));
 
 		modelAndView.put("passwordList", sqlHelper.findAll(Password.class));
