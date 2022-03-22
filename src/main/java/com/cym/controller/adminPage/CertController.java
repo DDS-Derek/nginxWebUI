@@ -60,9 +60,6 @@ public class CertController extends BaseController {
 
 	@Mapping("addOver")
 	public JsonResult addOver(Cert cert, String[] domains, String[] types, String[] values) {
-//		if (certService.hasSame(cert)) {
-//			return renderError(m.get("certStr.same"));
-//		}
 
 		certService.insertOrUpdate(cert, domains, types, values);
 
@@ -84,6 +81,9 @@ public class CertController extends BaseController {
 	public JsonResult del(String id) {
 		Cert cert = sqlHelper.findById(id, Cert.class);
 		String path = homeConfig.acmeShDir + cert.getDomain();
+		if ("ECC".equals(cert.getEncryption())) {
+			path += "_ecc";
+		}
 		if (FileUtil.exist(path)) {
 			FileUtil.del(path);
 		}
