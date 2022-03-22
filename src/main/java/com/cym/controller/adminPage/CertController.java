@@ -134,7 +134,7 @@ public class CertController extends BaseController {
 					dnsType = "dns_huaweicloud";
 				}
 
-				cmd = homeConfig.acmeSh + " --issue --force --dns " + dnsType + " -d " + cert.getDomain() + keylength + "--server letsencrypt";
+				cmd = homeConfig.acmeSh + " --issue --force --dns " + dnsType + " -d " + cert.getDomain() + keylength + " --server letsencrypt";
 			} else if (cert.getType() == 2) {
 				if (certService.hasCode(cert.getId())) {
 					cmd = homeConfig.acmeSh + " --renew --force --dns -d " + cert.getDomain() + " --server letsencrypt --yes-I-know-dns-manual-mode-enough-go-ahead-please";
@@ -166,12 +166,7 @@ public class CertController extends BaseController {
 			}
 			certDir += "/";
 
-//			String dest = homeConfig.home + "cert/" + domain + ".fullchain.cer";
-//			FileUtil.copy(new File(certDir + "fullchain.cer"), new File(dest), true);
 			cert.setPem(certDir + "fullchain.cer");
-
-//			dest = homeConfig.home + "cert/" + domain + ".key";
-//			FileUtil.copy(new File(certDir + domain + ".key"), new File(dest), true);
 			cert.setKey(certDir + domain + ".key");
 
 			cert.setMakeTime(System.currentTimeMillis());
