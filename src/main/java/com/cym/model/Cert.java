@@ -30,6 +30,12 @@ public class Cert extends BaseModel {
 	 */
 	@InitValue("0")
 	Integer type; 
+	
+	/**
+	 * 加密方式 'RAS' 'ECC'
+	 */
+	@InitValue("RAS")
+	String encryption; 
 	/**
 	 * 签发时间戳
 	 */
@@ -90,6 +96,14 @@ public class Cert extends BaseModel {
 	
 	
 	
+	public String getEncryption() {
+		return encryption;
+	}
+
+	public void setEncryption(String encryption) {
+		this.encryption = encryption;
+	}
+
 	public String getHwUsername() {
 		return hwUsername;
 	}

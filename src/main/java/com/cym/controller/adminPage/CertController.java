@@ -98,6 +98,11 @@ public class CertController extends BaseController {
 		}
 
 		Cert cert = sqlHelper.findById(id, Cert.class);
+		String keylength = "";
+		if ("ECC".equals(cert.getEncryption())) {
+			keylength = " --keylength ec-256 ";
+		}
+
 		if (cert.getDnsType() == null) {
 			return renderError(m.get("certStr.error3"));
 		}
@@ -129,12 +134,12 @@ public class CertController extends BaseController {
 					dnsType = "dns_huaweicloud";
 				}
 
-				cmd = homeConfig.acmeSh + " --issue --force --dns " + dnsType + " -d " + cert.getDomain() + " --keylength ec-256 --server letsencrypt";
+				cmd = homeConfig.acmeSh + " --issue --force --dns " + dnsType + " -d " + cert.getDomain() + keylength + "--server letsencrypt";
 			} else if (cert.getType() == 2) {
 				if (certService.hasCode(cert.getId())) {
 					cmd = homeConfig.acmeSh + " --renew --force --dns -d " + cert.getDomain() + " --server letsencrypt --yes-I-know-dns-manual-mode-enough-go-ahead-please";
 				} else {
-					cmd = homeConfig.acmeSh + " --issue --force --dns -d " + cert.getDomain() + " --keylength ec-256 --server letsencrypt --yes-I-know-dns-manual-mode-enough-go-ahead-please";
+					cmd = homeConfig.acmeSh + " --issue --force --dns -d " + cert.getDomain() + keylength + " --server letsencrypt --yes-I-know-dns-manual-mode-enough-go-ahead-please";
 				}
 
 			}
@@ -156,18 +161,18 @@ public class CertController extends BaseController {
 			// 申请成功, 将证书复制到/home/nginxWebUI
 			String domain = cert.getDomain().split(",")[0];
 			String certDir = homeConfig.acmeShDir + domain;
-			if (!FileUtil.exist(certDir)) {
+			if ("ECC".equals(cert.getEncryption())) {
 				certDir += "_ecc";
 			}
 			certDir += "/";
 
-			String dest = homeConfig.home + "cert/" + domain + ".fullchain.cer";
-			FileUtil.copy(new File(certDir + "fullchain.cer"), new File(dest), true);
-			cert.setPem(dest);
+//			String dest = homeConfig.home + "cert/" + domain + ".fullchain.cer";
+//			FileUtil.copy(new File(certDir + "fullchain.cer"), new File(dest), true);
+			cert.setPem(certDir + "fullchain.cer");
 
-			dest = homeConfig.home + "cert/" + domain + ".key";
-			FileUtil.copy(new File(certDir + domain + ".key"), new File(dest), true);
-			cert.setKey(dest);
+//			dest = homeConfig.home + "cert/" + domain + ".key";
+//			FileUtil.copy(new File(certDir + domain + ".key"), new File(dest), true);
+			cert.setKey(certDir + domain + ".key");
 
 			cert.setMakeTime(System.currentTimeMillis());
 			sqlHelper.updateById(cert);

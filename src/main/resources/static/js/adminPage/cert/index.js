@@ -85,14 +85,19 @@ function checkDnsType(value) {
 function checkType(value) {
 	$("#type0").hide();
 	$("#type1").hide();
-
+	$("#encryptionDiv").hide();
+	
 	if (value == 0) {
 		$("#type0").show();
+		$("#encryptionDiv").show();
 	}
 	if (value == 1) {
 		$("#type1").show();
 	}
-
+	
+	if (value == 2) {
+		$("#encryptionDiv").show();
+	}
 }
 
 function add() {
@@ -100,6 +105,7 @@ function add() {
 	$("#domain").val("");
 	$("#type option:first").prop("selected", true);
 	$("#dnsType option:first").prop("selected", true);
+	$("#encryption option:first").prop("selected", true);
 	$("#aliKey").val("");
 	$("#aliSecret").val("");
 	$("#dpId").val("");
@@ -149,6 +155,7 @@ function edit(id, clone) {
 				$("#domain").val(cert.domain);
 				$("#type").val(cert.type);
 				$("#dnsType").val(cert.dnsType != null ? cert.dnsType : 'ali');
+				$("#encryption").val(cert.encryption != null ? cert.encryption : 'RAS');
 				$("#aliKey").val(cert.aliKey);
 				$("#aliSecret").val(cert.aliSecret);
 				$("#dpId").val(cert.dpId);
