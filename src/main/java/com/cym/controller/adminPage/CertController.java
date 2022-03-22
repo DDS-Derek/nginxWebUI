@@ -157,8 +157,9 @@ public class CertController extends BaseController {
 			String domain = cert.getDomain().split(",")[0];
 			String certDir = homeConfig.acmeShDir + domain;
 			if (!FileUtil.exist(certDir)) {
-				certDir += "_ecc/";
+				certDir += "_ecc";
 			}
+			certDir += "/";
 
 			String dest = homeConfig.home + "cert/" + domain + ".fullchain.cer";
 			FileUtil.copy(new File(certDir + "fullchain.cer"), new File(dest), true);
