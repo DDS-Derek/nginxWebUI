@@ -155,7 +155,10 @@ public class CertController extends BaseController {
 		if (rs.contains("Your cert is in")) {
 			// 申请成功, 将证书复制到/home/nginxWebUI
 			String domain = cert.getDomain().split(",")[0];
-			String certDir = homeConfig.acmeShDir + domain + "_ecc/";
+			String certDir = homeConfig.acmeShDir + domain;
+			if (!FileUtil.exist(certDir)) {
+				certDir += "_ecc/";
+			}
 
 			String dest = homeConfig.home + "cert/" + domain + ".fullchain.cer";
 			FileUtil.copy(new File(certDir + "fullchain.cer"), new File(dest), true);
