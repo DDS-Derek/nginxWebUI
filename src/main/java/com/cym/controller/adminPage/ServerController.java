@@ -77,7 +77,8 @@ public class ServerController extends BaseController {
 				serverExt.setLocationStr(buildLocationStr(server.getId()));
 			} else {
 				Upstream upstream = sqlHelper.findById(server.getProxyUpstreamId(), Upstream.class);
-				serverExt.setLocationStr(m.get("serverStr.server") + ": " + (upstream != null ? upstream.getName() : ""));
+				serverExt.setLocationStr(
+						m.get("serverStr.server") + ": " + (upstream != null ? upstream.getName() : ""));
 			}
 
 			exts.add(serverExt);
@@ -96,7 +97,9 @@ public class ServerController extends BaseController {
 
 		List<Cert> certs = sqlHelper.findAll(Cert.class);
 		for (Cert cert : certs) {
-			cert.setDomain(cert.getDomain() + "(" + cert.getEncryption() + ")");
+			if (cert.getType() == 0 || cert.getType() == 2) {
+				cert.setDomain(cert.getDomain() + "(" + cert.getEncryption() + ")");
+			}
 		}
 		modelAndView.put("certList", certs);
 		modelAndView.put("wwwList", sqlHelper.findAll(Www.class));
@@ -113,13 +116,16 @@ public class ServerController extends BaseController {
 		List<Location> locations = serverService.getLocationByServerId(id);
 		for (Location location : locations) {
 			if (location.getType() == 0) {
-				str.add("<span class='path'>" + location.getPath() + "</span><br><span class='value'>" + location.getValue() + "</span>");
+				str.add("<span class='path'>" + location.getPath() + "</span><br><span class='value'>"
+						+ location.getValue() + "</span>");
 			} else if (location.getType() == 1) {
-				str.add("<span class='path'>" + location.getPath() + "</span><br><span class='value'>" + location.getRootPath() + "</span>");
+				str.add("<span class='path'>" + location.getPath() + "</span><br><span class='value'>"
+						+ location.getRootPath() + "</span>");
 			} else if (location.getType() == 2) {
 				Upstream upstream = sqlHelper.findById(location.getUpstreamId(), Upstream.class);
 				if (upstream != null) {
-					str.add("<span class='path'>" + location.getPath() + "</span><br><span class='value'>http://" + upstream.getName()
+					str.add("<span class='path'>" + location.getPath() + "</span><br><span class='value'>http://"
+							+ upstream.getName()
 							+ (location.getUpstreamPath() != null ? location.getUpstreamPath() : "") + "</span>");
 				}
 			} else if (location.getType() == 3) {
