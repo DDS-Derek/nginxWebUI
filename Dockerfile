@@ -2,9 +2,9 @@ FROM alpine:3.15
 ENV LANG=zh_CN.UTF-8 \
     TZ=Asia/Shanghai \
     PS1="\u@\h:\w \$ "
-RUN apk update
 RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories \
-    && apk add --update --no-cache \
+RUN apk update
+RUN apk add --update --no-cache \
        nginx \
        nginx-mod-stream \
        nginx-mod-http-headers-more \
