@@ -55,7 +55,6 @@ public class MyZipUtils {
 	}
 
 	public static void main(String[] args) {
-		// ZipUtil.unzip( "d:/acme.zip", "d:/acme/");
 		try {
 			MyZipUtils.unzip("d:/acme.zip", "d:/acme/");
 			FileUtil.del("d:/acme.zip");
