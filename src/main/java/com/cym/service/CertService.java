@@ -1,9 +1,11 @@
 package com.cym.service;
 
 import java.io.File;
-import java.nio.charset.Charset;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.List;
 
+import org.apache.commons.compress.archivers.zip.ZipArchiveInputStream;
 import org.noear.solon.annotation.Inject;
 import org.noear.solon.extend.aspect.annotation.Service;
 
@@ -13,6 +15,7 @@ import com.cym.model.CertCode;
 import com.cym.sqlhelper.bean.Page;
 import com.cym.sqlhelper.utils.ConditionAndWrapper;
 import com.cym.sqlhelper.utils.SqlHelper;
+import com.cym.utils.MyZipUtils;
 
 import cn.hutool.core.codec.Base64;
 import cn.hutool.core.io.FileUtil;
@@ -98,8 +101,13 @@ public class CertService {
 
 		Base64.decodeToFile(acmeZip, new File(homeConfig.home + "acme.zip"));
 		FileUtil.mkdir(homeConfig.acmeShDir);
-		ZipUtil.unzip(homeConfig.home + "acme.zip", homeConfig.acmeShDir);
+		try {
+			MyZipUtils.unzip(homeConfig.home + "acme.zip", homeConfig.acmeShDir);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		FileUtil.del(homeConfig.home + "acme.zip");
 
 	}
+
 }

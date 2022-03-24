@@ -141,7 +141,7 @@ public class ConfService {
 			}
 
 			// 添加server
-			List<Server> servers = serverService.getListByProxyType(new String[] {"0" });
+			List<Server> servers = serverService.getListByProxyType(new String[] { "0" });
 			for (Server server : servers) {
 				if (server.getEnable() == null || !server.getEnable()) {
 					continue;
@@ -648,7 +648,6 @@ public class ConfService {
 		return ToolUtils.handleConf(new NgxDumper(ngxConfig).dump());
 	}
 
-	
 	public void replace(String nginxPath, String nginxContent, List<String> subContent, List<String> subName, Boolean isReplace, String adminName) {
 
 		String beforeConf = null;
@@ -755,7 +754,6 @@ public class ConfService {
 		return asycPack;
 	}
 
-	
 	public void setAsycPack(AsycPack asycPack) {
 		// 不要同步Cert表
 		try {
@@ -777,11 +775,15 @@ public class ConfService {
 				sqlHelper.insertAll(asycPack.getLocationList());
 
 				for (Server server : asycPack.getServerList()) {
-					if (StrUtil.isNotEmpty(server.getPem()) && StrUtil.isNotEmpty(server.getPemStr())) {
-						FileUtil.writeString(server.getPemStr(), server.getPem(), StandardCharsets.UTF_8);
-					}
-					if (StrUtil.isNotEmpty(server.getKey()) && StrUtil.isNotEmpty(server.getKeyStr())) {
-						FileUtil.writeString(server.getKeyStr(), server.getKey(), StandardCharsets.UTF_8);
+					try {
+						if (StrUtil.isNotEmpty(server.getPem()) && StrUtil.isNotEmpty(server.getPemStr())) {
+							FileUtil.writeString(server.getPemStr(), server.getPem(), StandardCharsets.UTF_8);
+						}
+						if (StrUtil.isNotEmpty(server.getKey()) && StrUtil.isNotEmpty(server.getKeyStr())) {
+							FileUtil.writeString(server.getKeyStr(), server.getKey(), StandardCharsets.UTF_8);
+						}
+					} catch (Exception e) {
+						e.printStackTrace();
 					}
 				}
 			}
