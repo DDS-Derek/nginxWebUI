@@ -12,7 +12,6 @@ import java.util.zip.ZipFile;
 
 import cn.hutool.core.io.FileUtil;
 
-
 public class MyZipUtils {
 
 	public static void unzip(String fromZip, String toPath) throws ZipException, IOException {
@@ -27,7 +26,11 @@ public class MyZipUtils {
 				continue;
 			}
 
-			File outputFile = new File(toPath + File.separator + entry.getName().replace("*", "_"));
+			String name = entry.getName();
+			if (SystemTool.isWindows()) {
+				name = name.replace("*", "_");
+			}
+			File outputFile = new File(toPath + File.separator + name);
 
 			if (!outputFile.getParentFile().exists()) {
 				outputFile.getParentFile().mkdirs();
@@ -37,7 +40,7 @@ public class MyZipUtils {
 			try (FileOutputStream fos = new FileOutputStream(outputFile)) {
 				while (inputStream.read(buffer) > 0) {
 					fos.write(buffer);
-				} 
+				}
 				fos.close();
 			} catch (FileNotFoundException e) {
 				e.printStackTrace();
@@ -46,15 +49,15 @@ public class MyZipUtils {
 			}
 			inputStream.close();
 		}
-		
+
 		zipFile.close();
-	
+
 	}
-	
+
 	public static void main(String[] args) {
-		//ZipUtil.unzip( "d:/acme.zip", "d:/acme/");
+		// ZipUtil.unzip( "d:/acme.zip", "d:/acme/");
 		try {
-			MyZipUtils.unzip( "d:/acme.zip", "d:/acme/");
+			MyZipUtils.unzip("d:/acme.zip", "d:/acme/");
 			FileUtil.del("d:/acme.zip");
 		} catch (IOException e) {
 			e.printStackTrace();
