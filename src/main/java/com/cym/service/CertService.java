@@ -8,6 +8,8 @@ import java.util.List;
 import org.apache.commons.compress.archivers.zip.ZipArchiveInputStream;
 import org.noear.solon.annotation.Inject;
 import org.noear.solon.extend.aspect.annotation.Service;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.cym.config.HomeConfig;
 import com.cym.model.Cert;
@@ -24,6 +26,9 @@ import cn.hutool.core.util.ZipUtil;
 
 @Service
 public class CertService {
+	Logger logger = LoggerFactory.getLogger(this.getClass());
+
+	
 	@Inject
 	SqlHelper sqlHelper;
 	@Inject
@@ -104,7 +109,7 @@ public class CertService {
 		try {
 			MyZipUtils.unzip(homeConfig.home + "acme.zip", homeConfig.acmeShDir);
 		} catch (IOException e) {
-			e.printStackTrace();
+			logger.error(e.getMessage(), e); 
 		}
 		FileUtil.del(homeConfig.home + "acme.zip");
 
