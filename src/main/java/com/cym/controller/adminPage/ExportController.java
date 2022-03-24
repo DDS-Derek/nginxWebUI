@@ -50,11 +50,10 @@ public class ExportController extends BaseController {
 
 	@Mapping("dataExport")
 	public DownloadedFile dataExport(Context context) throws IOException {
-		String date = DateUtil.format(new Date(), "yyyy-MM-dd_HH-mm-ss");
-
 		AsycPack asycPack = confService.getAsycPack(new String[] { "all" });
 		String json = JSONUtil.toJsonPrettyStr(asycPack);
 
+		String date = DateUtil.format(new Date(), "yyyy-MM-dd_HH-mm-ss");
 		DownloadedFile downloadedFile = new DownloadedFile("application/octet-stream", new ByteArrayInputStream(json.getBytes(Charset.forName("UTF-8"))), date + ".json");
 		return downloadedFile;
 	}
