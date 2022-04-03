@@ -11,6 +11,7 @@ import org.noear.solon.annotation.Mapping;
 import org.noear.solon.core.handle.ModelAndView;
 
 import com.cym.ext.UpstreamExt;
+import com.cym.model.Server;
 import com.cym.model.Upstream;
 import com.cym.model.UpstreamServer;
 import com.cym.service.ParamService;
@@ -191,5 +192,21 @@ public class UpstreamController extends BaseController {
 		upstreamService.setSeq(id, count);
 		return renderSuccess();
 	}
+	
+	@Mapping("getDescr")
+	public JsonResult getDescr(String id) {
+		Upstream upstream = sqlHelper.findById(id, Upstream.class);
 
+		return renderSuccess(upstream.getDescr());
+	}
+	
+	@Mapping("editDescr")
+	public JsonResult editDescr(String id, String descr) {
+		Upstream upstream = new Upstream();
+		upstream.setId(id);
+		upstream.setDescr(descr);
+		sqlHelper.updateById(upstream);
+
+		return renderSuccess();
+	}
 }

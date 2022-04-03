@@ -861,9 +861,6 @@ function editDescr(id) {
 		}
 	});
 
-
-
-
 }
 
 function editDescrOver() {
