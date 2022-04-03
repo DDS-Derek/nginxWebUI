@@ -203,8 +203,12 @@
 								</td>
 
 								<td style="max-width: 150px;">
-									${ext.server.descr}
-									<a href="javascript:editDescr('${ext.server.id}')" style="color: blue; text-decoration: underline;">${commonStr.edit}</a>
+									<#if ext.server.descr != null && ext.server.descr != "">
+										<a href="javascript:editDescr('${ext.server.id}')" style="color: blue; text-decoration: underline;">${ext.server.descr}</a>
+									</#if>
+									<#if ext.server.descr == null || ext.server.descr == "">
+										<a href="javascript:editDescr('${ext.server.id}')" style="color: blue; text-decoration: underline;">${commonStr.edit}</a>
+									</#if>
 								</td>
 
 

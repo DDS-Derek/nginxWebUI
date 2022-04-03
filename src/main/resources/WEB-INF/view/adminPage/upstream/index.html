@@ -99,8 +99,12 @@
 							<td><#if ext.upstream.proxyType==0>http/https</#if> <#if ext.upstream.proxyType==1>TCP/UDP</#if></td>
 							<td>${ext.upstream.name}</td>
 							<td style="max-width: 150px;">
-								${ext.upstream.descr}
-								<a href="javascript:editDescr('${ext.upstream.id}')" style="color: blue; text-decoration: underline;">${commonStr.edit}</a>
+								<#if ext.upstream.descr != null && ext.upstream.descr != "">
+									<a href="javascript:editDescr('${ext.upstream.id}')" style="color: blue; text-decoration: underline;">${ext.upstream.descr}</a>
+								</#if>
+								<#if ext.upstream.descr == null || ext.upstream.descr == "">
+									<a href="javascript:editDescr('${ext.upstream.id}')" style="color: blue; text-decoration: underline;">${commonStr.edit}</a>
+								</#if>
 							</td>
 							
 							<td>
