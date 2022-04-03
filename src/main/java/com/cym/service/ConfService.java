@@ -378,11 +378,20 @@ public class ConfService {
 			// location参数配置
 			for (Location location : locationList) {
 				NgxBlock ngxBlockLocation = new NgxBlock();
+				ngxBlockLocation.addValue("location");
+				ngxBlockLocation.addValue(location.getPath());
+				
+				if (StrUtil.isNotEmpty(location.getDescr())) {
+					String[] descrs = location.getDescr().split("\n");
+					for (String d : descrs) {
+						ngxParam = new NgxParam();
+						ngxParam.addValue("# " + d);
+						ngxBlockLocation.addEntry(ngxParam);
+					}
+				}
+				
 				if (location.getType() == 0 || location.getType() == 2) { // location或负载均衡
-					// 添加location
-					ngxBlockLocation.addValue("location");
-					ngxBlockLocation.addValue(location.getPath());
-
+					
 					if (location.getType() == 0) {
 						ngxParam = new NgxParam();
 						ngxParam.addValue("proxy_pass " + location.getValue());
@@ -443,9 +452,6 @@ public class ConfService {
 					}
 
 				} else if (location.getType() == 1) { // 静态html
-					ngxBlockLocation.addValue("location");
-					ngxBlockLocation.addValue(location.getPath());
-
 					if (location.getRootType() != null && location.getRootType().equals("alias")) {
 						ngxParam = new NgxParam();
 						ngxParam.addValue("alias " + ToolUtils.handlePath(location.getRootPath()));
@@ -464,8 +470,6 @@ public class ConfService {
 
 				} else if (location.getType() == 3) { // 空白location
 
-					ngxBlockLocation.addValue("location");
-					ngxBlockLocation.addValue(location.getPath());
 				}
 
 				// 自定义参数

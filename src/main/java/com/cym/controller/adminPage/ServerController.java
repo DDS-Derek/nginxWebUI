@@ -113,15 +113,21 @@ public class ServerController extends BaseController {
 	private String buildLocationStr(String id) {
 		List<String> str = new ArrayList<String>();
 		List<Location> locations = serverService.getLocationByServerId(id);
+
 		for (Location location : locations) {
+			String descr = m.get("commonStr.descr");
+			if (StrUtil.isNotEmpty(location.getDescr())) {
+				descr = location.getDescr();
+			}
+
 			if (location.getType() == 0) {
 				str.add("<span class='path'>" + location.getPath() + "</span>"//
-						+ "<a class='descrBtn' href='javascript:editLocationDescr(" + location.getId() + ")'>描述</a>"//
+						+ "<a class='descrBtn' href='javascript:editLocationDescr(\"" + location.getId() + "\")'>" + descr + "</a>"//
 						+ "<br>"//
 						+ "<span class='value'>" + location.getValue() + "</span>");
 			} else if (location.getType() == 1) {
 				str.add("<span class='path'>" + location.getPath() + "</span>"//
-						+ "<a class='descrBtn' href='javascript:editLocationDescr(" + location.getId() + ")'>描述</a>"//
+						+ "<a class='descrBtn' href='javascript:editLocationDescr(\"" + location.getId() + "\")'>" + descr + "</a>"//
 						+ "<br>"//
 						+ "<span class='value'>"//
 						+ location.getRootPath() + "</span>");
@@ -129,13 +135,13 @@ public class ServerController extends BaseController {
 				Upstream upstream = sqlHelper.findById(location.getUpstreamId(), Upstream.class);
 				if (upstream != null) {
 					str.add("<span class='path'>" + location.getPath() + "</span>"//
-							+ "<a class='descrBtn' href='javascript:editLocationDescr(" + location.getId() + ")'>描述</a>"//
+							+ "<a class='descrBtn' href='javascript:editLocationDescr(\"" + location.getId() + "\")'>" + descr + "</a>"//
 							+ "<br>"//
 							+ "<span class='value'>http://" + upstream.getName() + (location.getUpstreamPath() != null ? location.getUpstreamPath() : "") + "</span>");
 				}
 			} else if (location.getType() == 3) {
 				str.add("<span class='path'>" + location.getPath() + "</span>" //
-						+ "<a class='descrBtn' href='javascript:editLocationDescr(" + location.getId() + ")'>描述</a>");
+						+ "<a class='descrBtn' href='javascript:editLocationDescr(\"" + location.getId() + "\")'>" + descr + "</a>");
 			}
 
 		}
@@ -305,7 +311,25 @@ public class ServerController extends BaseController {
 	@Mapping("getDescr")
 	public JsonResult getDescr(String id) {
 		Server server = sqlHelper.findById(id, Server.class);
-
 		return renderSuccess(server.getDescr());
 	}
+	
+	@Mapping("getLocationDescr")
+	public JsonResult getLocationDescr(String id) {
+		Location location = sqlHelper.findById(id, Location.class);
+		return renderSuccess(location.getDescr());
+	}
+	
+	
+	@Mapping("setLocationDescr")
+	public JsonResult setLocationDescr(String id, String descr) {
+		Location location = new Location();
+		location.setId(id);
+		location.setDescr(descr);
+		sqlHelper.updateById(location);
+
+		return renderSuccess();
+	}
+	
+	
 }

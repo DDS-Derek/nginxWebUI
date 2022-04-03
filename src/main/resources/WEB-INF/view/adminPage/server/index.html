@@ -45,7 +45,7 @@
 	white-space: nowrap;
 	text-overflow: ellipsis;
 	overflow: hidden;
-	color: blue;
+	color: #bbbbbb!important;
 	text-decoration: underline;
 	
 }
@@ -204,10 +204,10 @@
 
 								<td style="max-width: 150px;">
 									<#if ext.server.descr != null && ext.server.descr != "">
-										<a href="javascript:editDescr('${ext.server.id}')" style="color: blue; text-decoration: underline;">${ext.server.descr}</a>
+										<a href="javascript:editDescr('${ext.server.id}')" style="color: #bbbbbb; text-decoration: underline;">${ext.server.descr}</a>
 									</#if>
 									<#if ext.server.descr == null || ext.server.descr == "">
-										<a href="javascript:editDescr('${ext.server.id}')" style="color: blue; text-decoration: underline;">${commonStr.edit}</a>
+										<a href="javascript:editDescr('${ext.server.id}')" style="color: #bbbbbb; text-decoration: underline;">${commonStr.edit}</a>
 									</#if>
 								</td>
 
