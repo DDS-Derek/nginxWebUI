@@ -106,6 +106,16 @@ public class ConfService {
 				NgxBlock ngxBlockServer = new NgxBlock();
 				ngxBlockServer.addValue("upstream " + upstream.getName().trim());
 
+				if (StrUtil.isNotEmpty(upstream.getDescr())) {
+					String[] descrs = upstream.getDescr().split("\n");
+					for (String d : descrs) {
+						ngxParam = new NgxParam();
+						ngxParam.addValue("# " + d);
+						ngxBlockServer.addEntry(ngxParam);
+					}
+
+				}
+
 				if (StrUtil.isNotEmpty(upstream.getTactics())) {
 					ngxParam = new NgxParam();
 					ngxParam.addValue(upstream.getTactics());
@@ -261,6 +271,16 @@ public class ConfService {
 
 		ngxBlockServer.addValue("upstream " + upstream.getName());
 
+		if (StrUtil.isNotEmpty(upstream.getDescr())) {
+			String[] descrs = upstream.getDescr().split("\n");
+			for (String d : descrs) {
+				ngxParam = new NgxParam();
+				ngxParam.addValue("# " + d);
+				ngxBlockServer.addEntry(ngxParam);
+			}
+
+		}
+		
 		if (StrUtil.isNotEmpty(upstream.getTactics())) {
 			ngxParam = new NgxParam();
 			ngxParam.addValue(upstream.getTactics());
@@ -289,6 +309,15 @@ public class ConfService {
 		NgxBlock ngxBlockServer = new NgxBlock();
 		if (server.getProxyType() == 0) {
 			ngxBlockServer.addValue("server");
+
+			if (StrUtil.isNotEmpty(server.getDescr())) {
+				String[] descrs = server.getDescr().split("\n");
+				for (String d : descrs) {
+					ngxParam = new NgxParam();
+					ngxParam.addValue("# " + d);
+					ngxBlockServer.addEntry(ngxParam);
+				}
+			}
 
 			// 监听域名
 			if (StrUtil.isNotEmpty(server.getServerName())) {

@@ -36,12 +36,12 @@ public class UpstreamController extends BaseController {
 	SettingService settingService;
 
 	@Mapping("")
-	public ModelAndView index( ModelAndView modelAndView, Page page, String keywords) {
+	public ModelAndView index(ModelAndView modelAndView, Page page, String keywords) {
 
 		page = upstreamService.search(page, keywords);
 
 		List<UpstreamExt> list = new ArrayList<UpstreamExt>();
-		for (Upstream upstream :(List<Upstream>)  page.getRecords()) {
+		for (Upstream upstream : (List<Upstream>) page.getRecords()) {
 			UpstreamExt upstreamExt = new UpstreamExt();
 			upstreamExt.setUpstream(upstream);
 
@@ -51,6 +51,11 @@ public class UpstreamController extends BaseController {
 				str.add(buildStr(upstreamServer, upstream.getProxyType()));
 			}
 
+			// 描述回车转<br>
+			if (StrUtil.isNotEmpty(upstream.getDescr())) {
+				upstream.setDescr(upstream.getDescr().replace("\n", "<br>"));
+			}
+
 			upstreamExt.setServerStr(StrUtil.join("", str));
 			list.add(upstreamExt);
 		}
@@ -58,7 +63,7 @@ public class UpstreamController extends BaseController {
 
 		modelAndView.put("page", page);
 		modelAndView.put("keywords", keywords);
-		
+
 		modelAndView.put("upstreamMonitor", settingService.get("upstreamMonitor"));
 		modelAndView.view("/adminPage/upstream/index.html");
 		return modelAndView;
@@ -90,20 +95,20 @@ public class UpstreamController extends BaseController {
 		}
 
 		String html = "<tr><td class='short100'>" + upstreamServer.getServer() + ":" + upstreamServer.getPort() + "</td><td>";
-				
-		if(upstreamServer.getWeight()!=null) {
+
+		if (upstreamServer.getWeight() != null) {
 			html += "weight=" + upstreamServer.getWeight() + " ";
 		}
-		if(upstreamServer.getFailTimeout()!=null) {
+		if (upstreamServer.getFailTimeout() != null) {
 			html += "fail_timeout=" + upstreamServer.getFailTimeout() + "s ";
 		}
-		if(upstreamServer.getMaxFails()!=null) {
+		if (upstreamServer.getMaxFails() != null) {
 			html += "max_fails=" + upstreamServer.getMaxFails() + " ";
 		}
-		if(upstreamServer.getMaxConns()!=null) {
+		if (upstreamServer.getMaxConns() != null) {
 			html += "max_conns=" + upstreamServer.getMaxConns() + " ";
 		}
-		html+=  "</td><td class='short50'>" + status + "</td>" + monitorStatus + "</tr>";
+		html += "</td><td class='short50'>" + status + "</td>" + monitorStatus + "</tr>";
 		return html;
 	}
 
@@ -112,11 +117,10 @@ public class UpstreamController extends BaseController {
 		Upstream upstream = JSONUtil.toBean(upstreamJson, Upstream.class);
 		List<UpstreamServer> upstreamServers = JSONUtil.toList(JSONUtil.parseArray(upstreamServerJson), UpstreamServer.class);
 
-
 		if (StrUtil.isEmpty(upstream.getId())) {
-			upstream.setSeq( SnowFlakeUtils.getId());
+			upstream.setSeq(SnowFlakeUtils.getId());
 		}
-		
+
 		if (StrUtil.isEmpty(upstream.getId())) {
 			Long count = upstreamService.getCountByName(upstream.getName());
 			if (count > 0) {
@@ -186,20 +190,20 @@ public class UpstreamController extends BaseController {
 
 		return renderSuccess();
 	}
-	
+
 	@Mapping("setOrder")
 	public JsonResult setOrder(String id, Integer count) {
 		upstreamService.setSeq(id, count);
 		return renderSuccess();
 	}
-	
+
 	@Mapping("getDescr")
 	public JsonResult getDescr(String id) {
 		Upstream upstream = sqlHelper.findById(id, Upstream.class);
 
 		return renderSuccess(upstream.getDescr());
 	}
-	
+
 	@Mapping("editDescr")
 	public JsonResult editDescr(String id, String descr) {
 		Upstream upstream = new Upstream();
