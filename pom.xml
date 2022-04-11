@@ -63,7 +63,7 @@
 			<artifactId>commons-compress</artifactId>
 			<version>1.21</version>
 		</dependency>
-	
+
 		<dependency>
 			<groupId>com.github.odiszapc</groupId>
 			<artifactId>nginxparser</artifactId>
@@ -97,8 +97,9 @@
 		<dependency>
 			<groupId>cn.hutool</groupId>
 			<artifactId>hutool-all</artifactId>
-			<version>5.7.22</version>
+			<version>5.8.0.M2</version>
 		</dependency>
+
 		<dependency>
 			<groupId>javax.mail</groupId>
 			<artifactId>mail</artifactId>
