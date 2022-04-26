@@ -82,7 +82,7 @@ public class StreamController extends BaseController {
 
 			stream = new Stream();
 			stream.setName("access_log");
-			stream.setValue(homeConfig.home + "log/stream_error.log basic");
+			stream.setValue(homeConfig.home + "log/stream_access.log basic");
 			streams.add(stream);
 
 			stream = new Stream();
