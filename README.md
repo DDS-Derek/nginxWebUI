@@ -30,6 +30,7 @@ nginx本身功能复杂, nginxWebUI并不能涵盖nginx所有功能, 但能覆�
 部署此项目后, 配置nginx再也不用上网各种搜索配置代码, 再也不用手动申请和配置ssl证书, 只需要在本项目中进行增删改查就可方便的配置和启动nginx。
 
 ```
+视频教程: https://www.bilibili.com/video/BV18A4y1D7GZ
 演示地址: http://test.nginxwebui.cn:7070
 用户名: admin
 密码: admin

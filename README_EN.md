@@ -25,6 +25,7 @@ The nginx web user interface (webui) does not cover all nginx functions, but cov
 After the deployment of this project, the configuration of nginx no longer need to search the web configuration code, no longer need to manually apply for and configure SSL certificates, just need to add, delete, change and check in this project can easily configure and start nginx.  
 
 ```
+Video course: https://www.bilibili.com/video/BV18A4y1D7GZ
 Demo address: http://test.nginxwebui.cn:7070
 User: admin
 password: admin
