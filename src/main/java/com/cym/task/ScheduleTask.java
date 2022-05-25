@@ -1,4 +1,4 @@
-package com.cym.config;
+package com.cym.task;
 
 import java.io.File;
 import java.nio.charset.Charset;
@@ -16,6 +16,7 @@ import org.noear.solon.schedule.annotation.Scheduled;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.cym.config.HomeConfig;
 import com.cym.controller.adminPage.CertController;
 import com.cym.controller.adminPage.ConfController;
 import com.cym.controller.adminPage.RemoteController;
