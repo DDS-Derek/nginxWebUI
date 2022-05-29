@@ -172,13 +172,19 @@ public class InitConfig {
 		// 将复制的证书文件还原
 		List<Cert> certs = confService.getApplyCerts();
 		for (Cert cert : certs) {
+			boolean update = false;
 			if (cert.getPem().equals(homeConfig.home + "cert/" + cert.getDomain() + ".fullchain.cer")) {
 				cert.setPem(homeConfig.acmeShDir + cert.getDomain() + "/fullchain.cer");
+				update = true;
 			}
 			if (cert.getKey().equals(homeConfig.home + "cert/" + cert.getDomain() + ".key")) {
-				cert.setKey(homeConfig.acmeShDir + cert.getDomain() + ".key");
+				cert.setKey(homeConfig.acmeShDir + cert.getDomain() + "/" + cert.getDomain() + ".key");
+				update = true;
 			}
-			sqlHelper.updateById(cert);
+
+			if (update) {
+				sqlHelper.updateById(cert);
+			}
 		}
 
 		// 展示logo
