@@ -859,7 +859,7 @@ public class ConfService {
 	}
 
 	public List<Cert> getApplyCerts() {
-		List<Cert> certs = sqlHelper.findListByQuery(new ConditionAndWrapper().eq(Cert::getType, 0), Cert.class);
+		List<Cert> certs = sqlHelper.findListByQuery(new ConditionAndWrapper().ne(Cert::getType, 1), Cert.class);
 		return certs;
 	}
 
