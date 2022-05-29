@@ -178,6 +178,7 @@ public class InitConfig {
 			if (cert.getKey().equals(homeConfig.home + "cert/" + cert.getDomain() + ".key")) {
 				cert.setKey(homeConfig.acmeShDir + cert.getDomain() + ".key");
 			}
+			sqlHelper.updateById(cert);
 		}
 
 		// 展示logo
