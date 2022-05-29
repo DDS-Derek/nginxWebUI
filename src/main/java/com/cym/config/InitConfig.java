@@ -169,7 +169,7 @@ public class InitConfig {
 			}
 		}
 
-		// 将复制的证书文件还原
+		// 将复制的证书文件还原到acme文件夹里面
 		List<Cert> certs = confService.getApplyCerts();
 		for (Cert cert : certs) {
 			boolean update = false;
