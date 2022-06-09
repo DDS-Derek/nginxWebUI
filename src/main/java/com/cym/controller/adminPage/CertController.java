@@ -81,7 +81,9 @@ public class CertController extends BaseController {
 	@Mapping("del")
 	public JsonResult del(String id) {
 		Cert cert = sqlHelper.findById(id, Cert.class);
-		String path = homeConfig.acmeShDir + cert.getDomain();
+		String domain = cert.getDomain().split(",")[0];
+		String path = homeConfig.acmeShDir + domain;
+		
 		if ("ECC".equals(cert.getEncryption())) {
 			path += "_ecc";
 		}
