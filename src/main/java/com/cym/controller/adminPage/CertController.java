@@ -77,7 +77,7 @@ public class CertController extends BaseController {
 	public JsonResult detail(String id) {
 		return renderSuccess(sqlHelper.findById(id, Cert.class));
 	}
-
+	
 	@Mapping("del")
 	public JsonResult del(String id) {
 		Cert cert = sqlHelper.findById(id, Cert.class);
