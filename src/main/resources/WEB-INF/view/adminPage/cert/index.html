@@ -93,9 +93,14 @@
 
 							<td>
 								<#if cert.makeTime!=null>
-									${cert.makeTime?number_to_datetime?string('yyyy-MM-dd HH:mm:ss')} 
+									${certStr.signTime} : ${cert.makeTime?number_to_datetime?string('yyyy-MM-dd HH:mm:ss')} 
+								</#if>
+								<br>
+								<#if cert.endTime!=null>
+									${certStr.endTime} : ${cert.endTime?number_to_datetime?string('yyyy-MM-dd HH:mm:ss')} 
 								</#if>
 							</td>
+							
 							<td>pem: ${cert.pem} <br> key: ${cert.key}
 							</td>
 							<td>

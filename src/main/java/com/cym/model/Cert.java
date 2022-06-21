@@ -39,6 +39,10 @@ public class Cert extends BaseModel {
 	 */
 	Long makeTime; 
 	/**
+	 * 到期时间戳
+	 */
+	Long endTime; 
+	/**
 	 * 是否自动续签 0否 1是
 	 */
 	@InitValue("0")
@@ -94,6 +98,14 @@ public class Cert extends BaseModel {
 	
 	
 	
+	public Long getEndTime() {
+		return endTime;
+	}
+
+	public void setEndTime(Long endTime) {
+		this.endTime = endTime;
+	}
+
 	public String getEncryption() {
 		return encryption;
 	}
