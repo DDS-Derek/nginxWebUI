@@ -146,12 +146,12 @@ public class CertController extends BaseController {
 				} else if (cert.getDnsType().equals("hw")) {
 					dnsType = "dns_huaweicloud";
 				}
-				cmd = homeConfig.acmeSh + " --issue --force --dns " + dnsType + domain + keylength + " --server letsencrypt";
+				cmd = homeConfig.acmeSh + " --issue --force --dns " + dnsType + domain + keylength ;
 			} else if (cert.getType() == 2) {
 				if (certService.hasCode(cert.getId())) {
-					cmd = homeConfig.acmeSh + " --renew --force --dns" + domain + " --server letsencrypt --yes-I-know-dns-manual-mode-enough-go-ahead-please";
+					cmd = homeConfig.acmeSh + " --renew --force --dns" + domain + " --yes-I-know-dns-manual-mode-enough-go-ahead-please";
 				} else {
-					cmd = homeConfig.acmeSh + " --issue --force --dns" + domain + keylength + " --server letsencrypt --yes-I-know-dns-manual-mode-enough-go-ahead-please";
+					cmd = homeConfig.acmeSh + " --issue --force --dns" + domain + keylength + " --yes-I-know-dns-manual-mode-enough-go-ahead-please";
 				}
 
 			}
@@ -162,7 +162,7 @@ public class CertController extends BaseController {
 			if (cert.getType() == 0) {
 				cmd = homeConfig.acmeSh + " --renew --force " + ecc + " -d " + domain;
 			} else if (cert.getType() == 2) {
-				cmd = homeConfig.acmeSh + " --renew --force " + ecc + " -d " + domain + " --server letsencrypt --yes-I-know-dns-manual-mode-enough-go-ahead-please";
+				cmd = homeConfig.acmeSh + " --renew --force " + ecc + " -d " + domain + " --yes-I-know-dns-manual-mode-enough-go-ahead-please";
 			}
 		}
 		logger.info(cmd);
