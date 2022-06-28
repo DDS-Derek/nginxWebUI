@@ -28,15 +28,13 @@
 					</div>
 				</div>
 
-				<#if captcha>
-					<div class="layui-form-item">
-						<label class="layui-form-label">${loginStr.code}</label>
-						<div class="layui-input-inline" style="width: 240px;">
-							<input type="text" name="code" id="code" class="layui-input" style="width: 100px; display: inline-block;" onkeyup="getKey()"> 
-							<img src="${ctx}/adminPage/login/getCode?t=${jsrandom}" id="codeImg" onclick="refreshCode('codeImg')">
-						</div>
+				<div class="layui-form-item">
+					<label class="layui-form-label">${loginStr.code}</label>
+					<div class="layui-input-inline" style="width: 240px;">
+						<input type="text" name="code" id="code" class="layui-input" style="width: 100px; display: inline-block;" onkeyup="getKey()"> 
+						<img src="${ctx}/adminPage/login/getCode?t=${jsrandom}" id="codeImg" onclick="refreshCode('codeImg')">
 					</div>
-				</#if>
+				</div>
 
 				<div class="layui-form-item">
 					<label class="layui-form-label"> </label>
