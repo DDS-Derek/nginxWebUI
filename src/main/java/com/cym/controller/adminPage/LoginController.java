@@ -43,21 +43,24 @@ public class LoginController extends BaseController {
 	VersionConfig versionConfig;
 	@Inject
 	AuthUtils authUtils;
-
 	@Inject
 	SettingService settingService;
+	@Inject("${project.captcha}")
+	Boolean captcha;
 
 	@Mapping("")
-	public ModelAndView admin(ModelAndView modelAndView,  String adminId) {
+	public ModelAndView admin(ModelAndView modelAndView, String adminId) {
 		modelAndView.put("adminCount", sqlHelper.findAllCount(Admin.class));
+		modelAndView.put("captcha", captcha);
 		modelAndView.view("/adminPage/login/index.html");
 		return modelAndView;
 	}
 
 	@Mapping("loginOut")
 	public ModelAndView loginOut(ModelAndView modelAndView) {
-		
-		Context.current().sessionRemove(("isLogin"));;
+
+		Context.current().sessionRemove(("isLogin"));
+		;
 		modelAndView.view("/adminPage/index.html");
 		return modelAndView;
 	}
@@ -83,16 +86,18 @@ public class LoginController extends BaseController {
 		if (StrUtil.isNotEmpty(authCode)) {
 			authCode = Base64.decodeStr(Base64.decodeStr(authCode));
 		}
-			
-		
-		// 验证码
-		String captcha = (String) Context.current().session("captcha");
-		if (!code.equals(captcha)) {
-			Context.current().sessionRemove("captcha"); // 销毁验证码
-			return renderError(m.get("loginStr.backError1")); // 验证码不正确
-		}
-		Context.current().sessionRemove("captcha"); // 销毁验证码
 
+		// 验证码
+		if (captcha) {
+			String captcha = (String) Context.current().session("captcha");
+			if (!code.equals(captcha)) {
+				Context.current().sessionRemove("captcha"); // 销毁验证码
+				return renderError(m.get("loginStr.backError1")); // 验证码不正确
+			}
+			Context.current().sessionRemove("captcha"); // 销毁验证码
+		}
+		
+		
 		// 用户名密码
 		Admin admin = adminService.login(name, pass);
 		if (admin == null) {
@@ -138,7 +143,6 @@ public class LoginController extends BaseController {
 
 	}
 
-	
 	@Mapping("getAuth")
 	public JsonResult getAuth(String name, String pass, String code, Integer remote) {
 
@@ -174,7 +178,6 @@ public class LoginController extends BaseController {
 		return renderSuccess(ad);
 	}
 
-	
 	@Mapping("getCredit")
 	public JsonResult getCredit(String name, String pass, String code, String auth) {
 		// 解码
@@ -214,7 +217,6 @@ public class LoginController extends BaseController {
 
 	}
 
-	
 	@Mapping("getLocalType")
 	public JsonResult getLocalType() {
 		String localType = (String) Context.current().session("localType");
@@ -235,7 +237,7 @@ public class LoginController extends BaseController {
 	}
 
 	@Mapping("addAdmin")
-	
+
 	public JsonResult addAdmin(String name, String pass) {
 
 		Long adminCount = sqlHelper.findAllCount(Admin.class);
@@ -277,14 +279,13 @@ public class LoginController extends BaseController {
 		Context.current().headerAdd("Cache-Control", "no-cache");
 		Context.current().headerAdd("Expires", "0");
 		Context.current().contentType("image/gif");
-		
+
 		SpecCaptcha specCaptcha = new SpecCaptcha(100, 40, 4);
 		specCaptcha.setCharType(Captcha.TYPE_ONLY_NUMBER);
 		settingService.set("remoteCode", specCaptcha.text());
 		specCaptcha.out(Context.current().outputStream());
 	}
 
-	
 	@Mapping("/changeLang")
 	public JsonResult changeLang() {
 		Long adminCount = sqlHelper.findAllCount(Admin.class);
@@ -299,5 +300,5 @@ public class LoginController extends BaseController {
 
 		return renderSuccess();
 	}
-	
+
 }
