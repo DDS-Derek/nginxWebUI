@@ -95,9 +95,20 @@ public class Cert extends BaseModel {
 	 * hwProjectID(华为云需要的参数)
 	 */
 	String hwProjectId;
+	/**
+	 * hwProjectID(华为云需要的参数)
+	 */
+	String hwDomainName;
 	
 	
-	
+	public String getHwDomainName() {
+		return hwDomainName;
+	}
+
+	public void setHwDomainName(String hwDomainName) {
+		this.hwDomainName = hwDomainName;
+	}
+
 	public Long getEndTime() {
 		return endTime;
 	}

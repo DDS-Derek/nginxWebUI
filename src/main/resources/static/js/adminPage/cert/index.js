@@ -118,6 +118,7 @@ function add() {
 	$("#hwUsername").val("");
 	$("#hwPassword").val("");
 	$("#hwProjectId").val("");
+	$("#hwDomainName").val("");
 
 	$("#pem").val("");
 	$("#key").val("");
@@ -168,7 +169,8 @@ function edit(id, clone) {
 				$("#hwUsername").val(cert.hwUsername);
 				$("#hwPassword").val(cert.hwPassword);
 				$("#hwProjectId").val(cert.hwProjectId);
-
+				$("#hwDomainName").val(cert.hwDomainName);
+				
 				$("#pemPath").html(cert.pem);
 				$("#keyPath").html(cert.key);
 				
