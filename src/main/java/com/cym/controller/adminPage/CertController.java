@@ -242,7 +242,7 @@ public class CertController extends BaseController {
 		if (cert.getDnsType().equals("hw")) {
 			list.add("HUAWEICLOUD_Username=" + cert.getHwUsername());
 			list.add("HUAWEICLOUD_Password=" + cert.getHwPassword());
-			list.add("HUAWEICLOUD_ProjectID=" + cert.getHwProjectID());
+			list.add("HUAWEICLOUD_ProjectID=" + cert.getHwProjectId());
 		}
 
 		return list.toArray(new String[] {});

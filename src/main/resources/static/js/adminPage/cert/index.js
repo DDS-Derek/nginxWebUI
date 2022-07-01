@@ -117,7 +117,7 @@ function add() {
 
 	$("#hwUsername").val("");
 	$("#hwPassword").val("");
-	$("#hwProjectID").val("");
+	$("#hwProjectId").val("");
 
 	$("#pem").val("");
 	$("#key").val("");
@@ -167,7 +167,7 @@ function edit(id, clone) {
 
 				$("#hwUsername").val(cert.hwUsername);
 				$("#hwPassword").val(cert.hwPassword);
-				$("#hwProjectID").val(cert.hwProjectID);
+				$("#hwProjectId").val(cert.hwProjectId);
 
 				$("#pemPath").html(cert.pem);
 				$("#keyPath").html(cert.key);
@@ -258,7 +258,7 @@ function addOver() {
 			}
 		}
 		if ($("#dnsType").val() == 'hw') {
-			if ($("#hwUsername").val() == '' || $("#hwPassword").val() == '' || $("#hwProjectID").val() == '') {
+			if ($("#hwUsername").val() == '' || $("#hwPassword").val() == '' || $("#hwProjectId").val() == '') {
 				layer.msg(commonStr.IncompleteEntry);
 				return;
 			}

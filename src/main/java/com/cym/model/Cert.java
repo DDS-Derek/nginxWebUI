@@ -94,7 +94,7 @@ public class Cert extends BaseModel {
 	/**
 	 * hwProjectID(华为云需要的参数)
 	 */
-	String hwProjectID;
+	String hwProjectId;
 	
 	
 	
@@ -130,12 +130,13 @@ public class Cert extends BaseModel {
 		this.hwPassword = hwPassword;
 	}
 
-	public String getHwProjectID() {
-		return hwProjectID;
+
+	public String getHwProjectId() {
+		return hwProjectId;
 	}
 
-	public void setHwProjectID(String hwProjectID) {
-		this.hwProjectID = hwProjectID;
+	public void setHwProjectId(String hwProjectId) {
+		this.hwProjectId = hwProjectId;
 	}
 
 	public String getGdKey() {
