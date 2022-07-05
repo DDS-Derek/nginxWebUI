@@ -92,7 +92,7 @@ public class AdminController extends BaseController {
 		AdminExt adminExt = new AdminExt();
 		adminExt.setAdmin(sqlHelper.findById(id, Admin.class));
 		adminExt.setGroupIds(adminService.getGroupIds(adminExt.getAdmin().getId()));
-		adminExt.getAdmin().setPass(EncodePassUtils.decode(adminExt.getAdmin().getPass()));
+		adminExt.getAdmin().setPass(""); 
 		return renderSuccess(adminExt);
 	}
 
