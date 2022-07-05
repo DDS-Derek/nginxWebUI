@@ -232,7 +232,6 @@ public class LoginController extends BaseController {
 	}
 
 	@Mapping("addAdmin")
-
 	public JsonResult addAdmin(String name, String pass) {
 
 		Long adminCount = sqlHelper.findAllCount(Admin.class);
