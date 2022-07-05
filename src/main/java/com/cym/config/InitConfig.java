@@ -69,8 +69,9 @@ public class InitConfig {
 		if (findPass) {
 			List<Admin> admins = sqlHelper.findAll(Admin.class);
 			for (Admin admin : admins) {
-				System.out.println(m.get("adminStr.name") + ":" + admin.getName() + " " + m.get("adminStr.pass") + ":" + EncodePassUtils.decode(admin.getPass()));
+				System.out.println(m.get("adminStr.name") + ":" + admin.getName() + " " + m.get("adminStr.pass") + ":" + EncodePassUtils.defaultPass);
 				admin.setAuth(false); // 关闭二次验证
+				admin.setPass(EncodePassUtils.encodeDefaultPass());
 				sqlHelper.updateById(admin);
 			}
 			System.exit(1);
@@ -193,7 +194,7 @@ public class InitConfig {
 		// 将密码加密
 		List<Admin> admins = sqlHelper.findAll(Admin.class);
 		for (Admin admin : admins) {
-			if (!StrUtil.endWith(admin.getPass(), SecureUtil.md5(EncodePassUtils.key))) {
+			if (!StrUtil.endWith(admin.getPass(), SecureUtil.md5(EncodePassUtils.defaultPass))) {
 				admin.setPass(EncodePassUtils.encode(admin.getPass()));
 				sqlHelper.updateById(admin);
 			}
