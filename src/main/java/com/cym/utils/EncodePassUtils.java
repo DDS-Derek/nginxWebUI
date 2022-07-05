@@ -20,7 +20,4 @@ public class EncodePassUtils {
 		return SecureUtil.md5(defaultPass) + SecureUtil.md5(defaultPass);
 	}
 
-	public static void main(String[] args) {
-		System.out.println(encode("12345678"));
-	}
 }
