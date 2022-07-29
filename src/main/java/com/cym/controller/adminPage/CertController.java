@@ -103,7 +103,15 @@ public class CertController extends BaseController {
 	public JsonResult del(String id) {
 		Cert cert = sqlHelper.findById(id, Cert.class);
 
-		if (cert.getType() != 1) {
+		if (cert.getType() == 1) {
+			// 手动上传
+			if (cert.getPem().contains(homeConfig.home + "cert/")) {
+				FileUtil.del(cert.getPem());
+			}
+			if (cert.getKey().contains(homeConfig.home + "cert/")) {
+				FileUtil.del(cert.getKey());
+			}
+		} else {
 			// 申请获得
 			String domain = cert.getDomain().split(",")[0];
 			String path = homeConfig.acmeShDir + domain;
