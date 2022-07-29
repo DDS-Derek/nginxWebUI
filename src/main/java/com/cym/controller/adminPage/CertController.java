@@ -67,8 +67,13 @@ public class CertController extends BaseController {
 
 	@Mapping("addOver")
 	public JsonResult addOver(Cert cert, String[] domains, String[] types, String[] values) {
+		Integer type = cert.getType();
+		if (type == null && StrUtil.isNotEmpty(cert.getId())) {
+			Cert certOrg = sqlHelper.findById(cert.getId(), Cert.class);
+			type = certOrg.getType();
+		}
 
-		if (cert.getType() == 1) {
+		if (type != null && type == 1) {
 			// 手动上传
 			if (cert.getKey().contains(FileUtil.getTmpDir().toString().replace("\\", "/"))) {
 				String keyName = new File(cert.getKey()).getName();
