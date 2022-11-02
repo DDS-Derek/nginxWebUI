@@ -1,10 +1,13 @@
 package com.cym;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.junit.Test;
 
 import cn.hutool.crypto.SecureUtil;
+import cn.hutool.http.HttpUtil;
 
 public class TestUtils {
 
@@ -14,10 +17,27 @@ public class TestUtils {
 	}
 
 	public static void main(String[] args) {
-		String str = SecureUtil.md5("7974" + "%OHr1IIf6Gh19SXe2zI#y17ag$$%dw9p" + "18030546255" + "1667393791844");
-	
-		System.out.println(str);
+		String username = "18030546255";
+		String uid = "7974";
+		String key = "wiqB2gaCMzP83Z8wh37L00uSWmgDcIvX";
+
+		String t = System.currentTimeMillis() + "";
+		String k = SecureUtil.md5(uid + key + username + t);
+		String sign = SecureUtil.md5(k);
+		String action = "login";
+
+		Map<String, Object> map = new HashMap<>();
+		map.put("username", username);
+		map.put("uid", uid);
+		map.put("t", t);
+		map.put("k", k);
+		map.put("sign", sign);
+		map.put("action", action);
 		
-		System.out.println(SecureUtil.md5(str));
+		System.out.println(map);
+		
+		String rs = HttpUtil.get("https://www.freecdn.pw:8092/cdn/api/login.php", map);
+		
+		System.out.println(rs);
 	}
 }
