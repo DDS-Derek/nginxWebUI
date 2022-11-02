@@ -83,7 +83,6 @@ Path : JDK安装目录\bin
 
 ```
 Linux: mkdir /home/nginxWebUI/ 
-
        wget -O /home/nginxWebUI/nginxWebUI.jar http://file.nginxwebui.cn/nginxWebUI-3.4.1.jar
 
 Windows: 直接使用浏览器下载 http://file.nginxwebui.cn/nginxWebUI-3.4.1.jar 放到 D:/home/nginxWebUI/
