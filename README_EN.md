@@ -74,9 +74,11 @@ reboot
 2.Download the latest release of the distribution jar
 
 ```
-Linux: wget -O /home/nginxWebUI/nginxWebUI.jar http://file.nginxwebui.cn/nginxWebUI-3.4.1.jar
+Linux: mkdir /home/nginxWebUI/ 
+       
+       wget -O /home/nginxWebUI/nginxWebUI.jar http://file.nginxwebui.cn/nginxWebUI-3.4.1.jar
 
-Windows: Download directly from your browser http://file.nginxwebui.cn/nginxWebUI-3.4.1.jar
+Windows: Download directly from your browser http://file.nginxwebui.cn/nginxWebUI-3.4.1.jar into D:/home/nginxWebUI/
 ```
 
 With a new version, you just need to change the version in the path
@@ -84,9 +86,9 @@ With a new version, you just need to change the version in the path
 3.Start program
 
 ```
-Linux: nohup java -jar -Dfile.encoding=UTF-8 /home/nginxWebUI/nginxWebUI.jar --server.port=8080 --project.home=/home/nginxWebUI/ > /dev/null &
+Linux: nohup java -jar -D'file.encoding=UTF-8' /home/nginxWebUI/nginxWebUI.jar --server.port=8080 --project.home=/home/nginxWebUI/ > /dev/null &
 
-Windows: java -jar -Dfile.encoding=UTF-8 D:/home/nginxWebUI/nginxWebUI.jar --server.port=8080 --project.home=D:/home/nginxWebUI/
+Windows: java -jar -D'file.encoding=UTF-8' D:/home/nginxWebUI/nginxWebUI.jar --server.port=8080 --project.home=D:/home/nginxWebUI/
 ```
 
 Parameter description (both non-required)
