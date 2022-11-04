@@ -17,7 +17,7 @@ public class TestUtils {
 	}
 
 	public static void main(String[] args) {
-		String username = "18030546255";
+		String username = "18030546255_1";
 		String uid = "7974";
 		String key = "wiqB2gaCMzP83Z8wh37L00uSWmgDcIvX";
 
