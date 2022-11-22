@@ -93,9 +93,9 @@ Windows: 直接使用浏览器下载 http://file.nginxwebui.cn/nginxWebUI-3.4.2.
 3.启动程序
 
 ```
-Linux: nohup java -jar -D'file.encoding=UTF-8' /home/nginxWebUI/nginxWebUI.jar --server.port=8080 --project.home=/home/nginxWebUI/ > /dev/null &
+Linux: nohup java -jar -Dfile.encoding=UTF-8 /home/nginxWebUI/nginxWebUI.jar --server.port=8080 --project.home=/home/nginxWebUI/ > /dev/null &
 
-Windows: java -jar -D'file.encoding=UTF-8' D:/home/nginxWebUI/nginxWebUI.jar --server.port=8080 --project.home=D:/home/nginxWebUI/
+Windows: java -jar -Dfile.encoding=UTF-8 D:/home/nginxWebUI/nginxWebUI.jar --server.port=8080 --project.home=D:/home/nginxWebUI/
 ```
 
 参数说明(都是非必填)
