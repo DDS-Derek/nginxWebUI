@@ -108,7 +108,6 @@ function add() {
 	$("#type option:first").prop("selected", true);
 	$("#dnsType option:first").prop("selected", true);
 	$("#encryption option:first").prop("selected", true);
-	$("#encryption").attr("disabled", false);
 	$("#aliKey").val("");
 	$("#aliSecret").val("");
 	$("#dpId").val("");
@@ -131,7 +130,9 @@ function add() {
 	$("#domain").attr("disabled", false);
 	$("#domain").removeClass("disabled");
 	$("#type").attr("disabled", false);
-					
+	$("#encryption").attr("disabled", false);
+	$("#encryption").removeClass("disabled");
+			
 	checkType(0);
 	checkDnsType('ali');
 
