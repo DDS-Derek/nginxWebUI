@@ -1,6 +1,5 @@
 package com.cym.service;
 
-import cn.hutool.core.util.StrUtil;
 import org.noear.solon.annotation.Inject;
 import org.noear.solon.aspect.annotation.Service;
 
@@ -31,7 +30,7 @@ public class SettingService {
 		if (setting == null) {
 			return null;
 		} else {
-			return StrUtil.nullToEmpty(setting.getValue());
+			return setting.getValue();
 		}
 	}
 
