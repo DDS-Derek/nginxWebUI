@@ -1,6 +1,5 @@
 package com.cym.service;
 
-import cn.hutool.core.util.StrUtil;
 import org.noear.solon.annotation.Inject;
 import org.noear.solon.aspect.annotation.Service;
 
@@ -29,7 +28,7 @@ public class SettingService {
 		Setting setting = sqlHelper.findOneByQuery(new ConditionAndWrapper().eq("key", key), Setting.class);
 
 		if (setting == null) {
-			return StrUtil.EMPTY;
+			return null;
 		} else {
 			return setting.getValue();
 		}
