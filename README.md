@@ -214,7 +214,7 @@ Type=simple
 User=root
 Group=root
 WorkingDirectory=/home/nginxWebUI
-ExecStart=/usr/bin/java -jar /home/nginxWebUI/nginxWebUI.jar
+ExecStart=/usr/bin/java -jar -Dfile.encoding=UTF-8 /home/nginxWebUI/nginxWebUI.jar
 Restart=always
  
 [Install]
