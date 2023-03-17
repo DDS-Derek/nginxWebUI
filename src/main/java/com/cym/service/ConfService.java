@@ -696,7 +696,6 @@ public class ConfService {
 		FileUtil.mkdir(confd);
 
 		// 写入主文件
-		nginxPath.replaceAll("\\.\\./","_");
 		FileUtil.writeString(nginxContent, nginxPath.replace(" ", "_"), StandardCharsets.UTF_8);
 		String decompose = settingService.get("decompose");
 
