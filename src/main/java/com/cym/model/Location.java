@@ -14,11 +14,13 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public class Location extends BaseModel {
 	/**
 	 * 所属反向代理serverId
+	 * 
 	 * @required
 	 */
 	String serverId;
 	/**
 	 * 监控路径 例:/
+	 * 
 	 * @required
 	 */
 	String path;
@@ -42,7 +44,7 @@ public class Location extends BaseModel {
 	/**
 	 * 代理负载均衡upstream的id
 	 */
-	String upstreamId; 
+	String upstreamId;
 	/**
 	 * 代理负载额外路径,默认为空
 	 */
@@ -63,18 +65,32 @@ public class Location extends BaseModel {
 	 * 是否携带Host参数 0否 1是(默认)
 	 */
 	@InitValue("1")
-	Integer header; 
+	Integer header;
 	/**
 	 * 是否开启websocket支持 0否(默认) 1是
 	 */
 	@InitValue("0")
 	Integer websocket;
+
+	/**
+	 * 是否开启跨域支持 0否(默认) 1是
+	 */
+	@InitValue("0")
+	Integer cros;
+
 	/**
 	 * 描述
 	 */
-	String descr; 
-	
-	
+	String descr;
+
+	public Integer getCros() {
+		return cros;
+	}
+
+	public void setCros(Integer cros) {
+		this.cros = cros;
+	}
+
 	public String getDescr() {
 		return descr;
 	}
