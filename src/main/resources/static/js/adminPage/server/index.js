@@ -284,6 +284,8 @@ function addOver() {
 		location.header = $(this).find("input[name='header']").prop("checked") ? 1 : 0;
 		location.websocket = $(this).find("input[name='websocket']").prop("checked") ? 1 : 0;
 		location.cros = $(this).find("input[name='cros']").prop("checked") ? 1 : 0;
+		location.headerHost = $(this).find("select[name='headerHost']").val();
+		
 		locations.push(location);
 	})
 
@@ -421,6 +423,7 @@ function edit(id, clone) {
 					$("#" + uuid + " select[name='upstreamType']").val(location.upstreamType);
 					$("#" + uuid + " select[name='upstreamId']").val(location.upstreamId);
 					$("#" + uuid + " input[name='upstreamPath']").val(location.upstreamPath);
+					$("#" + uuid + " select[name='headerHost']").val(location.headerHost);
 
 					if (location.header == 1) {
 						$("#" + uuid + " input[name='header']").prop("checked", true);
@@ -522,7 +525,7 @@ function buildHtml(uuid, location, upstreamSelect) {
 					</div>
 				</td>
 				
-				<td>
+				<td style="width: 740px;">
 					<span name="valueSpan">
 						<div class="layui-inline">
 							<input type="text"  style="width: 277px;" name="value" id="value_${uuid}" class="layui-input long" value=""  placeholder="${serverStr.example}：http://127.0.0.1:8080">
@@ -560,13 +563,20 @@ function buildHtml(uuid, location, upstreamSelect) {
 					
 					<span  name="headerSpan" style="padding-left:7px;">
 						<div class="layui-inline">
-							<input type="checkbox" name="header" title="${serverStr.headerAddHost}" lay-skin="primary" checked> 
-						</div>
-						<div class="layui-inline">
 							<input type="checkbox" name="websocket" title="${serverStr.websocket}" lay-skin="primary"> 
 						</div>
 						<div class="layui-inline">
 							<input type="checkbox" name="cros" title="${serverStr.cros}" lay-skin="primary"> 
+						</div>
+						<div class="layui-inline">
+							<input type="checkbox" name="header" title="${serverStr.headerAddHost} :" lay-skin="primary" checked> 
+						</div>
+						<div class="layui-inline" style="width: 110px;">
+							<select name="headerHost" lay-filter="type">
+								<option ${location.headerHost == '$host' ? 'selected' : ''}>$host</option>
+								<option ${location.headerHost == '$http_host' ? 'selected' : ''}>$http_host</option>
+								<option ${location.headerHost == '$host:$proxy_port' ? 'selected' : ''}>$host:$proxy_port</option>
+							</select>
 						</div>
 					</span>
 				</td> 

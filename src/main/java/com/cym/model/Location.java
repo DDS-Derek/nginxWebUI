@@ -67,6 +67,12 @@ public class Location extends BaseModel {
 	@InitValue("1")
 	Integer header;
 	/**
+	 * Host参数类型 $host(默认) $http_host $host:$proxy_port
+	 */
+	@InitValue("$host")
+	String headerHost;
+	
+	/**
 	 * 是否开启websocket支持 0否(默认) 1是
 	 */
 	@InitValue("0")
@@ -201,6 +207,14 @@ public class Location extends BaseModel {
 
 	public void setValue(String value) {
 		this.value = value;
+	}
+
+	public String getHeaderHost() {
+		return headerHost;
+	}
+
+	public void setHeaderHost(String headerHost) {
+		this.headerHost = headerHost;
 	}
 
 }

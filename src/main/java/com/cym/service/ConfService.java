@@ -408,7 +408,7 @@ public class ConfService {
 
 					if (location.getHeader() == 1) { // 设置header参数
 						ngxParam = new NgxParam();
-						ngxParam.addValue("proxy_set_header Host $host");
+						ngxParam.addValue("proxy_set_header Host " + location.getHeaderHost());
 						ngxBlockLocation.addEntry(ngxParam);
 
 						ngxParam = new NgxParam();
