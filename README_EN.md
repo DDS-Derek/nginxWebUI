@@ -290,6 +290,6 @@ java -jar nginxWebUI.jar --project.home=/home/nginxWebUI/ --project.findPass=tru
 
 --project.findPass Whether to print the user name and password
 
-After the operation is successful, all user names and passwords can be printed and two steps verify is disabled.
+After the operation is successful, all user names and passwords can be reset printed and two steps verify will disabled.
 
 
