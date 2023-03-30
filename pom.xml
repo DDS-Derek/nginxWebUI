@@ -18,12 +18,12 @@
 			<groupId>org.noear</groupId>
 			<artifactId>solon-web</artifactId>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.noear</groupId>
 			<artifactId>solon.boot.undertow</artifactId>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.noear</groupId>
 			<artifactId>solon.logging.logback</artifactId>
@@ -150,10 +150,43 @@
 				</executions>
 			</plugin>
 
-			<!-- 配置打包插件（并打包成胖包） -->
 			<plugin>
-				<groupId>org.noear</groupId>
-				<artifactId>solon-maven-plugin</artifactId>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.8.1</version>
+				<configuration>
+					<compilerArgument>-parameters</compilerArgument>
+					<source>1.8</source>
+					<target>1.8</target>
+					<encoding>UTF-8</encoding>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<version>3.3.0</version>
+				<configuration>
+					<finalName>${project.name}-${project.version}</finalName>
+					<appendAssemblyId>false</appendAssemblyId>
+					<descriptorRefs>
+						<descriptorRef>jar-with-dependencies</descriptorRef>
+					</descriptorRefs>
+					<archive>
+						<manifest>
+							<mainClass>com.cym.NginxWebUI</mainClass>
+						</manifest>
+					</archive>
+				</configuration>
+				<executions>
+					<execution>
+						<id>make-assembly</id>
+						<phase>package</phase>
+						<goals>
+							<goal>single</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>

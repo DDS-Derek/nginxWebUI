@@ -25,8 +25,6 @@ public class JarUtil {
 			throw new IllegalStateException("Unable to determine code source archive from " + root);
 		}
 		
-		System.out.println(root.getAbsolutePath());
-		
 		return root.getAbsolutePath();
 	}
 
