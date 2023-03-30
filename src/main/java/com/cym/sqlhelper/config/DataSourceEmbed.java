@@ -3,15 +3,15 @@ package com.cym.sqlhelper.config;
 import javax.sql.DataSource;
 
 import org.noear.solon.annotation.Component;
-import org.noear.solon.annotation.Init;
 import org.noear.solon.annotation.Inject;
 
 import com.cym.config.HomeConfig;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
+import org.noear.solon.core.bean.InitializingBean;
 
 @Component
-public class DataSourceEmbed {
+public class DataSourceEmbed implements InitializingBean {
 	@Inject
 	HomeConfig homeConfig;
 	@Inject("${spring.database.type}")
@@ -25,8 +25,8 @@ public class DataSourceEmbed {
 
 	DataSource dataSource;
 
-	@Init
-	public void init() {
+	@Override
+	public void afterInjection() throws Throwable {
 		// 创建dataSource
 		if (databaseType.equalsIgnoreCase("sqlite") || databaseType.equalsIgnoreCase("h2")) {
 			HikariConfig dbConfig = new HikariConfig();

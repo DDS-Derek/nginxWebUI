@@ -3,8 +3,8 @@ package com.cym.config;
 import java.io.File;
 
 import org.noear.solon.annotation.Component;
-import org.noear.solon.annotation.Init;
 import org.noear.solon.annotation.Inject;
+import org.noear.solon.core.bean.InitializingBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -15,19 +15,18 @@ import com.cym.utils.ToolUtils;
 
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.util.StrUtil;
-import cn.hutool.system.SystemUtil;
 
 @Component
-public class HomeConfig {
+public class HomeConfig implements InitializingBean {
 	@Inject("${project.home}")
 	public String home;
 	public String acmeShDir;
 	public String acmeSh;
 	
 	Logger logger = LoggerFactory.getLogger(this.getClass());
-	
-	@Init
-	public void init() {
+
+	@Override
+	public void afterInjection() throws Throwable {
 		if (StrUtil.isEmpty(home)) {
 			// 获取jar位置
 			File file = new File(JarUtil.getCurrentFilePath());

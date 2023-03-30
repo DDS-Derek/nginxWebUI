@@ -8,8 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.noear.solon.annotation.Component;
-import org.noear.solon.annotation.Init;
 import org.noear.solon.annotation.Inject;
+import org.noear.solon.core.bean.LifecycleBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -17,7 +17,6 @@ import com.cym.model.Admin;
 import com.cym.model.Basic;
 import com.cym.model.Cert;
 import com.cym.model.Http;
-import com.cym.model.Password;
 import com.cym.service.BasicService;
 import com.cym.service.ConfService;
 import com.cym.service.SettingService;
@@ -38,7 +37,7 @@ import cn.hutool.core.util.ZipUtil;
 import cn.hutool.crypto.SecureUtil;
 
 @Component
-public class InitConfig {
+public class InitConfig implements LifecycleBean {
 	Logger logger = LoggerFactory.getLogger(this.getClass());
 	@Inject
 	MessageUtils m;
@@ -63,9 +62,8 @@ public class InitConfig {
 	@Inject("${project.findPass}")
 	Boolean findPass;
 
-	@Init
-	public void init() throws IOException {
-
+	@Override
+	public void start() throws Throwable {
 		// 找回密码
 		if (findPass) {
 			List<Admin> admins = sqlHelper.findAll(Admin.class);
