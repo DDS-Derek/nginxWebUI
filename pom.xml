@@ -139,18 +139,6 @@
 			</plugin>
 
 			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.8.1</version>
-				<configuration>
-					<compilerArgument>-parameters</compilerArgument>
-					<source>1.8</source>
-					<target>1.8</target>
-					<encoding>UTF-8</encoding>
-				</configuration>
-			</plugin>
-
-			<plugin>
 				<groupId>com.github.shalousun</groupId>
 				<artifactId>smart-doc-maven-plugin</artifactId>
 				<version>2.3.9</version>
@@ -171,33 +159,11 @@
 				</executions>
 			</plugin>
 
+			<!-- 配置打包插件（并打包成胖包） -->
 			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-assembly-plugin</artifactId>
-				<version>3.3.0</version>
-				<configuration>
-					<finalName>${project.name}-${project.version}</finalName>
-					<appendAssemblyId>false</appendAssemblyId>
-					<descriptorRefs>
-						<descriptorRef>jar-with-dependencies</descriptorRef>
-					</descriptorRefs>
-					<archive>
-						<manifest>
-							<mainClass>com.cym.NginxWebUI</mainClass>
-						</manifest>
-					</archive>
-				</configuration>
-				<executions>
-					<execution>
-						<id>make-assembly</id>
-						<phase>package</phase>
-						<goals>
-							<goal>single</goal>
-						</goals>
-					</execution>
-				</executions>
+				<groupId>org.noear</groupId>
+				<artifactId>solon-maven-plugin</artifactId>
 			</plugin>
-
 		</plugins>
 	</build>
 

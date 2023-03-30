@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.noear.solon.Solon;
+import org.noear.solon.annotation.SolonMain;
 import org.noear.solon.core.util.LogUtil;
 import org.noear.solon.logging.utils.LogUtilToSlf4j;
 import org.noear.solon.scheduling.annotation.EnableScheduling;
@@ -20,6 +21,7 @@ import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.util.RuntimeUtil;
 
 @EnableScheduling
+@SolonMain
 public class NginxWebUI {
 	static Logger logger = LoggerFactory.getLogger(NginxWebUI.class);
 
