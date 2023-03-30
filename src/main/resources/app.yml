@@ -21,9 +21,11 @@ solon:
       "io.undertow":
         level: "WARN"
       "org.xnio.nio":
-        level: "INFO"
-      "o.xnio.nio":
-        level: "INFO"
+        level: "WARN"
+      "o.xnio":
+        level: "WARN"
+      "com.zaxxer.hikari":
+        level: "WARN"
     appender:
       file:
         name: ${project.home}/log/${solon.app.name}
