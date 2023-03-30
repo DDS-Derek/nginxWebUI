@@ -12,7 +12,7 @@ import java.util.concurrent.TimeUnit;
 
 import org.noear.solon.annotation.Component;
 import org.noear.solon.annotation.Inject;
-import org.noear.solon.schedule.annotation.Scheduled;
+import org.noear.solon.scheduling.annotation.Scheduled;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

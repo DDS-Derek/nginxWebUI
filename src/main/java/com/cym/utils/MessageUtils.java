@@ -3,25 +3,25 @@ package com.cym.utils;
 import java.util.Properties;
 
 import org.noear.solon.annotation.Component;
-import org.noear.solon.annotation.Init;
 import org.noear.solon.annotation.Inject;
 
 import com.cym.service.SettingService;
+import org.noear.solon.core.bean.InitializingBean;
 
 /**
  * 国际化工具类
  */
 @Component
-public class MessageUtils {
+public class MessageUtils implements InitializingBean {
 
 	@Inject
 	PropertiesUtils propertiesUtils;
 	
 	Properties properties = null;
 	Properties propertiesEN = null;
-	
-	@Init
-	private void ini() {
+
+	@Override
+	public void afterInjection() throws Throwable {
 		propertiesEN = propertiesUtils.getPropertis("messages_en_US.properties");
 		properties = propertiesUtils.getPropertis("messages.properties");
 	}

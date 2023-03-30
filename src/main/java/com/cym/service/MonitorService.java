@@ -4,8 +4,7 @@ import java.lang.management.ManagementFactory;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.noear.solon.annotation.Init;
-import org.noear.solon.aspect.annotation.Service;
+import org.noear.solon.annotation.Component;
 
 import com.cym.ext.DiskInfo;
 import com.cym.ext.MonitorInfo;
@@ -13,6 +12,7 @@ import com.sun.management.OperatingSystemMXBean;
 
 import cn.hutool.core.util.NumberUtil;
 import cn.hutool.system.oshi.OshiUtil;
+import org.noear.solon.core.bean.InitializingBean;
 import oshi.software.os.OSFileStore;
 import oshi.util.FormatUtil;
 
@@ -21,13 +21,13 @@ import oshi.util.FormatUtil;
  * 
  * @author amg * @version 1.0 Creation date: 2008-3-11 - 上午10:06:06
  */
-@Service
-public class MonitorService {
+@Component
+public class MonitorService implements InitializingBean {
 
 	OperatingSystemMXBean osmxb;
 
-	@Init
-	private void init() {
+	@Override
+	public void afterInjection() throws Throwable {
 		osmxb = (OperatingSystemMXBean) ManagementFactory.getOperatingSystemMXBean();
 	}
 
