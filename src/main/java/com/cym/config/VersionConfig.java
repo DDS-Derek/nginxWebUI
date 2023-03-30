@@ -70,8 +70,6 @@ public class VersionConfig  {
 			String version = properties.getProperty("version");
 			return version;
 		} catch (Exception e) {
-			e.printStackTrace();
-			
 			// 开发过程中查看pom.xml版本号
 			MavenXpp3Reader reader = new MavenXpp3Reader();
 			String basePath = Thread.currentThread().getContextClassLoader().getResource("").getPath();
