@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.noear.solon.annotation.Component;
+import org.noear.solon.annotation.Init;
 
 import com.cym.ext.DiskInfo;
 import com.cym.ext.MonitorInfo;
@@ -22,12 +23,12 @@ import oshi.util.FormatUtil;
  * @author amg * @version 1.0 Creation date: 2008-3-11 - 上午10:06:06
  */
 @Component
-public class MonitorService implements InitializingBean {
+public class MonitorService {
 
 	OperatingSystemMXBean osmxb;
 
-	@Override
-	public void afterInjection() throws Throwable {
+	@Init
+	public void afterInjection() {
 		osmxb = (OperatingSystemMXBean) ManagementFactory.getOperatingSystemMXBean();
 	}
 

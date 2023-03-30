@@ -12,6 +12,7 @@ import org.apache.maven.model.Model;
 import org.apache.maven.model.io.xpp3.MavenXpp3Reader;
 import org.codehaus.plexus.util.xml.pull.XmlPullParserException;
 import org.noear.solon.annotation.Component;
+import org.noear.solon.annotation.Init;
 import org.noear.solon.core.bean.InitializingBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,15 +25,15 @@ import cn.hutool.http.HttpUtil;
 import cn.hutool.json.JSONUtil;
 
 @Component
-public class VersionConfig implements InitializingBean {
+public class VersionConfig  {
 	Logger logger = LoggerFactory.getLogger(VersionConfig.class);
 
 	public Version newVersion;
 
 	public String currentVersion;
 
-	@Override
-	public void afterInjection() throws Throwable {
+	@Init
+	public void afterInjection() {
 		checkVersion();
 	}
 
@@ -69,6 +70,8 @@ public class VersionConfig implements InitializingBean {
 			String version = properties.getProperty("version");
 			return version;
 		} catch (Exception e) {
+			e.printStackTrace();
+			
 			// 开发过程中查看pom.xml版本号
 			MavenXpp3Reader reader = new MavenXpp3Reader();
 			String basePath = Thread.currentThread().getContextClassLoader().getResource("").getPath();
