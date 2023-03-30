@@ -20,6 +20,10 @@ solon:
     logger:
       "io.undertow":
         level: "WARN"
+      "org.xnio.nio":
+        level: "INFO"
+      "o.xnio.nio":
+        level: "INFO"
     appender:
       file:
         name: ${project.home}/log/${solon.app.name}
