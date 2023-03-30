@@ -12,8 +12,8 @@ import java.util.Map.Entry;
 import java.util.Set;
 
 import org.noear.solon.annotation.Component;
+import org.noear.solon.annotation.Init;
 import org.noear.solon.annotation.Inject;
-import org.noear.solon.core.bean.LifecycleBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -33,7 +33,7 @@ import cn.hutool.core.util.StrUtil;
  *
  */
 @Component
-public class SqlHelper extends SqlUtils implements LifecycleBean {
+public class SqlHelper extends SqlUtils {
 	@Inject("${project.beanPackage}")
 	String packageName;
 	@Inject
@@ -44,7 +44,7 @@ public class SqlHelper extends SqlUtils implements LifecycleBean {
 	static Logger logger = LoggerFactory.getLogger(SqlHelper.class);
 	SnowFlake snowFlake = new SnowFlake(1, 1);
 
-	@Override
+	@Init
 	public void start() throws Throwable {
 		Set<Class<?>> set = ClassUtil.scanPackage(packageName);
 		for (Class<?> clazz : set) {

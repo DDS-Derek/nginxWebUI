@@ -8,8 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.noear.solon.annotation.Component;
+import org.noear.solon.annotation.Init;
 import org.noear.solon.annotation.Inject;
-import org.noear.solon.core.bean.LifecycleBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -21,7 +21,6 @@ import com.cym.service.BasicService;
 import com.cym.service.ConfService;
 import com.cym.service.SettingService;
 import com.cym.sqlhelper.utils.ConditionAndWrapper;
-import com.cym.sqlhelper.utils.JdbcTemplate;
 import com.cym.sqlhelper.utils.SqlHelper;
 import com.cym.utils.EncodePassUtils;
 import com.cym.utils.MessageUtils;
@@ -37,7 +36,7 @@ import cn.hutool.core.util.ZipUtil;
 import cn.hutool.crypto.SecureUtil;
 
 @Component
-public class InitConfig implements LifecycleBean {
+public class InitConfig {
 	Logger logger = LoggerFactory.getLogger(this.getClass());
 	@Inject
 	MessageUtils m;
@@ -55,14 +54,12 @@ public class InitConfig implements LifecycleBean {
 	@Inject
 	SqlHelper sqlHelper;
 	@Inject
-	JdbcTemplate jdbcTemplate;
-	@Inject
 	ConfService confService;
 
 	@Inject("${project.findPass}")
 	Boolean findPass;
 
-	@Override
+	@Init
 	public void start() throws Throwable {
 		// 找回密码
 		if (findPass) {
