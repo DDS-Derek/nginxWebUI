@@ -1,6 +1,7 @@
 package com.cym.service;
 
 import java.lang.management.ManagementFactory;
+import java.lang.management.OperatingSystemMXBean;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,11 +10,9 @@ import org.noear.solon.annotation.Init;
 
 import com.cym.ext.DiskInfo;
 import com.cym.ext.MonitorInfo;
-import com.sun.management.OperatingSystemMXBean;
 
 import cn.hutool.core.util.NumberUtil;
 import cn.hutool.system.oshi.OshiUtil;
-import org.noear.solon.core.bean.InitializingBean;
 import oshi.software.os.OSFileStore;
 import oshi.util.FormatUtil;
 
@@ -41,7 +40,7 @@ public class MonitorService {
 		infoBean.setUsedMemory(FormatUtil.formatBytes(OshiUtil.getMemory().getTotal() - OshiUtil.getMemory().getAvailable()));
 		infoBean.setTotalMemorySize(FormatUtil.formatBytes(OshiUtil.getMemory().getTotal()));
 
-		infoBean.setCpuRatio(NumberUtil.decimalFormat("#.##%", osmxb.getSystemCpuLoad()));
+		infoBean.setCpuRatio(NumberUtil.decimalFormat("#.##%", osmxb.getSystemLoadAverage()));
 		infoBean.setMemRatio(NumberUtil.decimalFormat("#.##%", NumberUtil.div(OshiUtil.getMemory().getTotal() - OshiUtil.getMemory().getAvailable(), OshiUtil.getMemory().getTotal())));
 
 		return infoBean;
