@@ -1,7 +1,7 @@
 package com.cym.service;
 
 import java.lang.management.ManagementFactory;
-import java.lang.management.OperatingSystemMXBean;
+import com.sun.management.OperatingSystemMXBean;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,7 +40,7 @@ public class MonitorService {
 		infoBean.setUsedMemory(FormatUtil.formatBytes(OshiUtil.getMemory().getTotal() - OshiUtil.getMemory().getAvailable()));
 		infoBean.setTotalMemorySize(FormatUtil.formatBytes(OshiUtil.getMemory().getTotal()));
 
-		infoBean.setCpuRatio(NumberUtil.decimalFormat("#.##%", osmxb.getSystemLoadAverage()));
+		infoBean.setCpuRatio(NumberUtil.decimalFormat("#.##%", osmxb.getCpuLoad()));
 		infoBean.setMemRatio(NumberUtil.decimalFormat("#.##%", NumberUtil.div(OshiUtil.getMemory().getTotal() - OshiUtil.getMemory().getAvailable(), OshiUtil.getMemory().getTotal())));
 
 		return infoBean;
