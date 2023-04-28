@@ -68,15 +68,15 @@ public class AppFilter implements Filter {
 	public void doFilter(Context ctx, FilterChain chain) throws Throwable {
 		// 全局过滤器
 		if (!ctx.path().contains("/lib/") //
-				&& !ctx.path().contains("/js/") //
-				&& !ctx.path().contains("/doc/") //
-				&& !ctx.path().contains("/img/") //
-				&& !ctx.path().contains("/css/")) {
+				&& !ctx.path().toLowerCase().contains("/js/") //
+				&& !ctx.path().toLowerCase().contains("/doc/") //
+				&& !ctx.path().toLowerCase().contains("/img/") //
+				&& !ctx.path().toLowerCase().contains("/css/")) {
 			frontInterceptor(ctx);
 		}
 
 		// 登录过滤器
-		if (ctx.path().contains("/adminPage/") //
+		if (ctx.path().toLowerCase().contains("/adminPage/".toLowerCase()) //
 				&& !ctx.path().contains("/lib/") //
 				&& !ctx.path().contains("/doc/") //
 				&& !ctx.path().contains("/js/") //
