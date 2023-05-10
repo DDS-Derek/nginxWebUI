@@ -108,11 +108,14 @@ public class UpstreamController extends BaseController {
 		if (upstreamServer.getMaxConns() != null) {
 			html += "max_conns=" + upstreamServer.getMaxConns() + " ";
 		}
+		if (!"none".equals(upstreamServer.getStatus())) {
+			html += upstreamServer.getStatus() + " ";
+		}
 		if (upstreamServer.getParam() != null) {
 			html += upstreamServer.getParam() + " ";
 		}
-		
-		html += "</td><td class='short50'>" + status + "</td>" + monitorStatus + "</tr>";
+
+		html += "</td>" + monitorStatus + "</tr>";
 		return html;
 	}
 

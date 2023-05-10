@@ -634,10 +634,6 @@ public class ConfService {
 	}
 
 	public String buildNodeStr(UpstreamServer upstreamServer) {
-		String status = "";
-		if (!"none".equals(upstreamServer.getStatus())) {
-			status = upstreamServer.getStatus();
-		}
 
 		if (upstreamServer.getServer().contains(":")) {
 			upstreamServer.setServer("[" + upstreamServer.getServer() + "]");
@@ -656,10 +652,12 @@ public class ConfService {
 		if (upstreamServer.getMaxConns() != null) {
 			conf += " max_conns=" + upstreamServer.getMaxConns();
 		}
+		if (!"none".equals(upstreamServer.getStatus())) {
+			conf += " " + upstreamServer.getStatus();
+		}
 		if (upstreamServer.getParam() != null) {
 			conf += " " + upstreamServer.getParam();
 		}
-		conf += " " + status;
 		return conf;
 	}
 
