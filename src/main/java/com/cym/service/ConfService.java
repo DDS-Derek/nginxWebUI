@@ -445,8 +445,7 @@ public class ConfService {
 						ngxParam.addValue("proxy_set_header Connection \"upgrade\"");
 						ngxBlockLocation.addEntry(ngxParam);
 					}
-					
-					
+
 					if (location.getCros() == 1) { // 设置跨域
 						ngxParam = new NgxParam();
 						ngxParam.addValue("add_header Access-Control-Allow-Origin *");
@@ -459,11 +458,11 @@ public class ConfService {
 						ngxParam = new NgxParam();
 						ngxParam.addValue("add_header Access-Control-Allow-Headers *");
 						ngxBlockLocation.addEntry(ngxParam);
-						
+
 						ngxParam = new NgxParam();
 						ngxParam.addValue("add_header Access-Control-Allow-Credentials true");
 						ngxBlockLocation.addEntry(ngxParam);
-						
+
 						NgxBlock ngxBlock = new NgxBlock();
 						ngxBlock.addValue("if ($request_method = 'OPTIONS')");
 						ngxParam = new NgxParam();
@@ -472,7 +471,7 @@ public class ConfService {
 						ngxBlock.addEntry(ngxParam);
 
 						ngxBlockLocation.addEntry(ngxBlock);
-						
+
 					}
 
 					if (server.getSsl() == 1 && server.getRewrite() == 1) { // redirect http转https
@@ -635,10 +634,6 @@ public class ConfService {
 	}
 
 	public String buildNodeStr(UpstreamServer upstreamServer) {
-		String status = "";
-		if (!"none".equals(upstreamServer.getStatus())) {
-			status = upstreamServer.getStatus();
-		}
 
 		if (upstreamServer.getServer().contains(":")) {
 			upstreamServer.setServer("[" + upstreamServer.getServer() + "]");
@@ -657,7 +652,12 @@ public class ConfService {
 		if (upstreamServer.getMaxConns() != null) {
 			conf += " max_conns=" + upstreamServer.getMaxConns();
 		}
-		conf += " " + status;
+		if (!"none".equals(upstreamServer.getStatus())) {
+			conf += " " + upstreamServer.getStatus();
+		}
+		if (upstreamServer.getParam() != null) {
+			conf += " " + upstreamServer.getParam();
+		}
 		return conf;
 	}
 
