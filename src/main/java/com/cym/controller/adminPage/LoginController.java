@@ -71,11 +71,6 @@ public class LoginController extends BaseController {
 
 	@Mapping("login")
 	public JsonResult submitLogin(String name, String pass, String code, String authCode, String remember) {
-		
-		if(true) {
-			return renderSuccess();
-		}
-		
 		// 解码
 		if (StrUtil.isNotEmpty(name)) {
 			name = Base64.decodeStr(Base64.decodeStr(name));
