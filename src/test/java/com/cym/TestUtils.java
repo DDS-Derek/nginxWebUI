@@ -15,7 +15,7 @@ public class TestUtils {
 			pass += "abcde12345";
 		}
 		
-		FileUtil.writeString(pass, "d:\\1.txt", "UTF-8");
+//		FileUtil.writeString(pass, "d:\\1.txt", "UTF-8");
 
 		Map<String, Object> map = new HashMap<>();
 		map.put("name", "admin");

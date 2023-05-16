@@ -288,6 +288,10 @@ public class ServerController extends BaseController {
 			ngxBlock = new NgxBlock();
 			ngxBlock.addValue("http");
 			for (Http http : httpList) {
+				if (http.getEnable() == null || !http.getEnable()) {
+					continue;
+				}
+				
 				NgxParam ngxParam = new NgxParam();
 				ngxParam.addValue(http.getName().trim() + " " + http.getValue().trim());
 				ngxBlock.addEntry(ngxParam);
