@@ -39,4 +39,17 @@ public class TestUtils extends HttpTester {
 		}
 	}
 
+	public static void main(String[] args) {
+		StringBuilder pass = new StringBuilder(1000);
+		for (int i = 0; i < 2000000; i++) {
+			pass.append("abcde12345");
+		}
+
+		Map<String, Object> map = new HashMap<>();
+		map.put("name", "admin");
+		map.put("pass", pass.toString());
+
+		String rs = HttpUtil.post("http://127.0.0.1:8080/adminPage/login/login", map);
+		System.err.println(rs);
+	}
 }
