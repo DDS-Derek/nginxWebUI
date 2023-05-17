@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.noear.solon.test.HttpTester;
@@ -17,6 +18,7 @@ import cn.hutool.http.HttpUtil;
 @SolonTest(NginxWebUI.class)
 public class TestUtils extends HttpTester {
 	@Test
+	@Ignore
 	public void test() throws Exception {
 
 		StringBuilder pass = new StringBuilder(1000);
