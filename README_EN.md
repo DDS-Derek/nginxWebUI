@@ -137,7 +137,12 @@ docker pull registry.cn-hangzhou.aliyuncs.com/cym19871102/nginxwebui:latest
 3.start container
 
 ```
-docker run -itd -v /home/nginxWebUI:/home/nginxWebUI -e BOOT_OPTIONS="--server.port=8080" --privileged=true --net=host  cym1102/nginxwebui:latest
+docker run -itd \
+  -v /home/nginxWebUI:/home/nginxWebUI \
+  -e BOOT_OPTIONS="--server.port=8080" \
+  --privileged=true \
+  --net=host \
+  cym1102/nginxwebui:latest
 ```
 
 notice: 
