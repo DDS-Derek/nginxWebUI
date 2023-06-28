@@ -136,7 +136,6 @@ public class ConfController extends BaseController {
 		String decompose = settingService.get("decompose");
 		ConfExt confExt = confService.buildConf(StrUtil.isNotEmpty(decompose) && decompose.equals("true"), false);
 
-
 		JSONObject jsonObject = new JSONObject();
 		jsonObject.set("nginxContent", Base64.encode(URLEncodeUtil.encode(confExt.getConf(), CharsetUtil.CHARSET_UTF_8)));
 		jsonObject.set("subContent", new JSONArray());
@@ -316,19 +315,20 @@ public class ConfController extends BaseController {
 		if (StrUtil.isNotEmpty(type)) {
 			settingService.set(type, cmd);
 		}
+		// 仅执行nginx相关的命令，而不是其他的恶意命令
+		if (!isAvailableCmd(cmd)) {
+			return renderSuccess(m.get("confStr.notAvailableCmd"));
+		}
 
 		try {
 			String rs = "";
 			// 过滤特殊字符，防止命令拼接
-			cmd = cmd.replaceAll(";","\\\\;");
-     		cmd = cmd.replaceAll("`","\\\\`");
-     		cmd = cmd.replaceAll("\\|","\\\\|");
-     		cmd = cmd.replaceAll("\\{","\\\\{");
-     		cmd = cmd.replaceAll("\\}","\\\\}");
-			//仅执行nginx相关的命令，而不是其他的恶意命令
-			if(!cmd.contains("nginx")){
-            	cmd = "nginx restart";
-        	}
+			cmd = cmd.replaceAll(";", "\\\\;");
+			cmd = cmd.replaceAll("`", "\\\\`");
+			cmd = cmd.replaceAll("\\|", "\\\\|");
+			cmd = cmd.replaceAll("\\{", "\\\\{");
+			cmd = cmd.replaceAll("\\}", "\\\\}");
+
 			if (SystemTool.isWindows()) {
 				RuntimeUtil.exec("cmd /c start " + cmd);
 			} else {
@@ -349,6 +349,43 @@ public class ConfController extends BaseController {
 			logger.error(e.getMessage(), e);
 			return renderSuccess(m.get("confStr.runFail") + "<br>" + e.getMessage().replace("\n", "<br>"));
 		}
+	}
+
+	// 仅执行nginx相关的命令，而不是其他的恶意命令
+	private boolean isAvailableCmd(String cmd) {
+
+		switch (cmd) {
+		case "pkill nginx":
+			return true;
+		case "taskkill /f /im nginx.exe":
+			return true;
+		case "systemctl stop nginx":
+			return true;
+		case "service nginx stop":
+			return true;
+		case "net stop nginx":
+			return true;
+		case "systemctl start nginx":
+			return true;
+		case "service nginx start":
+			return true;
+		case "net start nginx":
+			return true;
+		}
+
+		if (cmd.equals(settingService.get("nginxExe") + " -s stop")) {
+			return true;
+		}
+
+		String dir = "";
+		if (StrUtil.isNotEmpty(settingService.get("nginxDir"))) {
+			dir = " -p " + settingService.get("nginxDir");
+		}
+		if (cmd.equals(settingService.get("nginxExe") + " -c " + settingService.get("nginxPath") + dir)) {
+			return true;
+		}
+
+		return false;
 	}
 
 	@Mapping(value = "getLastCmd")
