@@ -322,13 +322,6 @@ public class ConfController extends BaseController {
 
 		try {
 			String rs = "";
-			// 过滤特殊字符，防止命令拼接
-			cmd = cmd.replaceAll(";", "\\\\;");
-			cmd = cmd.replaceAll("`", "\\\\`");
-			cmd = cmd.replaceAll("\\|", "\\\\|");
-			cmd = cmd.replaceAll("\\{", "\\\\{");
-			cmd = cmd.replaceAll("\\}", "\\\\}");
-
 			if (SystemTool.isWindows()) {
 				RuntimeUtil.exec("cmd /c start " + cmd);
 			} else {
