@@ -365,7 +365,7 @@ public class ConfController extends BaseController {
 		String nginxDir = ToolUtils.handleConf(settingService.get("nginxDir"));
 		settingService.set("nginxDir", nginxDir);
 		
-		
+		// 检查命令格式
 		switch (cmd) {
 		case "pkill nginx":
 			return true;
