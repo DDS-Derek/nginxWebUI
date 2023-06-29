@@ -21,12 +21,18 @@ public class ToolUtils {
 	public static String handlePath(String path) {
 		return path.replace("\\", "/") //
 				.replace("//", "/") //
-				.replaceAll("\\s*", "") //
-				.replace("&", "") //
-				.replace(";", "") //
-				.replace("|", "") //
-				.replace("`", "") //
-		;
+				// 删除 *
+				// 删除 ?
+				// 删除 <>
+				// 删除 |
+				// 删除 "
+				// 删除 #
+				// 删除 &
+				// 删除 ;
+				// 删除 '
+				// 删除 `
+				// 删除 空格
+				.replaceAll("[\\s*?<>|\"#&;'`]", "");
 	}
 
 	/**
