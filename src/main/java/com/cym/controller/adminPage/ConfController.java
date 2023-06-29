@@ -274,13 +274,13 @@ public class ConfController extends BaseController {
 		settingService.set("nginxExe", nginxExe);
 
 		nginxDir = ToolUtils.handlePath(nginxDir);
-		settingService.set("nginxDir", nginxDir); 
+		settingService.set("nginxDir", nginxDir);
 
 		Map<String, String> map = new HashMap<>();
 		map.put("nginxPath", nginxPath);
 		map.put("nginxExe", nginxExe);
 		map.put("nginxDir", nginxDir);
-		
+
 		return renderSuccess(map);
 	}
 
@@ -367,7 +367,7 @@ public class ConfController extends BaseController {
 		settingService.set("nginxExe", nginxExe);
 		String nginxDir = ToolUtils.handleConf(settingService.get("nginxDir"));
 		settingService.set("nginxDir", nginxDir);
-		
+
 		// 检查命令格式
 		switch (cmd) {
 		case "pkill nginx":
@@ -388,14 +388,15 @@ public class ConfController extends BaseController {
 			return true;
 		}
 
-		if (cmd.equals(settingService.get("nginxExe") + " -s stop")) {
-			return true;
-		}
-
 		String dir = "";
 		if (StrUtil.isNotEmpty(settingService.get("nginxDir"))) {
 			dir = " -p " + settingService.get("nginxDir");
 		}
+
+		if (cmd.equals(settingService.get("nginxExe") + " -s stop" + dir)) {
+			return true;
+		}
+
 		if (cmd.equals(settingService.get("nginxExe") + " -c " + settingService.get("nginxPath") + dir)) {
 			return true;
 		}
