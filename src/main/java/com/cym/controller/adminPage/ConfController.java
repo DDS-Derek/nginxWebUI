@@ -2,7 +2,9 @@ package com.cym.controller.adminPage;
 
 import java.io.File;
 import java.nio.charset.StandardCharsets;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.noear.solon.annotation.Controller;
 import org.noear.solon.annotation.Inject;
@@ -11,7 +13,6 @@ import org.noear.solon.core.handle.ModelAndView;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.cym.config.InitConfig;
 import com.cym.config.VersionConfig;
 import com.cym.ext.ConfExt;
 import com.cym.ext.ConfFile;
@@ -59,13 +60,16 @@ public class ConfController extends BaseController {
 	@Mapping("")
 	public ModelAndView index(ModelAndView modelAndView) {
 
-		String nginxPath = settingService.get("nginxPath");
+		String nginxPath = ToolUtils.handleConf(settingService.get("nginxPath"));
+		settingService.set("nginxPath", nginxPath);
 		modelAndView.put("nginxPath", nginxPath);
 
-		String nginxExe = settingService.get("nginxExe");
+		String nginxExe = ToolUtils.handleConf(settingService.get("nginxExe"));
+		settingService.set("nginxExe", nginxExe);
 		modelAndView.put("nginxExe", nginxExe);
 
-		String nginxDir = settingService.get("nginxDir");
+		String nginxDir = ToolUtils.handleConf(settingService.get("nginxDir"));
+		settingService.set("nginxDir", nginxDir);
 		modelAndView.put("nginxDir", nginxDir);
 
 		String decompose = settingService.get("decompose");
@@ -270,9 +274,14 @@ public class ConfController extends BaseController {
 		settingService.set("nginxExe", nginxExe);
 
 		nginxDir = ToolUtils.handlePath(nginxDir);
-		settingService.set("nginxDir", nginxDir);
+		settingService.set("nginxDir", nginxDir); 
 
-		return renderSuccess();
+		Map<String, String> map = new HashMap<>();
+		map.put("nginxPath", nginxPath);
+		map.put("nginxExe", nginxExe);
+		map.put("nginxDir", nginxDir);
+		
+		return renderSuccess(map);
 	}
 
 	@Mapping(value = "reload")
@@ -312,9 +321,11 @@ public class ConfController extends BaseController {
 
 	@Mapping(value = "runCmd")
 	public JsonResult runCmd(String cmd, String type) {
+
 		if (StrUtil.isNotEmpty(type)) {
 			settingService.set(type, cmd);
 		}
+
 		// 仅执行nginx相关的命令，而不是其他的恶意命令
 		if (!isAvailableCmd(cmd)) {
 			return renderSuccess(m.get("confStr.notAvailableCmd"));
@@ -346,7 +357,15 @@ public class ConfController extends BaseController {
 
 	// 仅执行nginx相关的命令，而不是其他的恶意命令
 	private boolean isAvailableCmd(String cmd) {
-
+		// 过滤数据库中的路径
+		String nginxPath = ToolUtils.handleConf(settingService.get("nginxPath"));
+		settingService.set("nginxPath", nginxPath);
+		String nginxExe = ToolUtils.handleConf(settingService.get("nginxExe"));
+		settingService.set("nginxExe", nginxExe);
+		String nginxDir = ToolUtils.handleConf(settingService.get("nginxDir"));
+		settingService.set("nginxDir", nginxDir);
+		
+		
 		switch (cmd) {
 		case "pkill nginx":
 			return true;
