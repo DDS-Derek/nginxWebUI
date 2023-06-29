@@ -59,7 +59,7 @@ public class ConfController extends BaseController {
 
 	@Mapping("")
 	public ModelAndView index(ModelAndView modelAndView) {
-
+		// 获取并过滤数据库中的路径
 		String nginxPath = ToolUtils.handleConf(settingService.get("nginxPath"));
 		settingService.set("nginxPath", nginxPath);
 		modelAndView.put("nginxPath", nginxPath);
