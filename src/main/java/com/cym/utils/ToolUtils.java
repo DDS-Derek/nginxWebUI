@@ -29,7 +29,6 @@ public class ToolUtils {
 		}
 		return path.replace("\\", "/") //
 				.replace("//", "/") //
-				// 删除 *
 				// 删除 ?
 				// 删除 <>
 				// 删除 |
@@ -40,7 +39,7 @@ public class ToolUtils {
 				// 删除 '
 				// 删除 `
 				// 删除 空格
-				.replaceAll("[\\s*?<>|\"#&;'`]", "");
+				.replaceAll("[\\s?<>|\"#&;'`]", "");
 	}
 
 	/**
