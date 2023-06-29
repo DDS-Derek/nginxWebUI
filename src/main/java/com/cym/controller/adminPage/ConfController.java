@@ -287,13 +287,16 @@ public class ConfController extends BaseController {
 	@Mapping(value = "reload")
 	public synchronized JsonResult reload(String nginxPath, String nginxExe, String nginxDir) {
 		if (nginxPath == null) {
-			nginxPath = settingService.get("nginxPath");
+			nginxPath = ToolUtils.handlePath(settingService.get("nginxPath"));
+			settingService.set("nginxPath", nginxPath);
 		}
 		if (nginxExe == null) {
-			nginxExe = settingService.get("nginxExe");
+			nginxExe = ToolUtils.handlePath(settingService.get("nginxExe"));
+			settingService.set("nginxExe", nginxExe);
 		}
 		if (nginxDir == null) {
-			nginxDir = settingService.get("nginxDir");
+			nginxDir = ToolUtils.handlePath(settingService.get("nginxDir"));
+			settingService.set("nginxDir", nginxDir);
 		}
 
 		try {
