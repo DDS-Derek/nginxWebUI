@@ -161,9 +161,11 @@ public class ConfController extends BaseController {
 	 */
 	@Mapping(value = "checkBase")
 	public JsonResult checkBase() {
-		String nginxExe = settingService.get("nginxExe");
-		String nginxDir = settingService.get("nginxDir");
-
+		String nginxExe = ToolUtils.handleConf(settingService.get("nginxExe"));
+		settingService.set("nginxExe", nginxExe);
+		String nginxDir = ToolUtils.handleConf(settingService.get("nginxDir"));
+		settingService.set("nginxDir", nginxDir);
+		
 		String rs = null;
 		String cmd = null;
 
@@ -208,10 +210,12 @@ public class ConfController extends BaseController {
 	@Mapping(value = "check")
 	public JsonResult check(String nginxPath, String nginxExe, String nginxDir, String json) {
 		if (nginxExe == null) {
-			nginxExe = settingService.get("nginxExe");
+			nginxExe = ToolUtils.handleConf(settingService.get("nginxExe"));
+			settingService.set("nginxExe", nginxExe);
 		}
 		if (nginxDir == null) {
-			nginxDir = settingService.get("nginxDir");
+			nginxDir = ToolUtils.handleConf(settingService.get("nginxDir"));
+			settingService.set("nginxDir", nginxDir);
 		}
 
 		JSONObject jsonObject = JSONUtil.parseObj(json);
