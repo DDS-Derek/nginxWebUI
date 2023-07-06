@@ -48,7 +48,7 @@ public class Cert extends BaseModel {
 	@InitValue("0")
 	Integer autoRenew; 
 	/**
-	 * dns提供商 ali:阿里云  dp:腾讯云  cf:Cloudflare  gd:Godaddy
+	 * dns提供商 ali:阿里云  dp:腾讯云  cf:Cloudflare  gd:Godaddy   hw:华为云
 	 */
 	String dnsType; 
 	/**
