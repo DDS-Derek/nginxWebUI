@@ -91,23 +91,23 @@ public class Cert extends BaseModel {
 	 * hwPassword(华为云需要的参数)
 	 */
 	String hwPassword;
-	/**
-	 * hwProjectID(华为云需要的参数)
-	 */
-	String hwProjectId;
 //	/**
 //	 * hwProjectID(华为云需要的参数)
 //	 */
-//	String hwDomainName;
+//	String hwProjectId;
+	/**
+	 * hwProjectID(华为云需要的参数)
+	 */
+	String hwDomainName;
 	
 	
-//	public String getHwDomainName() {
-//		return hwDomainName;
-//	}
-//
-//	public void setHwDomainName(String hwDomainName) {
-//		this.hwDomainName = hwDomainName;
-//	}
+	public String getHwDomainName() {
+		return hwDomainName;
+	}
+
+	public void setHwDomainName(String hwDomainName) {
+		this.hwDomainName = hwDomainName;
+	}
 
 	public Long getEndTime() {
 		return endTime;
@@ -142,13 +142,13 @@ public class Cert extends BaseModel {
 	}
 
 
-	public String getHwProjectId() {
-		return hwProjectId;
-	}
-
-	public void setHwProjectId(String hwProjectId) {
-		this.hwProjectId = hwProjectId;
-	}
+//	public String getHwProjectId() {
+//		return hwProjectId;
+//	}
+//
+//	public void setHwProjectId(String hwProjectId) {
+//		this.hwProjectId = hwProjectId;
+//	}
 
 	public String getGdKey() {
 		return gdKey;
