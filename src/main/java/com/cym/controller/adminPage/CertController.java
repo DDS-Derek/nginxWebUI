@@ -76,7 +76,7 @@ public class CertController extends BaseController {
 		if (type != null && type == 1) {
 			// 手动上传
 			String dir = homeConfig.home + "cert/" + cert.getDomain() + "/";
-			
+
 			if (cert.getKey().contains(FileUtil.getTmpDir().toString().replace("\\", "/"))) {
 				String keyName = new File(cert.getKey()).getName();
 				FileUtil.move(new File(cert.getKey()), new File(dir + keyName), true);
@@ -152,10 +152,10 @@ public class CertController extends BaseController {
 		}
 		isInApply = true;
 
-		String keylength = "";
+		String keylength = " --keylength 2048 "; // RSA模式
 		String ecc = "";
-		if ("ECC".equals(cert.getEncryption())) {
-			keylength = " --keylength ec-256 ";
+		if ("ECC".equals(cert.getEncryption())) { // ECC模式
+			keylength = " --keylength ec-256 "; 
 			ecc = " --ecc";
 		}
 
