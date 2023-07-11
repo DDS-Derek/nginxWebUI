@@ -157,9 +157,6 @@ public class CertController extends BaseController {
 		if ("ECC".equals(cert.getEncryption())) {
 			keylength = " --keylength ec-256 ";
 			ecc = " --ecc";
-		}else {
-			keylength = " --rsa";
-			ecc = " --rsa";
 		}
 
 		String rs = "";
