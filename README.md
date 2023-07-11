@@ -136,10 +136,6 @@ yum install docker
 
 ```
 docker pull cym1102/nginxwebui:latest
-
-或
-
-docker pull registry.cn-hangzhou.aliyuncs.com/cym19871102/nginxwebui:latest
 ```
 
 3.启动容器: 
