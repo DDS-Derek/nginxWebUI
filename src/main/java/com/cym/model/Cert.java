@@ -76,6 +76,19 @@ public class Cert extends BaseModel {
 	 */
 	String cfKey;
 	/**
+	 * cfToken(Cloudflare需要的参数)
+	 */
+	String cfToken;
+	/**
+	 * cfAccountId(Cloudflare需要的参数)
+	 */
+	String cfAccountId;
+	/**
+	 * cfZoneId(Cloudflare需要的参数)
+	 */
+	String cfZoneId;
+	
+	/**
 	 * gdKey(Godaddy需要的参数)
 	 */
 	String gdKey;
@@ -284,6 +297,30 @@ public class Cert extends BaseModel {
 
 	public void setKey(String key) {
 		this.key = key;
+	}
+
+	public String getCfToken() {
+		return cfToken;
+	}
+
+	public void setCfToken(String cfToken) {
+		this.cfToken = cfToken;
+	}
+
+	public String getCfAccountId() {
+		return cfAccountId;
+	}
+
+	public void setCfAccountId(String cfAccountId) {
+		this.cfAccountId = cfAccountId;
+	}
+
+	public String getCfZoneId() {
+		return cfZoneId;
+	}
+
+	public void setCfZoneId(String cfZoneId) {
+		this.cfZoneId = cfZoneId;
 	}
 
 }

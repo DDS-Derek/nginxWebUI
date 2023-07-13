@@ -33,7 +33,7 @@ $(function() {
 				if (res.success) {
 					$("#pem").val(res.obj);
 					var path = res.obj.split('/');
-					$("#pemPath").html(path[path.length-1]);
+					$("#pemPath").html(path[path.length - 1]);
 				}
 
 			},
@@ -51,7 +51,7 @@ $(function() {
 				if (res.success) {
 					$("#key").val(res.obj);
 					var path = res.obj.split('/');
-					$("#keyPath").html(path[path.length-1]);
+					$("#keyPath").html(path[path.length - 1]);
 				}
 			},
 			error: function() {
@@ -88,7 +88,7 @@ function checkType(value) {
 	$("#type0").hide();
 	$("#type1").hide();
 	$("#encryptionDiv").hide();
-	
+
 	if (value == 0) {
 		$("#type0").show();
 		$("#encryptionDiv").show();
@@ -96,7 +96,7 @@ function checkType(value) {
 	if (value == 1) {
 		$("#type1").show();
 	}
-	
+
 	if (value == 2) {
 		$("#encryptionDiv").show();
 	}
@@ -114,6 +114,9 @@ function add() {
 	$("#dpKey").val("");
 	$("#cfEmail").val("");
 	$("#cfKey").val("");
+	$("#cfToken").val("");
+	$("#cfAccountId").val("");
+	$("#cfZoneId").val("");
 	$("#gdKey").val("");
 	$("#gdSecret").val("");
 
@@ -131,7 +134,7 @@ function add() {
 	$("#type").attr("disabled", false);
 	$("#encryption").attr("disabled", false);
 	$("#encryption").removeClass("disabled");
-			
+
 	checkType(0);
 	checkDnsType('ali');
 
@@ -155,7 +158,7 @@ function edit(id, clone) {
 			if (data.success) {
 
 				var cert = data.obj;
-				
+
 				$("#domain").val(cert.domain);
 				$("#type").val(cert.type);
 				$("#dnsType").val(cert.dnsType != null ? cert.dnsType : 'ali');
@@ -166,18 +169,22 @@ function edit(id, clone) {
 				$("#dpKey").val(cert.dpKey);
 				$("#cfEmail").val(cert.cfEmail);
 				$("#cfKey").val(cert.cfKey);
+				$("#cfToken").val(cert.cfToken);
+				$("#cfAccountId").val(cert.cfAccountId);
+				$("#cfZoneId").val(cert.cfZoneId);
+
 				$("#gdKey").val(cert.gdKey);
 				$("#gdSecret").val(cert.gdSecret);
 
 				$("#hwUsername").val(cert.hwUsername);
 				$("#hwPassword").val(cert.hwPassword);
 				$("#hwDomainName").val(cert.hwDomainName);
-				
-				if(!clone){
+
+				if (!clone) {
 					$("#domain").attr("disabled", true);
 					$("#domain").addClass("disabled");
-					
-					if(cert.pem!=null && cert.pem!='' && cert.key!=null && cert.key!=''){
+
+					if (cert.pem != null && cert.pem != '' && cert.key != null && cert.key != '') {
 						$("#type").attr("disabled", true);
 						$("#encryption").attr("disabled", true);
 						$("#encryption").addClass("disabled");
@@ -186,28 +193,28 @@ function edit(id, clone) {
 						$("#encryption").attr("disabled", false);
 						$("#encryption").removeClass("disabled");
 					}
-					
+
 					$("#id").val(cert.id);
 					$("#pem").val(cert.pem);
 					$("#key").val(cert.key);
 					var path = cert.pem.split('/');
-					$("#pemPath").html(path[path.length-1]);
+					$("#pemPath").html(path[path.length - 1]);
 					path = cert.key.split('/');
-					$("#keyPath").html(path[path.length-1]);
+					$("#keyPath").html(path[path.length - 1]);
 				} else {
 					$("#domain").attr("disabled", false);
 					$("#domain").removeClass("disabled");
 					$("#encryption").attr("disabled", false);
 					$("#encryption").removeClass("disabled");
 					$("#type").attr("disabled", false);
-					
+
 					$("#id").val("");
 					$("#pem").val("");
 					$("#key").val("");
 					$("#pemPath").html("");
 					$("#keyPath").html("");
 				}
-				
+
 				checkType(cert.type);
 				checkDnsType(cert.dnsType != null ? cert.dnsType : 'ali');
 
@@ -228,7 +235,7 @@ function showWindow(title) {
 	layer.open({
 		type: 1,
 		title: title,
-		area: ['1000px', '560px'], // 宽高
+		area: ['1000px', '630px'], // 宽高
 		content: $('#windowDiv')
 	});
 }
@@ -253,7 +260,7 @@ function addOver() {
 			}
 		}
 		if ($("#dnsType").val() == 'cf') {
-			if ($("#cfEmail").val() == '' || $("#cfKey").val() == '') {
+			if ($("#cfEmail").val() == '' || $("#cfKey").val() == '' || $("#cfToken").val() == '' || $("#cfAccountId").val() == '' || $("#cfZoneId").val() == '') {
 				layer.msg(commonStr.IncompleteEntry);
 				return;
 			}
@@ -271,7 +278,7 @@ function addOver() {
 			}
 		}
 	}
-	
+
 	if ($("#type").val() == 1 && $("#pem").val() == $("#key").val()) {
 		layer.msg(certStr.error5);
 		return;
@@ -354,14 +361,14 @@ function issue(id) {
 							`;
 						}
 						$("#notice").html(html);
-						
+
 						layer.open({
 							type: 1,
 							title: certStr.hostRecords,
 							area: ['900px', '400px'], // 宽高
 							content: $('#txtDiv')
 						});
-						
+
 					}
 
 				} else {
@@ -446,7 +453,7 @@ function clone(id) {
 
 
 function getTxtValue(id) {
-	
+
 	$.ajax({
 		type: 'POST',
 		url: ctx + '/adminPage/cert/getTxtValue',
@@ -470,7 +477,7 @@ function getTxtValue(id) {
 				}
 
 				$("#notice").html(html);
-				
+
 				layer.open({
 					type: 1,
 					title: certStr.hostRecords,
