@@ -75,18 +75,6 @@ public class Cert extends BaseModel {
 	 * cfKey(Cloudflare需要的参数)
 	 */
 	String cfKey;
-	/**
-	 * cfToken(Cloudflare需要的参数)
-	 */
-	String cfToken;
-	/**
-	 * cfAccountId(Cloudflare需要的参数)
-	 */
-	String cfAccountId;
-	/**
-	 * cfZoneId(Cloudflare需要的参数)
-	 */
-	String cfZoneId;
 	
 	/**
 	 * gdKey(Godaddy需要的参数)
@@ -104,10 +92,6 @@ public class Cert extends BaseModel {
 	 * hwPassword(华为云需要的参数)
 	 */
 	String hwPassword;
-//	/**
-//	 * hwProjectID(华为云需要的参数)
-//	 */
-//	String hwProjectId;
 	/**
 	 * hwProjectID(华为云需要的参数)
 	 */
@@ -299,28 +283,5 @@ public class Cert extends BaseModel {
 		this.key = key;
 	}
 
-	public String getCfToken() {
-		return cfToken;
-	}
-
-	public void setCfToken(String cfToken) {
-		this.cfToken = cfToken;
-	}
-
-	public String getCfAccountId() {
-		return cfAccountId;
-	}
-
-	public void setCfAccountId(String cfAccountId) {
-		this.cfAccountId = cfAccountId;
-	}
-
-	public String getCfZoneId() {
-		return cfZoneId;
-	}
-
-	public void setCfZoneId(String cfZoneId) {
-		this.cfZoneId = cfZoneId;
-	}
 
 }
