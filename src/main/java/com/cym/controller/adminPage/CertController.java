@@ -3,8 +3,12 @@ package com.cym.controller.adminPage;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.security.cert.CertificateException;
+import java.security.cert.CertificateFactory;
+import java.security.cert.X509Certificate;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 import org.noear.solon.annotation.Controller;
@@ -88,6 +92,19 @@ public class CertController extends BaseController {
 				FileUtil.move(new File(cert.getPem()), new File(dir + pemName), true);
 				cert.setPem(dir + pemName);
 			}
+
+			// 计算到期时间
+			try {
+				CertificateFactory cf = CertificateFactory.getInstance("X.509");
+				FileInputStream in = new FileInputStream(cert.getPem());
+				X509Certificate certFile = (X509Certificate) cf.generateCertificate(in);
+				Date effDate = certFile.getNotBefore();
+				Date expDate = certFile.getNotAfter();
+				cert.setMakeTime(effDate.getTime());
+				cert.setEndTime(expDate.getTime());
+			} catch (Exception e) {
+				logger.info(e.getMessage(), e);
+			}
 		}
 
 		certService.insertOrUpdate(cert, domains, types, values);
@@ -155,7 +172,7 @@ public class CertController extends BaseController {
 		String keylength = " --keylength 2048 "; // RSA模式
 		String ecc = "";
 		if ("ECC".equals(cert.getEncryption())) { // ECC模式
-			keylength = " --keylength ec-256 "; 
+			keylength = " --keylength ec-256 ";
 			ecc = " --ecc";
 		}
 
