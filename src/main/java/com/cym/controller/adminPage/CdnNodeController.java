@@ -102,6 +102,9 @@ public class CdnNodeController extends BaseController {
 			if (map.containsKey("Message")) {
 				return renderError(map.get("Message").toString());
 			} else {
+				// 记录下部署时间
+				cdnNode.setDeployTime(System.currentTimeMillis());
+				sqlHelper.updateById(cdnNode);
 				return renderSuccess();
 			}
 		} catch (Exception e) {

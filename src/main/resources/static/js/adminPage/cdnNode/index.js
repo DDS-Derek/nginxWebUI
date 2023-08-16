@@ -13,7 +13,7 @@ function add() {
 	$("#certId option:first").prop("selected", true);
 	$("#aliKey").val("");
 	$("#aliSecret").val("");
-	$("#autoDepley option:first").prop("selected", true);
+	$("#autoDeploy option:first").prop("selected", true);
 
 	showWindow("添加节点");
 }
@@ -94,7 +94,7 @@ function edit(id) {
 				$("#certId").val(cdnNode.certId);
 				$("#aliKey").val(cdnNode.aliKey);
 				$("#aliSecret").val(cdnNode.aliSecret);
-				$("#autoDepley").val(cdnNode.autoDepley);
+				$("#autoDeploy").val(cdnNode.autoDeploy);
 
 				showWindow("编辑节点");
 			} else {

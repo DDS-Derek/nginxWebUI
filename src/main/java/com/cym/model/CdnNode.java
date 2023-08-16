@@ -22,7 +22,20 @@ public class CdnNode extends BaseModel {
 
 	// 自动部署
 	@InitValue("1")
-	Integer autoDepley;
+	Integer autoDeploy;
+	
+	// 上次部署时间
+	Long deployTime;
+
+	
+	
+	public Long getDeployTime() {
+		return deployTime;
+	}
+
+	public void setDeployTime(Long deployTime) {
+		this.deployTime = deployTime;
+	}
 
 	public String getDomain() {
 		return domain;
@@ -56,12 +69,12 @@ public class CdnNode extends BaseModel {
 		this.aliSecret = aliSecret;
 	}
 
-	public Integer getAutoDepley() {
-		return autoDepley;
+	public Integer getAutoDeploy() {
+		return autoDeploy;
 	}
 
-	public void setAutoDepley(Integer autoDepley) {
-		this.autoDepley = autoDepley;
+	public void setAutoDeploy(Integer autoDeploy) {
+		this.autoDeploy = autoDeploy;
 	}
 
 }

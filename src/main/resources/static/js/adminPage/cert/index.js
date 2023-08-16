@@ -512,7 +512,7 @@ function setDnsServer() {
 				layer.prompt({
 					formType: 0,
 					value: dnsServer,
-					title: '设置DNS服务器'
+					title: 'AcmeDNS配置'
 				}, function(value, index, elem) {
 					//alert(value); //得到value
 					if (value.trim() == '') {
