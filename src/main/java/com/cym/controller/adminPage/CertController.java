@@ -336,7 +336,7 @@ public class CertController extends BaseController {
 				Arrays.stream(split).forEach(s -> sb.append(" -d ").append(s));
 				String domain = sb.toString();
 
-				String cmd = homeConfig.acmeSh + " --issue " + domain + keylength + " --server letsencrypt --yes-I-know-dns-manual-mode-enough-go-ahead-please";
+				String cmd = homeConfig.acmeSh + " --issue --dns" + domain + keylength + " --server letsencrypt --yes-I-know-dns-manual-mode-enough-go-ahead-please";
 				logger.info(cmd);
 				String rs = timeExeUtils.execCMD(cmd, new String[] {}, 5 * 60 * 1000);
 				logger.info(rs);
