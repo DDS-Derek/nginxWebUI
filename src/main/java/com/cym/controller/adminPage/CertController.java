@@ -280,8 +280,13 @@ public class CertController extends BaseController {
 	}
 
 	private String[] getDnsEnv(Cert cert) {
-		// TODO Auto-generated method stub
-		return null;
+		List<String> list = new ArrayList<>();
+		list.add("ACMEDNS_BASE_URL=http://authtest.rongdizy.com/update");
+		list.add("ACMEDNS_USERNAME=" + cert.getUsername());
+		list.add("ACMEDNS_PASSWORD=" + cert.getPassword());
+		list.add("FULLDOMAIN=" + cert.getFulldomain());
+		
+		return list.toArray(new String[] {});
 	}
 
 	private String[] getEnv(Cert cert) {
