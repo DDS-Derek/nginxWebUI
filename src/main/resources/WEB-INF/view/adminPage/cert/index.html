@@ -35,6 +35,12 @@
 						<div class="layui-inline">
 							<button type="button" class="layui-btn layui-btn-normal layui-btn-sm" onclick="add()">${certStr.add}</button>
 						</div>
+						<div class="layui-inline">
+							<button type="button" class="layui-btn layui-btn-normal layui-btn-sm" onclick="setDnsServer()">DNS服务器</button>
+						</div>
+						<div class="layui-inline">
+							<button type="button" class="layui-btn layui-btn-normal layui-btn-sm" onclick="setCdnServer()">CDN文件效验服务器</button>
+						</div>
 						
 						<div class="layui-inline">
 							<input type="text" name="keywords" class="layui-input layui-input-sm" value="${keywords}">
@@ -354,6 +360,38 @@
 					</table>
 				</div>
 			</div>
+		</div>
+		
+		<div class="layui-form" id="cdnDiv" style="padding: 15px; display: none">
+			<form id="cdnForm">
+
+				<div class="layui-form-item">
+					<label class="layui-form-label">域名</label>
+					<div class="layui-input-block">
+						<input type="text" name="cdnDomain" id="cdnDomain" class="layui-input">
+					</div>
+				</div>
+
+				<div class="layui-form-item">
+					<label class="layui-form-label">端口</label>
+					<div class="layui-input-block">
+						<input type="text" name="cdnPort" id="cdnPort" class="layui-input">
+					</div>
+				</div>
+
+				<div class="layui-form-item">
+					<label class="layui-form-label">网站路径</label>
+					<div class="layui-input-block">
+						<input type="text" name="cdnUrl" id="cdnUrl" class="layui-input">
+					</div>
+				</div>
+			
+
+				<div class="layui-form-item center">
+					<button type="button" class="layui-btn layui-btn-normal" onclick="setCdnServerOver()">${commonStr.submit}</button>
+					<button type="button" class="layui-btn" onclick="layer.closeAll()">${commonStr.close}</button>
+				</div>
+			</form>
 		</div>
 	</div>
 

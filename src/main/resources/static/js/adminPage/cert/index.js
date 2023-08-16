@@ -488,3 +488,136 @@ function getTxtValue(id) {
 		}
 	});
 }
+
+
+function setDnsServer() {
+	$.ajax({
+		type: 'POST',
+		url: ctx + '/adminPage/cert/getDnsServer',
+		data: {
+		},
+		dataType: 'json',
+		success: function(data) {
+			if (data.success) {
+				var dnsServer = data.obj;
+
+				layer.prompt({
+					formType: 0,
+					value: dnsServer,
+					title: '设置DNS服务器'
+				}, function(value, index, elem) {
+					//alert(value); //得到value
+					if (value.trim() == '') {
+						alert("输入为空");
+						return;
+					}
+
+					setDnsServerOver(value);
+
+					layer.close(index);
+				});
+
+			} else {
+				layer.msg(data.msg);
+			}
+		},
+		error: function() {
+			layer.closeAll();
+			layer.alert(commonStr.errorInfo);
+		}
+	});
+
+}
+
+function setDnsServerOver(value) {
+
+	$.ajax({
+		type: 'POST',
+		url: ctx + '/adminPage/cert/setDnsServer',
+		data: {
+			value: value
+		},
+		dataType: 'json',
+		success: function(data) {
+			if (data.success) {
+				layer.msg("保存成功");
+			} else {
+				layer.msg(data.msg);
+			}
+		},
+		error: function() {
+			layer.closeAll();
+			layer.alert(commonStr.errorInfo);
+		}
+	});
+}
+
+function setCdnServer() {
+	$.ajax({
+		type: 'POST',
+		url: ctx + '/adminPage/cert/getCdnServer',
+		data: {
+		},
+		dataType: 'json',
+		success: function(data) {
+			if (data.success) {
+				var cdnDomain = data.obj.cdnDomain;
+				var cdnPort = data.obj.cdnPort;
+				var cdnUrl = data.obj.cdnUrl;
+
+				$("#cdnDomain").val(cdnDomain);
+				$("#cdnPort").val(cdnPort);
+				$("#cdnUrl").val(cdnUrl);
+
+				layer.open({
+					type: 1,
+					title: "CDN文件效验服务器",
+					area: ['500px', '400px'], // 宽高
+					content: $('#cdnDiv')
+				});
+			} else {
+				layer.msg(data.msg);
+			}
+		},
+		error: function() {
+			layer.closeAll();
+			layer.alert(commonStr.errorInfo);
+		}
+	});
+}
+
+
+function setCdnServerOver() {
+	var cdnDomain = $("#cdnDomain").val();
+	var cdnPort = $("#cdnPort").val();
+	var cdnUrl = $("#cdnUrl").val();
+
+	if (cdnDomain.trim() == '' || cdnPort.trim() == '' || cdnUrl.trim() == '') {
+		layer.msg("未填写完整");
+		return;
+	}
+	
+	$.ajax({
+		type: 'POST',
+		url: ctx + '/adminPage/cert/setCdnServer',
+		data: {
+			cdnDomain : cdnDomain,
+			cdnPort : cdnPort,
+			cdnUrl : cdnUrl
+		},
+		dataType: 'json',
+		success: function(data) {
+			if (data.success) {
+				layer.closeAll();
+				layer.msg("保存成功");
+			} else {
+				layer.msg(data.msg);
+			}
+		},
+		error: function() {
+			layer.closeAll();
+			layer.alert(commonStr.errorInfo);
+		}
+	});
+	
+}

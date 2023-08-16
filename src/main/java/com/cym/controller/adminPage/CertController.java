@@ -3,13 +3,14 @@ package com.cym.controller.adminPage;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.security.cert.CertificateException;
 import java.security.cert.CertificateFactory;
 import java.security.cert.X509Certificate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.noear.solon.annotation.Controller;
 import org.noear.solon.annotation.Inject;
@@ -340,5 +341,40 @@ public class CertController extends BaseController {
 		}
 
 		return null;
+	}
+
+	@Mapping("getDnsServer")
+	public JsonResult getDnsServer() {
+		String dnsServer = settingService.get("dnsServer");
+		return renderSuccess(dnsServer);
+	}
+
+	@Mapping("setDnsServer")
+	public JsonResult setDnsServer(String value) {
+		settingService.set("dnsServer", value);
+		return renderSuccess();
+	}
+	
+	
+	@Mapping("getCdnServer")
+	public JsonResult getCdnServer() {
+		String cdnDomain = settingService.get("cdnDomain");
+		String cdnPort = settingService.get("cdnPort");
+		String cdnUrl = settingService.get("cdnUrl");
+		
+		Map<String,String> map = new HashMap<>();
+		map.put("cdnDomain", cdnDomain);
+		map.put("cdnPort", cdnPort);
+		map.put("cdnUrl", cdnUrl);
+		
+		return renderSuccess(map);
+	}
+
+	@Mapping("setCdnServer")
+	public JsonResult setCdnServer(String cdnDomain,String cdnPort,String cdnUrl) {
+		settingService.set("cdnDomain", cdnDomain);
+		settingService.set("cdnPort", cdnPort);
+		settingService.set("cdnUrl", cdnUrl);
+		return renderSuccess();
 	}
 }
