@@ -281,7 +281,7 @@ public class CertController extends BaseController {
 
 	private String[] getDnsEnv(Cert cert) {
 		List<String> list = new ArrayList<>();
-		list.add("ACMEDNS_BASE_URL=" + settingService.get("dnsServer") + "/update");
+		list.add("ACMEDNS_BASE_URL=" + settingService.get("dnsServer") + "update");
 		list.add("ACMEDNS_USERNAME=" + cert.getUsername());
 		list.add("ACMEDNS_PASSWORD=" + cert.getPassword());
 		list.add("FULLDOMAIN=" + cert.getFulldomain());
@@ -379,11 +379,11 @@ public class CertController extends BaseController {
 				if (StrUtil.isEmpty(cert.getFulldomain())) {
 
 					Map<String, Object> paramMap = new HashMap<>();
-					String url = settingService.get("dnsServer") + "/register";
+					String url = settingService.get("dnsServer") + "register";
 					logger.info(url);
 					String rs = HttpUtil.post(url, paramMap);
 					logger.info(rs);
-					
+
 					JSONObject jsonObject = JSONUtil.parseObj(rs);
 
 					cert.setUsername(jsonObject.getStr("username"));
@@ -444,6 +444,9 @@ public class CertController extends BaseController {
 
 	@Mapping("setDnsServer")
 	public JsonResult setDnsServer(String value) {
+		if (!value.endsWith("/")) {
+			value += "/";
+		}
 		settingService.set("dnsServer", value);
 		return renderSuccess();
 	}
