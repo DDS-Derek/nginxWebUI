@@ -107,4 +107,28 @@ function edit(id) {
 	});
 }
 
-
+function deploy(id) {
+	if (confirm("确认部署?")) {
+		showLoad();
+		$.ajax({
+			type: 'POST',
+			url: ctx + '/adminPage/cdnNode/deploy',
+			data: {
+				id: id
+			},
+			dataType: 'json',
+			success: function(data) {
+				closeLoad();
+				if (data.success) {
+					layer.msg("部署成功")
+				} else {
+					layer.msg(data.msg)
+				}
+			},
+			error: function() {
+				closeLoad();
+				layer.alert(commonStr.errorInfo);
+			}
+		});
+	}
+}

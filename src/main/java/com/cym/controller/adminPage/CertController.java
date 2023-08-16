@@ -20,11 +20,13 @@ import org.noear.solon.core.handle.ModelAndView;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.cym.model.CdnNode;
 import com.cym.model.Cert;
 import com.cym.model.CertCode;
 import com.cym.service.CertService;
 import com.cym.service.SettingService;
 import com.cym.sqlhelper.bean.Page;
+import com.cym.sqlhelper.utils.ConditionAndWrapper;
 import com.cym.utils.BaseController;
 import com.cym.utils.JsonResult;
 import com.cym.utils.SystemTool;
@@ -45,6 +47,8 @@ public class CertController extends BaseController {
 	TimeExeUtils timeExeUtils;
 	@Inject
 	ConfController confController;
+	@Inject
+	CdnNodeController cdnNodeController;
 
 	Logger logger = LoggerFactory.getLogger(this.getClass());
 
@@ -246,6 +250,10 @@ public class CertController extends BaseController {
 			}
 
 			isInApply = false;
+
+			// 如果关联cdn节点, 上传到cdn节点
+			sendToCdnNde(cert.getId());
+
 			return renderSuccess();
 		} else if (rs.contains("TXT value")) {
 			// 获取到dns配置txt, 显示出来, 并保存到数据库
@@ -282,6 +290,15 @@ public class CertController extends BaseController {
 		}
 	}
 
+	private void sendToCdnNde(String certId) {
+		List<CdnNode> cdnNodes = sqlHelper.findListByQuery(new ConditionAndWrapper().eq(CdnNode::getCertId, certId), CdnNode.class);
+
+		for (CdnNode cdnNode : cdnNodes) {
+			cdnNodeController.deploy(cdnNode.getId());
+		}
+
+	}
+
 	private String[] getEnv(Cert cert) {
 		List<String> list = new ArrayList<>();
 		if (cert.getDnsType().equals("ali")) {
@@ -295,9 +312,6 @@ public class CertController extends BaseController {
 		if (cert.getDnsType().equals("cf")) {
 			list.add("CF_Email=" + cert.getCfEmail());
 			list.add("CF_Key=" + cert.getCfKey());
-//			list.add("CF_Token=" + cert.getCfToken());
-//			list.add("CF_Account_ID=" + cert.getCfAccountId());
-//			list.add("CF_Zone_ID=" + cert.getCfZoneId());
 		}
 		if (cert.getDnsType().equals("gd")) {
 			list.add("GD_Key=" + cert.getGdKey());
@@ -354,24 +368,23 @@ public class CertController extends BaseController {
 		settingService.set("dnsServer", value);
 		return renderSuccess();
 	}
-	
-	
+
 	@Mapping("getCdnServer")
 	public JsonResult getCdnServer() {
 		String cdnDomain = settingService.get("cdnDomain");
 		String cdnPort = settingService.get("cdnPort");
 		String cdnUrl = settingService.get("cdnUrl");
-		
-		Map<String,String> map = new HashMap<>();
+
+		Map<String, String> map = new HashMap<>();
 		map.put("cdnDomain", cdnDomain);
 		map.put("cdnPort", cdnPort);
 		map.put("cdnUrl", cdnUrl);
-		
+
 		return renderSuccess(map);
 	}
 
 	@Mapping("setCdnServer")
-	public JsonResult setCdnServer(String cdnDomain,String cdnPort,String cdnUrl) {
+	public JsonResult setCdnServer(String cdnDomain, String cdnPort, String cdnUrl) {
 		settingService.set("cdnDomain", cdnDomain);
 		settingService.set("cdnPort", cdnPort);
 		settingService.set("cdnUrl", cdnUrl);
