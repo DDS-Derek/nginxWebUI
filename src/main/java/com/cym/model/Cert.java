@@ -14,7 +14,7 @@ public class Cert extends BaseModel {
 	/**
 	 * 域名
 	 */
-	String domain; 
+	String domain;
 	/**
 	 * pem文件路径
 	 */
@@ -27,30 +27,30 @@ public class Cert extends BaseModel {
 	 * 获取方式 0 申请证书 1 手动上传 2 DNS验证 3 AcmeDNS验证 4 CDN文件验证
 	 */
 	@InitValue("0")
-	Integer type; 
-	
+	Integer type;
+
 	/**
 	 * 加密方式 'RSA' 'ECC'
 	 */
 	@InitValue("RSA")
-	String encryption; 
+	String encryption;
 	/**
 	 * 签发时间戳
 	 */
-	Long makeTime; 
+	Long makeTime;
 	/**
 	 * 到期时间戳
 	 */
-	Long endTime; 
+	Long endTime;
 	/**
 	 * 是否自动续签 0否 1是
 	 */
 	@InitValue("0")
-	Integer autoRenew; 
+	Integer autoRenew;
 	/**
-	 * dns提供商 ali:阿里云  dp:腾讯云  cf:Cloudflare  gd:Godaddy   hw:华为云
+	 * dns提供商 ali:阿里云 dp:腾讯云 cf:Cloudflare gd:Godaddy hw:华为云
 	 */
-	String dnsType; 
+	String dnsType;
 	/**
 	 * dpId(腾讯云需要的参数)
 	 */
@@ -75,7 +75,7 @@ public class Cert extends BaseModel {
 	 * cfKey(Cloudflare需要的参数)
 	 */
 	String cfKey;
-	
+
 	/**
 	 * gdKey(Godaddy需要的参数)
 	 */
@@ -96,7 +96,7 @@ public class Cert extends BaseModel {
 	 * hwProjectID(华为云需要的参数)
 	 */
 	String hwDomainName;
-	
+
 	
 	public String getHwDomainName() {
 		return hwDomainName;
@@ -137,7 +137,6 @@ public class Cert extends BaseModel {
 	public void setHwPassword(String hwPassword) {
 		this.hwPassword = hwPassword;
 	}
-
 
 //	public String getHwProjectId() {
 //		return hwProjectId;
@@ -282,6 +281,5 @@ public class Cert extends BaseModel {
 	public void setKey(String key) {
 		this.key = key;
 	}
-
 
 }

@@ -462,7 +462,7 @@ function clone(id) {
 
 
 function getTxtValue(id) {
-
+	showLoad()
 	$.ajax({
 		type: 'POST',
 		url: ctx + '/adminPage/cert/getTxtValue',
@@ -471,6 +471,7 @@ function getTxtValue(id) {
 		},
 		dataType: 'json',
 		success: function(data) {
+			closeLoad();
 			if (data.success) {
 				var html = ``;
 
@@ -498,7 +499,7 @@ function getTxtValue(id) {
 			}
 		},
 		error: function() {
-			layer.closeAll();
+			closeLoad();
 			layer.alert(commonStr.errorInfo);
 		}
 	});

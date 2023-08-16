@@ -35,6 +35,9 @@ import com.cym.utils.TimeExeUtils;
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.core.util.ZipUtil;
+import cn.hutool.http.HttpUtil;
+import cn.hutool.json.JSONObject;
+import cn.hutool.json.JSONUtil;
 
 @Controller
 @Mapping("/adminPage/cert")
@@ -184,14 +187,14 @@ public class CertController extends BaseController {
 		String rs = "";
 		String cmd = "";
 		// 设置dns账号
-		String[] env = getEnv(cert);
+		String[] envs = getEnv(cert);
 
 		if (type.equals("issue")) {
 			String[] split = cert.getDomain().split(",");
 			StringBuffer sb = new StringBuffer();
 			Arrays.stream(split).forEach(s -> sb.append(" -d ").append(s));
 			String domain = sb.toString();
-			// 申请
+			// dns api申请
 			if (cert.getType() == 0) {
 				// dns api申请
 				String dnsType = "";
@@ -206,18 +209,14 @@ public class CertController extends BaseController {
 				} else if (cert.getDnsType().equals("hw")) {
 					dnsType = "dns_huaweicloud";
 				}
-				cmd = homeConfig.acmeSh + " --issue --force --dns " + dnsType + domain + keylength + " --server letsencrypt";
+				cmd = homeConfig.acmeSh + " --issue --dns " + dnsType + domain + keylength + " --server letsencrypt";
 			} else if (cert.getType() == 2) {
 				// DNS验证
-				if (certService.hasCode(cert.getId())) {
-					cmd = homeConfig.acmeSh + " --renew --force --dns" + domain + " --server letsencrypt --yes-I-know-dns-manual-mode-enough-go-ahead-please";
-				} else {
-					cmd = homeConfig.acmeSh + " --issue --force --dns" + domain + keylength + " --server letsencrypt --yes-I-know-dns-manual-mode-enough-go-ahead-please";
-				}
-
+				cmd = homeConfig.acmeSh + " --renew --force " + domain + keylength + " --server letsencrypt --yes-I-know-dns-manual-mode-enough-go-ahead-please";
 			} else if (cert.getType() == 3) {
 				// AcmeDNS验证
-				
+				envs = getDnsEnv(cert);
+				cmd = homeConfig.acmeSh + " --issue --dns dns_acmedns" + domain + keylength + " --server letsencrypt";
 			} else if (cert.getType() == 4) {
 				// CDN文件验证
 				cmd = homeConfig.acmeSh + " --issue" + domain + keylength + " --server letsencrypt --webroot " + settingService.get("cdnUrl");
@@ -234,7 +233,7 @@ public class CertController extends BaseController {
 		}
 		logger.info(cmd);
 
-		rs = timeExeUtils.execCMD(cmd, env, 5 * 60 * 1000);
+		rs = timeExeUtils.execCMD(cmd, envs, 5 * 60 * 1000);
 		logger.info(rs);
 
 		if (rs.contains("Your cert is in")) {
@@ -263,35 +262,6 @@ public class CertController extends BaseController {
 			sendToCdnNde(cert.getId());
 
 			return renderSuccess();
-		} else if (rs.contains("TXT value")) {
-			// 获取到dns配置txt, 显示出来, 并保存到数据库
-			List<CertCode> mapList = new ArrayList<>();
-
-			CertCode map1 = null;
-			CertCode map2 = null;
-			for (String str : rs.split("\n")) {
-				logger.info(str);
-				if (str.contains("Domain:")) {
-					map1 = new CertCode();
-					map1.setDomain(str.split("'")[1]);
-					map1.setType("TXT");
-
-					map2 = new CertCode();
-					map2.setDomain(map1.getDomain().replace("_acme-challenge.", ""));
-					map2.setType(m.get("certStr.any"));
-				}
-
-				if (str.contains("TXT value:")) {
-					map1.setValue(str.split("'")[1]);
-					mapList.add(map1);
-
-					map2.setValue(m.get("certStr.any"));
-					mapList.add(map2);
-				}
-			}
-			certService.saveCertCode(id, mapList);
-			isInApply = false;
-			return renderSuccess(mapList);
 		} else {
 			isInApply = false;
 			return renderError("<span class='blue'>" + cmd + "</span><br>" + m.get("certStr.applyFail") + "<br>" + rs.replace("\n", "<br>"));
@@ -307,6 +277,11 @@ public class CertController extends BaseController {
 			}
 		}
 
+	}
+
+	private String[] getDnsEnv(Cert cert) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	private String[] getEnv(Cert cert) {
@@ -338,9 +313,71 @@ public class CertController extends BaseController {
 
 	@Mapping("getTxtValue")
 	public JsonResult getTxtValue(String id) {
+		Cert cert = sqlHelper.findById(id, Cert.class);
 
-		List<CertCode> certCodes = certService.getCertCodes(id);
-		return renderSuccess(certCodes);
+		if (cert.getType() == 2) {
+			// 手动dns
+			List<CertCode> certCodes = certService.getCertCodes(id);
+			if (certCodes.size() > 0) {
+				return renderSuccess(certCodes);
+			} else {
+				String keylength = " --keylength 2048 "; // RSA模式
+				if ("ECC".equals(cert.getEncryption())) { // ECC模式
+					keylength = " --keylength ec-256 ";
+				}
+
+				String[] split = cert.getDomain().split(",");
+				StringBuffer sb = new StringBuffer();
+				Arrays.stream(split).forEach(s -> sb.append(" -d ").append(s));
+				String domain = sb.toString();
+
+				String cmd = homeConfig.acmeSh + " --issue " + domain + keylength + " --server letsencrypt --yes-I-know-dns-manual-mode-enough-go-ahead-please";
+				String rs = timeExeUtils.execCMD(cmd, new String[] {}, 5 * 60 * 1000);
+				logger.info(rs);
+
+				if (rs.contains("TXT value")) {
+					// 获取到dns配置txt, 显示出来, 并保存到数据库
+					List<CertCode> mapList = new ArrayList<>();
+
+					CertCode map1 = null;
+					CertCode map2 = null;
+					for (String str : rs.split("\n")) {
+						logger.info(str);
+						if (str.contains("Domain:")) {
+							map1 = new CertCode();
+							map1.setDomain(str.split("'")[1]);
+							map1.setType("TXT");
+
+							map2 = new CertCode();
+							map2.setDomain(map1.getDomain().replace("_acme-challenge.", ""));
+							map2.setType(m.get("certStr.any"));
+						}
+
+						if (str.contains("TXT value:")) {
+							map1.setValue(str.split("'")[1]);
+							mapList.add(map1);
+
+							map2.setValue(m.get("certStr.any"));
+							mapList.add(map2);
+						}
+					}
+					certService.saveCertCode(id, mapList);
+					
+					certCodes = certService.getCertCodes(id);
+					return renderSuccess(certCodes);
+				}
+				
+				return renderError("获取失败");
+			}
+		} else if (cert.getType() == 3) {
+			// acme-dns TODO
+			Map<String, Object> paramMap = new HashMap<>();
+			String rs = HttpUtil.post("http://authtest.rongdizy.com/register", paramMap);
+			JSONObject jsonObject = JSONUtil.parseObj(rs);
+			
+			
+			
+		}
 	}
 
 	@Mapping("download")
