@@ -379,8 +379,11 @@ public class CertController extends BaseController {
 				if (StrUtil.isEmpty(cert.getFulldomain())) {
 
 					Map<String, Object> paramMap = new HashMap<>();
-
-					String rs = HttpUtil.post(settingService.get("dnsServer") + "/register", paramMap);
+					String url = settingService.get("dnsServer") + "/register";
+					logger.info(url);
+					String rs = HttpUtil.post(url, paramMap);
+					logger.info(rs);
+					
 					JSONObject jsonObject = JSONUtil.parseObj(rs);
 
 					cert.setUsername(jsonObject.getStr("username"));
