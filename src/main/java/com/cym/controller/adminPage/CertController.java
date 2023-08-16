@@ -294,7 +294,9 @@ public class CertController extends BaseController {
 		List<CdnNode> cdnNodes = sqlHelper.findListByQuery(new ConditionAndWrapper().eq(CdnNode::getCertId, certId), CdnNode.class);
 
 		for (CdnNode cdnNode : cdnNodes) {
-			cdnNodeController.deploy(cdnNode.getId());
+			if (cdnNode.getAutoDeploy() == 1) {
+				cdnNodeController.deploy(cdnNode.getId());
+			}
 		}
 
 	}
