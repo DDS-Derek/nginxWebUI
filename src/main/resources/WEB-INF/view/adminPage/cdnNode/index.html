@@ -20,7 +20,7 @@
 				<form action="${ctx}/adminPage/cdnNode" id="searchForm" method="post">
 					<div class="layui-form">
 						<div class="layui-inline">
-							<button type="button" class="layui-btn layui-btn-sm layui-btn-normal" onclick="add()">${wwwStr.add}</button>
+							<button type="button" class="layui-btn layui-btn-sm layui-btn-normal" onclick="add()">添加节点</button>
 						</div>
 					</div>
 				</form>
@@ -37,13 +37,24 @@
 						</tr>
 					</thead>
 					<tbody>
-						<#list list as ext>
+						<#list page.records as ext>
 						<tr>
 							<td>${ext.cdnNode.domain}</td>
 							<td>ON</td>
-							<td>${ext.cdnNode.autoDepley}</td>
+							<td>
+							<#if ext.cdnNode.autoDepley == 0>
+								否
+							</#if>
+							<#if ext.cdnNode.autoDepley == 1>
+								是
+							</#if>
+							</td>
 							<td>${ext.cert.domain}</td>
-							<td>${ext.cert.endTime?number_to_datetime?string('yyyy-MM-dd HH:mm:ss')}</td>
+							<td>
+								<#if cert.endTime != null>
+								${ext.cert.endTime?number_to_datetime?string('yyyy-MM-dd HH:mm:ss')}
+								</#if>	
+							</td>
 							<td>
 								<div class="layui-inline">
 									<button type="button" class="layui-btn layui-btn-sm " onclick="deploy('${ext.cdnNode.id}')">立即部署</button>
@@ -59,6 +70,7 @@
 						</#list>
 					</tbody>
 				</table>
+				<div id="pageInfo"></div>
 			</div>
 		</div>
 	</div>
@@ -76,7 +88,7 @@
 					</div>
 				</div>
 				<div class="layui-form-item">
-					<label class="layui-form-label">选择部署证书</label>
+					<label class="layui-form-label">选择证书</label>
 					<div class="layui-input-inline">
 						<select name="certId" id="certId">
 							<#list certList as cert>
@@ -87,13 +99,13 @@
 				</div>
 				<div class="layui-form-item">
 					<label class="layui-form-label">Ali_Key</label>
-					<div class="layui-input-inline">
+					<div class="layui-input-block">
 						<input type="text" name="aliKey" id="aliKey" class="layui-input">
 					</div>
 				</div>
 				<div class="layui-form-item">
 					<label class="layui-form-label">Ali_Secret</label>
-					<div class="layui-input-inline">
+					<div class="layui-input-block">
 						<input type="text" name="aliSecret" id="aliSecret" class="layui-input">
 					</div>
 				</div>
@@ -101,8 +113,8 @@
 					<label class="layui-form-label">自动部署</label>
 					<div class="layui-input-inline">
 						<select name="autoDepley" id="autoDepley">
-							<option value="0">否</option>
 							<option value="1">是</option>
+							<option value="0">否</option>
 						</select>
 					</div>
 				</div>
