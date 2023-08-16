@@ -362,22 +362,44 @@ public class CertController extends BaseController {
 						}
 					}
 					certService.saveCertCode(id, mapList);
-					
+
 					certCodes = certService.getCertCodes(id);
 					return renderSuccess(certCodes);
 				}
-				
-				return renderError("获取失败");
 			}
 		} else if (cert.getType() == 3) {
-			// acme-dns TODO
-			Map<String, Object> paramMap = new HashMap<>();
-			String rs = HttpUtil.post("http://authtest.rongdizy.com/register", paramMap);
-			JSONObject jsonObject = JSONUtil.parseObj(rs);
-			
-			
-			
+			// acme-dns
+			try {
+				if (StrUtil.isEmpty(cert.getFulldomain())) {
+
+					Map<String, Object> paramMap = new HashMap<>();
+					String rs = HttpUtil.post("http://authtest.rongdizy.com/register", paramMap);
+					JSONObject jsonObject = JSONUtil.parseObj(rs);
+
+					cert.setUsername(jsonObject.getStr("username"));
+					cert.setPassword(jsonObject.getStr("password"));
+					cert.setFulldomain(jsonObject.getStr("fulldomain"));
+					cert.setSubdomain(jsonObject.getStr("subdomain"));
+
+					sqlHelper.updateById(cert);
+
+				}
+
+				List<CertCode> certCodes = new ArrayList<CertCode>();
+
+				CertCode certCode = new CertCode();
+				certCode.setDomain(cert.getDomain());
+				certCode.setType("CNAME");
+				certCode.setValue(cert.getFulldomain());
+				certCodes.add(certCode);
+
+				return renderSuccess(certCodes);
+			} catch (Exception e) {
+				logger.error(e.getMessage(), e);
+			}
 		}
+
+		return renderError("获取失败");
 	}
 
 	@Mapping("download")
