@@ -281,11 +281,11 @@ public class CertController extends BaseController {
 
 	private String[] getDnsEnv(Cert cert) {
 		List<String> list = new ArrayList<>();
-		list.add("ACMEDNS_BASE_URL=http://authtest.rongdizy.com/update");
+		list.add("ACMEDNS_BASE_URL=" + settingService.get("dnsServer") + "/update");
 		list.add("ACMEDNS_USERNAME=" + cert.getUsername());
 		list.add("ACMEDNS_PASSWORD=" + cert.getPassword());
 		list.add("FULLDOMAIN=" + cert.getFulldomain());
-		
+
 		return list.toArray(new String[] {});
 	}
 
@@ -378,7 +378,8 @@ public class CertController extends BaseController {
 				if (StrUtil.isEmpty(cert.getFulldomain())) {
 
 					Map<String, Object> paramMap = new HashMap<>();
-					String rs = HttpUtil.post("http://authtest.rongdizy.com/register", paramMap);
+
+					String rs = HttpUtil.post(settingService.get("dnsServer") + "/register", paramMap);
 					JSONObject jsonObject = JSONUtil.parseObj(rs);
 
 					cert.setUsername(jsonObject.getStr("username"));

@@ -459,50 +459,50 @@ function clone(id) {
 }
 
 
-
-
 function getTxtValue(id) {
-	showLoad()
-	$.ajax({
-		type: 'POST',
-		url: ctx + '/adminPage/cert/getTxtValue',
-		data: {
-			id: id
-		},
-		dataType: 'json',
-		success: function(data) {
-			closeLoad();
-			if (data.success) {
-				var html = ``;
+	if (confirm("是否获取申请参数")) {
+		showLoad()
+		$.ajax({
+			type: 'POST',
+			url: ctx + '/adminPage/cert/getTxtValue',
+			data: {
+				id: id
+			},
+			dataType: 'json',
+			success: function(data) {
+				closeLoad();
+				if (data.success) {
+					var html = ``;
 
-				for (let i = 0; i < data.obj.length; i++) {
-					var map = data.obj[i]
-					html += `
+					for (let i = 0; i < data.obj.length; i++) {
+						var map = data.obj[i]
+						html += `
 						<tr>
 							<td>${map.domain} <input type="hidden" name="domains" value="${map.domain}"> </td>
 							<td>${map.type} <input type="hidden" name="types" value="${map.type}"> </td>
 							<td>${map.value} <input type="hidden" name="values" value="${map.value}"> </td>
 						</tr>
 					`;
+					}
+
+					$("#notice").html(html);
+
+					layer.open({
+						type: 1,
+						title: certStr.hostRecords,
+						area: ['900px', '400px'], // 宽高
+						content: $('#txtDiv')
+					});
+				} else {
+					layer.msg(data.msg);
 				}
-
-				$("#notice").html(html);
-
-				layer.open({
-					type: 1,
-					title: certStr.hostRecords,
-					area: ['900px', '400px'], // 宽高
-					content: $('#txtDiv')
-				});
-			} else {
-				layer.msg(data.msg);
+			},
+			error: function() {
+				closeLoad();
+				layer.alert(commonStr.errorInfo);
 			}
-		},
-		error: function() {
-			closeLoad();
-			layer.alert(commonStr.errorInfo);
-		}
-	});
+		});
+	}
 }
 
 
