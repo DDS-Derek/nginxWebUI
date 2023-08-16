@@ -335,7 +335,7 @@ function issue(id, type) {
 
 		if (type == 4) {
 			// CDN文件验证
-			if (!confirm("请确认已在CDN配置好条件原站")) {
+			if (!confirm("请确认已在CDN配置好/.well-known/acme-challenge/路径回源站  ")) {
 				return;
 			}
 		}
