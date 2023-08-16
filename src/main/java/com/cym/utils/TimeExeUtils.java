@@ -71,6 +71,7 @@ public class TimeExeUtils {
 				try {
 					TimeUnit.MILLISECONDS.sleep(500);
 				} catch (InterruptedException e) {
+					System.err.println(e.getMessage());
 				}
 			}
 		} catch (IOException e) {
