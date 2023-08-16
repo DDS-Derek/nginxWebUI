@@ -100,6 +100,14 @@ function checkType(value) {
 	if (value == 2) {
 		$("#encryptionDiv").show();
 	}
+	
+	if (value == 3) {
+		$("#encryptionDiv").show();
+	}
+	
+	if (value == 4) {
+		$("#encryptionDiv").show();
+	}
 }
 
 function add() {

@@ -66,7 +66,7 @@
 							<th>${certStr.signTime}</th>
 							<th>${certStr.certPath}</th>
 							<th>${certStr.isAuto}</th>
-
+							
 							<th>${commonStr.operation}</th>
 						</tr>
 					</thead>
@@ -83,6 +83,12 @@
 								</#if>
 								<#if cert.type==2>
 									${certStr.byDns}
+								</#if>
+								<#if cert.type==3>
+									AcmeDNS验证
+								</#if>
+								<#if cert.type==4>
+									CDN文件验证
 								</#if>
 							</td>
 
@@ -184,6 +190,8 @@
 							<option value="0">${certStr.byApply}</option>
 							<option value="1">${certStr.manualUp}</option>
 							<option value="2">${certStr.byDns}</option>
+							<option value="3">AcmeDNS验证</option>
+							<option value="4">CDN文件验证</option>
 						</select>
 					</div>
 				</div>
