@@ -218,17 +218,15 @@ public class CertController extends BaseController {
 			} else if (cert.getType() == 3) {
 				// AcmeDNS验证
 				
-				
 			} else if (cert.getType() == 4) {
 				// CDN文件验证
-				
-				
+				cmd = homeConfig.acmeSh + " --issue" + domain + keylength + " --server letsencrypt --webroot " + settingService.get("cdnUrl");
 			}
 		} else if (type.equals("renew")) {
 			// 续签,以第一个域名为证书名
 			String domain = cert.getDomain().split(",")[0];
 
-			if (cert.getType() == 0) {
+			if (cert.getType() == 0 || cert.getType() == 3 || cert.getType() == 4) {
 				cmd = homeConfig.acmeSh + " --renew --force " + ecc + " -d " + domain;
 			} else if (cert.getType() == 2) {
 				cmd = homeConfig.acmeSh + " --renew --force " + ecc + " -d " + domain + " --server letsencrypt --yes-I-know-dns-manual-mode-enough-go-ahead-please";

@@ -104,29 +104,29 @@ public class ConfService {
 				hasHttp = true;
 			}
 
-			if (settingService.get("cdnDomain") != null) { // 添加CdnServer
+			if (StrUtil.isNotEmpty(settingService.get("cdnDomain"))) { // 添加CdnServer
 				String cdnDomain = settingService.get("cdnDomain");
 				String cdnPort = settingService.get("cdnPort");
 				String cdnUrl = settingService.get("cdnUrl");
-				
+
 				NgxBlock ngxBlockServer = new NgxBlock();
 				ngxBlockServer.addValue("server");
-				
+
 				NgxParam ngxParam = new NgxParam();
 				ngxParam.addValue("server_name " + cdnDomain);
 				ngxBlockServer.addEntry(ngxParam);
-				
+
 				ngxParam = new NgxParam();
 				ngxParam.addValue("listen " + cdnPort);
 				ngxBlockServer.addEntry(ngxParam);
 
 				NgxBlock ngxBlockLocation = new NgxBlock();
 				ngxBlockLocation.addValue("location / ");
-				
+
 				ngxParam = new NgxParam();
 				ngxParam.addValue("root " + cdnUrl);
 				ngxBlockLocation.addEntry(ngxParam);
-				
+
 				ngxBlockServer.addEntry(ngxBlockLocation);
 				ngxBlockHttp.addEntry(ngxBlockServer);
 			}
