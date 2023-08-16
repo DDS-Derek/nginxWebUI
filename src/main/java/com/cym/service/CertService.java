@@ -1,7 +1,6 @@
 package com.cym.service;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.List;
 
 import org.noear.solon.annotation.Inject;
@@ -105,6 +104,11 @@ public class CertService {
 		ZipUtil.unzip(homeConfig.home + "acme.zip", homeConfig.acmeShDir);
 		FileUtil.del(homeConfig.home + "acme.zip");
 
+	}
+
+	public List<Cert> getIssueList() {
+
+		return sqlHelper.findListByQuery(new ConditionAndWrapper().isNotNull(Cert::getMakeTime), Cert.class);
 	}
 
 }

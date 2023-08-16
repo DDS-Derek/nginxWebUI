@@ -9,6 +9,8 @@ import org.slf4j.LoggerFactory;
 
 import com.cym.model.CdnNode;
 import com.cym.service.CdnNodeService;
+import com.cym.service.CertService;
+import com.cym.sqlhelper.bean.Page;
 import com.cym.sqlhelper.bean.Sort;
 import com.cym.sqlhelper.bean.Sort.Direction;
 import com.cym.utils.BaseController;
@@ -20,11 +22,15 @@ public class CdnNodeController extends BaseController {
 	Logger logger = LoggerFactory.getLogger(this.getClass());
 	@Inject
 	CdnNodeService cdnNodeService;
+	@Inject
+	CertService certService;
 
 	@Mapping("")
-	public ModelAndView index(ModelAndView modelAndView) {
-
-		modelAndView.put("list", sqlHelper.findAll(new Sort("dir", Direction.ASC), CdnNode.class));
+	public ModelAndView index(ModelAndView modelAndView, Page page) {
+		page = cdnNodeService.search(page);
+		modelAndView.put("page", page);
+		
+		modelAndView.put("certList", certService.getIssueList());
 		modelAndView.view("/adminPage/cdnNode/index.html");
 		return modelAndView;
 	}

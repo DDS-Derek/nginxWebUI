@@ -1,0 +1,128 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<#include "/adminPage/common.html"/>
+
+</head>
+<body class="layui-layout-body">
+	<div class="layui-layout layui-layout-admin">
+
+		<#include "/adminPage/header.html"/>
+		<#include "/adminPage/menu.html"/>
+
+		<div class="layui-body">
+			<!-- 内容主体区域 -->
+			<div style="padding: 15px">
+				<fieldset class="layui-elem-field layui-field-title">
+					<legend>CDN部署节点</legend>
+				</fieldset>
+
+				<form action="${ctx}/adminPage/cdnNode" id="searchForm" method="post">
+					<div class="layui-form">
+						<div class="layui-inline">
+							<button type="button" class="layui-btn layui-btn-sm layui-btn-normal" onclick="add()">${wwwStr.add}</button>
+						</div>
+					</div>
+				</form>
+
+				<table class="layui-table" lay-size="sm">
+					<thead>
+						<tr>
+							<th>CDN域名</th>
+							<th>Https</th>
+							<th>自动部署</th>
+							<th>部署证书</th>
+							<th>证书到期日期</th>
+							<th>${commonStr.operation}</th>
+						</tr>
+					</thead>
+					<tbody>
+						<#list list as ext>
+						<tr>
+							<td>${ext.cdnNode.domain}</td>
+							<td>ON</td>
+							<td>${ext.cdnNode.autoDepley}</td>
+							<td>${ext.cert.domain}</td>
+							<td>${ext.cert.endTime?number_to_datetime?string('yyyy-MM-dd HH:mm:ss')}</td>
+							<td>
+								<div class="layui-inline">
+									<button type="button" class="layui-btn layui-btn-sm " onclick="deploy('${ext.cdnNode.id}')">立即部署</button>
+								</div>
+								<div class="layui-inline">
+									<button type="button" class="layui-btn layui-btn-sm " onclick="edit('${ext.cdnNode.id}')">编辑</button>
+								</div>
+								<div class="layui-inline">
+									<button type="button" class="layui-btn layui-btn-danger layui-btn-sm " onclick="del('${ext.cdnNode.id}')">${commonStr.del}</button>
+								</div>
+							</td>
+						</tr>
+						</#list>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+
+	<div style="height: 0px; width: 0px; overflow: hidden;">
+		<!-- 弹出框 -->
+		<div class="layui-form" id="windowDiv" style="padding: 15px; display: none">
+
+			<form id="addForm">
+				<input type="hidden" name="id" id="id">
+				<div class="layui-form-item">
+					<label class="layui-form-label">CDN域名</label>
+					<div class="layui-input-inline">
+						<input type="text" name="domain" id="domain" class="layui-input">
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<label class="layui-form-label">选择部署证书</label>
+					<div class="layui-input-inline">
+						<select name="certId" id="certId">
+							<#list certList as cert>
+								<option value="${cert.id}">${cert.domain}</option>
+							</#list>
+						</select>
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<label class="layui-form-label">Ali_Key</label>
+					<div class="layui-input-inline">
+						<input type="text" name="aliKey" id="aliKey" class="layui-input">
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<label class="layui-form-label">Ali_Secret</label>
+					<div class="layui-input-inline">
+						<input type="text" name="aliSecret" id="aliSecret" class="layui-input">
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<label class="layui-form-label">自动部署</label>
+					<div class="layui-input-inline">
+						<select name="autoDepley" id="autoDepley">
+							<option value="0">否</option>
+							<option value="1">是</option>
+						</select>
+					</div>
+				</div>
+
+
+				<div class="layui-form-item center">
+					<button type="button" class="layui-btn layui-btn-normal" onclick="addOver()">${commonStr.submit}</button>
+					<button type="button" class="layui-btn" onclick="layer.closeAll()">${commonStr.close}</button>
+				</div>
+
+			</form>
+		</div>
+
+	</div>
+
+
+	<#include '/adminPage/script.html'/>
+	<#include '/adminPage/select_root.html'/>
+	<script src="${ctx}/js/adminPage/cdnNode/index.js?v=${jsrandom}" type="text/javascript"></script>
+</body>
+
+
+</html>
