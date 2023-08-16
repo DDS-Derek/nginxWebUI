@@ -100,11 +100,11 @@ function checkType(value) {
 	if (value == 2) {
 		$("#encryptionDiv").show();
 	}
-	
+
 	if (value == 3) {
 		$("#encryptionDiv").show();
 	}
-	
+
 	if (value == 4) {
 		$("#encryptionDiv").show();
 	}
@@ -330,9 +330,16 @@ function del(id) {
 }
 
 
-function issue(id) {
-
+function issue(id, type) {
 	if (confirm(certStr.confirm1)) {
+
+		if (type == 4) {
+			// CDN文件验证
+			if (!confirm("请确认已在CDN配置好条件原站")) {
+				return;
+			}
+		}
+
 		layer.load();
 		$.ajax({
 			type: 'POST',
@@ -585,7 +592,7 @@ function setCdnServer() {
 				});
 			} else {
 				layer.msg(data.msg);
-			} 
+			}
 		},
 		error: function() {
 			layer.closeAll();
@@ -604,14 +611,14 @@ function setCdnServerOver() {
 		layer.msg("未填写完整");
 		return;
 	}
-	
+
 	$.ajax({
 		type: 'POST',
 		url: ctx + '/adminPage/cert/setCdnServer',
 		data: {
-			cdnDomain : cdnDomain,
-			cdnPort : cdnPort,
-			cdnUrl : cdnUrl
+			cdnDomain: cdnDomain,
+			cdnPort: cdnPort,
+			cdnUrl: cdnUrl
 		},
 		dataType: 'json',
 		success: function(data) {
@@ -627,5 +634,5 @@ function setCdnServerOver() {
 			layer.alert(commonStr.errorInfo);
 		}
 	});
-	
+
 }

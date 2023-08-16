@@ -124,7 +124,7 @@
 								<#if cert.type==0 || cert.type==2>
 									<#if cert.pem == null || cert.pem == "">
 									<div class="layui-inline">
-									<button type="button" class="layui-btn layui-btn-sm" onclick="issue('${cert.id}')">${commonStr.apply}</button>
+									<button type="button" class="layui-btn layui-btn-sm" onclick="issue('${cert.id}','${cert.type}')">${commonStr.apply}</button>
 									</div>
 									</#if>
 									 

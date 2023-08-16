@@ -193,6 +193,7 @@ public class CertController extends BaseController {
 			String domain = sb.toString();
 			// 申请
 			if (cert.getType() == 0) {
+				// dns api申请
 				String dnsType = "";
 				if (cert.getDnsType().equals("ali")) {
 					dnsType = "dns_ali";
@@ -207,12 +208,21 @@ public class CertController extends BaseController {
 				}
 				cmd = homeConfig.acmeSh + " --issue --force --dns " + dnsType + domain + keylength + " --server letsencrypt";
 			} else if (cert.getType() == 2) {
+				// DNS验证
 				if (certService.hasCode(cert.getId())) {
 					cmd = homeConfig.acmeSh + " --renew --force --dns" + domain + " --server letsencrypt --yes-I-know-dns-manual-mode-enough-go-ahead-please";
 				} else {
 					cmd = homeConfig.acmeSh + " --issue --force --dns" + domain + keylength + " --server letsencrypt --yes-I-know-dns-manual-mode-enough-go-ahead-please";
 				}
 
+			} else if (cert.getType() == 3) {
+				// AcmeDNS验证
+				
+				
+			} else if (cert.getType() == 4) {
+				// CDN文件验证
+				
+				
 			}
 		} else if (type.equals("renew")) {
 			// 续签,以第一个域名为证书名
