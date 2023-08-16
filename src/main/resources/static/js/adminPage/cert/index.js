@@ -577,7 +577,7 @@ function setCdnServer() {
 				});
 			} else {
 				layer.msg(data.msg);
-			}
+			} 
 		},
 		error: function() {
 			layer.closeAll();
