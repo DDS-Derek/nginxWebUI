@@ -179,7 +179,7 @@ public class CertController extends BaseController {
 		String rs = "";
 		String cmd = "";
 		// 设置dns账号
-		String[] env = getEnv(cert);
+		String[] envs = getEnv(cert);
 
 		if (type.equals("issue")) {
 			String[] split = cert.getDomain().split(",");
@@ -188,7 +188,7 @@ public class CertController extends BaseController {
 			String domain = sb.toString();
 			// 申请
 			if (cert.getType() == 0) {
-				// dns api申请
+				// DNS API申请
 				String dnsType = "";
 				if (cert.getDnsType().equals("ali")) {
 					dnsType = "dns_ali";
@@ -203,7 +203,7 @@ public class CertController extends BaseController {
 				}
 				cmd = homeConfig.acmeSh + " --issue --dns " + dnsType + domain + keylength + " --server letsencrypt";
 			} else if (cert.getType() == 2) {
-				// DNS txt申请
+				// DNS TXT申请
 				if (!certService.hasCode(cert.getId())) {
 					return renderError(m.get("certStr.error6"));
 				}
@@ -214,16 +214,16 @@ public class CertController extends BaseController {
 			String domain = cert.getDomain().split(",")[0];
 
 			if (cert.getType() == 0) {
-				// dns api申请
+				// DNS API申请
 				cmd = homeConfig.acmeSh + " --renew --force " + ecc + " -d " + domain;
 			} else if (cert.getType() == 2) {
-				// DNS txt申请v
+				// DNS txt申请
 				cmd = homeConfig.acmeSh + " --renew --force " + ecc + " -d " + domain + " --server letsencrypt --yes-I-know-dns-manual-mode-enough-go-ahead-please";
 			}
 		}
 		logger.info(cmd);
 
-		rs = timeExeUtils.execCMD(cmd, env, 5 * 60 * 1000);
+		rs = timeExeUtils.execCMD(cmd, envs, 5 * 60 * 1000);
 		logger.info(rs);
 
 		if (rs.contains("Your cert is in")) {
