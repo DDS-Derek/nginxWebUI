@@ -214,6 +214,7 @@ public class CertController extends BaseController {
 				// DNS验证
 				List<CertCode> certCodes = certService.getCertCodes(id);
 				if (certCodes.size() == 0) { // 查看是否获取了参数
+					isInApply = false;
 					return renderError("请先获取申请参数!");
 				}
 				
@@ -221,6 +222,7 @@ public class CertController extends BaseController {
 			} else if (cert.getType() == 3) {
 				// AcmeDNS验证
 				if (StrUtil.isEmpty(cert.getFulldomain())) { // 查看是否获取了参数
+					isInApply = false;
 					return renderError("请先获取申请参数!");
 				}
 				
@@ -265,11 +267,10 @@ public class CertController extends BaseController {
 				confController.reload(null, null, null);
 			}
 
-			isInApply = false;
-
 			// 如果关联cdn节点, 上传到cdn节点
 			sendToCdnNde(cert.getId());
-
+			
+			isInApply = false;
 			return renderSuccess();
 		} else {
 			isInApply = false;
