@@ -281,10 +281,10 @@ public class CertController extends BaseController {
 
 	private String[] getDnsEnv(Cert cert) {
 		List<String> list = new ArrayList<>();
-		list.add("ACMEDNS_BASE_URL=" + settingService.get("dnsServer") + "update");
+		list.add("ACMEDNS_BASE_URL=" + settingService.get("dnsServer"));
 		list.add("ACMEDNS_USERNAME=" + cert.getUsername());
 		list.add("ACMEDNS_PASSWORD=" + cert.getPassword());
-		list.add("FULLDOMAIN=" + cert.getFulldomain());
+		list.add("ACMEDNS_SUBDOMAIN=" + cert.getSubdomain());
 
 		return list.toArray(new String[] {});
 	}
