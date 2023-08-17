@@ -147,13 +147,6 @@
 								<button type="button" class="layui-btn layui-btn-sm" onclick="edit('${cert.id}')">${commonStr.edit}</button> 
 								</div>
 								
-								<!-- 
-								<#if cert.type == 2>
-									<div class="layui-inline">
-									<button type="button" class="layui-btn layui-btn-normal layui-btn-sm" onclick="getTxtValue('${cert.id}')">${certStr.hostRecords}</button>
-									</div>
-								</#if>
-								 -->
 								
 								<#if cert.pem != null && cert.pem!='' && cert.key != null && cert.key!=''>
 									<div class="layui-inline">

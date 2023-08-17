@@ -62,7 +62,7 @@ public class CertController extends BaseController {
 		page = certService.getPage(keywords, page);
 
 		for (Cert cert : (List<Cert>) page.getRecords()) {
-			if (cert.getType() == 0 || cert.getType() == 2) {
+			if (cert.getType() == 0 || cert.getType() == 2 || cert.getType() == 3 || cert.getType() == 4) {
 				cert.setDomain(cert.getDomain() + "(" + cert.getEncryption() + ")");
 			}
 
@@ -212,9 +212,18 @@ public class CertController extends BaseController {
 				cmd = homeConfig.acmeSh + " --issue --dns " + dnsType + domain + keylength + " --server letsencrypt";
 			} else if (cert.getType() == 2) {
 				// DNS验证
+				List<CertCode> certCodes = certService.getCertCodes(id);
+				if (certCodes.size() == 0) { // 查看是否获取了参数
+					return renderError("请先获取申请参数!");
+				}
+				
 				cmd = homeConfig.acmeSh + " --renew --force " + domain + keylength + " --server letsencrypt --yes-I-know-dns-manual-mode-enough-go-ahead-please";
 			} else if (cert.getType() == 3) {
 				// AcmeDNS验证
+				if (StrUtil.isEmpty(cert.getFulldomain())) { // 查看是否获取了参数
+					return renderError("请先获取申请参数!");
+				}
+				
 				envs = getDnsEnv(cert);
 				cmd = homeConfig.acmeSh + " --issue --dns dns_acmedns" + domain + keylength + " --server letsencrypt";
 			} else if (cert.getType() == 4) {
