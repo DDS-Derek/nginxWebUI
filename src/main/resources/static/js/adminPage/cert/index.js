@@ -91,7 +91,6 @@ function setCa(){
 }
 
 function setCaOver(){
-	
 	if($("#caType").val() == 'zerossl' ){
 		if($("#eabKid").val() == '' || $("#eabHmacKey").val() == ''){
 			layer.msg("未填写完整");
@@ -106,6 +105,7 @@ function setCaOver(){
 		dataType: 'json',
 		success: function(data) {
 			if (data.success) {
+				layer.closeAll();
 				layer.alert(data.obj);
 			} else {
 				layer.msg(data.msg);

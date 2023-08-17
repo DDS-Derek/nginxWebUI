@@ -501,7 +501,7 @@ public class CertController extends BaseController {
 			RuntimeUtil.exec(cmd);
 		}
 
-		String html = "";
+		String html = "<span>已执行命令:</span><br>";
 		for (String cmd : cmdList) {
 			html += "<span class='blue'>" + cmd + "</span><br>";
 		}
