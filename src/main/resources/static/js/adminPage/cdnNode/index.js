@@ -125,7 +125,7 @@ function deploy(id) {
 						location.reload();
 					});
 				} else {
-					layer.msg(data.msg)
+					layer.alert(data.msg)
 				}
 			},
 			error: function() {
