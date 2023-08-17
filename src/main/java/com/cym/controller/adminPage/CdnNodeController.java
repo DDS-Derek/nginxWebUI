@@ -26,6 +26,7 @@ import com.cym.utils.JsonResult;
 
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.util.StrUtil;
+import cn.hutool.json.JSONUtil;
 
 @Mapping("/adminPage/cdnNode")
 @Controller
@@ -95,6 +96,8 @@ public class CdnNodeController extends BaseController {
 			request.setSSLPub(FileUtil.readString(cert.getPem(), Charset.forName("utf-8")));
 			request.setSSLPri(FileUtil.readString(cert.getKey(), Charset.forName("utf-8")));
 
+			logger.info(JSONUtil.toJsonPrettyStr(request));
+			
 			SetCdnDomainSSLCertificateResponse response = client.setCdnDomainSSLCertificate(request);
 
 			Map<String, Object> map = response.getBody().toMap();
