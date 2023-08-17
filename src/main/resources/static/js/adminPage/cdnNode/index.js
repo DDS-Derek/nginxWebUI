@@ -8,14 +8,30 @@ function search() {
 }
 
 function add() {
-	$("#id").val("");
-	$("#domain").val("");
-	$("#certId option:first").prop("selected", true);
-	$("#aliKey").val("");
-	$("#aliSecret").val("");
-	$("#autoDeploy option:first").prop("selected", true);
+	$.ajax({
+		type: 'POST',
+		url: ctx + '/adminPage/cdnNode/getAliKey',
+		data: $('#addForm').serialize(),
+		dataType: 'json',
+		success: function(data) {
+			if (data.success) {
+				$("#aliKey").val(data.obj.aliKey);
+				$("#aliSecret").val(data.obj.aliSecret);
+				
+				$("#id").val("");
+				$("#domain").val("");
+				$("#certId option:first").prop("selected", true);
+				$("#autoDeploy option:first").prop("selected", true);
 
-	showWindow("添加节点");
+				showWindow("添加节点");
+			} else {
+				layer.msg(data.msg);
+			}
+		},
+		error: function() {
+			layer.alert(commonStr.errorInfo);
+		}
+	});
 }
 
 

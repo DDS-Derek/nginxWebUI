@@ -2,6 +2,7 @@ package com.cym.controller.adminPage;
 
 import java.nio.charset.Charset;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -20,6 +21,7 @@ import com.cym.model.CdnNode;
 import com.cym.model.Cert;
 import com.cym.service.CdnNodeService;
 import com.cym.service.CertService;
+import com.cym.service.SettingService;
 import com.cym.sqlhelper.bean.Page;
 import com.cym.utils.BaseController;
 import com.cym.utils.JsonResult;
@@ -36,6 +38,8 @@ public class CdnNodeController extends BaseController {
 	CdnNodeService cdnNodeService;
 	@Inject
 	CertService certService;
+	@Inject
+	SettingService settingService;
 
 	@Mapping("")
 	public ModelAndView index(ModelAndView modelAndView, Page page) {
@@ -60,9 +64,24 @@ public class CdnNodeController extends BaseController {
 		return modelAndView;
 	}
 
+	@Mapping("getAliKey")
+	public JsonResult getAliKey() {
+		Map<String, String> map = new HashMap<>();
+
+		map.put("aliKey", settingService.get("aliKey"));
+		map.put("aliSecret", settingService.get("aliSecret"));
+
+		return renderSuccess(map);
+	}
+
 	@Mapping("addOver")
-	public JsonResult addOver(CdnNode CdnNode) {
-		sqlHelper.insertOrUpdate(CdnNode);
+	public JsonResult addOver(CdnNode cdnNode) {
+		sqlHelper.insertOrUpdate(cdnNode);
+
+		// 保存alikey
+		settingService.set("aliKey", cdnNode.getAliKey());
+		settingService.set("aliSecret", cdnNode.getAliSecret());
+
 		return renderSuccess();
 	}
 
@@ -90,14 +109,12 @@ public class CdnNodeController extends BaseController {
 			SetCdnDomainSSLCertificateRequest request = new SetCdnDomainSSLCertificateRequest();
 			request.setDomainName(cdnNode.getDomain());
 			request.setSSLProtocol("on");
-//			request.setCertId(Long.parseLong(cert.getId()));
-//			request.setCertName(cert.getDomain());
 			request.setCertType("upload");
 			request.setSSLPub(FileUtil.readString(cert.getPem(), Charset.forName("utf-8")));
 			request.setSSLPri(FileUtil.readString(cert.getKey(), Charset.forName("utf-8")));
 
 			logger.info(JSONUtil.toJsonPrettyStr(request));
-			
+
 			SetCdnDomainSSLCertificateResponse response = client.setCdnDomainSSLCertificate(request);
 
 			Map<String, Object> map = response.getBody().toMap();

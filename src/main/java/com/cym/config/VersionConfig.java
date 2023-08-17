@@ -34,7 +34,14 @@ public class VersionConfig  {
 
 	@Init
 	public void afterInjection() {
-		checkVersion();
+		//checkVersion();
+		
+		// 获取版本号
+		try {
+			currentVersion = getFromPom();
+		} catch (Exception e) {
+			logger.info(e.getMessage(), e);
+		}
 	}
 
 	public void checkVersion(){
