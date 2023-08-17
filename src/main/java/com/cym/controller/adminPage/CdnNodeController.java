@@ -90,7 +90,7 @@ public class CdnNodeController extends BaseController {
 			SetCdnDomainSSLCertificateRequest request = new SetCdnDomainSSLCertificateRequest();
 			request.setDomainName(cdnNode.getDomain());
 			request.setSSLProtocol("on");
-			request.setCertId(Long.parseLong(cert.getId()));
+//			request.setCertId(Long.parseLong(cert.getId()));
 			request.setCertName(cert.getDomain());
 			request.setCertType("upload");
 			request.setSSLPub(FileUtil.readString(cert.getPem(), Charset.forName("utf-8")));
