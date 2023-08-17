@@ -101,7 +101,7 @@
 				<div class="layui-form-item">
 					<label class="layui-form-label">选择证书</label>
 					<div class="layui-input-inline">
-						<select name="certId" id="certId">
+						<select name="certId" id="certId" lay-search>
 							<#list certList as cert>
 								<option value="${cert.id}">${cert.domain}</option>
 							</#list>

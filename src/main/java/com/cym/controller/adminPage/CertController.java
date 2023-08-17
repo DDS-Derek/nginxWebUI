@@ -209,7 +209,7 @@ public class CertController extends BaseController {
 				} else if (cert.getDnsType().equals("hw")) {
 					dnsType = "dns_huaweicloud";
 				}
-				cmd = homeConfig.acmeSh + " --issue --dns " + dnsType + domain + keylength + " --server letsencrypt";
+				cmd = homeConfig.acmeSh + " --issue --dns " + dnsType + domain + keylength;
 			} else if (cert.getType() == 2) {
 				// DNS验证
 				List<CertCode> certCodes = certService.getCertCodes(id);
@@ -218,7 +218,7 @@ public class CertController extends BaseController {
 					return renderError("请先获取申请参数!");
 				}
 				
-				cmd = homeConfig.acmeSh + " --renew --force " + domain + keylength + " --server letsencrypt --yes-I-know-dns-manual-mode-enough-go-ahead-please";
+				cmd = homeConfig.acmeSh + " --renew --force " + domain + keylength + " --yes-I-know-dns-manual-mode-enough-go-ahead-please";
 			} else if (cert.getType() == 3) {
 				// AcmeDNS验证
 				if (StrUtil.isEmpty(cert.getFulldomain())) { // 查看是否获取了参数
@@ -227,10 +227,10 @@ public class CertController extends BaseController {
 				}
 				
 				envs = getDnsEnv(cert);
-				cmd = homeConfig.acmeSh + " --issue --dns dns_acmedns" + domain + keylength + " --server letsencrypt";
+				cmd = homeConfig.acmeSh + " --issue --dns dns_acmedns" + domain + keylength;
 			} else if (cert.getType() == 4) {
 				// CDN文件验证
-				cmd = homeConfig.acmeSh + " --issue" + domain + keylength + " --server letsencrypt --webroot " + settingService.get("cdnUrl");
+				cmd = homeConfig.acmeSh + " --issue" + domain + keylength + " --webroot " + settingService.get("cdnUrl");
 			}
 		} else if (type.equals("renew")) {
 			// 续签,以第一个域名为证书名
@@ -239,7 +239,7 @@ public class CertController extends BaseController {
 			if (cert.getType() == 0 || cert.getType() == 3 || cert.getType() == 4) {
 				cmd = homeConfig.acmeSh + " --renew --force " + ecc + " -d " + domain;
 			} else if (cert.getType() == 2) {
-				cmd = homeConfig.acmeSh + " --renew --force " + ecc + " -d " + domain + " --server letsencrypt --yes-I-know-dns-manual-mode-enough-go-ahead-please";
+				cmd = homeConfig.acmeSh + " --renew --force " + ecc + " -d " + domain + " --yes-I-know-dns-manual-mode-enough-go-ahead-please";
 			}
 		}
 		logger.info(cmd);
@@ -346,7 +346,7 @@ public class CertController extends BaseController {
 				Arrays.stream(split).forEach(s -> sb.append(" -d ").append(s));
 				String domain = sb.toString();
 
-				String cmd = homeConfig.acmeSh + " --issue --dns" + domain + keylength + " --server letsencrypt --yes-I-know-dns-manual-mode-enough-go-ahead-please";
+				String cmd = homeConfig.acmeSh + " --issue --dns" + domain + keylength + " --yes-I-know-dns-manual-mode-enough-go-ahead-please";
 				logger.info(cmd);
 				String rs = timeExeUtils.execCMD(cmd, new String[] {}, 5 * 60 * 1000);
 				logger.info(rs);
