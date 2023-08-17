@@ -69,7 +69,7 @@ public class ServerService {
 		return sqlHelper.findListByQuery(new ConditionAndWrapper().eq("serverId", serverId), Location.class);
 	}
 
-	public void addOver(Server server, String serverParamJson, List<Location> locations) throws Exception {
+	public void addOver(Server server, String serverParamJson, List<Location> locations) {
 
 		if (server.getDef() != null && server.getDef() == 1) {
 			clearDef();

@@ -166,11 +166,7 @@ public class ServerController extends BaseController {
 		}
 
 		if (server.getProxyType() == 0) {
-			try {
-				serverService.addOver(server, serverParamJson, locations);
-			} catch (Exception e) {
-				return renderError(e.getMessage());
-			}
+			serverService.addOver(server, serverParamJson, locations);
 		} else {
 			serverService.addOverTcp(server, serverParamJson);
 		}
@@ -208,7 +204,6 @@ public class ServerController extends BaseController {
 
 		return renderSuccess();
 	}
-
 
 	@Mapping("importServer")
 	public JsonResult importServer(String nginxPath) {
@@ -284,7 +279,7 @@ public class ServerController extends BaseController {
 				if (http.getEnable() == null || !http.getEnable()) {
 					continue;
 				}
-				
+
 				NgxParam ngxParam = new NgxParam();
 				ngxParam.addValue(http.getName().trim() + " " + http.getValue().trim());
 				ngxBlock.addEntry(ngxParam);
