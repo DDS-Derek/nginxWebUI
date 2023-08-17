@@ -33,6 +33,7 @@ import com.cym.utils.SystemTool;
 import com.cym.utils.TimeExeUtils;
 
 import cn.hutool.core.io.FileUtil;
+import cn.hutool.core.util.RuntimeUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.core.util.ZipUtil;
 import cn.hutool.http.HttpUtil;
@@ -217,7 +218,7 @@ public class CertController extends BaseController {
 					isInApply = false;
 					return renderError("请先获取申请参数!");
 				}
-				
+
 				cmd = homeConfig.acmeSh + " --renew --force " + domain + keylength + " --yes-I-know-dns-manual-mode-enough-go-ahead-please";
 			} else if (cert.getType() == 3) {
 				// AcmeDNS验证
@@ -225,7 +226,7 @@ public class CertController extends BaseController {
 					isInApply = false;
 					return renderError("请先获取申请参数!");
 				}
-				
+
 				envs = getDnsEnv(cert);
 				cmd = homeConfig.acmeSh + " --issue --dns dns_acmedns" + domain + keylength;
 			} else if (cert.getType() == 4) {
@@ -269,7 +270,7 @@ public class CertController extends BaseController {
 
 			// 如果关联cdn节点, 上传到cdn节点
 			sendToCdnNde(cert.getId());
-			
+
 			isInApply = false;
 			return renderSuccess();
 		} else {
@@ -482,4 +483,30 @@ public class CertController extends BaseController {
 		settingService.set("cdnUrl", cdnUrl);
 		return renderSuccess();
 	}
+
+	@Mapping("setCa")
+	public JsonResult setCa(String caType, String eabKid, String eabHmacKey) {
+		List<String> cmdList = new ArrayList<>();
+		if (caType.equals("letsencrypt")) {
+			String cmd = homeConfig.acmeSh + " --set-default-ca --server letsencrypt";
+			cmdList.add(cmd);
+			RuntimeUtil.exec(cmd);
+		} else if (caType.equals("zerossl")) {
+			String cmd = homeConfig.acmeSh + " --set-default-ca --server zerossl";
+			cmdList.add(cmd);
+			RuntimeUtil.exec(cmd);
+
+			cmd = homeConfig.acmeSh + " --register-account --server zerossl --eab-kid " + eabKid + " --eab-hmac-key " + eabHmacKey;
+			cmdList.add(cmd);
+			RuntimeUtil.exec(cmd);
+		}
+
+		String html = "";
+		for (String cmd : cmdList) {
+			html += "<span class='blue'>" + cmd + "</span><br>";
+		}
+
+		return renderSuccess(html);
+	}
+
 }

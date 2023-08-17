@@ -68,7 +68,42 @@ $(function() {
 	form.on('select(type)', function(data) {
 		checkType(data.value);
 	});
+	
+	form.on('select(caType)', function(data) {
+		$("#caKey").hide();
+		if(value == 'zerossl'){
+			$("#caKey").show();
+		}
+	});
 })
+
+
+function setCaOver(){
+	
+	if($("#caType").val() == 'zerossl' ){
+		if($("#eabKid").val() == '' || $("#eabHmacKey").val() == ''){
+			layer.msg("未填写完整");
+			return;
+		}
+	}
+	
+	$.ajax({
+		type: 'POST',
+		url: ctx + '/adminPage/cert/setCa',
+		data: $('#caForm').serialize(),
+		dataType: 'json',
+		success: function(data) {
+			if (data.success) {
+				layer.alert(data.obj);
+			} else {
+				layer.msg(data.msg);
+			}
+		},
+		error: function() {
+			layer.alert(commonStr.errorInfo);
+		}
+	});
+}
 
 function search() {
 	$("#searchForm").submit();
