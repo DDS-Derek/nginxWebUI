@@ -120,7 +120,10 @@ function deploy(id) {
 			success: function(data) {
 				closeLoad();
 				if (data.success) {
-					layer.msg("部署成功")
+					layer.alert("部署成功", function(index) {
+						layer.close(index);
+						location.reload();
+					});
 				} else {
 					layer.msg(data.msg)
 				}
