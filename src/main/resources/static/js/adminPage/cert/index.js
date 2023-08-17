@@ -71,12 +71,24 @@ $(function() {
 	
 	form.on('select(caType)', function(data) {
 		$("#caKey").hide();
-		if(value == 'zerossl'){
+		if(data.value == 'zerossl'){
 			$("#caKey").show();
 		}
 	});
 })
 
+function setCa(){
+	$("#caType option:first").prop("selected", true);
+	$("#eabKid").val("");
+	$("#eabHmacKey").val("");
+	
+	layer.open({
+		type: 1,
+		title: "设置默认ca",
+		area: ['500px', '400px'], // 宽高
+		content: $('#caDiv')
+	});
+}
 
 function setCaOver(){
 	
