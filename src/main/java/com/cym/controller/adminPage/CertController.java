@@ -205,6 +205,7 @@ public class CertController extends BaseController {
 			} else if (cert.getType() == 2) {
 				// DNS TXT申请
 				if (!certService.hasCode(cert.getId())) {
+					isInApply = false;
 					return renderError(m.get("certStr.error6"));
 				}
 				cmd = homeConfig.acmeSh + " --renew --force --dns" + domain + " --server letsencrypt --yes-I-know-dns-manual-mode-enough-go-ahead-please";
