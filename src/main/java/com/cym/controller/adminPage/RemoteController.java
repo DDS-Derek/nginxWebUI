@@ -31,6 +31,7 @@ import com.cym.service.GroupService;
 import com.cym.service.RemoteService;
 import com.cym.service.SettingService;
 import com.cym.utils.BaseController;
+import com.cym.utils.GzipStrUtils;
 import com.cym.utils.JsonResult;
 import com.cym.utils.NginxUtils;
 import com.cym.utils.SystemTool;
@@ -387,7 +388,7 @@ public class RemoteController extends BaseController {
 					if (StrUtil.isNotEmpty(version)) {
 						// 在线
 						Map<String, Object> map = new HashMap<>();
-						map.put("json", json);
+						map.put("json", GzipStrUtils.compress(json));
 						HttpUtil.post(remoteTo.getProtocol() + "://" + remoteTo.getIp() + ":" + remoteTo.getPort() + "/adminPage/remote/setAsycPack?creditKey=" + remoteTo.getCreditKey()
 								+ "&adminName=" + adminName, map);
 					}
@@ -409,8 +410,8 @@ public class RemoteController extends BaseController {
 
 	@Mapping("setAsycPack")
 	public JsonResult setAsycPack(String json, String adminName) {
-		AsycPack asycPack = JSONUtil.toBean(json, AsycPack.class);
-		
+		AsycPack asycPack = JSONUtil.toBean(GzipStrUtils.unCompress(json), AsycPack.class);
+
 		confService.setAsycPack(asycPack);
 
 		return renderSuccess();
@@ -497,7 +498,7 @@ public class RemoteController extends BaseController {
 	}
 
 	@Mapping("change")
-	public JsonResult change(String id,Context context) {
+	public JsonResult change(String id, Context context) {
 		Remote remote = sqlHelper.findById(id, Remote.class);
 
 		if (remote == null) {
