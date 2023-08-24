@@ -379,7 +379,7 @@ public class RemoteController extends BaseController {
 
 		for (String remoteToId : remoteId) {
 			if (remoteToId.equals("local") || remoteToId.equals("本地")) {
-				setAsycPack(json, adminName);
+				setAsycPack(GzipStrUtils.compress(json), adminName);
 			} else {
 				Remote remoteTo = sqlHelper.findById(remoteToId, Remote.class);
 				try {
