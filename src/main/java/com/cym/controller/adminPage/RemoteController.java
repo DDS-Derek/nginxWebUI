@@ -31,6 +31,7 @@ import com.cym.service.GroupService;
 import com.cym.service.RemoteService;
 import com.cym.service.SettingService;
 import com.cym.utils.BaseController;
+import com.cym.utils.GzipStrUtils;
 import com.cym.utils.JsonResult;
 import com.cym.utils.NginxUtils;
 import com.cym.utils.SystemTool;
@@ -378,7 +379,7 @@ public class RemoteController extends BaseController {
 
 		for (String remoteToId : remoteId) {
 			if (remoteToId.equals("local") || remoteToId.equals("本地")) {
-				setAsycPack(json, adminName);
+				setAsycPack(GzipStrUtils.compress(json), adminName);
 			} else {
 				Remote remoteTo = sqlHelper.findById(remoteToId, Remote.class);
 				try {
@@ -387,7 +388,7 @@ public class RemoteController extends BaseController {
 					if (StrUtil.isNotEmpty(version)) {
 						// 在线
 						Map<String, Object> map = new HashMap<>();
-						map.put("json", json);
+						map.put("json", GzipStrUtils.compress(json));
 						HttpUtil.post(remoteTo.getProtocol() + "://" + remoteTo.getIp() + ":" + remoteTo.getPort() + "/adminPage/remote/setAsycPack?creditKey=" + remoteTo.getCreditKey()
 								+ "&adminName=" + adminName, map);
 					}
@@ -409,7 +410,7 @@ public class RemoteController extends BaseController {
 
 	@Mapping("setAsycPack")
 	public JsonResult setAsycPack(String json, String adminName) {
-		AsycPack asycPack = JSONUtil.toBean(json, AsycPack.class);
+		AsycPack asycPack = JSONUtil.toBean(GzipStrUtils.unCompress(json), AsycPack.class);
 		
 		confService.setAsycPack(asycPack);
 
