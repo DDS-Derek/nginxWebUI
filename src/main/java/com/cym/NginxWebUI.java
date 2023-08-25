@@ -91,8 +91,6 @@ public class NginxWebUI {
 			List<String> list = RuntimeUtil.execForLines("/bin/sh", "-c", "ps -ef | grep nginxWebUI");
 
 			for (String line : list) {
-				System.out.println(line);
-
 				if (line.contains("grep") || StrUtil.isEmpty(line.trim())) {
 					continue;
 				}
