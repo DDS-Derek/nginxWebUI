@@ -42,7 +42,7 @@ public class TestUtils extends HttpTester {
 	}
 
 	public static void main(String[] args) {
-		List<String> list = RuntimeUtil.execForLines("wmic process get caption,commandline ");
+		List<String> list = RuntimeUtil.execForLines("wmic process where \"CommandLine like '%nginxWebUI%'\" get ProcessId,CommandLine");
 		
 		for(String str:list) {
 			System.err.println(str);

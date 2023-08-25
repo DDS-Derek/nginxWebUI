@@ -19,6 +19,7 @@ import com.cym.utils.SystemTool;
 
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.util.RuntimeUtil;
+import cn.hutool.core.util.StrUtil;
 
 @EnableScheduling
 @SolonMain
@@ -62,23 +63,48 @@ public class NginxWebUI {
 		RuntimeMXBean runtimeMXBean = ManagementFactory.getRuntimeMXBean();
 		String myPid = runtimeMXBean.getName().split("@")[0];
 
-		List<String> list = new ArrayList<String>();
-
-		list = RuntimeUtil.execForLines("jps", "-l");
-		for (String line : list) {
-			if (line.contains("nginxWebUI") && line.contains(".jar")) {
-				String pid = line.split("\\s+")[0].trim();
-				if (!pid.equals(myPid)) {
-					logger.info("杀掉旧进程:" + pid);
-					if (SystemTool.isWindows()) {
-						RuntimeUtil.exec("taskkill /im " + pid + " /f");
-					} else if (SystemTool.isLinux()) {
-						RuntimeUtil.exec("kill -9 " + pid);
-					}
+		List<String> pids = getProcessId();
+		for (String pid : pids) {
+			if (!pid.equals(myPid)) {
+				logger.info("杀掉旧进程:" + pid);
+				if (SystemTool.isWindows()) {
+					RuntimeUtil.exec("taskkill /im " + pid + " /f");
+				} else if (SystemTool.isLinux()) {
+					RuntimeUtil.exec("kill -9 " + pid);
 				}
 			}
 		}
 
+	}
+
+	private static List<String> getProcessId() {
+		List<String> pids = new ArrayList<>();
+
+		if (SystemTool.isWindows()) {
+			List<String> list = RuntimeUtil.execForLines("wmic process where \"CommandLine like '%nginxWebUI%'\" get ProcessId,CommandLine");
+
+			for (String line : list) {
+				if (line.contains("CommandLine") || line.contains("wmic") || StrUtil.isEmpty(line.trim())) {
+					continue;
+				}
+
+				String[] lines = line.split("\\s+");
+				pids.add(lines[lines.length - 1]);
+			}
+		} else {
+			List<String> list = RuntimeUtil.execForLines("ps -ef|grep nginxWebUI");
+
+			for (String line : list) {
+				if (line.contains("grep")) {
+					continue;
+				}
+
+				String[] lines = line.split("\\s+");
+				pids.add(lines[1]);
+			}
+		}
+
+		return pids;
 	}
 
 	private static void removeJar() {
