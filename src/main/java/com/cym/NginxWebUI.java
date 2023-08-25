@@ -88,13 +88,14 @@ public class NginxWebUI {
 				pids.add(lines[lines.length - 1]);
 			}
 		} else {
-			List<String> list = RuntimeUtil.execForLines("ps -ef|grep nginxWebUI");
+			List<String> list = RuntimeUtil.execForLines("ps -ef \\u007C grep nginxWebUI");
 
 			for (String line : list) {
-				if (line.contains("grep")) {
+				System.out.println(line);
+				
+				if (line.contains("grep") || StrUtil.isEmpty(line.trim())) {
 					continue;
 				}
-
 				String[] lines = line.split("\\s+");
 				pids.add(lines[1]);
 			}
