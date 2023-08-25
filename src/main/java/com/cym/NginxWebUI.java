@@ -38,8 +38,6 @@ public class NginxWebUI {
 		}
 
 		Solon.start(NginxWebUI.class, args, app -> {
-			LogUtil.globalSet(new LogUtilToSlf4j());
-
 			app.onError(e -> logger.error(e.getMessage(), e));
 
 			app.before(c -> {
@@ -54,8 +52,6 @@ public class NginxWebUI {
 				cfg.setSetting("classic_compatible", "true");
 				cfg.setSetting("number_format", "0.##");
 			});
-
-			app.router().caseSensitive(true);
 		});
 	}
 
