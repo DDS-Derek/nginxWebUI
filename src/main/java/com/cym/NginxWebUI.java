@@ -53,7 +53,7 @@ public class NginxWebUI {
 				cfg.setSetting("classic_compatible", "true");
 				cfg.setSetting("number_format", "0.##");
 			});
-			
+
 			app.router().caseSensitive(true);
 		});
 	}
@@ -64,7 +64,7 @@ public class NginxWebUI {
 
 		List<String> list = new ArrayList<String>();
 
-		list = RuntimeUtil.execForLines("jps");
+		list = RuntimeUtil.execForLines("jps", "-l");
 		for (String line : list) {
 			if (line.contains("nginxWebUI") && line.contains(".jar")) {
 				String pid = line.split("\\s+")[0].trim();
@@ -80,7 +80,6 @@ public class NginxWebUI {
 		}
 
 	}
-
 
 	private static void removeJar() {
 		File[] list = new File(JarUtil.getCurrentFilePath()).getParentFile().listFiles();
