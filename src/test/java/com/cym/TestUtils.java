@@ -42,9 +42,11 @@ public class TestUtils extends HttpTester {
 	}
 
 	public static void main(String[] args) {
-		String line = "root     28283 10100  0 14:08 pts/2    00:00:00 grep --color=auto nginxWebUI";
-		String[] lines = line.split("\\s+");
-		System.out.println(lines);
+		List<String> list = RuntimeUtil.execForLines("/bin/sh", "-c", "ps -ef | grep nginxWebUI");
+
+		for (String line : list) {
+			System.out.println(line);
+		}
 	}
 
 }
