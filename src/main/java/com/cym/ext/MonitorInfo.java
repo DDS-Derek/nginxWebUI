@@ -14,14 +14,12 @@ public class MonitorInfo {
 	/** 总的物理内存. */
 	private String totalMemorySize;
 
-//	/** 剩余的物理内存. */
-//	private String freePhysicalMemorySize;
-
 	/** 已使用的物理内存. */
 	private String usedMemory;
 
 	/** cpu使用率. */
 	private String cpuRatio;
+	
 	/** 内存使用率. */
 	private String memRatio;
 

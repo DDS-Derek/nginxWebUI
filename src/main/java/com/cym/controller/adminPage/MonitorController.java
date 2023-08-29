@@ -51,8 +51,8 @@ public class MonitorController extends BaseController {
 		return modelAndView;
 	}
 
-	@Mapping("check")
-	public JsonResult check() {
+	@Mapping("load")
+	public JsonResult load() {
 
 		MonitorInfo monitorInfo = monitorService.getMonitorInfoOshi();
 
