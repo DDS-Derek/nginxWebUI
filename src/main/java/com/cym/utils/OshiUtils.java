@@ -204,7 +204,6 @@ public final class OshiUtils {
 		}
 	}
 
-	
 	/**
 	 * <p>
 	 * 获取网卡信息
@@ -224,10 +223,14 @@ public final class OshiUtils {
 				NetDomain.NetInterfaceDomain netInterfaceDomain = new NetDomain.NetInterfaceDomain();
 				// 网卡地址
 				String[] iPv4addr = net.getIPv4addr();
+				// 掩码长度
+//				Short[] subnetMasks = net.getSubnetMasks();
 				// MAC地址
 				String macAddr = net.getMacaddr().toUpperCase();
 				// 网卡名字
 				String netName = net.getName();
+				// 网卡描述信息
+//				String displayName = net.getDisplayName();
 				// 是否忽略此网卡
 				if (ignore(iPv4addr, macAddr, netName)) {
 					continue;
@@ -247,6 +250,23 @@ public final class OshiUtils {
 				net.updateAttributes();
 				long rxBytesEnd = net.getBytesRecv();
 				long txBytesEnd = net.getBytesSent();
+				// 网卡配置
+				netInterfaceDomain.setName(net.getName());
+				netInterfaceDomain.setType("Ethernet");
+				netInterfaceDomain.setAddress(iPv4addr[0]);
+//				netInterfaceDomain.setMask(Ipv4Util.getMaskByMaskBit(subnetMasks[0]));
+//				netInterfaceDomain.setBroadcast(Ipv4Util.getEndIpStr(iPv4addr[0], (int) subnetMasks[0]));
+//				netInterfaceDomain.setHwAddr(macAddr);
+//				netInterfaceDomain.setDescription(displayName);
+//				// 网卡状态
+//				netInterfaceDomain.setRxBytes(net.getBytesRecv());
+//				netInterfaceDomain.setRxDropped(net.getInDrops());
+//				netInterfaceDomain.setRxErrors(net.getInErrors());
+//				netInterfaceDomain.setRxPackets(net.getPacketsRecv());
+//				netInterfaceDomain.setTxBytes(net.getBytesSent());
+//				netInterfaceDomain.setTxDropped(net.getCollisions());
+//				netInterfaceDomain.setTxErrors(net.getOutErrors());
+//				netInterfaceDomain.setTxPackets(net.getPacketsSent());
 
 				// 1Byte=8bit
 				double rxBps = (double) (rxBytesEnd - rxBytesStart) / ((double) (end - start) / 1000);
