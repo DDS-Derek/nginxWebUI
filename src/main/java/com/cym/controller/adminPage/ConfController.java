@@ -151,18 +151,6 @@ public class ConfController extends BaseController {
 		return jsonObject.toStringPretty();
 	}
 	
-	public static void main(String[] args) {
-//		String key = "1234567890123456";
-//		String code = SecureUtil.aes(key.getBytes()).encryptBase64("123321321321321312321++++++4324erwrewrewrew========");
-//		System.out.println(code);
-//		System.out.println(SecureUtil.aes(key.getBytes()).decryptStr(code));
-		
-		String code = Base64.encode("123321321321321312321++++++4324erwrewrewrew====`~~~~~~~====");
-		System.out.println(code);
-		System.out.println(Base64.decodeStr(code));
-		
-		
-	}
 
 	/**
 	 * 检查数据库内部配置
@@ -233,12 +221,10 @@ public class ConfController extends BaseController {
 
 		JSONObject jsonObject = JSONUtil.parseObj(json);
 		String nginxContent = Base64.decodeStr(jsonObject.getStr("nginxContent"), CharsetUtil.CHARSET_UTF_8);
-//		nginxContent = URLDecoder.decode(nginxContent, CharsetUtil.CHARSET_UTF_8).replace("<wave>", "~");
 
 		List<String> subContent = jsonObject.getJSONArray("subContent").toList(String.class);
 		for (int i = 0; i < subContent.size(); i++) {
 			String content = Base64.decodeStr(subContent.get(i), CharsetUtil.CHARSET_UTF_8);
-//			content = URLDecoder.decode(content, CharsetUtil.CHARSET_UTF_8).replace("<wave>", "~");
 			subContent.set(i, content);
 		}
 
