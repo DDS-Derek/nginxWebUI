@@ -76,10 +76,16 @@ public class CertController extends BaseController {
 			Cert certOrg = sqlHelper.findById(cert.getId(), Cert.class);
 			type = certOrg.getType();
 		}
-
+		
+		String domain = cert.getDomain();
+		if (StrUtil.isEmpty(domain) && StrUtil.isNotEmpty(cert.getId())) {
+			Cert certOrg = sqlHelper.findById(cert.getId(), Cert.class);
+			domain = certOrg.getDomain();
+		}
+		
 		if (type != null && type == 1) {
 			// 手动上传
-			String dir = homeConfig.home + "cert/" + cert.getDomain() + "/";
+			String dir = homeConfig.home + "cert/" + domain + "/";
 
 			if (cert.getKey().contains(FileUtil.getTmpDir().toString().replace("\\", "/"))) {
 				String keyName = new File(cert.getKey()).getName();
