@@ -50,11 +50,6 @@ public class LoginController extends BaseController {
 
 	@Mapping("")
 	public ModelAndView admin(ModelAndView modelAndView, String adminId) {
-//		System.out.println("tcp ip:" + Context.current().ip());
-//		System.out.println("X-Real-IP ip:" + Context.current().header("X-Real-IP"));
-//		System.out.println("X-Forwarded-For ip:" + Context.current().header("X-Forwarded-For"));
-//		System.out.println("X-Forwarded-Host ip:" + Context.current().header("X-Forwarded-Host"));
-		
 		modelAndView.put("adminCount", sqlHelper.findAllCount(Admin.class));
 		modelAndView.view("/adminPage/login/index.html");
 		return modelAndView;
