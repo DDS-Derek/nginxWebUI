@@ -178,7 +178,6 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.8.1</version>
 				<configuration>
 					<compilerArgument>-parameters</compilerArgument>
 					<source>1.8</source>
@@ -190,7 +189,6 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-assembly-plugin</artifactId>
-				<version>3.3.0</version>
 				<configuration>
 					<finalName>${project.name}-${project.version}</finalName>
 					<appendAssemblyId>false</appendAssemblyId>
