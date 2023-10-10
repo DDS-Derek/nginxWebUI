@@ -78,22 +78,19 @@ public class NginxWebUI {
 			List<String> list = RuntimeUtil.execForLines("wmic process where \"CommandLine like '%nginxWebUI%'\" get ProcessId,CommandLine");
 
 			for (String line : list) {
-				if (line.contains("CommandLine") || line.contains("wmic") || StrUtil.isEmpty(line.trim())) {
-					continue;
+				if (line.contains(".jar")) {
+					String[] lines = line.split("\\s+");
+					pids.add(lines[lines.length - 1]);
 				}
-
-				String[] lines = line.split("\\s+");
-				pids.add(lines[lines.length - 1]);
 			}
 		} else {
 			List<String> list = RuntimeUtil.execForLines("/bin/sh", "-c", "ps -ef | grep nginxWebUI");
 
 			for (String line : list) {
-				if (line.contains("grep") || StrUtil.isEmpty(line.trim())) {
-					continue;
+				if (line.contains(".jar")) {
+					String[] lines = line.split("\\s+");
+					pids.add(lines[1]);
 				}
-				String[] lines = line.split("\\s+");
-				pids.add(lines[1]);
 			}
 		}
 
