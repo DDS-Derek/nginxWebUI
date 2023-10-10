@@ -187,8 +187,8 @@ public class CertController extends BaseController {
 		// 设置dns账号
 		String[] envs = getEnv(cert);
 
-		if (type.equals("issue")) {
-			String[] split = cert.getDomain().split(",");
+		String[] split = cert.getDomain().split(",");
+		if (type.equals("issue") || FileUtil.isEmpty(new File(homeConfig.acmeShDir,split[0]))){
 			StringBuffer sb = new StringBuffer();
 			Arrays.stream(split).forEach(s -> sb.append(" -d ").append(s));
 			String domain = sb.toString();
@@ -218,7 +218,7 @@ public class CertController extends BaseController {
 			}
 		} else if (type.equals("renew")) {
 			// 续签,以第一个域名为证书名
-			String domain = cert.getDomain().split(",")[0];
+			String domain = split[0];
 
 			if (cert.getType() == 0) {
 				// DNS API申请
