@@ -76,13 +76,16 @@ public class AdminController extends BaseController {
 			}
 		}
 
-		if (admin.getAuth()) {
-			admin.setKey(authUtils.makeKey());
-		} else {
-			admin.setKey("");
-		}
-
 		adminService.addOver(admin, parentId);
+
+		return renderSuccess();
+	}
+	
+	
+	@Mapping("changePassOver")
+	public JsonResult changePassOver(Admin admin) {
+
+		adminService.changePassOver(admin);
 
 		return renderSuccess();
 	}
