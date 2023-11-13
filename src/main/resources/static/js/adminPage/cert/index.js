@@ -59,6 +59,19 @@ $(function() {
 			}
 		});
 	});
+	
+	
+	layui.use('laydate', function() {
+		layui.laydate.render({
+			elem: '#makeTime, #endTime',
+			type: 'datetime',
+			format: 'yyyy-MM-dd HH:mm:ss'
+		});
+	})
+
+	layui.use('util', function() {
+
+	});
 
 	form.on('select(dnsType)', function(data) {
 		checkDnsType(data.value);
@@ -142,14 +155,7 @@ function add() {
 	showWindow(certStr.add);
 }
 
-layui.use(['laydate'], function () {
-	const layDate = layui.laydate;
-	layDate.render({
-		elem: '#makeTime, #endTime',
-		type: 'datetime',
-		format: 'yyyy-MM-dd HH:mm:ss'
-	});
-});
+
 
 function edit(id, clone) {
 	$("#id").val(id);
@@ -207,15 +213,12 @@ function edit(id, clone) {
 					path = cert.key.split('/');
 					$("#keyPath").html(path[path.length - 1]);
 
-					layui.use('util', function () {
-						const util = layui.util;
-						if (cert.makeTime != null) {
-							$("#makeTime").val(util.toDateString(cert.makeTime, 'yyyy-MM-dd HH:mm:ss'));
-						}
-						if (cert.endTime != null) {
-							$("#endTime").val(util.toDateString(cert.endTime, 'yyyy-MM-dd HH:mm:ss'));
-						}
-					});
+					if (cert.makeTime != null) {
+						$("#makeTime").val(layui.util.toDateString(cert.makeTime, 'yyyy-MM-dd HH:mm:ss'));
+					}
+					if (cert.endTime != null) {
+						$("#endTime").val(layui.util.toDateString(cert.endTime, 'yyyy-MM-dd HH:mm:ss'));
+					}
 				} else {
 					$("#domain").attr("disabled", false);
 					$("#domain").removeClass("disabled");
@@ -315,7 +318,7 @@ function addOver() {
 		data: $('#addForm').serialize(),
 		dataType: 'json',
 		success: function(data) {
-			
+
 			if (data.success) {
 				location.reload();
 			} else {

@@ -76,13 +76,13 @@ public class CertController extends BaseController {
 			Cert certOrg = sqlHelper.findById(cert.getId(), Cert.class);
 			type = certOrg.getType();
 		}
-		
+
 		String domain = cert.getDomain();
 		if (StrUtil.isEmpty(domain) && StrUtil.isNotEmpty(cert.getId())) {
 			Cert certOrg = sqlHelper.findById(cert.getId(), Cert.class);
 			domain = certOrg.getDomain();
 		}
-		
+
 		if (type != null && type == 1) {
 			// 手动上传
 			String dir = homeConfig.home + "cert/" + domain + "/";
@@ -100,16 +100,18 @@ public class CertController extends BaseController {
 			}
 
 			// 计算到期时间
-			try {
-				CertificateFactory cf = CertificateFactory.getInstance("X.509");
-				FileInputStream in = new FileInputStream(cert.getPem());
-				X509Certificate certFile = (X509Certificate) cf.generateCertificate(in);
-				Date effDate = certFile.getNotBefore();
-				Date expDate = certFile.getNotAfter();
-				cert.setMakeTime(effDate.getTime());
-				cert.setEndTime(expDate.getTime());
-			} catch (Exception e) {
-				logger.info(e.getMessage(), e);
+			if (cert.getEndTime() == null) {
+				try {
+					CertificateFactory cf = CertificateFactory.getInstance("X.509");
+					FileInputStream in = new FileInputStream(cert.getPem());
+					X509Certificate certFile = (X509Certificate) cf.generateCertificate(in);
+					Date effDate = certFile.getNotBefore();
+					Date expDate = certFile.getNotAfter();
+					cert.setMakeTime(effDate.getTime());
+					cert.setEndTime(expDate.getTime());
+				} catch (Exception e) {
+					logger.info(e.getMessage(), e);
+				}
 			}
 		}
 
@@ -188,7 +190,7 @@ public class CertController extends BaseController {
 		String[] envs = getEnv(cert);
 
 		String[] split = cert.getDomain().split(",");
-		if (type.equals("issue") || FileUtil.isEmpty(new File(homeConfig.acmeShDir,split[0]))){
+		if (type.equals("issue") || FileUtil.isEmpty(new File(homeConfig.acmeShDir, split[0]))) {
 			StringBuffer sb = new StringBuffer();
 			Arrays.stream(split).forEach(s -> sb.append(" -d ").append(s));
 			String domain = sb.toString();
