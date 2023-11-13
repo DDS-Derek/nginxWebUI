@@ -58,7 +58,7 @@ public class CertController extends BaseController {
 				cert.setDomain(cert.getDomain() + "(" + cert.getEncryption() + ")");
 			}
 
-			if (cert.getMakeTime() != null) {
+			if (cert.getMakeTime() != null && cert.getType() != 1) {
 				cert.setEndTime(cert.getMakeTime() + 90 * 24 * 60 * 60 * 1000l);
 			}
 		}
