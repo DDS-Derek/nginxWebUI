@@ -10,6 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.cym.config.HomeConfig;
+import com.cym.model.Admin;
 import com.cym.model.Cert;
 import com.cym.model.CertCode;
 import com.cym.sqlhelper.bean.Page;
@@ -105,6 +106,22 @@ public class CertService {
 		ZipUtil.unzip(homeConfig.home + "acme.zip", homeConfig.acmeShDir);
 		FileUtil.del(homeConfig.home + "acme.zip");
 
+	}
+
+	public boolean hasName(Cert cert) {
+		if (StrUtil.isEmpty(cert.getId())) {
+			Long count = sqlHelper.findCountByQuery(new ConditionAndWrapper().eq(Cert::getDomain, cert.getDomain()), Cert.class);
+			if (count > 0) {
+				return true;
+			}
+		} else {
+			Long count = sqlHelper.findCountByQuery(new ConditionAndWrapper().eq(Cert::getDomain, cert.getDomain()).ne(Cert::getId, cert.getId()), Cert.class);
+			if (count > 0) {
+				return true;
+			}
+		}
+		
+		return false;
 	}
 
 }
