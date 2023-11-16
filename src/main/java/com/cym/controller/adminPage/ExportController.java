@@ -6,6 +6,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.Date;
 
 import org.noear.solon.annotation.Controller;
@@ -58,7 +59,7 @@ public class ExportController extends BaseController {
 		String json = JSONUtil.toJsonPrettyStr(asycPack);
 
 		String date = DateUtil.format(new Date(), "yyyy-MM-dd_HH-mm-ss");
-		DownloadedFile downloadedFile = new DownloadedFile("application/octet-stream", new ByteArrayInputStream(json.getBytes(Charset.forName("UTF-8"))), date + ".json");
+		DownloadedFile downloadedFile = new DownloadedFile("application/octet-stream", new ByteArrayInputStream(json.getBytes(StandardCharsets.UTF_8)), date + ".json");
 		return downloadedFile;
 	}
 
@@ -68,7 +69,7 @@ public class ExportController extends BaseController {
 			File tempFile = new File(homeConfig.home + "temp" + File.separator + file.getName());
 			FileUtil.mkdir(tempFile.getParentFile());
 			file.transferTo(tempFile);
-			String json = FileUtil.readString(tempFile, Charset.forName("UTF-8"));
+			String json = FileUtil.readString(tempFile, StandardCharsets.UTF_8);
 			tempFile.delete();
 
 			AsycPack asycPack = JSONUtil.toBean(json, AsycPack.class);

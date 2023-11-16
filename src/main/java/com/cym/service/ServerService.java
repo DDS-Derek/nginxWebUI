@@ -294,7 +294,7 @@ public class ServerService {
 			rs.add(str);
 		}
 
-		String initNginxPath = FileUtil.getTmpDirPath() + UUID.randomUUID().toString();
+		String initNginxPath = FileUtil.getTmpDirPath() + UUID.randomUUID();
 		FileUtil.writeLines(rs, initNginxPath, CharsetUtil.CHARSET_UTF_8);
 		return initNginxPath;
 	}
