@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -218,7 +219,7 @@ public class InitConfig {
 
 	private void showLogo() throws IOException {
 		ClassPathResource resource = new ClassPathResource("banner.txt");
-		BufferedReader reader = resource.getReader(Charset.forName("utf-8"));
+		BufferedReader reader = resource.getReader(StandardCharsets.UTF_8);
 		String str = null;
 		StringBuilder stringBuilder = new StringBuilder();
 		// 使用readLine() 比较方便的读取一行

@@ -57,7 +57,7 @@ public class VersionConfig  {
 		}
 	}
 
-	public String getFromPom() throws FileNotFoundException, IOException, XmlPullParserException {
+	public String getFromPom() throws IOException, XmlPullParserException {
 
 		// 查看jar包里面pom.properties版本号
 		String jarPath = VersionConfig.class.getProtectionDomain().getCodeSource().getLocation().getFile();

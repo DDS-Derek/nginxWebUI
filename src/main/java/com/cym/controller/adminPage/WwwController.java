@@ -3,6 +3,7 @@ package com.cym.controller.adminPage;
 import java.net.URL;
 import java.nio.charset.Charset;
 
+import cn.hutool.core.util.StrUtil;
 import org.noear.solon.annotation.Controller;
 import org.noear.solon.annotation.Inject;
 import org.noear.solon.annotation.Mapping;
@@ -86,7 +87,7 @@ public class WwwController extends BaseController {
 				strPackageName = getClass().getPackage().getName();
 			}
 			String strClassFileName = "";
-			if (!"".equals(strPackageName)) {
+			if (StrUtil.isNotBlank(strPackageName)) {
 				strClassFileName = strClassName.substring(strPackageName.length() + 1, strClassName.length());
 			} else {
 				strClassFileName = strClassName;
