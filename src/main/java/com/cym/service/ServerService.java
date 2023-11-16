@@ -122,7 +122,7 @@ public class ServerService {
 	private String findLocationDescr(List<Location> locationOlds, Location locationNew) {
 
 		for (Location location : locationOlds) {
-			if (location.getPath().equals(locationNew.getPath()) && location.getType() == locationNew.getType()) {
+			if (location.getPath().equals(locationNew.getPath()) && location.getType().equals(locationNew.getType())) {
 				return location.getDescr();
 			}
 
