@@ -157,7 +157,7 @@ public class AdminController extends BaseController {
 
 	@Mapping(value = "qr")
 	public void getqcode(String url, Integer w, Integer h) throws IOException {
-		if (url != null && !"".equals(url)) {
+		if (StrUtil.isNotBlank(url)) {
 
 			if (w == null) {
 				w = 300;
