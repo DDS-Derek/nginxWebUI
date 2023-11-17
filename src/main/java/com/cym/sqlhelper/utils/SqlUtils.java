@@ -71,7 +71,7 @@ public class SqlUtils {
 		}
 	}
 
-	public void checkOrCreateIndex(Class<?> clazz, String name, boolean unique, List<Map<String, Object>> indexs) throws SQLException {
+	public void checkOrCreateIndex(Class<?> clazz, String name, boolean unique, List<Map<String, Object>> indexs) {
 		checkOrCreateIndex(clazz, new String[] { name }, unique, indexs);
 	}
 

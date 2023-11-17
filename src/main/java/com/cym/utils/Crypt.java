@@ -1,6 +1,5 @@
 package com.cym.utils;
 
-import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.Random;
 

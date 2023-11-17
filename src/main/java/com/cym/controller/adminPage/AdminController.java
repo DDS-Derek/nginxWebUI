@@ -25,7 +25,6 @@ import com.cym.service.SettingService;
 import com.cym.sqlhelper.bean.Page;
 import com.cym.utils.AuthUtils;
 import com.cym.utils.BaseController;
-import com.cym.utils.EncodePassUtils;
 import com.cym.utils.JsonResult;
 import com.cym.utils.SendMailUtils;
 import com.google.zxing.BarcodeFormat;

@@ -1,7 +1,6 @@
 package com.cym.service;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.List;
 
 import org.noear.solon.annotation.Inject;
@@ -10,7 +9,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.cym.config.HomeConfig;
-import com.cym.model.Admin;
 import com.cym.model.Cert;
 import com.cym.model.CertCode;
 import com.cym.sqlhelper.bean.Page;
