@@ -7,6 +7,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 import java.util.Date;
 
 import org.noear.solon.annotation.Controller;
@@ -91,10 +92,10 @@ public class ExportController extends BaseController {
 	}
 
 	@Mapping("logExport")
-	public DownloadedFile logExport(Context context) throws FileNotFoundException {
+	public DownloadedFile logExport(Context context) throws IOException {
 		File file = new File(homeConfig.home + "log/nginxWebUI.log");
 		if (file.exists()) {
-			DownloadedFile downloadedFile = new DownloadedFile("application/octet-stream", new FileInputStream(file), file.getName());
+			DownloadedFile downloadedFile = new DownloadedFile("application/octet-stream", Files.newInputStream(file.toPath()), file.getName());
 			return downloadedFile;
 		}
 

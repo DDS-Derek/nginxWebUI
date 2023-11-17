@@ -3,7 +3,9 @@ package com.cym.controller.adminPage;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Files;
 
 import org.noear.solon.annotation.Controller;
 import org.noear.solon.annotation.Inject;
@@ -90,7 +92,7 @@ public class LogController extends BaseController {
 	}
 
 	@Mapping("down")
-	public void down(ModelAndView modelAndView, String id) throws FileNotFoundException {
+	public void down(ModelAndView modelAndView, String id) throws IOException {
 		Log log = sqlHelper.findById(id, Log.class);
 		File file = new File(log.getPath());
 
@@ -99,7 +101,7 @@ public class LogController extends BaseController {
 		String headerValue = "attachment; filename=" + URLUtil.encode(file.getName());
 		Context.current().header(headerKey, headerValue);
 
-		InputStream inputStream = new FileInputStream(file);
+		InputStream inputStream = Files.newInputStream(file.toPath());
 		Context.current().output(inputStream);
 	}
 
