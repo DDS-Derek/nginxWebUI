@@ -224,11 +224,11 @@ public class InitConfig {
 		StringBuilder stringBuilder = new StringBuilder();
 		// 使用readLine() 比较方便的读取一行
 		while (null != (str = reader.readLine())) {
-			stringBuilder.append(str + "\n");
+			stringBuilder.append(str).append("\n");
 		}
 		reader.close();// 关闭流
 
-		stringBuilder.append("nginxWebUI " + versionConfig.currentVersion + "\n");
+		stringBuilder.append("nginxWebUI ").append(versionConfig.currentVersion).append("\n");
 
 		logger.info(stringBuilder.toString());
 
