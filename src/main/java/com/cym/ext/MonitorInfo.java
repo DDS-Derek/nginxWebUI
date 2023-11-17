@@ -1,8 +1,5 @@
 package com.cym.ext;
 
-import java.util.List;
-import java.util.Map;
-
 /**
  * 监视信息的JavaBean类.
  * 

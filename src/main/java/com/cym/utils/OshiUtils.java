@@ -12,7 +12,6 @@ import com.cym.utils.oshi.MemoryDomain;
 import com.cym.utils.oshi.NetDomain;
 import com.cym.utils.oshi.ServerDomain;
 
-import cn.hutool.core.net.Ipv4Util;
 import cn.hutool.core.util.ArrayUtil;
 import cn.hutool.core.util.NumberUtil;
 import cn.hutool.core.util.StrUtil;

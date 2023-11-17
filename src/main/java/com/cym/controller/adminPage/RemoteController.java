@@ -307,10 +307,10 @@ public class RemoteController extends BaseController {
 				if (cmd.contentEquals("update")) {
 					jsonResult = renderError(m.get("remoteStr.notAllow"));
 				}
-				rs.append("<span class='blue'>" + m.get("remoteStr.local") + "> </span>");
+				rs.append("<span class='blue'>").append(m.get("remoteStr.local")).append("> </span>");
 			} else {
 				Remote remote = sqlHelper.findById(id, Remote.class);
-				rs.append("<span class='blue'>").append(remote.getIp() + ":" + remote.getPort()).append("> </span>");
+				rs.append("<span class='blue'>").append(remote.getIp()).append(":").append(remote.getPort()).append("> </span>");
 
 				if (cmd.contentEquals("check")) {
 					cmd = "checkBase";

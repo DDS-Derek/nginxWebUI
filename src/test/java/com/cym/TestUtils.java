@@ -19,7 +19,7 @@ import cn.hutool.core.util.RuntimeUtil;
 public class TestUtils extends HttpTester {
 	@Test
 	@Ignore
-	public void test() throws Exception {
+	public void test() {
 
 		StringBuilder pass = new StringBuilder(1000);
 		for (int i = 0; i < 2000000; i++) {

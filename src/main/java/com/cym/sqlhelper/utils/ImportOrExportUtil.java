@@ -2,19 +2,15 @@ package com.cym.sqlhelper.utils;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-import javax.sql.DataSource;
-
 import org.noear.solon.annotation.Component;
 import org.noear.solon.annotation.Inject;
 
 import com.cym.sqlhelper.bean.Page;
-import com.cym.sqlhelper.config.DataSourceEmbed;
 import com.cym.sqlhelper.config.Table;
 
 import cn.hutool.core.io.FileUtil;

@@ -11,7 +11,6 @@ import org.noear.solon.core.handle.ModelAndView;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.cym.model.Server;
 import com.cym.model.Www;
 import com.cym.service.WwwService;
 import com.cym.sqlhelper.bean.Sort;
@@ -79,7 +78,7 @@ public class WwwController extends BaseController {
 		return renderSuccess(www);
 	}
 
-	public String getClassPath() throws Exception {
+	public String getClassPath() {
 		try {
 			String strClassName = getClass().getName();
 			String strPackageName = "";

@@ -3,7 +3,6 @@ package com.cym.config;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,12 +15,10 @@ import org.slf4j.LoggerFactory;
 
 import com.cym.model.Admin;
 import com.cym.model.Basic;
-import com.cym.model.Cert;
 import com.cym.model.Http;
 import com.cym.service.BasicService;
 import com.cym.service.ConfService;
 import com.cym.service.SettingService;
-import com.cym.sqlhelper.utils.ConditionAndWrapper;
 import com.cym.sqlhelper.utils.SqlHelper;
 import com.cym.utils.EncodePassUtils;
 import com.cym.utils.MessageUtils;
@@ -34,7 +31,6 @@ import cn.hutool.core.util.CharsetUtil;
 import cn.hutool.core.util.RuntimeUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.core.util.ZipUtil;
-import cn.hutool.crypto.SecureUtil;
 
 @Component
 public class InitConfig {
@@ -224,11 +220,11 @@ public class InitConfig {
 		StringBuilder stringBuilder = new StringBuilder();
 		// 使用readLine() 比较方便的读取一行
 		while (null != (str = reader.readLine())) {
-			stringBuilder.append(str + "\n");
+			stringBuilder.append(str).append("\n");
 		}
 		reader.close();// 关闭流
 
-		stringBuilder.append("nginxWebUI " + versionConfig.currentVersion + "\n");
+		stringBuilder.append("nginxWebUI ").append(versionConfig.currentVersion).append("\n");
 
 		logger.info(stringBuilder.toString());
 

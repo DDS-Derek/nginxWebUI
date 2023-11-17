@@ -44,8 +44,8 @@ public class MonitorController extends BaseController {
 		modelAndView.put("nginxExe", nginxExe);
 		modelAndView.put("nginxPath", nginxPath);
 
-		Boolean isInit = StrUtil.isNotEmpty(nginxExe);
-		modelAndView.put("isInit", isInit.toString());
+		boolean isInit = StrUtil.isNotEmpty(nginxExe);
+		modelAndView.put("isInit", Boolean.toString(isInit));
 
 		modelAndView.view("/adminPage/monitor/index.html");
 		return modelAndView;

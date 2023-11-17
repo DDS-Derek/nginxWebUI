@@ -189,11 +189,11 @@ public class ServerController extends BaseController {
 		List<Location> list = serverService.getLocationByServerId(id);
 		for (Location location : list) {
 			String json = paramService.getJsonByTypeId(location.getId(), "location");
-			location.setLocationParamJson(json != null ? json : null);
+			location.setLocationParamJson(json);
 		}
 		serverExt.setLocationList(list);
 		String json = paramService.getJsonByTypeId(server.getId(), "server");
-		serverExt.setParamJson(json != null ? json : null);
+		serverExt.setParamJson(json);
 
 		return renderSuccess(serverExt);
 	}
