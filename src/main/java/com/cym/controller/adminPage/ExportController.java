@@ -49,7 +49,7 @@ public class ExportController extends BaseController {
 	}
 
 	@Mapping("dataExport")
-	public DownloadedFile dataExport(Context context) throws IOException {
+	public DownloadedFile dataExport(Context context) {
 		AsycPack asycPack = confService.getAsycPack(new String[] { "all" });
 		// 导出证书
 		asycPack.setCertList(sqlHelper.findAll(Cert.class));

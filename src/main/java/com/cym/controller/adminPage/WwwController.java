@@ -79,7 +79,7 @@ public class WwwController extends BaseController {
 		return renderSuccess(www);
 	}
 
-	public String getClassPath() throws Exception {
+	public String getClassPath() {
 		try {
 			String strClassName = getClass().getName();
 			String strPackageName = "";

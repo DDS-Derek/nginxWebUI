@@ -35,7 +35,7 @@ public class PasswordController extends BaseController {
 	}
 
 	@Mapping("addOver")
-	public JsonResult addOver(Password password) throws IOException {
+	public JsonResult addOver(Password password){
 
 		if (StrUtil.isEmpty(password.getId())) {
 			Long count = passwordService.getCountByName(password.getName());

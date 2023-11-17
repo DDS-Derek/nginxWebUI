@@ -104,7 +104,7 @@ public class LogController extends BaseController {
 	}
 
 	@Mapping("tailCmd")
-	public JsonResult tailCmd(String id, String guid) throws Exception {
+	public JsonResult tailCmd(String id, String guid) {
 		Log log = sqlHelper.findById(id, Log.class);
 		if (!FileUtil.exist(log.getPath())) {
 			return renderSuccess("");

@@ -51,7 +51,7 @@ public class ParamApiController extends BaseController {
 	 * 
 	 */
 	@Mapping("insertOrUpdate")
-	public JsonResult<?> insertOrUpdate(Param param) throws IOException {
+	public JsonResult<?> insertOrUpdate(Param param) {
 		Integer count = 0;
 		if (StrUtil.isNotEmpty(param.getLocationId())) {
 			count++;
