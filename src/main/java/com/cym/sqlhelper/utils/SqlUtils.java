@@ -82,7 +82,7 @@ public class SqlUtils {
 		}
 		String name = StrUtil.join("&", columList) + "@" + StrUtil.toUnderlineCase(clazz.getSimpleName());
 
-		Boolean hasIndex = false;
+		boolean hasIndex = false;
 		for (Map<String, Object> map : indexs) {
 			if (StrUtil.toUnderlineCase(name).equalsIgnoreCase((String) map.get("name")) || StrUtil.toUnderlineCase(name).equalsIgnoreCase((String) map.get("Key_name"))) {
 				hasIndex = true;

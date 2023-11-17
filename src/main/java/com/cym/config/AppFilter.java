@@ -138,7 +138,7 @@ public class AppFilter implements Filter {
 		}
 
 		String creditKey = ctx.param("creditKey");
-		Boolean isCredit = creditService.check(creditKey);
+		boolean isCredit = creditService.check(creditKey);
 
 		Boolean isLogin = (Boolean) ctx.session("isLogin");
 		if (!((isLogin != null && isLogin) || isCredit)) {
