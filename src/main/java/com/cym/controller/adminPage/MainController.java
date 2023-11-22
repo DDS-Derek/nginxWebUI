@@ -47,7 +47,7 @@ public class MainController extends BaseController {
 	@Mapping("/adminPage/main/upload")
 	public JsonResult upload(Context context, UploadedFile file) {
 		try {
-			File temp = new File(FileUtil.getTmpDir() + "/" + file.getName());
+			File temp = new File(FileUtil.getTmpDir() + File.separator + file.getName().replace("..", "")); 
 			file.transferTo(temp);
 
 			return renderSuccess(temp.getPath().replace("\\", "/"));
