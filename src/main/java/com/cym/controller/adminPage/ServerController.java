@@ -334,11 +334,11 @@ public class ServerController extends BaseController {
 	@Mapping("upload")
 	public JsonResult upload(Context context, UploadedFile file) {
 		try {
-			File temp = new File(FileUtil.getTmpDir() + "/" + file.getName());
+			File temp = new File(FileUtil.getTmpDir() + File.separator + file.getName().replace("..", ""));
 			file.transferTo(temp);
 
 			// 移动文件
-			File dest = new File(homeConfig.home + "cert/" + file.getName());
+			File dest = new File(homeConfig.home + "cert/" + file.getName().replace("..", ""));
 			while (FileUtil.exist(dest)) {
 				dest = new File(dest.getPath() + "_1");
 			}

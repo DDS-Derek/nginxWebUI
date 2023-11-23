@@ -63,7 +63,7 @@ public class ExportController extends BaseController {
 	@Mapping(value = "dataImport")
 	public void dataImport(UploadedFile file, Context context) throws IOException {
 		if (file != null) {
-			File tempFile = new File(homeConfig.home + "temp" + File.separator + file.getName());
+			File tempFile = new File(homeConfig.home + "temp" + File.separator + file.getName().replace("..", ""));
 			FileUtil.mkdir(tempFile.getParentFile());
 			file.transferTo(tempFile);
 			String json = FileUtil.readString(tempFile, StandardCharsets.UTF_8);
