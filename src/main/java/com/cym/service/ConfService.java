@@ -259,7 +259,11 @@ public class ConfService {
 			}
 
 			String conf = ToolUtils.handleConf(new NgxDumper(ngxConfig).dump());
-			conf = conf.replaceAll(";;", ";");
+			// 将多个;替换成单一;
+			while (conf.contains(";;")) {
+				conf = conf.replaceAll(";;", ";");
+			}
+
 			confExt.setConf(conf);
 
 			return confExt;

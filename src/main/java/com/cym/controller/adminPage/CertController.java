@@ -72,12 +72,12 @@ public class CertController extends BaseController {
 
 	@Mapping("addOver")
 	public JsonResult addOver(Cert cert, String[] domains, String[] types, String[] values) {
-		
+
 		// 检查是否重名
-		if(certService.hasName(cert)) {
-			return renderError(m.get("certStr.nameRepetition")); 
+		if (certService.hasName(cert)) {
+			return renderError(m.get("certStr.nameRepetition"));
 		}
-		
+
 		Integer type = cert.getType();
 		if (type == null && StrUtil.isNotEmpty(cert.getId())) {
 			Cert certOrg = sqlHelper.findById(cert.getId(), Cert.class);
@@ -92,7 +92,7 @@ public class CertController extends BaseController {
 
 		if (type != null && type == 1) {
 			// 手动上传
-			String dir = homeConfig.home + "cert/" + domain + "/";
+			String dir = homeConfig.home + "cert/" + domain.replace("*", "_") + "/";
 
 			if (cert.getKey().contains(FileUtil.getTmpDir().toString().replace("\\", "/"))) {
 				String keyName = new File(cert.getKey()).getName();
