@@ -94,7 +94,8 @@ public class CertController extends BaseController {
 			// 手动上传
 			String dir = homeConfig.home + "cert/" + domain + "/";
 
-			if (SystemTool.isWindows()) {
+			// windows下不允许*作为文件路径
+			if (SystemTool.isWindows()) { 
 				dir = dir.replace("*", "_");
 			}
 
