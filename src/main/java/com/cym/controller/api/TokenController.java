@@ -36,7 +36,7 @@ public class TokenController extends BaseController {
 			return renderError(m.get("loginStr.backError2")); // 用户名密码错误
 		}
 		if (!admin.getApi()) {
-			return renderError(m.get("loginStr.backError7")); // 无接口权限
+			return renderError(m.get("loginStr.notPermission")); // 无接口权限
 		}
 
 		Map<String, String> map = new HashMap<String, String>();
