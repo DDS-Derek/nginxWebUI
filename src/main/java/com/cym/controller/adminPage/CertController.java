@@ -92,7 +92,11 @@ public class CertController extends BaseController {
 
 		if (type != null && type == 1) {
 			// 手动上传
-			String dir = homeConfig.home + "cert/" + domain.replace("*", "_") + "/";
+			String dir = homeConfig.home + "cert/" + domain + "/";
+
+			if (SystemTool.isWindows()) {
+				dir = dir.replace("*", "_");
+			}
 
 			if (cert.getKey().contains(FileUtil.getTmpDir().toString().replace("\\", "/"))) {
 				String keyName = new File(cert.getKey()).getName();
