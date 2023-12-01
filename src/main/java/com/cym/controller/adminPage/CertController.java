@@ -180,9 +180,9 @@ public class CertController extends BaseController {
 
 		Cert cert = sqlHelper.findById(id, Cert.class);
 
-		if (cert.getDnsType() == null) {
-			return renderError(m.get("certStr.error3"));
-		}
+//		if (cert.getDnsType() == null) {
+//			return renderError(m.get("certStr.error3"));
+//		}
 
 		if (isInApply) {
 			return renderError(m.get("certStr.error4"));
