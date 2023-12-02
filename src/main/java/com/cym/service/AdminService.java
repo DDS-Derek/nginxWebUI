@@ -52,7 +52,7 @@ public class AdminService {
 		return sqlHelper.findOneByQuery(new ConditionAndWrapper().eq(Admin::getName, name), Admin.class);
 	}
 
-	public String makeToken(String id) {
+	public Admin makeToken(String id) {
 		String token = UUID.randomUUID().toString();
 		Admin admin = new Admin();
 		admin.setId(id);
@@ -60,7 +60,7 @@ public class AdminService {
 		admin.setTokenTimeout(System.currentTimeMillis() + 24 * 60 * 60 * 1000l); 
 		sqlHelper.updateById(admin);
 
-		return token;
+		return admin;
 	}
 
 	public Admin getByToken(String token) {
