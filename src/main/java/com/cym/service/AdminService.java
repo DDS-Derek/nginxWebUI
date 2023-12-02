@@ -57,13 +57,15 @@ public class AdminService {
 		Admin admin = new Admin();
 		admin.setId(id);
 		admin.setToken(token);
+		admin.setTokenTimeout(System.currentTimeMillis() + 24 * 60 * 60 * 1000l); 
 		sqlHelper.updateById(admin);
 
 		return token;
 	}
 
 	public Admin getByToken(String token) {
-		return sqlHelper.findOneByQuery(new ConditionAndWrapper().eq(Admin::getToken, token), Admin.class);
+		Long time = System.currentTimeMillis();
+		return sqlHelper.findOneByQuery(new ConditionAndWrapper().eq(Admin::getToken, token).gt(Admin::getTokenTimeout, time), Admin.class); 
 	}
 
 	public Admin getByCreditKey(String creditKey) {
