@@ -91,9 +91,9 @@ public class CertApiController extends BaseController {
 	 * 
 	 */
 	@Mapping("getTxtValue")
-	public JsonResult<List<CertCode>> getTxtValue(String certId) {
-		List<CertCode> certCodes = certService.getCertCodes(certId);
-		return renderSuccess(certCodes);
+	public JsonResult getTxtValue(String certId) {
+		JsonResult jsonResult = certController.getTxtValue(certId);
+		return renderSuccess(jsonResult);
 	}
 
 	/**
