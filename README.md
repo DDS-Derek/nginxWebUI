@@ -50,7 +50,7 @@ nginx本身功能复杂, nginxWebUI并不能涵盖nginx所有功能, 但能覆�
 
  **注意：本项目需要在root用户下运行系统命令，极容易被黑客利用，请一定修改密码为复杂密码**
 
-1.安装java运行环境和nginx
+1.安装java环境变量和nginx
 
 Ubuntu:
 
@@ -72,7 +72,7 @@ Windows:
 ```
 下载JDK安装包 https://www.oracle.com/java/technologies/downloads/
 下载nginx http://nginx.org/en/download.html
-配置JAVA运行环境 
+配置JAVA环境变量 
 JAVA_HOME : JDK安装目录
 Path : JDK安装目录\bin
 重启电脑
