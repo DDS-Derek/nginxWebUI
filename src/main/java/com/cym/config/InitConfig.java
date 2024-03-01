@@ -1,6 +1,7 @@
 package com.cym.config;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
@@ -27,7 +28,6 @@ import com.cym.utils.SystemTool;
 
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.io.resource.ClassPathResource;
-import cn.hutool.core.util.CharsetUtil;
 import cn.hutool.core.util.RuntimeUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.core.util.ZipUtil;
@@ -123,6 +123,14 @@ public class InitConfig {
 //		}
 //		FileUtil.writeUtf8Lines(res, homeConfig.acmeSh);
 
+		// 转到证书文件夹到~/.acme.sh/下
+		File[] files = new File(homeConfig.acmeShDir).listFiles();
+		for (File file : files) {
+			if (file.isDirectory() && notInAcmeFile(file)) {
+				FileUtil.move(file, new File("~/.acme.sh/"), true);
+			}
+		}
+
 		if (SystemTool.isLinux()) {
 			// 授予acme.sh执行权限
 			RuntimeUtil.exec("chmod a+x " + homeConfig.acmeSh);
@@ -155,42 +163,17 @@ public class InitConfig {
 			}
 		}
 
-//		// 将复制的证书文件还原到acme文件夹里面
-//		List<Cert> certs = confService.getApplyCerts();
-//		for (Cert cert : certs) {
-//			boolean update = false;
-//			if (cert.getPem() != null && cert.getPem().equals(homeConfig.home + "cert/" + cert.getDomain() + ".fullchain.cer")) {
-//				cert.setPem(homeConfig.acmeShDir + cert.getDomain() + "/fullchain.cer");
-//				update = true;
-//			}
-//			if (cert.getKey() != null && cert.getKey().equals(homeConfig.home + "cert/" + cert.getDomain() + ".key")) {
-//				cert.setKey(homeConfig.acmeShDir + cert.getDomain() + "/" + cert.getDomain() + ".key");
-//				update = true;
-//			}
-//
-//			if (update) {
-//				sqlHelper.updateById(cert);
-//			}
-//		}
-
-//		// 证书加密方式RAS改为RSA
-//		certs = sqlHelper.findListByQuery(new ConditionAndWrapper().eq(Cert::getEncryption, "RAS"), Cert.class);
-//		for (Cert cert : certs) {
-//			cert.setEncryption("RSA");
-//			sqlHelper.updateById(cert);
-//		}
-
-//		// 将密码加密
-//		List<Admin> admins = sqlHelper.findAll(Admin.class);
-//		for (Admin admin : admins) {
-//			if (!StrUtil.endWith(admin.getPass(), SecureUtil.md5(EncodePassUtils.defaultPass))) {
-//				admin.setPass(EncodePassUtils.encode(admin.getPass()));
-//				sqlHelper.updateById(admin);
-//			}
-//		}
-
 		// 展示logo
 		showLogo();
+	}
+
+	private boolean notInAcmeFile(File file) {
+		String name = file.getName();
+		if (name.equalsIgnoreCase(".github") || name.equalsIgnoreCase("deploy") || name.equalsIgnoreCase("dnsapi") || name.equalsIgnoreCase("notify") || name.equalsIgnoreCase("acme.sh")) {
+			return false;
+		}
+
+		return true;
 	}
 
 	private boolean hasNginx() {
