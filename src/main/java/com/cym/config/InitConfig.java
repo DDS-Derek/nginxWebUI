@@ -115,15 +115,16 @@ public class InitConfig {
 		FileUtil.del(homeConfig.home + "acme.zip");
 
 		// 修改acme.sh文件
-		List<String> res = FileUtil.readUtf8Lines(homeConfig.acmeSh);
-		for (int i = 0; i < res.size(); i++) {
-			if (res.get(i).contains("DEFAULT_INSTALL_HOME=\"$HOME/.$PROJECT_NAME\"")) {
-				res.set(i, "DEFAULT_INSTALL_HOME=\"" + homeConfig.acmeShDir + "\"");
-			}
-		}
-		FileUtil.writeUtf8Lines(res, homeConfig.acmeSh);
+//		List<String> res = FileUtil.readUtf8Lines(homeConfig.acmeSh);
+//		for (int i = 0; i < res.size(); i++) {
+//			if (res.get(i).contains("DEFAULT_INSTALL_HOME=\"$HOME/.$PROJECT_NAME\"")) {
+//				res.set(i, "DEFAULT_INSTALL_HOME=\"" + homeConfig.acmeShDir + "\"");
+//			}
+//		}
+//		FileUtil.writeUtf8Lines(res, homeConfig.acmeSh);
 
 		if (SystemTool.isLinux()) {
+			// 授予acme.sh执行权限
 			RuntimeUtil.exec("chmod a+x " + homeConfig.acmeSh);
 
 			// 查找ngx_stream_module模块
