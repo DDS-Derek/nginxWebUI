@@ -268,7 +268,7 @@ public class CertController extends BaseController {
 		String[] lines = rs.split("\n");
 		for (String line : lines) {
 			if (line.contains("Your cert key is in:")) {
-				return line.replace("Your cert key is in:", "").trim();
+				return line.split("Your cert key is in:")[1].trim();
 			}
 		}
 
@@ -279,7 +279,7 @@ public class CertController extends BaseController {
 		String[] lines = rs.split("\n");
 		for (String line : lines) {
 			if (line.contains("And the full chain certs is there:")) {
-				return line.replace("And the full chain certs is there:", "").trim();
+				return line.split("And the full chain certs is there:", "")[1].trim();
 			}
 		}
 
