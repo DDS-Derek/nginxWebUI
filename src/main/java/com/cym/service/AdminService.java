@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.UUID;
 
 import org.noear.solon.annotation.Inject;
-import org.noear.solon.aspect.annotation.Service;
+import org.noear.solon.annotation.ProxyComponent;
 
 import com.cym.model.Admin;
 import com.cym.model.AdminGroup;
@@ -17,7 +17,7 @@ import com.cym.utils.EncodePassUtils;
 
 import cn.hutool.core.util.StrUtil;
 
-@Service
+@ProxyComponent
 public class AdminService {
 	@Inject
 	SqlHelper sqlHelper;

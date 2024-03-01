@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.noear.solon.annotation.Inject;
+import org.noear.solon.annotation.ProxyComponent;
 import org.noear.solon.aspect.annotation.Service;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,7 +22,7 @@ import cn.hutool.core.util.StrUtil;
 import cn.hutool.http.HttpUtil;
 import cn.hutool.json.JSONObject;
 
-@Service
+@ProxyComponent
 public class RemoteService {
 	Logger logger = LoggerFactory.getLogger(this.getClass());
 	@Inject

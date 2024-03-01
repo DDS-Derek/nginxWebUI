@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.UUID;
 
 import org.noear.solon.annotation.Inject;
+import org.noear.solon.annotation.ProxyComponent;
 import org.noear.solon.aspect.annotation.Service;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,7 +32,7 @@ import cn.hutool.core.util.CharsetUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.json.JSONUtil;
 
-@Service
+@ProxyComponent
 public class ServerService {
 	Logger logger = LoggerFactory.getLogger(this.getClass());
 

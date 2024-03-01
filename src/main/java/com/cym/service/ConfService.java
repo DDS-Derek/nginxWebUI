@@ -7,6 +7,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.noear.solon.annotation.Inject;
+import org.noear.solon.annotation.ProxyComponent;
 import org.noear.solon.aspect.annotation.Service;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -44,7 +45,7 @@ import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.util.StrUtil;
 
-@Service
+@ProxyComponent
 public class ConfService {
 	Logger logger = LoggerFactory.getLogger(this.getClass());
 	@Inject
