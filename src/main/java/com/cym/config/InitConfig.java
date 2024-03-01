@@ -128,7 +128,7 @@ public class InitConfig {
 		File[] files = new File(homeConfig.acmeShDir).listFiles();
 		for (File file : files) {
 			if (file.isDirectory() && notInAcmeFile(file)) {
-				FileUtil.move(file, new File(FileUtil.getUserHomeDir() + File.separator + ".acme.sh"), true);
+				FileUtil.copy(file, new File(FileUtil.getUserHomeDir() + File.separator + ".acme.sh"), true);
 			}
 		}
 		// 修改数据库中证书路径
