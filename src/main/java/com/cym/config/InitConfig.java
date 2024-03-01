@@ -16,6 +16,7 @@ import org.slf4j.LoggerFactory;
 
 import com.cym.model.Admin;
 import com.cym.model.Basic;
+import com.cym.model.Cert;
 import com.cym.model.Http;
 import com.cym.service.BasicService;
 import com.cym.service.ConfService;
@@ -123,11 +124,28 @@ public class InitConfig {
 //		}
 //		FileUtil.writeUtf8Lines(res, homeConfig.acmeSh);
 
-		// 转到证书文件夹到~/.acme.sh/下
+		// 转到证书文件夹到FileUtil.getUserHomeDir()/.acme.sh/下
 		File[] files = new File(homeConfig.acmeShDir).listFiles();
 		for (File file : files) {
 			if (file.isDirectory() && notInAcmeFile(file)) {
-				FileUtil.move(file, new File("~/.acme.sh/"), true);
+				FileUtil.move(file, new File(FileUtil.getUserHomeDir() + File.separator + ".acme.sh"), true);
+			}
+		}
+		// 修改数据库中证书路径
+		List<Cert> certs = sqlHelper.findAll(Cert.class);
+		for (Cert cert : certs) {
+			boolean changed = false;
+			if (StrUtil.isNotEmpty(cert.getPem())) {
+				cert.setPem(cert.getPem().replace(homeConfig.acmeShDir, FileUtil.getUserHomePath() + File.separator + ".acme.sh"));
+				changed = true;
+			}
+			if (StrUtil.isNotEmpty(cert.getKey())) {
+				cert.setKey(cert.getKey().replace(homeConfig.acmeShDir, FileUtil.getUserHomePath() + File.separator + ".acme.sh"));
+				changed = true;
+			}
+
+			if (changed) {
+				sqlHelper.updateById(cert);
 			}
 		}
 
