@@ -135,11 +135,11 @@ public class InitConfig {
 		List<Cert> certs = sqlHelper.findAll(Cert.class);
 		for (Cert cert : certs) {
 			boolean changed = false;
-			if (StrUtil.isNotEmpty(cert.getPem())) {
+			if (StrUtil.isNotEmpty(cert.getPem()) && cert.getPem().contains(homeConfig.acmeShDir)) {
 				cert.setPem(cert.getPem().replace(homeConfig.acmeShDir, FileUtil.getUserHomePath() + File.separator + ".acme.sh" + File.separator));
 				changed = true;
 			}
-			if (StrUtil.isNotEmpty(cert.getKey())) {
+			if (StrUtil.isNotEmpty(cert.getKey()) && cert.getKey().contains(homeConfig.acmeShDir)) {
 				cert.setKey(cert.getKey().replace(homeConfig.acmeShDir, FileUtil.getUserHomePath() + File.separator + ".acme.sh" + File.separator));
 				changed = true;
 			}
