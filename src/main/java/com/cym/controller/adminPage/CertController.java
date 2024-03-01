@@ -202,7 +202,7 @@ public class CertController extends BaseController {
 		String[] envs = getEnv(cert);
 
 		String[] split = cert.getDomain().split(",");
-		if (type.equals("issue") || FileUtil.isEmpty(new File(homeConfig.acmeShDir, split[0]))) {
+		if (type.equals("issue") || FileUtil.isEmpty(new File(FileUtil.getUserHomePath() + File.separator + ".acme.sh" + File.separator + split[0]))) {
 			StringBuffer sb = new StringBuffer();
 			Arrays.stream(split).forEach(s -> sb.append(" -d ").append(s));
 			String domain = sb.toString();
