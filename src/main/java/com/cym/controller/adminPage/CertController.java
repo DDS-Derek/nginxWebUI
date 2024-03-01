@@ -250,7 +250,7 @@ public class CertController extends BaseController {
 		if (rs.contains("Your cert is in")) {
 			// 申请成功, 定位证书
 			String domain = cert.getDomain().split(",")[0];
-			String certDir = homeConfig.acmeShDir + domain;
+			String certDir = "~/.acme.sh/" + domain;
 			if ("ECC".equals(cert.getEncryption())) {
 				certDir += "_ecc";
 			}
