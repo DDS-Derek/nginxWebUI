@@ -245,15 +245,8 @@ public class CertController extends BaseController {
 
 		if (rs.contains("Your cert is in")) {
 			// 申请成功, 定位证书
-			String domain = cert.getDomain().split(",")[0];
-			String certDir = FileUtil.getUserHomePath() + File.separator + ".acme.sh" + File.separator + domain;
-			if ("ECC".equals(cert.getEncryption())) {
-				certDir += "_ecc";
-			}
-			certDir += File.separator;
-
-			cert.setPem(certDir + "fullchain.cer");
-			cert.setKey(certDir + domain + ".key");
+			cert.setPem(getPem(rs));
+			cert.setKey(getKey(rs));
 
 			cert.setMakeTime(System.currentTimeMillis());
 			sqlHelper.updateById(cert);
@@ -269,6 +262,28 @@ public class CertController extends BaseController {
 			isInApply = false;
 			return renderError("<span class='blue'>" + cmd + "</span><br>" + m.get("certStr.applyFail") + "<br>" + rs.replace("\n", "<br>"));
 		}
+	}
+
+	private String getPem(String rs) {
+		String[] lines = rs.split("\n");
+		for (String line : lines) {
+			if (line.contains("Your cert key is in:")) {
+				return line.replace("Your cert key is in:", "").trim();
+			}
+		}
+
+		return null;
+	}
+
+	private String getKey(String rs) {
+		String[] lines = rs.split("\n");
+		for (String line : lines) {
+			if (line.contains("And the full chain certs is there:")) {
+				return line.replace("And the full chain certs is there:", "").trim();
+			}
+		}
+
+		return null;
 	}
 
 	private String[] getEnv(Cert cert) {

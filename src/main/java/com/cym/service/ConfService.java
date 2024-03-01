@@ -8,7 +8,6 @@ import java.util.List;
 
 import org.noear.solon.annotation.Inject;
 import org.noear.solon.annotation.ProxyComponent;
-import org.noear.solon.aspect.annotation.Service;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

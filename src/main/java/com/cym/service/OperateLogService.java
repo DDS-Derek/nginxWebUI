@@ -1,15 +1,14 @@
 package com.cym.service;
 
+import org.noear.solon.annotation.Component;
 import org.noear.solon.annotation.Inject;
-import org.noear.solon.annotation.ProxyComponent;
-import org.noear.solon.aspect.annotation.Service;
 
 import com.cym.model.OperateLog;
 import com.cym.sqlhelper.bean.Page;
 import com.cym.sqlhelper.utils.ConditionAndWrapper;
 import com.cym.sqlhelper.utils.SqlHelper;
 
-@ProxyComponent
+@Component
 public class OperateLogService {
 	@Inject
 	SqlHelper sqlHelper;
