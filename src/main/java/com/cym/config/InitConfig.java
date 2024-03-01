@@ -136,11 +136,11 @@ public class InitConfig {
 		for (Cert cert : certs) {
 			boolean changed = false;
 			if (StrUtil.isNotEmpty(cert.getPem())) {
-				cert.setPem(cert.getPem().replace(homeConfig.acmeShDir, FileUtil.getUserHomePath() + File.separator + ".acme.sh"));
+				cert.setPem(cert.getPem().replace(homeConfig.acmeShDir, FileUtil.getUserHomePath() + File.separator + ".acme.sh" + File.separator));
 				changed = true;
 			}
 			if (StrUtil.isNotEmpty(cert.getKey())) {
-				cert.setKey(cert.getKey().replace(homeConfig.acmeShDir, FileUtil.getUserHomePath() + File.separator + ".acme.sh"));
+				cert.setKey(cert.getKey().replace(homeConfig.acmeShDir, FileUtil.getUserHomePath() + File.separator + ".acme.sh" + File.separator));
 				changed = true;
 			}
 
