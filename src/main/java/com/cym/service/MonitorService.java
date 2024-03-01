@@ -6,7 +6,6 @@ import java.util.List;
 
 import org.noear.solon.annotation.Component;
 import org.noear.solon.annotation.Init;
-import org.noear.solon.annotation.ProxyComponent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -30,7 +29,7 @@ import oshi.util.GlobalConfig;
  * 
  * @author amg * @version 1.0 Creation date: 2008-3-11 - 上午10:06:06
  */
-@ProxyComponent
+@Component
 public class MonitorService {
 	Logger logger = LoggerFactory.getLogger(this.getClass());
 
