@@ -140,7 +140,8 @@ public class CertController extends BaseController {
 
 	@Mapping("detail")
 	public JsonResult detail(String id) {
-		return renderSuccess(sqlHelper.findById(id, Cert.class));
+		Cert cert = sqlHelper.findById(id, Cert.class);
+		return renderSuccess(cert);
 	}
 
 	@Mapping("del")
@@ -210,6 +211,8 @@ public class CertController extends BaseController {
 					dnsType = "dns_ali";
 				} else if (cert.getDnsType().equals("dp")) {
 					dnsType = "dns_dp";
+				} else if (cert.getDnsType().equals("tencent")) {
+					dnsType = "dns_tencent";
 				} else if (cert.getDnsType().equals("cf")) {
 					dnsType = "dns_cf";
 				} else if (cert.getDnsType().equals("gd")) {
@@ -295,6 +298,10 @@ public class CertController extends BaseController {
 		if (cert.getDnsType().equals("dp")) {
 			list.add("DP_Id=" + cert.getDpId());
 			list.add("DP_Key=" + cert.getDpKey());
+		}
+		if (cert.getDnsType().equals("tencent")) {
+			list.add("Tencent_SecretId=" + cert.getTencentSecretId());
+			list.add("Tencent_SecretKey=" + cert.getTencentSecretKey());
 		}
 		if (cert.getDnsType().equals("cf")) {
 			list.add("CF_Email=" + cert.getCfEmail());
