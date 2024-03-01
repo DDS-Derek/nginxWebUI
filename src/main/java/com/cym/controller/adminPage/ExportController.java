@@ -48,10 +48,6 @@ public class ExportController extends BaseController {
 	@Mapping("dataExport")
 	public DownloadedFile dataExport(Context context) {
 		AsycPack asycPack = confService.getAsycPack(new String[] { "all" });
-		// 导出证书
-		asycPack.setCertList(sqlHelper.findAll(Cert.class));
-		asycPack.setCertCodeList(sqlHelper.findAll(CertCode.class));
-		asycPack.setAcmeZip(certService.getAcmeZipBase64());
 		
 		String json = JSONUtil.toJsonPrettyStr(asycPack);
 

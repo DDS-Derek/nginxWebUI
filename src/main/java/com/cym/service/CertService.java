@@ -91,19 +91,25 @@ public class CertService {
 	}
 
 	public String getAcmeZipBase64() {
-		File file = ZipUtil.zip(FileUtil.getUserHomeDir() + File.separator + ".acme.sh", homeConfig.home + "temp" + File.separator + "acme.zip");
-		String str = Base64.encode(file);
-		file.delete();
-		return str;
+		try {
+			File file = ZipUtil.zip(FileUtil.getUserHomeDir() + File.separator + ".acme.sh", homeConfig.home + "temp" + File.separator + "acme.zip");
+			String str = Base64.encode(file);
+			file.delete();
+			return str;
+		} catch (Exception e) {
+			logger.error(e.getMessage(), e);
+		}
+		return null;
 	}
 
 	public void writeAcmeZipBase64(String acmeZip) {
-		Base64.decodeToFile(acmeZip, new File(homeConfig.home + "acme.zip"));
-		FileUtil.del(FileUtil.getUserHomeDir() + File.separator + ".acme.sh");
-		FileUtil.mkdir(FileUtil.getUserHomeDir() + File.separator + ".acme.sh");
-		ZipUtil.unzip(homeConfig.home + "acme.zip", FileUtil.getUserHomeDir() + File.separator + ".acme.sh");
-		FileUtil.del(homeConfig.home + "acme.zip");
-
+		if (StrUtil.isNotEmpty(acmeZip)) {
+			Base64.decodeToFile(acmeZip, new File(homeConfig.home + "temp" + File.separator + "acme.zip"));
+			FileUtil.del(FileUtil.getUserHomeDir() + File.separator + ".acme.sh/");
+			FileUtil.mkdir(FileUtil.getUserHomeDir() + File.separator + ".acme.sh/");
+			ZipUtil.unzip(homeConfig.home + "temp" + File.separator + "acme.zip", FileUtil.getUserHomeDir() + File.separator + ".acme.sh/");
+			FileUtil.del(homeConfig.home + "temp" + File.separator + "acme.zip");
+		}
 	}
 
 	public boolean hasName(Cert cert) {
