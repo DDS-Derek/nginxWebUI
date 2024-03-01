@@ -91,17 +91,17 @@ public class CertService {
 	}
 
 	public String getAcmeZipBase64() {
-		File file = ZipUtil.zip(homeConfig.home + ".acme.sh", homeConfig.home + "temp" + File.separator + "cert.zip");
+		File file = ZipUtil.zip(FileUtil.getUserHomeDir() + File.separator + ".acme.sh", homeConfig.home + "temp" + File.separator + "acme.zip");
 		String str = Base64.encode(file);
 		file.delete();
 		return str;
 	}
 
 	public void writeAcmeZipBase64(String acmeZip) {
-
 		Base64.decodeToFile(acmeZip, new File(homeConfig.home + "acme.zip"));
-		FileUtil.mkdir(homeConfig.acmeShDir);
-		ZipUtil.unzip(homeConfig.home + "acme.zip", homeConfig.acmeShDir);
+		FileUtil.del(FileUtil.getUserHomeDir() + File.separator + ".acme.sh");
+		FileUtil.mkdir(FileUtil.getUserHomeDir() + File.separator + ".acme.sh");
+		ZipUtil.unzip(homeConfig.home + "acme.zip", FileUtil.getUserHomeDir() + File.separator + ".acme.sh");
 		FileUtil.del(homeConfig.home + "acme.zip");
 
 	}
@@ -118,7 +118,7 @@ public class CertService {
 				return true;
 			}
 		}
-		
+
 		return false;
 	}
 

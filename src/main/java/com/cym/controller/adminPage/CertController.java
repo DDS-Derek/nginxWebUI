@@ -159,7 +159,7 @@ public class CertController extends BaseController {
 		} else {
 			// 申请获得
 			String domain = cert.getDomain().split(",")[0];
-			String path = homeConfig.acmeShDir + domain;
+			String path = FileUtil.getUserHomeDir() + File.separator + ".acme.sh" + File.separator + domain;
 
 			if ("ECC".equals(cert.getEncryption())) {
 				path += "_ecc";

@@ -108,24 +108,16 @@ public class InitConfig {
 		}
 
 		// 释放acme全新包
+		String acmeShDir = homeConfig.home + ".acme.sh/";
 		ClassPathResource resource = new ClassPathResource("acme.zip");
 		InputStream inputStream = resource.getStream();
 		FileUtil.writeFromStream(inputStream, homeConfig.home + "acme.zip");
-		FileUtil.mkdir(homeConfig.acmeShDir);
-		ZipUtil.unzip(homeConfig.home + "acme.zip", homeConfig.acmeShDir);
+		FileUtil.mkdir(acmeShDir);
+		ZipUtil.unzip(homeConfig.home + "acme.zip", acmeShDir);
 		FileUtil.del(homeConfig.home + "acme.zip");
 
-		// 修改acme.sh文件
-//		List<String> res = FileUtil.readUtf8Lines(homeConfig.acmeSh);
-//		for (int i = 0; i < res.size(); i++) {
-//			if (res.get(i).contains("DEFAULT_INSTALL_HOME=\"$HOME/.$PROJECT_NAME\"")) {
-//				res.set(i, "DEFAULT_INSTALL_HOME=\"" + homeConfig.acmeShDir + "\"");
-//			}
-//		}
-//		FileUtil.writeUtf8Lines(res, homeConfig.acmeSh);
-
 		// 转到证书文件夹到FileUtil.getUserHomeDir()/.acme.sh/下
-		File[] files = new File(homeConfig.acmeShDir).listFiles();
+		File[] files = new File(acmeShDir).listFiles();
 		for (File file : files) {
 			if (file.isDirectory() && notInAcmeFile(file)) {
 				FileUtil.copy(file, new File(FileUtil.getUserHomeDir() + File.separator + ".acme.sh"), true);
@@ -135,12 +127,12 @@ public class InitConfig {
 		List<Cert> certs = sqlHelper.findAll(Cert.class);
 		for (Cert cert : certs) {
 			boolean changed = false;
-			if (StrUtil.isNotEmpty(cert.getPem()) && cert.getPem().contains(homeConfig.acmeShDir)) {
-				cert.setPem(cert.getPem().replace(homeConfig.acmeShDir, FileUtil.getUserHomePath() + File.separator + ".acme.sh" + File.separator));
+			if (StrUtil.isNotEmpty(cert.getPem()) && cert.getPem().contains(acmeShDir)) {
+				cert.setPem(cert.getPem().replace(acmeShDir, FileUtil.getUserHomePath() + File.separator + ".acme.sh" + File.separator));
 				changed = true;
 			}
-			if (StrUtil.isNotEmpty(cert.getKey()) && cert.getKey().contains(homeConfig.acmeShDir)) {
-				cert.setKey(cert.getKey().replace(homeConfig.acmeShDir, FileUtil.getUserHomePath() + File.separator + ".acme.sh" + File.separator));
+			if (StrUtil.isNotEmpty(cert.getKey()) && cert.getKey().contains(acmeShDir)) {
+				cert.setKey(cert.getKey().replace(acmeShDir, FileUtil.getUserHomePath() + File.separator + ".acme.sh" + File.separator));
 				changed = true;
 			}
 
