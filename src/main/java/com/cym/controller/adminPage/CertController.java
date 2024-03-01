@@ -95,7 +95,7 @@ public class CertController extends BaseController {
 			String dir = homeConfig.home + "cert/" + domain + "/";
 
 			// windows下不允许*作为文件路径
-			if (SystemTool.isWindows()) { 
+			if (SystemTool.isWindows()) {
 				dir = dir.replace("*", "_");
 			}
 
@@ -250,11 +250,11 @@ public class CertController extends BaseController {
 		if (rs.contains("Your cert is in")) {
 			// 申请成功, 定位证书
 			String domain = cert.getDomain().split(",")[0];
-			String certDir = "~/.acme.sh/" + domain;
+			String certDir = FileUtil.getUserHomePath() + File.separator + ".acme.sh" + File.separator + domain;
 			if ("ECC".equals(cert.getEncryption())) {
 				certDir += "_ecc";
 			}
-			certDir += "/";
+			certDir += File.separator;
 
 			cert.setPem(certDir + "fullchain.cer");
 			cert.setKey(certDir + domain + ".key");
