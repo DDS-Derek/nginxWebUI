@@ -120,7 +120,7 @@ public class InitConfig {
 		File[] files = new File(FileUtil.getUserHomePath() + File.separator + ".acme.sh").listFiles();
 		for (File file : files) {
 			if (file.isDirectory() && notInAcmeFile(file)) {
-				FileUtil.copy(file, new File(homeConfig.home + ".acme.sh"), true);
+				FileUtil.move(file, new File(homeConfig.home + ".acme.sh"), true);
 			}
 		}
 
