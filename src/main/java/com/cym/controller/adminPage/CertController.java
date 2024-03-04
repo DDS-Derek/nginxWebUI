@@ -291,6 +291,8 @@ public class CertController extends BaseController {
 
 	private String[] getEnv(Cert cert) {
 		List<String> list = new ArrayList<>();
+		list.add("HOME=" + homeConfig.home); // 指定acme证书存放目录
+		
 		if (cert.getDnsType().equals("ali")) {
 			list.add("Ali_Key=" + cert.getAliKey());
 			list.add("Ali_Secret=" + cert.getAliSecret());
