@@ -194,7 +194,6 @@ public class CertController extends BaseController {
 			ecc = " --ecc";
 		}
 
-		String rs = "";
 		String cmd = "";
 		// 设置dns账号
 		String[] envs = getEnv(cert);
@@ -242,10 +241,8 @@ public class CertController extends BaseController {
 				cmd = homeConfig.acmeSh + " --renew --force " + ecc + " -d " + domain + " --server letsencrypt --yes-I-know-dns-manual-mode-enough-go-ahead-please";
 			}
 		}
-		logger.info(cmd);
 
-		rs = timeExeUtils.execCMD("sh " + cmd, envs, 5 * 60 * 1000);
-		logger.info(rs);
+		String rs = timeExeUtils.execCMD("sh " + cmd, envs, 5 * 60 * 1000);
 
 		if (rs.contains("Your cert is in")) {
 			// 申请成功, 定位证书
@@ -342,9 +339,8 @@ public class CertController extends BaseController {
 			String domain = sb.toString();
 
 			String cmd = homeConfig.acmeSh + " --issue --dns" + domain + keylength + " --server letsencrypt --yes-I-know-dns-manual-mode-enough-go-ahead-please";
-			logger.info(cmd);
-			String rs = timeExeUtils.execCMD(cmd, new String[] {}, 5 * 60 * 1000);
-			logger.info(rs);
+
+			String rs = timeExeUtils.execCMD("sh " + cmd, new String[] {}, 5 * 60 * 1000);
 
 			if (rs.contains("TXT value")) {
 				// 获取到dns配置txt, 显示出来, 并保存到数据库
