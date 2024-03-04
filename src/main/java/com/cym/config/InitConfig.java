@@ -108,7 +108,7 @@ public class InitConfig {
 		}
 
 		// 释放acme全新包
-		String acmeShDir = homeConfig.home + ".acme.sh/";
+		String acmeShDir = homeConfig.home + ".acme.sh" + File.separator;
 		ClassPathResource resource = new ClassPathResource("acme.zip");
 		InputStream inputStream = resource.getStream();
 		FileUtil.writeFromStream(inputStream, homeConfig.home + "acme.zip");
