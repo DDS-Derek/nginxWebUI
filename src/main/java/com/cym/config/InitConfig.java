@@ -142,8 +142,8 @@ public class InitConfig {
 		}
 
 		if (SystemTool.isLinux()) {
-			// 授予acme.sh执行权限
-			RuntimeUtil.exec("chmod a+x " + homeConfig.acmeSh);
+//			// 授予acme.sh执行权限
+//			RuntimeUtil.exec("chmod a+x " + homeConfig.acmeSh);
 
 			// 查找ngx_stream_module模块
 			if (!basicService.contain("ngx_stream_module.so") && FileUtil.exist("/usr/lib/nginx/modules/ngx_stream_module.so")) {
