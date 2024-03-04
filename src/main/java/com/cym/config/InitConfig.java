@@ -116,31 +116,8 @@ public class InitConfig {
 		ZipUtil.unzip(homeConfig.home + "acme.zip", acmeShDir);
 		FileUtil.del(homeConfig.home + "acme.zip");
 
-		// 把FileUtil.getUserHomeDir()/.acme.sh/下证书转移回去
-		File[] files = new File(FileUtil.getUserHomePath() + File.separator + ".acme.sh").listFiles();
-		for (File file : files) {
-			if (file.isDirectory() && notInAcmeFile(file)) {
-				FileUtil.move(file, new File(homeConfig.home + ".acme.sh"), true);
-			}
-		}
-
-		// 修改回数据库中证书路径
-		List<Cert> certs = sqlHelper.findAll(Cert.class);
-		for (Cert cert : certs) {
-			boolean changed = false;
-			if (StrUtil.isNotEmpty(cert.getPem()) && cert.getPem().contains(FileUtil.getUserHomePath() + File.separator + ".acme.sh")) {
-				cert.setPem(cert.getPem().replace(FileUtil.getUserHomePath() + File.separator + ".acme.sh" + File.separator, acmeShDir));
-				changed = true;
-			}
-			if (StrUtil.isNotEmpty(cert.getKey()) && cert.getKey().contains(FileUtil.getUserHomePath() + File.separator + ".acme.sh")) {
-				cert.setKey(cert.getKey().replace(FileUtil.getUserHomePath() + File.separator + ".acme.sh" + File.separator, acmeShDir));
-				changed = true;
-			}
-
-			if (changed) {
-				sqlHelper.updateById(cert);
-			}
-		}
+		// 把acme的证书转移回来
+		returnAcme(acmeShDir);
 
 		if (SystemTool.isLinux()) {
 			// 查找ngx_stream_module模块
@@ -173,6 +150,35 @@ public class InitConfig {
 
 		// 展示logo
 		showLogo();
+	}
+
+	@Deprecated
+	private void returnAcme(String acmeShDir) {
+		// 把FileUtil.getUserHomeDir()/.acme.sh/下证书转移回去
+		File[] files = new File(FileUtil.getUserHomePath() + File.separator + ".acme.sh").listFiles();
+		for (File file : files) {
+			if (file.isDirectory() && notInAcmeFile(file)) {
+				FileUtil.move(file, new File(homeConfig.home + ".acme.sh"), true);
+			}
+		}
+
+		// 修改回数据库中证书路径
+		List<Cert> certs = sqlHelper.findAll(Cert.class);
+		for (Cert cert : certs) {
+			boolean changed = false;
+			if (StrUtil.isNotEmpty(cert.getPem()) && cert.getPem().contains(FileUtil.getUserHomePath() + File.separator + ".acme.sh")) {
+				cert.setPem(cert.getPem().replace(FileUtil.getUserHomePath() + File.separator + ".acme.sh" + File.separator, acmeShDir));
+				changed = true;
+			}
+			if (StrUtil.isNotEmpty(cert.getKey()) && cert.getKey().contains(FileUtil.getUserHomePath() + File.separator + ".acme.sh")) {
+				cert.setKey(cert.getKey().replace(FileUtil.getUserHomePath() + File.separator + ".acme.sh" + File.separator, acmeShDir));
+				changed = true;
+			}
+
+			if (changed) {
+				sqlHelper.updateById(cert);
+			}
+		}
 	}
 
 	private boolean notInAcmeFile(File file) {
