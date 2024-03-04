@@ -43,7 +43,7 @@ public class WwwController extends BaseController {
 		}
 
 		try {
-			FileUtil.clean(www.getDir());
+//			FileUtil.clean(www.getDir());  //太危险不要删了文件夹了
 
 			try {
 				ZipUtil.unzip(dirTemp, www.getDir());
