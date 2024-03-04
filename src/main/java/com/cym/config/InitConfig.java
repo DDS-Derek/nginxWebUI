@@ -116,7 +116,7 @@ public class InitConfig {
 		ZipUtil.unzip(homeConfig.home + "acme.zip", acmeShDir);
 		FileUtil.del(homeConfig.home + "acme.zip");
 
-		// 转到证书文件夹到FileUtil.getUserHomeDir()/.acme.sh/下
+		// 把FileUtil.getUserHomeDir()/.acme.sh/下证书转移回去
 		File[] files = new File(FileUtil.getUserHomePath() + File.separator + ".acme.sh").listFiles();
 		for (File file : files) {
 			if (file.isDirectory() && notInAcmeFile(file)) {
@@ -124,7 +124,7 @@ public class InitConfig {
 			}
 		}
 
-		// 修改数据库中证书路径
+		// 修改回数据库中证书路径
 		List<Cert> certs = sqlHelper.findAll(Cert.class);
 		for (Cert cert : certs) {
 			boolean changed = false;
