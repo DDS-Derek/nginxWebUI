@@ -267,7 +267,7 @@ public class CertController extends BaseController {
 		}
 	}
 
-	private String getPem(String rs) {
+	private String getKey(String rs) {
 		String[] lines = rs.split("\n");
 		for (String line : lines) {
 			if (line.contains("Your cert key is in:")) {
@@ -278,7 +278,7 @@ public class CertController extends BaseController {
 		return null;
 	}
 
-	private String getKey(String rs) {
+	private String getPem(String rs) {
 		String[] lines = rs.split("\n");
 		for (String line : lines) {
 			if (line.contains("And the full chain certs is there:")) {
