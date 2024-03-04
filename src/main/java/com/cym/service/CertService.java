@@ -101,6 +101,18 @@ public class CertService {
 		}
 		return null;
 	}
+	
+	public String getCertZipBase64() {
+		try {
+			File file = ZipUtil.zip(homeConfig.home + "cert", homeConfig.home + "temp" + File.separator + "cert.zip");
+			String str = Base64.encode(file);
+			file.delete();
+			return str;
+		} catch (Exception e) {
+			logger.error(e.getMessage(), e);
+		}
+		return null;
+	}
 
 	public void writeAcmeZipBase64(String acmeZip) {
 		if (StrUtil.isNotEmpty(acmeZip)) {
@@ -109,6 +121,17 @@ public class CertService {
 			FileUtil.mkdir(homeConfig.home + ".acme.sh/");
 			ZipUtil.unzip(homeConfig.home + "temp" + File.separator + "acme.zip", homeConfig.home + ".acme.sh/");
 			FileUtil.del(homeConfig.home + "temp" + File.separator + "acme.zip");
+		}
+	}
+	
+
+	public void writeCertZipBase64(String certZip) {
+		if (StrUtil.isNotEmpty(certZip)) {
+			Base64.decodeToFile(certZip, new File(homeConfig.home + "temp" + File.separator + "cert.zip"));
+			FileUtil.del(homeConfig.home + "cert/");
+			FileUtil.mkdir(homeConfig.home + "cert/");
+			ZipUtil.unzip(homeConfig.home + "temp" + File.separator + "cert.zip", homeConfig.home + "cert/");
+			FileUtil.del(homeConfig.home + "temp" + File.separator + "cert.zip");
 		}
 	}
 
@@ -127,5 +150,8 @@ public class CertService {
 
 		return false;
 	}
+
+
+	
 
 }
