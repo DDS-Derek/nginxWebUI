@@ -219,6 +219,8 @@ public class CertController extends BaseController {
 					dnsType = "dns_gd";
 				} else if (cert.getDnsType().equals("hw")) {
 					dnsType = "dns_huaweicloud";
+				} else if (cert.getDnsType().equals("aws")) {
+					dnsType = "dns_aws";
 				}
 				cmd = homeConfig.acmeSh + " --issue --dns " + dnsType + domain + keylength + " --server letsencrypt";
 			} else if (cert.getType() == 2) {
@@ -302,6 +304,10 @@ public class CertController extends BaseController {
 		if (cert.getDnsType().equals("tencent")) {
 			list.add("Tencent_SecretId=" + cert.getTencentSecretId());
 			list.add("Tencent_SecretKey=" + cert.getTencentSecretKey());
+		}
+		if (cert.getDnsType().equals("aws")) {
+			list.add("AWS_ACCESS_KEY_ID=" + cert.getAwsAccessKeyId());
+			list.add("AWS_SECRET_ACCESS_KEY=" + cert.getAwsSecretAccessKey());
 		}
 		if (cert.getDnsType().equals("cf")) {
 			list.add("CF_Email=" + cert.getCfEmail());
