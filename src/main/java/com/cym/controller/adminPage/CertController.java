@@ -29,6 +29,7 @@ import com.cym.utils.BaseController;
 import com.cym.utils.JsonResult;
 import com.cym.utils.SystemTool;
 import com.cym.utils.TimeExeUtils;
+import com.cym.utils.ToolUtils;
 
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.util.StrUtil;
@@ -159,7 +160,7 @@ public class CertController extends BaseController {
 		} else {
 			// 申请获得
 			String domain = cert.getDomain().split(",")[0];
-			String path = FileUtil.getUserHomeDir() + File.separator + ".acme.sh" + File.separator + domain;
+			String path = homeConfig.home + File.separator + ".acme.sh" + File.separator + domain;
 
 			if ("ECC".equals(cert.getEncryption())) {
 				path += "_ecc";
@@ -271,7 +272,7 @@ public class CertController extends BaseController {
 		String[] lines = rs.split("\n");
 		for (String line : lines) {
 			if (line.contains("Your cert key is in:")) {
-				return line.split("Your cert key is in:")[1].trim();
+				return line.split("Your cert key is in:")[1].trim().replace("\\", "/").replace("//", "/");
 			}
 		}
 
@@ -282,7 +283,7 @@ public class CertController extends BaseController {
 		String[] lines = rs.split("\n");
 		for (String line : lines) {
 			if (line.contains("And the full chain certs is there:")) {
-				return line.split("And the full chain certs is there:")[1].trim();
+				return line.split("And the full chain certs is there:")[1].trim().replace("\\", "/").replace("//", "/");
 			}
 		}
 
@@ -292,7 +293,7 @@ public class CertController extends BaseController {
 	private String[] getEnv(Cert cert) {
 		List<String> list = new ArrayList<>();
 		list.add("HOME=" + homeConfig.home); // 指定acme证书存放目录
-		
+
 		if (cert.getDnsType().equals("ali")) {
 			list.add("Ali_Key=" + cert.getAliKey());
 			list.add("Ali_Secret=" + cert.getAliSecret());
