@@ -244,7 +244,7 @@ public class CertController extends BaseController {
 		}
 		logger.info(cmd);
 
-		rs = timeExeUtils.execCMD(cmd, envs, 5 * 60 * 1000);
+		rs = timeExeUtils.execCMD("sh " + cmd, envs, 5 * 60 * 1000);
 		logger.info(rs);
 
 		if (rs.contains("Your cert is in")) {
