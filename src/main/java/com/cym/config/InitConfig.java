@@ -116,30 +116,31 @@ public class InitConfig {
 		ZipUtil.unzip(homeConfig.home + "acme.zip", acmeShDir);
 		FileUtil.del(homeConfig.home + "acme.zip");
 
-		// 转到证书文件夹到FileUtil.getUserHomeDir()/.acme.sh/下 TODO 不再转移
-		File[] files = new File(acmeShDir).listFiles();
-		for (File file : files) {
-			if (file.isDirectory() && notInAcmeFile(file)) {
-				FileUtil.copy(file, new File(FileUtil.getUserHomeDir() + File.separator + ".acme.sh"), true);
-			}
-		}
-		// 修改数据库中证书路径 TODO 改回来
-		List<Cert> certs = sqlHelper.findAll(Cert.class);
-		for (Cert cert : certs) {
-			boolean changed = false;
-			if (StrUtil.isNotEmpty(cert.getPem()) && cert.getPem().contains(acmeShDir)) {
-				cert.setPem(cert.getPem().replace(acmeShDir, FileUtil.getUserHomePath() + File.separator + ".acme.sh" + File.separator));
-				changed = true;
-			}
-			if (StrUtil.isNotEmpty(cert.getKey()) && cert.getKey().contains(acmeShDir)) {
-				cert.setKey(cert.getKey().replace(acmeShDir, FileUtil.getUserHomePath() + File.separator + ".acme.sh" + File.separator));
-				changed = true;
-			}
-
-			if (changed) {
-				sqlHelper.updateById(cert);
-			}
-		}
+//		// 转到证书文件夹到FileUtil.getUserHomeDir()/.acme.sh/下
+//		File[] files = new File(acmeShDir).listFiles();
+//		for (File file : files) {
+//			if (file.isDirectory() && notInAcmeFile(file)) {
+//				FileUtil.copy(file, new File(FileUtil.getUserHomeDir() + File.separator + ".acme.sh"), true);
+//			}
+//		}
+//		
+//		// 修改数据库中证书路径
+//		List<Cert> certs = sqlHelper.findAll(Cert.class);
+//		for (Cert cert : certs) {
+//			boolean changed = false;
+//			if (StrUtil.isNotEmpty(cert.getPem()) && cert.getPem().contains(acmeShDir)) {
+//				cert.setPem(cert.getPem().replace(acmeShDir, FileUtil.getUserHomePath() + File.separator + ".acme.sh" + File.separator));
+//				changed = true;
+//			}
+//			if (StrUtil.isNotEmpty(cert.getKey()) && cert.getKey().contains(acmeShDir)) {
+//				cert.setKey(cert.getKey().replace(acmeShDir, FileUtil.getUserHomePath() + File.separator + ".acme.sh" + File.separator));
+//				changed = true;
+//			}
+//
+//			if (changed) {
+//				sqlHelper.updateById(cert);
+//			}
+//		}
 
 		if (SystemTool.isLinux()) {
 //			// 授予acme.sh执行权限
