@@ -180,7 +180,7 @@ public class InitConfig {
 			}
 		}
 	}
-
+	@Deprecated
 	private boolean notInAcmeFile(File file) {
 		String name = file.getName();
 		if (name.equalsIgnoreCase(".github") || name.equalsIgnoreCase("deploy") || name.equalsIgnoreCase("dnsapi") || name.equalsIgnoreCase("notify") || name.equalsIgnoreCase("acme.sh")) {
