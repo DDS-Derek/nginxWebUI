@@ -229,7 +229,7 @@ public class CertController extends BaseController {
 					isInApply = false;
 					return renderError(m.get("certStr.error6"));
 				}
-				cmd += homeConfig.acmeSh + " --renew --force --dns" + domain + " --server letsencrypt --yes-I-know-dns-manual-mode-enough-go-ahead-please";
+				cmd += homeConfig.acmeSh + " --issue --force --dns" + domain + " --server letsencrypt --yes-I-know-dns-manual-mode-enough-go-ahead-please";
 			}
 		} else if (type.equals("renew")) {
 			// 续签,以第一个域名为证书名
