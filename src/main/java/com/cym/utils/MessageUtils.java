@@ -39,13 +39,13 @@ public class MessageUtils {
 	public String get(String msgKey) {
 		String lang = settingService.get("lang");
 		if (StrUtil.isEmpty(lang)) {
-			properties.getProperty(msgKey);
+			return properties.getProperty(msgKey);
 		}
 		if ("en_US".equals(lang)) {
-			propertiesEN.getProperty(msgKey);
+			return propertiesEN.getProperty(msgKey);
 		}
 		if ("zh_TW".equals(lang)) {
-			propertiesTW.getProperty(msgKey);
+			return propertiesTW.getProperty(msgKey);
 		}
 
 		return "";

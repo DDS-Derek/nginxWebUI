@@ -3,7 +3,7 @@ var changeLangIndex;
 function changeLang() {
 	changeLangIndex = layer.open({
 		type: 1,
-		title: "Change language",
+		title: "Language",
 		area: ['400px', '300px'], // 宽高
 		content: $('#changeLangDiv')
 	});
