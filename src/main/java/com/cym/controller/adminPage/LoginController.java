@@ -318,16 +318,20 @@ public class LoginController extends BaseController {
 	}
 
 	@Mapping("/changeLang")
-	public JsonResult changeLang() {
-		Long adminCount = sqlHelper.findAllCount(Admin.class);
-		if (adminCount == 0) {
-			// 只有初始化时允许修改语言
-			if (settingService.get("lang") != null && settingService.get("lang").equals("en_US")) {
-				settingService.set("lang", "");
-			} else {
-				settingService.set("lang", "en_US");
-			}
+	public JsonResult changeLang(String lang) {
+//		Long adminCount = sqlHelper.findAllCount(Admin.class);
+//		if (adminCount == 0) {
+//			// 只有初始化时允许修改语言
+//			if (settingService.get("lang") != null && settingService.get("lang").equals("en_US")) {
+//				settingService.set("lang", "");
+//			} else {
+//				settingService.set("lang", "en_US");
+//			}
+//		}
+		if (lang.equals("zh")) {
+			lang = "";
 		}
+		settingService.set("lang", lang);
 
 		return renderSuccess();
 	}
