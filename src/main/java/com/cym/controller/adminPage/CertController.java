@@ -331,9 +331,9 @@ public class CertController extends BaseController {
 		Cert cert = sqlHelper.findById(id, Cert.class);
 		List<CertCode> certCodes = certService.getCertCodes(id);
 
-		if (certCodes.size() > 0) {
-			return renderSuccess(certCodes);
-		} else {
+//		if (certCodes.size() > 0) {
+//			return renderSuccess(certCodes);
+//		} else {
 			String keylength = " --keylength 2048 "; // RSA模式
 			if ("ECC".equals(cert.getEncryption())) { // ECC模式
 				keylength = " --keylength ec-256 ";
@@ -379,7 +379,7 @@ public class CertController extends BaseController {
 				certCodes = certService.getCertCodes(id);
 				return renderSuccess(certCodes);
 			}
-		}
+//		}
 
 		return renderError(m.get("certStr.error7"));
 	}
