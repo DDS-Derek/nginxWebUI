@@ -241,6 +241,7 @@ public class AppFilter implements Filter {
 		String lang = settingService.get("lang");
 		if(StrUtil.isEmpty(lang)) {
 			properties = m.getProperties();
+			lang = "zh";
 		}
 		if("en_US".equals(lang)) {
 			properties = m.getPropertiesEN();
@@ -248,14 +249,7 @@ public class AppFilter implements Filter {
 		if("zh_TW".equals(lang)) {
 			properties = m.getPropertiesTW();
 		}
-		
-//		if (settingService.get("lang") != null && settingService.get("lang").equals("en_US")) {
-//			settingService.set("lang", "en_US");
-//			properties = m.getPropertiesEN();
-//		} else {
-//			settingService.set("lang", "");
-//			properties = m.getProperties();
-//		}
+		ctx.attrSet("lang", lang);
 
 		// js国际化
 		Set<String> messageHeaders = new HashSet<>();
