@@ -44,15 +44,15 @@ public class VersionConfig  {
 		}
 
 		// 获取服务器最新版本
-		try {
-			String json = HttpUtil.get("https://www.nginxwebui.cn/download/version.json", 1000);
-			if (StrUtil.isNotEmpty(json)) {
-				newVersion = JSONUtil.toBean(json, Version.class);
-			}
-		} catch (Exception e) {
-			logger.error("更新服务器不可访问");
-
-		}
+//		try {
+//			String json = HttpUtil.get("https://www.nginxwebui.cn/download/version.json", 1000);
+//			if (StrUtil.isNotEmpty(json)) {
+//				newVersion = JSONUtil.toBean(json, Version.class);
+//			}
+//		} catch (Exception e) {
+//			logger.error("更新服务器不可访问");
+//
+//		}
 	}
 
 	public String getFromPom() throws IOException, XmlPullParserException {
