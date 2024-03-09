@@ -37,6 +37,10 @@
 						</div>
 						
 						<div class="layui-inline">
+							<button type="button" class="layui-btn layui-btn-danger layui-btn-sm" onclick="delMany()">${commonStr.delAll}</button>
+						</div>
+						
+						<div class="layui-inline">
 							<input type="text" name="keywords" class="layui-input layui-input-sm" value="${keywords}">
 						</div>
 
@@ -54,6 +58,9 @@
 				<table class="layui-table layui-form" lay-size="sm">
 					<thead>
 						<tr>
+							<th style="width: 20px;">
+								<input type="checkbox" id="checkAll" lay-filter="checkAll" lay-skin="primary">
+							</th>
 							<th>${certStr.domain}</th>
 							<th>${certStr.getWay}</th>
 							<th>${certStr.dnsProvider}</th>
@@ -67,6 +74,9 @@
 					<tbody>
 						<#list page.records as cert>
 						<tr>
+							<td>
+								<input type="checkbox" name="ids" title="" lay-skin="primary" value="${cert.id}">
+							</td>
 							<td>${cert.domain}</td>
 							<td>
 								<#if cert.type==1>

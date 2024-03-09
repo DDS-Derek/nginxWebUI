@@ -147,30 +147,34 @@ public class CertController extends BaseController {
 
 	@Mapping("del")
 	public JsonResult del(String id) {
-		Cert cert = sqlHelper.findById(id, Cert.class);
+		String[] ids = id.split(",");
 
-		if (cert.getType() == 1) {
-			// 手动上传
-			if (cert.getPem().contains(homeConfig.home + "cert/")) {
-				FileUtil.del(cert.getPem());
-			}
-			if (cert.getKey().contains(homeConfig.home + "cert/")) {
-				FileUtil.del(cert.getKey());
-			}
-		} else {
-			// 申请获得
-			String domain = cert.getDomain().split(",")[0];
-			String path = homeConfig.home + File.separator + ".acme.sh" + File.separator + domain;
+		for (String i : ids) {
+			Cert cert = sqlHelper.findById(i, Cert.class);
 
-			if ("ECC".equals(cert.getEncryption())) {
-				path += "_ecc";
+			if (cert.getType() == 1) {
+				// 手动上传
+				if (cert.getPem().contains(homeConfig.home + "cert/")) {
+					FileUtil.del(cert.getPem());
+				}
+				if (cert.getKey().contains(homeConfig.home + "cert/")) {
+					FileUtil.del(cert.getKey());
+				}
+			} else {
+				// 申请获得
+				String domain = cert.getDomain().split(",")[0];
+				String path = homeConfig.home + File.separator + ".acme.sh" + File.separator + domain;
+
+				if ("ECC".equals(cert.getEncryption())) {
+					path += "_ecc";
+				}
+				if (FileUtil.exist(path)) {
+					FileUtil.del(path);
+				}
 			}
-			if (FileUtil.exist(path)) {
-				FileUtil.del(path);
-			}
+
+			sqlHelper.deleteById(i, Cert.class);
 		}
-
-		sqlHelper.deleteById(id, Cert.class);
 		return renderSuccess();
 	}
 
