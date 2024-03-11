@@ -105,7 +105,8 @@ function checkDnsType(value) {
 	$("#cf").hide();
 	$("#gd").hide();
 	$("#hw").hide();
-
+	$("#ipv64").hide();
+	
 	$("#" + value).show();
 }
 
@@ -145,7 +146,8 @@ function add() {
 	$("#cfKey").val("");
 	$("#gdKey").val("");
 	$("#gdSecret").val("");
-
+	$("#ipv64Token").val("");
+	
 	$("#hwUsername").val("");
 	$("#hwPassword").val("");
 	$("#hwDomainName").val("");
@@ -206,7 +208,8 @@ function edit(id, clone) {
 
 				$("#gdKey").val(cert.gdKey);
 				$("#gdSecret").val(cert.gdSecret);
-
+				$("#ipv64Token").val(cert.ipv64Token);
+				
 				$("#hwUsername").val(cert.hwUsername);
 				$("#hwPassword").val(cert.hwPassword);
 				$("#hwDomainName").val(cert.hwDomainName);
@@ -313,6 +316,18 @@ function addOver() {
 		}
 		if ($("#dnsType").val() == 'hw') {
 			if ($("#hwUsername").val() == '' || $("#hwPassword").val() == '' || $("#hwDomainName").val() == '') {
+				layer.msg(commonStr.IncompleteEntry);
+				return;
+			}
+		}
+		if ($("#dnsType").val() == 'aws') {
+			if ($("#awsAccessKeyId").val() == '' || $("#awsSecretAccessKey").val() == '') {
+				layer.msg(commonStr.IncompleteEntry);
+				return;
+			}
+		}
+		if ($("#dnsType").val() == 'ipv64') {
+			if ($("#ipv64Token").val() == '') {
 				layer.msg(commonStr.IncompleteEntry);
 				return;
 			}

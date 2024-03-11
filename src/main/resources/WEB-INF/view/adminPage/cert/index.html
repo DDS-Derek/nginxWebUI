@@ -99,6 +99,7 @@
 									<#if cert.dnsType=='gd'> Godaddy </#if>
 									<#if cert.dnsType=='hw'> ${certStr.huawei} </#if>
 									<#if cert.dnsType=='aws'> ${certStr.aws} </#if> 
+									<#if cert.dnsType=='ipv64'> IPv64 </#if> 
 								</#if>
 							</td>
 
@@ -215,6 +216,7 @@
 								<option value="gd">Godaddy</option>
 								<option value="hw">${certStr.huawei}</option>
 								<option value="aws">${certStr.aws}</option>
+								<option value="ipv64">IPv64</option>
 							</select>
 						</div>
 					</div>
@@ -300,9 +302,6 @@
 								<input type="text" name="cfKey" id="cfKey" class="layui-input">
 							</div>
 						</div>
-						
-						
-
 					</div>
 
 					<div id="gd">
@@ -317,6 +316,15 @@
 							<label class="layui-form-label">GD_Secret</label>
 							<div class="layui-input-block">
 								<input type="text" name="gdSecret" id="gdSecret" class="layui-input">
+							</div>
+						</div>
+					</div>
+					
+					<div id="ipv64">
+						<div class="layui-form-item">
+							<label class="layui-form-label">IPv64_Token</label>
+							<div class="layui-input-block">
+								<input type="text" name="ipv64Token" id="ipv64Token" class="layui-input">
 							</div>
 						</div>
 					</div>
