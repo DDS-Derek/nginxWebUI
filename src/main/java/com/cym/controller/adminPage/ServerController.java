@@ -200,6 +200,7 @@ public class ServerController extends BaseController {
 
 	@Mapping("del")
 	public JsonResult del(String id) {
+		
 		serverService.deleteById(id);
 
 		return renderSuccess();

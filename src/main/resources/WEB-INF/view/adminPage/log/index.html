@@ -23,16 +23,19 @@
 					</div>
 					
 					<div class="layui-inline">
-						<button type="button" class="layui-btn layui-btn-sm layui-btn-danger" onclick="clean()">${logStr.clean}</button>
+						<button type="button" class="layui-btn layui-btn-danger layui-btn-sm" onclick="delMany()">${commonStr.delAll}</button>
 					</div>
 
 					<input type="hidden" name="curr" value="${page.curr}">
 					<input type="hidden" name="limit" value="${page.limit}">
 				</form>
 
-				<table class="layui-table" lay-size="sm">
+				<table class="layui-table layui-form" lay-size="sm">
 					<thead>
 						<tr>
+							<th style="width: 20px;">
+								<input type="checkbox" id="checkAll" lay-filter="checkAll" lay-skin="primary">
+							</th>
 							<th>${logStr.path}</th>
 							<th>${commonStr.operation}</th>
 						</tr>
@@ -40,6 +43,9 @@
 					<tbody>
 						<#list page.records as log>
 						<tr>
+							<td>
+								<input type="checkbox" name="ids" title="" lay-skin="primary" value="${log.id}">
+							</td>
 							<td>${log.path}</td>
 							<td>
 								<div class="layui-inline">
