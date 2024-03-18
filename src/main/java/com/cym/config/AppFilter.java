@@ -225,7 +225,7 @@ public class AppFilter implements Filter {
 		ctx.attrSet("admin", ctx.session("admin"));
 
 		// 显示版本更新
-		if (versionConfig.newVersion != null) {
+		if (versionConfig.newVersion != null && versionConfig.currentVersion != null) {
 			ctx.attrSet("newVersion", versionConfig.newVersion);
 
 			int currentVersion = Integer.parseInt(versionConfig.currentVersion.replace(".", "").replace("v", ""));
@@ -239,14 +239,14 @@ public class AppFilter implements Filter {
 		// 读取配置文件
 		Properties properties = null;
 		String lang = settingService.get("lang");
-		if(StrUtil.isEmpty(lang)) {
+		if (StrUtil.isEmpty(lang)) {
 			properties = m.getProperties();
 			lang = "zh";
 		}
-		if("en_US".equals(lang)) {
+		if ("en_US".equals(lang)) {
 			properties = m.getPropertiesEN();
 		}
-		if("zh_TW".equals(lang)) {
+		if ("zh_TW".equals(lang)) {
 			properties = m.getPropertiesTW();
 		}
 		ctx.attrSet("lang", lang);
