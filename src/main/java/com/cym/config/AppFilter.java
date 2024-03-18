@@ -225,7 +225,7 @@ public class AppFilter implements Filter {
 		ctx.attrSet("admin", ctx.session("admin"));
 
 		// 显示版本更新
-		if (versionConfig.newVersion != null && versionConfig.currentVersion != null) {
+		if (versionConfig.newVersion != null && versionConfig.newVersion.getVersion() != null && versionConfig.currentVersion != null) {
 			ctx.attrSet("newVersion", versionConfig.newVersion);
 
 			int currentVersion = Integer.parseInt(versionConfig.currentVersion.replace(".", "").replace("v", ""));
