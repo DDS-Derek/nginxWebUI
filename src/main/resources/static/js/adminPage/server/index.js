@@ -764,7 +764,7 @@ function setDenyAllow(){
 	form.render();
 	denyAllowIndex = layer.open({
 		type: 1,
-		title: "黑白名单模式",
+		title: serverStr.denyAllowModel,
 		area: ['700px', '500px'], // 宽高
 		content: $('#denyAllowDiv')
 	});
