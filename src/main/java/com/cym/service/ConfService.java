@@ -376,6 +376,36 @@ public class ConfService {
 			// ssl配置
 			setServerSsl(server, ngxBlockServer);
 
+			// IP黑白名单
+			if (server.getDenyAllow() == 1) {
+				// 黑名单
+				ngxParam = new NgxParam();
+				ngxParam.addValue("allow all");
+				ngxBlockServer.addEntry(ngxParam);
+				if (StrUtil.isNotBlank(server.getDenyAllowIp())) {
+					String[] ips = server.getDenyAllowIp().split("\n");
+					for (String ip : ips) {
+						ngxParam = new NgxParam();
+						ngxParam.addValue("deny " + ip);
+						ngxBlockServer.addEntry(ngxParam);
+					}
+				}
+			}
+			if (server.getDenyAllow() == 2) {
+				// 白名单
+				ngxParam = new NgxParam();
+				ngxParam.addValue("deny all");
+				ngxBlockServer.addEntry(ngxParam);
+				if (StrUtil.isNotBlank(server.getDenyAllowIp())) {
+					String[] ips = server.getDenyAllowIp().split("\n");
+					for (String ip : ips) {
+						ngxParam = new NgxParam();
+						ngxParam.addValue("allow " + ip);
+						ngxBlockServer.addEntry(ngxParam);
+					}
+				}
+			}
+
 			// 自定义参数
 			String type = "server";
 			if (server.getProxyType() != 0) {
@@ -386,9 +416,8 @@ public class ConfService {
 				setSameParam(param, ngxBlockServer);
 			}
 
-			List<Location> locationList = serverService.getLocationByServerId(server.getId());
-
 			// location参数配置
+			List<Location> locationList = serverService.getLocationByServerId(server.getId());
 			for (Location location : locationList) {
 				NgxBlock ngxBlockLocation = new NgxBlock();
 				ngxBlockLocation.addValue("location");
