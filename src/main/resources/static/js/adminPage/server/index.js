@@ -31,6 +31,9 @@ $(function() {
 	form.on('select(rewrite)', function(data) {
 		checkRewrite(data.value);
 	});
+	form.on('select(denyAllowValue)', function(data) {
+		checkDenyAllow(data.value);
+	});
 	
 	form.on('checkbox(checkAll)', function(data) {
 		if (data.elem.checked) {
@@ -129,7 +132,6 @@ function checkProxyType(value) {
 		$(".proxyHttp").hide();
 		$(".proxyTcp").show();
 	}
-
 }
 
 function checkRewrite(value) {
@@ -139,6 +141,16 @@ function checkRewrite(value) {
 	}
 	if (value == 1) {
 		$("#rewriteListenDiv").show();
+	}
+}
+
+function checkDenyAllow(value){
+	if (value == null || value == '' || value == 0) {
+		$("#denyAllowTextDiv").hide();
+
+	}
+	if (value != 0) {
+		$("#denyAllowTextDiv").show();
 	}
 }
 
@@ -168,13 +180,16 @@ function add() {
 	$("#keyPath").html("");
 	$("#itemList").html("");
 	$("#paramJson").val("");
-
+	
+	$("#denyAllow").val("0");
+	$("#denyAllowIp").val("");
+				
 	$(".protocols").prop("checked", true);
 
 	checkProxyType(0);
 	checkSsl(0);
 	checkRewrite(1);
-
+	
 	form.render();
 	showWindow(serverStr.add);
 }
@@ -267,7 +282,6 @@ function addOver() {
 		}
 	}
 	server.http2 = $("#http2").val();
-	//debugger
 	server.passwordId = $("#passwordId").val();
 
 	var protocols = [];
@@ -278,6 +292,8 @@ function addOver() {
 	});
 	server.protocols = protocols.join(" ");
 
+	server.denyAllow =  $("#denyAllow").val();
+	server.denyAllowIp =  $("#denyAllowIp").val();
 
 	var serverParamJson = $("#serverParamJson").val();
 
@@ -377,6 +393,8 @@ function edit(id, clone) {
 				$("#proxyType").val(server.proxyType);
 				$("#proxyUpstreamId").val(server.proxyUpstreamId);
 				$("#serverParamJson").val(data.obj.paramJson);
+				$("#denyAllow").val(server.denyAllow);
+				$("#denyAllowIp").val(server.denyAllowIp);
 				$("#passwordId").val(server.passwordId);
 
 
@@ -725,11 +743,41 @@ function serverParam() {
 
 }
 
+
 function locationParam(uuid) {
 	var json = $("#locationParamJson_" + uuid).val();
 	$("#targertId").val("locationParamJson_" + uuid);
 	var params = json != '' ? JSON.parse(json) : [];
 	fillTable(params);
+} 
+
+var denyAllowIndex;
+function setDenyAllow(){
+	var denyAllow = $("#denyAllow").val();
+	var denyAllowIp = $("#denyAllowIp").val();
+	
+	$("#denyAllowValue").val(denyAllow);
+	$("#denyAllowIpValue").val(denyAllowIp);
+	
+	checkDenyAllow(denyAllow);
+	
+	form.render();
+	denyAllowIndex = layer.open({
+		type: 1,
+		title: "黑白名单模式",
+		area: ['700px', '500px'], // 宽高
+		content: $('#denyAllowDiv')
+	});
+}
+
+function setDenyAllowOver(){
+	var denyAllow = $("#denyAllowValue").val();
+	var denyAllowIp = $("#denyAllowIpValue").val();
+	
+	$("#denyAllow").val(denyAllow);
+	$("#denyAllowIp").val(denyAllowIp);
+	
+	layer.close(denyAllowIndex)
 }
 
 var paramIndex;
@@ -1056,3 +1104,5 @@ function editLocationDescr(id) {
 	});
 
 }
+
+

@@ -93,6 +93,35 @@ public class Server extends BaseModel {
 	@JsonIgnore
 	Long seq;
 
+	/**
+	 * IP黑白名单模式, 0:正常模式 1:黑名单模式 2:白名单模式
+	 */
+	@InitValue("0")	
+	Integer denyAllow;
+	
+	/**
+	 * IP黑白名单, 用回车隔开
+	 */
+	String denyAllowIp;
+	
+	
+	
+	public String getDenyAllowIp() {
+		return denyAllowIp;
+	}
+
+	public void setDenyAllowIp(String denyAllowIp) {
+		this.denyAllowIp = denyAllowIp;
+	}
+
+	public Integer getDenyAllow() {
+		return denyAllow;
+	}
+
+	public void setDenyAllow(Integer denyAllow) {
+		this.denyAllow = denyAllow;
+	}
+
 	public Long getSeq() {
 		return seq;
 	}

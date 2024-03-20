@@ -431,8 +431,13 @@
 				<div class="layui-form-item">
 					<button type="button" class="layui-btn layui-btn-sm layui-btn-normal proxyHttp" style="margin-left: 50px;" onclick="addItem()">${serverStr.addLocation}</button>
 					
+					<button type="button" class="layui-btn layui-btn-sm layui-btn-normal proxyHttp"  onclick="setDenyAllow()">IP黑白名单</button>
+					
 					<button type="button" class="layui-btn layui-btn-sm"  onclick="serverParam()">${serverStr.extParm}</button>
 					<textarea style="display: none;" id="serverParamJson" name="serverParamJson"></textarea>
+					
+					<input type="hidden" id="denyAllow" name="denyAllow">
+					<textarea style="display: none;" id="denyAllowIp" name="denyAllowIp"></textarea>
 				</div>
 				
 							
@@ -569,6 +574,31 @@
 			<div class="layui-form-item center">
 				<button type="button" class="layui-btn layui-btn-normal" onclick="editDescrOver()">${commonStr.ok}</button>
 				<button type="button" class="layui-btn" onclick="layer.closeAll()">${commonStr.close}</button>
+			</div>
+		</div>
+		
+		
+		<div class="layui-form" id="denyAllowDiv" style="padding: 15px; display: none">
+			<div class="layui-form-item">
+				<label class="layui-form-label">黑白名单模式</label>
+				<div class="layui-input-inline">
+					<select id="denyAllowValue"  lay-filter="denyAllowValue">
+						<option value="0">正常模式</option>
+						<option value="1">黑名单模式</option>
+						<option value="2">白名单模式</option>
+					</select>
+				</div>
+			</div>
+			
+			<div class="layui-form-item" id="denyAllowTextDiv">
+				<label class="layui-form-label">涉及IP(用回车隔开)</label>
+				<div class="layui-input-block">
+					<textarea id="denyAllowIpValue" class="layui-textarea" style="height: 200px;"></textarea> 
+				</div>
+			</div>
+			<div class="layui-form-item center">
+				<button type="button" class="layui-btn layui-btn-normal" onclick="setDenyAllowOver()">${commonStr.ok}</button>
+				<button type="button" class="layui-btn" onclick="layer.close(denyAllowIndex)">${commonStr.close}</button>
 			</div>
 		</div>
 		
