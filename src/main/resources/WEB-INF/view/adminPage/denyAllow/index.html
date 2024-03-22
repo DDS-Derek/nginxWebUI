@@ -2,7 +2,15 @@
 <html>
 <head>
 <#include "/adminPage/common.html"/>
+<style type="text/css">
+.layui-form-label {
+	width: 140px;
+}
 
+.layui-input-block {
+	margin-left: 170px;
+}
+</style>
 </head>
 <body class="layui-layout-body">
 	<div class="layui-layout layui-layout-admin">
@@ -48,7 +56,7 @@
 								<input type="checkbox" name="ids" title="" lay-skin="primary" value="${ext.denyAllow.id}">
 							</td>
 							<td>${ext.denyAllow.name}</td>
-							<td>${ext.denyAllow.ipCount}</td>
+							<td>${ext.ipCount}</td>
 							<td>
 								<div class="layui-inline">
 									<button type="button" class="layui-btn layui-btn-sm " onclick="edit('${ext.denyAllow.id}')">${commonStr.edit}</button>
@@ -74,15 +82,15 @@
 				<input type="hidden" name="id" id="id">
 				<div class="layui-form-item">
 					<label class="layui-form-label">${denyAllowStr.name}</label>
-					<div class="layui-input-inline">
+					<div class="layui-input-block">
 						<input type="text" name="name" id="name" class="layui-input">
 					</div>
 				</div>
 				
 				<div class="layui-form-item">
 					<label class="layui-form-label">${denyAllowStr.ipTip}</label>
-					<div class="layui-input-inline">
-						<textarea name="ip" id="ip" class="layui-input"></textarea>
+					<div class="layui-input-block">
+						<textarea name="ip" id="ip" class="layui-textarea" style="height: 400px;"></textarea>
 					</div>
 				</div>
 

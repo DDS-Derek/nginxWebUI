@@ -29,7 +29,7 @@ function showWindow(title){
 	layer.open({
 		type : 1,
 		title : title,
-		area : [ '550px', '350px' ], // 宽高
+		area : [ '1000px', '610px' ], // 宽高
 		content : $('#windowDiv')
 	});
 }
@@ -71,7 +71,7 @@ function edit(id) {
 				var denyAllow = data.obj;
 				$("#id").val(denyAllow.id); 
 				$("#name").val(denyAllow.name); 
-				$("#ip").val(log.ip); 
+				$("#ip").val(denyAllow.ip); 
 				
 				form.render();
 				showWindow(commonStr.edit);
