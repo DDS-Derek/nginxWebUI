@@ -14,7 +14,7 @@
 			<!-- 内容主体区域 -->
 			<div style="padding: 15px">
 				<fieldset class="layui-elem-field layui-field-title">
-					<legend>黑白名单IP</legend>
+					<legend>${menuStr.denyAllow}</legend>
 				</fieldset>
 
 				<form action="${ctx}/adminPage/denyAllow" id="searchForm" method="post">
@@ -36,8 +36,8 @@
 							<th style="width: 20px;">
 								<input type="checkbox" id="checkAll" lay-filter="checkAll" lay-skin="primary">
 							</th>
-							<th>名单名称</th>
-							<th>IP数量</th>
+							<th>${denyAllowStr.name}</th>
+							<th>${denyAllowStr.ipCount}</th>
 							<th>${commonStr.operation}</th>
 						</tr>
 					</thead>
@@ -73,14 +73,14 @@
 			<form id="addForm">
 				<input type="hidden" name="id" id="id">
 				<div class="layui-form-item">
-					<label class="layui-form-label">名单名称</label>
+					<label class="layui-form-label">${denyAllowStr.name}</label>
 					<div class="layui-input-inline">
 						<input type="text" name="name" id="name" class="layui-input">
 					</div>
 				</div>
 				
 				<div class="layui-form-item">
-					<label class="layui-form-label">IP(用回车分隔)</label>
+					<label class="layui-form-label">${denyAllowStr.ipTip}</label>
 					<div class="layui-input-inline">
 						<textarea name="ip" id="ip" class="layui-input"></textarea>
 					</div>
