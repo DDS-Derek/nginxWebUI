@@ -299,9 +299,10 @@ function addOver() {
 	});
 	server.protocols = protocols.join(" ");
 
-	server.denyAllow =  $("#denyAllow").val();
-	server.denyAllowIp =  $("#denyAllowIp").val();
-
+	server.denyAllow = $("#denyAllow").val();
+	server.denyId = $("#denyId").val();
+	server.allowId = $("#allowId").val();
+	
 	var serverParamJson = $("#serverParamJson").val();
 
 	var locations = [];
@@ -775,7 +776,7 @@ function setDenyAllow(){
 	denyAllowIndex = layer.open({
 		type: 1,
 		title: serverStr.denyAllowModel,
-		area: ['700px', '500px'], // 宽高
+		area: ['600px', '500px'], // 宽高
 		content: $('#denyAllowDiv')
 	});
 }

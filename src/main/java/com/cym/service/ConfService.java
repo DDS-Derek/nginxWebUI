@@ -395,7 +395,7 @@ public class ConfService {
 					String[] ips = denyAllow.getIp().split("\n");
 					for (String ip : ips) {
 						ngxParam = new NgxParam();
-						ngxParam.addValue("deny " + ip);
+						ngxParam.addValue("deny " + ip.trim());
 						ngxBlockServer.addEntry(ngxParam);
 					}
 				}
@@ -411,7 +411,7 @@ public class ConfService {
 					String[] ips = denyAllow.getIp().split("\n");
 					for (String ip : ips) {
 						ngxParam = new NgxParam();
-						ngxParam.addValue("allow " + ip);
+						ngxParam.addValue("allow " + ip.trim());
 						ngxBlockServer.addEntry(ngxParam);
 					}
 				}
@@ -424,7 +424,7 @@ public class ConfService {
 					String[] ips = denyAllow.getIp().split("\n");
 					for (String ip : ips) {
 						ngxParam = new NgxParam();
-						ngxParam.addValue("deny " + ip);
+						ngxParam.addValue("deny " + ip.trim());
 						ngxBlockServer.addEntry(ngxParam);
 					}
 				}
@@ -434,7 +434,7 @@ public class ConfService {
 					String[] ips = denyAllow.getIp().split("\n");
 					for (String ip : ips) {
 						ngxParam = new NgxParam();
-						ngxParam.addValue("allow " + ip);
+						ngxParam.addValue("allow " + ip.trim());
 						ngxBlockServer.addEntry(ngxParam);
 					}
 				}

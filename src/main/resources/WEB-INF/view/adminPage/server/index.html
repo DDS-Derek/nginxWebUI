@@ -583,7 +583,7 @@
 		<div class="layui-form" id="denyAllowDiv" style="padding: 15px; display: none">
 			<div class="layui-form-item">
 				<label class="layui-form-label">${serverStr.denyAllowModel}</label>
-				<div class="layui-input-inline">
+				<div class="layui-input-inline" style="width: 250px;">
 					<select id="denyAllowValue" lay-filter="denyAllowValue">
 						<option value="0">${serverStr.normalMode}</option>
 						<option value="1">${serverStr.blackMode}</option>
@@ -595,7 +595,7 @@
 			
 			<div class="layui-form-item" id="denyDiv">
 				<label class="layui-form-label">${serverStr.blacklist}</label>
-				<div class="layui-input-inline">
+				<div class="layui-input-block">
 					<select id="denyIdValue">
 						<#list denyAllowList as denyAllow>
 						<option value="${denyAllow.id}">${denyAllow.name}</option>
@@ -606,7 +606,7 @@
 			
 			<div class="layui-form-item" id="allowDiv">
 				<label class="layui-form-label">${serverStr.whitelist}</label>
-				<div class="layui-input-inline">
+				<div class="layui-input-block">
 					<select id="allowIdValue">
 						<#list denyAllowList as denyAllow>
 						<option value="${denyAllow.id}">${denyAllow.name}</option>
