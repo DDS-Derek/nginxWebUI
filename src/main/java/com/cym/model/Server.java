@@ -42,7 +42,7 @@ public class Server extends BaseModel {
 	@InitValue("0")
 	Integer ssl; 
 	/**
-	 * 是否开启http2 0否(默认) 1是
+	 * 是否开启http2 0否(默认) 1是(旧版写法) 2是(新版写法)
 	 */
 	@InitValue("0")
 	Integer http2; 

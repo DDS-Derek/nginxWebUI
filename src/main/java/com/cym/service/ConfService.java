@@ -349,14 +349,22 @@ public class ConfService {
 				value += " proxy_protocol";
 			}
 
-			if (server.getSsl() != null && server.getSsl() == 1) {
+			if (server.getSsl() == 1) {
 				value += " ssl";
-				if (server.getHttp2() != null && server.getHttp2() == 1) {
-					value += " http2";
+				if (server.getHttp2() == 1) { // http2旧版写法
+					value += " http2"; 
 				}
 			}
 			ngxParam.addValue(value);
 			ngxBlockServer.addEntry(ngxParam);
+			
+			
+			if (server.getSsl() == 1 && server.getHttp2() == 2) { // http2新版写法
+				ngxParam = new NgxParam();
+				ngxParam.addValue("http2 on");
+				ngxBlockServer.addEntry(ngxParam);
+			}
+			
 
 			// 密码配置
 			if (StrUtil.isNotEmpty(server.getPasswordId())) {
