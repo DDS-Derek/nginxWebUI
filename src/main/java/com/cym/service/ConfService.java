@@ -20,6 +20,7 @@ import com.cym.model.BakSub;
 import com.cym.model.Basic;
 import com.cym.model.Cert;
 import com.cym.model.CertCode;
+import com.cym.model.DenyAllow;
 import com.cym.model.Http;
 import com.cym.model.Location;
 import com.cym.model.Param;
@@ -352,19 +353,17 @@ public class ConfService {
 			if (server.getSsl() == 1) {
 				value += " ssl";
 				if (server.getHttp2() == 1) { // http2旧版写法
-					value += " http2"; 
+					value += " http2";
 				}
 			}
 			ngxParam.addValue(value);
 			ngxBlockServer.addEntry(ngxParam);
-			
-			
+
 			if (server.getSsl() == 1 && server.getHttp2() == 2) { // http2新版写法
 				ngxParam = new NgxParam();
 				ngxParam.addValue("http2 on");
 				ngxBlockServer.addEntry(ngxParam);
 			}
-			
 
 			// 密码配置
 			if (StrUtil.isNotEmpty(server.getPasswordId())) {
@@ -390,8 +389,10 @@ public class ConfService {
 				ngxParam = new NgxParam();
 				ngxParam.addValue("allow all");
 				ngxBlockServer.addEntry(ngxParam);
-				if (StrUtil.isNotBlank(server.getDenyAllowIp())) {
-					String[] ips = server.getDenyAllowIp().split("\n");
+
+				DenyAllow denyAllow = sqlHelper.findById(server.getDenyId(), DenyAllow.class);
+				if (denyAllow != null) {
+					String[] ips = denyAllow.getIp().split("\n");
 					for (String ip : ips) {
 						ngxParam = new NgxParam();
 						ngxParam.addValue("deny " + ip);
@@ -404,8 +405,33 @@ public class ConfService {
 				ngxParam = new NgxParam();
 				ngxParam.addValue("deny all");
 				ngxBlockServer.addEntry(ngxParam);
-				if (StrUtil.isNotBlank(server.getDenyAllowIp())) {
-					String[] ips = server.getDenyAllowIp().split("\n");
+
+				DenyAllow denyAllow = sqlHelper.findById(server.getAllowId(), DenyAllow.class);
+				if (denyAllow != null) {
+					String[] ips = denyAllow.getIp().split("\n");
+					for (String ip : ips) {
+						ngxParam = new NgxParam();
+						ngxParam.addValue("allow " + ip);
+						ngxBlockServer.addEntry(ngxParam);
+					}
+				}
+			}
+
+			if (server.getDenyAllow() == 3) {
+				// 黑白名单
+				DenyAllow denyAllow = sqlHelper.findById(server.getDenyId(), DenyAllow.class);
+				if (denyAllow != null) {
+					String[] ips = denyAllow.getIp().split("\n");
+					for (String ip : ips) {
+						ngxParam = new NgxParam();
+						ngxParam.addValue("deny " + ip);
+						ngxBlockServer.addEntry(ngxParam);
+					}
+				}
+
+				denyAllow = sqlHelper.findById(server.getAllowId(), DenyAllow.class);
+				if (denyAllow != null) {
+					String[] ips = denyAllow.getIp().split("\n");
 					for (String ip : ips) {
 						ngxParam = new NgxParam();
 						ngxParam.addValue("allow " + ip);

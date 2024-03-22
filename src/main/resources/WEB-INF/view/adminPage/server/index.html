@@ -438,7 +438,8 @@
 					<textarea style="display: none;" id="serverParamJson" name="serverParamJson"></textarea>
 					
 					<input type="hidden" id="denyAllow" name="denyAllow">
-					<textarea style="display: none;" id="denyAllowIp" name="denyAllowIp"></textarea>
+					<input type="hidden" id="denyId" name="denyId">
+					<input type="hidden" id="allowId" name="allowId">
 				</div>
 				
 							
@@ -583,20 +584,38 @@
 			<div class="layui-form-item">
 				<label class="layui-form-label">${serverStr.denyAllowModel}</label>
 				<div class="layui-input-inline">
-					<select id="denyAllowValue"  lay-filter="denyAllowValue">
+					<select id="denyAllowValue" lay-filter="denyAllowValue">
 						<option value="0">${serverStr.normalMode}</option>
 						<option value="1">${serverStr.blackMode}</option>
 						<option value="2">${serverStr.whiteMode}</option>
+						<option value="3">${serverStr.blackWhiteMode}</option>
 					</select>
 				</div>
 			</div>
 			
-			<div class="layui-form-item" id="denyAllowTextDiv">
-				<label class="layui-form-label">${serverStr.involvedIp}</label>
-				<div class="layui-input-block">
-					<textarea id="denyAllowIpValue" class="layui-textarea" style="height: 200px;"></textarea> 
+			<div class="layui-form-item" id="denyDiv">
+				<label class="layui-form-label">黑名单</label>
+				<div class="layui-input-inline">
+					<select id="denyIdValue">
+						<#list denyAllowList as denyAllow>
+						<option value="${denyAllow.id}">${denyAllow.name}</option>
+						</#list>
+					</select>
 				</div>
 			</div>
+			
+			<div class="layui-form-item" id="allowDiv">
+				<label class="layui-form-label">白名单</label>
+				<div class="layui-input-inline">
+					<select id="allowIdValue">
+						<#list denyAllowList as denyAllow>
+						<option value="${denyAllow.id}">${denyAllow.name}</option>
+						</#list>
+					</select>
+				</div>
+			</div>
+			
+			
 			<div class="layui-form-item center">
 				<button type="button" class="layui-btn layui-btn-normal" onclick="setDenyAllowOver()">${commonStr.ok}</button>
 				<button type="button" class="layui-btn" onclick="layer.close(denyAllowIndex)">${commonStr.close}</button>

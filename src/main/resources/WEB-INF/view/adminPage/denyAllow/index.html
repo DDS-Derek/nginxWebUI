@@ -2,41 +2,7 @@
 <html>
 <head>
 <#include "/adminPage/common.html"/>
-<link rel="stylesheet" type="text/css" href="${ctx}/lib/jsdifflib/diffview.css" />
-<style type="text/css">
-.name {
-	padding: 10px;
-	padding-left: 0px;
-	font-size: 16px;
-}
 
-.title {
-	margin-top: 5px;
-	margin-bottom: 5px;
-	height:30px;
-	line-height:30px;
-	cursor: pointer;
-}
-
-table.diff {
-	width: 100%;
-}
-
-
-.long{
-	width: 150px!important;
-}
-
-
-.layui-form-radio{
-	width: 700px;
-}
-
-input[type='radio']{
-	width: 1000px;
-}
-
-</style>
 </head>
 <body class="layui-layout-body">
 	<div class="layui-layout layui-layout-admin">
@@ -48,44 +14,91 @@ input[type='radio']{
 			<!-- 内容主体区域 -->
 			<div style="padding: 15px">
 				<fieldset class="layui-elem-field layui-field-title">
-					<legend>公用黑白名单</legend>
+					<legend>黑白名单IP</legend>
 				</fieldset>
-				<form id="addForm">
-					
-					<div class="layui-form">
-						<div class="layui-inline">
-							<button type="button" class="layui-btn layui-btn-sm layui-btn-normal" onclick="addOver()">保存</button>
-						</div>
+
+				<form action="${ctx}/adminPage/denyAllow" id="searchForm" method="post">
+					<div class="layui-inline">
+						<button type="button" class="layui-btn layui-btn-sm layui-btn-normal" onclick="add()">${commonStr.add}</button>
 					</div>
-					
-					<div class="layui-form" style="margin-top: 10px; display: flex;">
 
-						<div style="width: 47%;">
-							<div class="layui-inline" style="padding-bottom: 5px;width: 100%;">
-								<label class="layui-form-label ellipsis" style="width: 80%;text-align: left;">黑名单IP</label>
-							</div>
-							<textarea class="layui-textarea conf" id="denyIp" name="denyIp" style="height: 500px; resize: none;" spellcheck="false">${denyIp}</textarea>
-						</div>
-
-
-						<div style="width: 47%;">
-							<div class="layui-inline" style="padding-bottom: 5px;">
-								<label class="layui-form-label" style="width: 110px;text-align: left;">白名单IP</label>
-							</div>
-							<textarea class="layui-textarea org" id="allowIp" name="allowIp" style="height: 500px; margin-left: 10px;resize: none;" spellcheck="false">${allowIp}</textarea>
-						</div>
+					<div class="layui-inline">
+						<button type="button" class="layui-btn layui-btn-danger layui-btn-sm" onclick="delMany()">${commonStr.delAll}</button>
 					</div>
+
+					<input type="hidden" name="curr" value="${page.curr}">
+					<input type="hidden" name="limit" value="${page.limit}">
 				</form>
+
+				<table class="layui-table layui-form" lay-size="sm">
+					<thead>
+						<tr>
+							<th style="width: 20px;">
+								<input type="checkbox" id="checkAll" lay-filter="checkAll" lay-skin="primary">
+							</th>
+							<th>名单名称</th>
+							<th>IP数量</th>
+							<th>${commonStr.operation}</th>
+						</tr>
+					</thead>
+					<tbody>
+						<#list page.records as ext>
+						<tr>
+							<td>
+								<input type="checkbox" name="ids" title="" lay-skin="primary" value="${ext.denyAllow.id}">
+							</td>
+							<td>${ext.denyAllow.name}</td>
+							<td>${ext.denyAllow.ipCount}</td>
+							<td>
+								<div class="layui-inline">
+									<button type="button" class="layui-btn layui-btn-sm " onclick="edit('${ext.denyAllow.id}')">${commonStr.edit}</button>
+								</div>
+
+								<div class="layui-inline">
+									<button type="button" class="layui-btn layui-btn-sm layui-btn-danger " onclick="del('${ext.denyAllow.id}')">${commonStr.del}</button>
+								</div>
+							</td>
+						</tr>
+						</#list>
+					</tbody>
+				</table>
+				<div id="pageInfo"></div>
 			</div>
 		</div>
 	</div>
 
-	
+	<div style="height: 0px; width: 0px; overflow: hidden;">
+		<!-- 弹出框 -->
+		<div class="layui-form" id="windowDiv" style="padding: 15px; display: none">
+			<form id="addForm">
+				<input type="hidden" name="id" id="id">
+				<div class="layui-form-item">
+					<label class="layui-form-label">名单名称</label>
+					<div class="layui-input-inline">
+						<input type="text" name="name" id="name" class="layui-input">
+					</div>
+				</div>
+				
+				<div class="layui-form-item">
+					<label class="layui-form-label">IP(用回车分隔)</label>
+					<div class="layui-input-inline">
+						<textarea name="ip" id="ip" class="layui-input"></textarea>
+					</div>
+				</div>
 
+				<div class="layui-form-item center">
+					<button type="button" class="layui-btn layui-btn-normal" onclick="addOver()">${commonStr.submit}</button>
+					<button type="button" class="layui-btn" onclick="layer.closeAll()">${commonStr.close}</button>
+				</div>
 
+			</form>
+		</div>
 
+	</div>
 	<#include '/adminPage/script.html'/>
 	<script src="${ctx}/js/adminPage/denyAllow/index.js?v=${jsrandom}" type="text/javascript"></script>
+
+
 </body>
 
 

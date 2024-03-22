@@ -145,12 +145,18 @@ function checkRewrite(value) {
 }
 
 function checkDenyAllow(value){
-	if (value == null || value == '' || value == 0) {
-		$("#denyAllowTextDiv").hide();
+	$("#denyDiv").hide();
+	$("#allowDiv").hide();
 
+	if (value == 1) {
+		$("#denyDiv").show();
 	}
-	if (value != 0) {
-		$("#denyAllowTextDiv").show();
+	if (value == 2) {
+		$("#allowDiv").show();
+	}
+	if (value == 3) {
+		$("#denyDiv").show();
+		$("#allowDiv").show();
 	}
 }
 
@@ -182,7 +188,8 @@ function add() {
 	$("#paramJson").val("");
 	
 	$("#denyAllow").val("0");
-	$("#denyAllowIp").val("");
+	$("#denyId option:first").prop("selected", true);
+	$("#allowId option:first").prop("selected", true);
 				
 	$(".protocols").prop("checked", true);
 
@@ -394,7 +401,8 @@ function edit(id, clone) {
 				$("#proxyUpstreamId").val(server.proxyUpstreamId);
 				$("#serverParamJson").val(data.obj.paramJson);
 				$("#denyAllow").val(server.denyAllow);
-				$("#denyAllowIp").val(server.denyAllowIp);
+				$("#denyId").val(server.denyId);
+				$("#allowId").val(server.allowId);
 				$("#passwordId").val(server.passwordId);
 
 
@@ -754,10 +762,12 @@ function locationParam(uuid) {
 var denyAllowIndex;
 function setDenyAllow(){
 	var denyAllow = $("#denyAllow").val();
-	var denyAllowIp = $("#denyAllowIp").val();
+	var denyId = $("#denyId").val();
+	var allowId = $("#allowId").val();
 	
 	$("#denyAllowValue").val(denyAllow);
-	$("#denyAllowIpValue").val(denyAllowIp);
+	$("#denyIdValue").val(denyId);
+	$("#allowIdValue").val(allowId);
 	
 	checkDenyAllow(denyAllow);
 	
@@ -772,10 +782,12 @@ function setDenyAllow(){
 
 function setDenyAllowOver(){
 	var denyAllow = $("#denyAllowValue").val();
-	var denyAllowIp = $("#denyAllowIpValue").val();
+	var denyId = $("#denyIdValue").val();
+	var allowId = $("#allowIdValue").val();
 	
 	$("#denyAllow").val(denyAllow);
-	$("#denyAllowIp").val(denyAllowIp);
+	$("#denyId").val(denyId);
+	$("#allowId").val(allowId);
 	
 	layer.close(denyAllowIndex)
 }

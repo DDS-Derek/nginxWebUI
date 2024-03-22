@@ -17,6 +17,7 @@ import org.slf4j.LoggerFactory;
 
 import com.cym.ext.ServerExt;
 import com.cym.model.Cert;
+import com.cym.model.DenyAllow;
 import com.cym.model.Http;
 import com.cym.model.Location;
 import com.cym.model.Password;
@@ -112,6 +113,7 @@ public class ServerController extends BaseController {
 		modelAndView.put("wwwList", sqlHelper.findAll(Www.class));
 
 		modelAndView.put("passwordList", sqlHelper.findAll(Password.class));
+		modelAndView.put("denyAllowList", sqlHelper.findAll(DenyAllow.class));
 
 		modelAndView.put("keywords", keywords);
 		modelAndView.view("/adminPage/server/index.html");

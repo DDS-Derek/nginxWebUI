@@ -1,38 +1,26 @@
 package com.cym.controller.adminPage;
 
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Hashtable;
 import java.util.List;
-import java.util.Map;
 
 import org.noear.solon.annotation.Controller;
 import org.noear.solon.annotation.Inject;
 import org.noear.solon.annotation.Mapping;
-import org.noear.solon.core.handle.Context;
 import org.noear.solon.core.handle.ModelAndView;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.cym.ext.AdminExt;
-import com.cym.ext.Tree;
+import com.cym.ext.DenyAllowExt;
+import com.cym.ext.ServerExt;
 import com.cym.model.Admin;
-import com.cym.model.Group;
-import com.cym.service.AdminService;
-import com.cym.service.GroupService;
-import com.cym.service.SettingService;
+import com.cym.model.DenyAllow;
+import com.cym.model.Log;
+import com.cym.model.Server;
+import com.cym.model.Upstream;
+import com.cym.service.DenyAllowService;
 import com.cym.sqlhelper.bean.Page;
-import com.cym.utils.AuthUtils;
 import com.cym.utils.BaseController;
 import com.cym.utils.JsonResult;
-import com.cym.utils.SendMailUtils;
-import com.google.zxing.BarcodeFormat;
-import com.google.zxing.EncodeHintType;
-import com.google.zxing.MultiFormatWriter;
-import com.google.zxing.WriterException;
-import com.google.zxing.client.j2se.MatrixToImageWriter;
-import com.google.zxing.common.BitMatrix;
 
 import cn.hutool.core.util.StrUtil;
 
@@ -41,26 +29,49 @@ import cn.hutool.core.util.StrUtil;
 public class DenyAllowController extends BaseController {
 	Logger logger = LoggerFactory.getLogger(this.getClass());
 	@Inject
-	SettingService settingService;
+	DenyAllowService denyAllowService;
 
 	@Mapping("")
 	public ModelAndView index(ModelAndView modelAndView, Page page) {
-		
-		String denyIp = settingService.get("denyIp");
-		String allowIp = settingService.get("allowIp");
-		
-		modelAndView.put("denyIp", denyIp);
-		modelAndView.put("allowIp", allowIp);
-		
+
+		page = denyAllowService.search(page);
+
+		List<DenyAllowExt> exts = new ArrayList<DenyAllowExt>();
+		for (DenyAllow denyAllow : (List<DenyAllow>) page.getRecords()) {
+			DenyAllowExt denyAllowExt = new DenyAllowExt();
+			denyAllowExt.setDenyAllow(denyAllow);
+
+			if (StrUtil.isBlankIfStr(denyAllow.getIp())) {
+				denyAllowExt.setIpCount(0);
+			} else {
+				denyAllowExt.setIpCount(denyAllow.getIp().split("\n").length);
+			}
+			exts.add(denyAllowExt);
+		}
+		page.setRecords(exts);
+
+		modelAndView.put("page", page);
 		modelAndView.view("/adminPage/denyAllow/index.html");
 		return modelAndView;
 	}
 
 	@Mapping("addOver")
-	public JsonResult addOver(String denyIp, String allowIp) {
+	public JsonResult addOver(DenyAllow denyAllow) {
 
-		settingService.set("denyIp", denyIp);
-		settingService.set("allowIp", allowIp);
+		sqlHelper.insertOrUpdate(denyAllow);
+
+		return renderSuccess();
+	}
+
+	@Mapping("detail")
+	public JsonResult detail(String id) {
+		return renderSuccess(sqlHelper.findById(id, DenyAllow.class));
+	}
+
+	@Mapping("del")
+	public JsonResult del(String id) {
+		String[] ids = id.split(",");
+		sqlHelper.deleteByIds(ids, DenyAllow.class);
 
 		return renderSuccess();
 	}
