@@ -594,7 +594,7 @@
 			</div>
 			
 			<div class="layui-form-item" id="denyDiv">
-				<label class="layui-form-label">黑名单</label>
+				<label class="layui-form-label">${serverStr.blacklist}</label>
 				<div class="layui-input-inline">
 					<select id="denyIdValue">
 						<#list denyAllowList as denyAllow>
@@ -605,7 +605,7 @@
 			</div>
 			
 			<div class="layui-form-item" id="allowDiv">
-				<label class="layui-form-label">白名单</label>
+				<label class="layui-form-label">${serverStr.whitelist}</label>
 				<div class="layui-input-inline">
 					<select id="allowIdValue">
 						<#list denyAllowList as denyAllow>
