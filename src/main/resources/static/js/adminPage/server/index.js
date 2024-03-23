@@ -161,6 +161,7 @@ function checkDenyAllow(value){
 }
 
 function search() {
+	$("input[name='curr']").val(1);
 	$("#searchForm").submit();
 }
 

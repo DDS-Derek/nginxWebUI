@@ -57,7 +57,10 @@ public class DenyAllowController extends BaseController {
 
 	@Mapping("addOver")
 	public JsonResult addOver(DenyAllow denyAllow) {
-
+		
+		//ip去重
+		denyAllowService.removeSame(denyAllow);
+		
 		sqlHelper.insertOrUpdate(denyAllow);
 
 		return renderSuccess();
