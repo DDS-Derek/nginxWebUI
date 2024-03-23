@@ -7,12 +7,12 @@ import com.cym.sqlhelper.config.Table;
 public class DenyAllow extends BaseModel {
 	
 	/**
-	 * 名称
+	 * 名单名称
 	 */
 	String name;
 	
 	/**
-	 * ip名单
+	 * ip名单(用回车分隔)
 	 */
 	String ip;
 
