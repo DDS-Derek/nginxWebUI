@@ -13,7 +13,11 @@ QQ技术交流群2: 560797506
 
 官网地址: http://www.nginxwebui.cn
 
-github: https://github.com/cym1102/nginxWebUI
+Gitee: https://gitee.com/cym1102/nginxWebUI
+
+Github: https://github.com/cym1102/nginxWebUI
+
+视频教程: https://www.bilibili.com/video/BV18A4y1D7GZ
 
 微信捐赠二维码
 
