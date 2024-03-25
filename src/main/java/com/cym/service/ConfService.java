@@ -913,7 +913,6 @@ public class ConfService {
 	}
 
 	public void setAsycPack(AsycPack asycPack) {
-		// 不要同步Cert表
 		try {
 
 			if (asycPack.getBasicList() != null) {
