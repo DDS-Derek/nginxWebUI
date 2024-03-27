@@ -72,11 +72,13 @@ public class HttpController extends BaseController {
 			Http http = new Http();
 			http.setName("include");
 			http.setValue("mime.types");
+			http.setUnit("");
 			https.add(http);
 
 			http = new Http();
 			http.setName("default_type");
 			http.setValue("application/octet-stream");
+			http.setUnit("");
 			https.add(http);
 		}
 
