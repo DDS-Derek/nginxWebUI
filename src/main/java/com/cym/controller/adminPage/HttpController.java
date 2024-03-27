@@ -69,7 +69,6 @@ public class HttpController extends BaseController {
 		List<Http> https = JSONUtil.toList(JSONUtil.parseArray(json), Http.class);
 
 		if (logStatus) {
-
 			Http http = new Http();
 			http.setName("access_log");
 			http.setValue(homeConfig.home + "log/access.log");
@@ -81,7 +80,6 @@ public class HttpController extends BaseController {
 			http.setValue(homeConfig.home + "log/error.log");
 			http.setUnit("");
 			https.add(http);
-
 		}
 
 		if (webSocket) {
