@@ -229,6 +229,7 @@ function addGiudeOver() {
 		url: ctx + '/adminPage/http/addGiudeOver',
 		data: {
 			json: JSON.stringify(params),
+			mimeTypes: $("#mimeTypes").prop("checked"),
 			logStatus: $("#logStatus").prop("checked"),
 			webSocket: $("#webSocket").prop("checked")
 		},

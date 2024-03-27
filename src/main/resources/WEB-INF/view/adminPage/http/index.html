@@ -129,6 +129,14 @@ input[name='param']{
 		<div class="layui-form" id="guideDiv" style="padding: 15px; display: none;">
 			<form id="addForm">
 				<div class="layui-form-item">
+					<label class="layui-form-label long">include mime.types</label>
+					<div class="layui-input-inline short">
+						<input type="checkbox" name="mimeTypes" id="mimeTypes" value="on" lay-skin="primary" >
+					</div>
+					<div class="layui-form-mid layui-word-aux">${httpStr.includeMime}</div>
+				</div>
+				
+				<div class="layui-form-item">
 					<label class="layui-form-label long">keepalive_timeout</label>
 					<div class="layui-input-inline short">
 						<input type="text" name="param" id="keepalive_timeout" class="layui-input" value="75" lang="s">

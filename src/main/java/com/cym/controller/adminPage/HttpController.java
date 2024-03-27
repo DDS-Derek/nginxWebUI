@@ -58,15 +58,27 @@ public class HttpController extends BaseController {
 
 	@Mapping("del")
 	public JsonResult del(String id) {
-		String[] ids = id.split(",");		
+		String[] ids = id.split(",");
 		sqlHelper.deleteByIds(ids, Http.class);
 
 		return renderSuccess();
 	}
 
 	@Mapping("addGiudeOver")
-	public JsonResult addGiudeOver(String json, Boolean logStatus, Boolean webSocket) {
+	public JsonResult addGiudeOver(String json, Boolean logStatus, Boolean webSocket, Boolean mimeTypes) {
 		List<Http> https = JSONUtil.toList(JSONUtil.parseArray(json), Http.class);
+
+		if (mimeTypes) {
+			Http http = new Http();
+			http.setName("include");
+			http.setValue("mime.types");
+			https.add(http);
+
+			http = new Http();
+			http.setName("default_type");
+			http.setValue("application/octet-stream");
+			https.add(http);
+		}
 
 		if (logStatus) {
 			Http http = new Http();
