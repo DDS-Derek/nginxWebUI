@@ -402,10 +402,6 @@ public class ConfService {
 			}
 			if (server.getDenyAllow() == 2) {
 				// 白名单
-				ngxParam = new NgxParam();
-				ngxParam.addValue("deny all");
-				ngxBlockServer.addEntry(ngxParam);
-
 				DenyAllow denyAllow = sqlHelper.findById(server.getAllowId(), DenyAllow.class);
 				if (denyAllow != null) {
 					String[] ips = denyAllow.getIp().split("\n");
@@ -415,6 +411,10 @@ public class ConfService {
 						ngxBlockServer.addEntry(ngxParam);
 					}
 				}
+
+				ngxParam = new NgxParam();
+				ngxParam.addValue("deny all");
+				ngxBlockServer.addEntry(ngxParam);
 			}
 
 			if (server.getDenyAllow() == 3) {
