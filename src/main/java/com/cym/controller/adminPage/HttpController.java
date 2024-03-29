@@ -9,6 +9,7 @@ import org.noear.solon.annotation.Inject;
 import org.noear.solon.annotation.Mapping;
 import org.noear.solon.core.handle.ModelAndView;
 
+import com.cym.model.DenyAllow;
 import com.cym.model.Http;
 import com.cym.service.HttpService;
 import com.cym.service.SettingService;
@@ -32,6 +33,8 @@ public class HttpController extends BaseController {
 		List<Http> httpList = httpService.findAll();
 
 		modelAndView.put("httpList", httpList);
+		modelAndView.put("denyAllowList", sqlHelper.findAll(DenyAllow.class));
+
 		modelAndView.view("/adminPage/http/index.html");
 		return modelAndView;
 	}

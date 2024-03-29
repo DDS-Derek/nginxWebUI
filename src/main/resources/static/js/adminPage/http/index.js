@@ -318,7 +318,7 @@ function setDenyAllow() {
 				layer.open({
 					type: 1,
 					title: serverStr.denyAllowModel,
-					area: ['600px', '500px'], // 宽高
+					area: ['650px', '500px'], // 宽高
 					content: $('#denyAllowDiv')
 				});
 			} else {
