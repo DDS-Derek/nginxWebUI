@@ -309,9 +309,12 @@ function setDenyAllow() {
 				var map = data.obj;
 
 				$("#denyAllowValue").val(map.denyAllow);
-				$("#denyIdValue").val(map.denyId);
-				$("#allowIdValue").val(map.allowId);
-
+				if (map.denyId != null) {
+					$("#denyIdValue").val(map.denyId);
+				}
+				if (map.allowId != null) {
+					$("#allowIdValue").val(map.allowId);
+				}
 				checkDenyAllow(map.denyAllow);
 
 				form.render();
