@@ -34,7 +34,7 @@ $(function() {
 	form.on('select(denyAllowValue)', function(data) {
 		checkDenyAllow(data.value);
 	});
-	
+
 	form.on('checkbox(checkAll)', function(data) {
 		if (data.elem.checked) {
 			$("input[name='ids']").prop("checked", true)
@@ -43,7 +43,7 @@ $(function() {
 		}
 
 		form.render();
-	});	
+	});
 
 	layui.use('upload', function() {
 		var upload = layui.upload;
@@ -144,7 +144,7 @@ function checkRewrite(value) {
 	}
 }
 
-function checkDenyAllow(value){
+function checkDenyAllow(value) {
 	$("#denyDiv").hide();
 	$("#allowDiv").hide();
 
@@ -187,31 +187,31 @@ function add() {
 	$("#keyPath").html("");
 	$("#itemList").html("");
 	$("#paramJson").val("");
-	
+
 	$("#denyAllow").val("0");
 	$("#denyId option:first").prop("selected", true);
 	$("#allowId option:first").prop("selected", true);
-				
+
 	$(".protocols").prop("checked", true);
 
 	checkProxyType(0);
 	checkSsl(0);
 	checkRewrite(1);
-	
+
 	form.render();
 	showWindow(serverStr.add);
 }
 
 function showWindow(title) {
-	
+
 	var width = "1350px";
 	var height = "90%";
-	if(window.innerWidth <= 1000){
+	if (window.innerWidth <= 1000) {
 		// 手机端
 		width = "1000px";
 		height = "1500px";
 	}
-	
+
 	layer.open({
 		type: 1,
 		title: title,
@@ -303,7 +303,7 @@ function addOver() {
 	server.denyAllow = $("#denyAllow").val();
 	server.denyId = $("#denyId").val();
 	server.allowId = $("#allowId").val();
-	
+
 	var serverParamJson = $("#serverParamJson").val();
 
 	var locations = [];
@@ -324,7 +324,7 @@ function addOver() {
 		location.websocket = $(this).find("input[name='websocket']").prop("checked") ? 1 : 0;
 		location.cros = $(this).find("input[name='cros']").prop("checked") ? 1 : 0;
 		location.headerHost = $(this).find("select[name='headerHost']").val();
-		
+
 		locations.push(location);
 	})
 
@@ -484,7 +484,7 @@ function edit(id, clone) {
 					} else {
 						$("#" + uuid + " input[name='cros']").prop("checked", false);
 					}
-					
+
 					checkType(location.type, uuid)
 				}
 
@@ -543,7 +543,7 @@ function delMany() {
 
 		$.ajax({
 			type: 'POST',
-			url : ctx + '/adminPage/server/del',
+			url: ctx + '/adminPage/server/del',
 			data: {
 				id: ids.join(",")
 			},
@@ -759,20 +759,23 @@ function locationParam(uuid) {
 	$("#targertId").val("locationParamJson_" + uuid);
 	var params = json != '' ? JSON.parse(json) : [];
 	fillTable(params);
-} 
+}
 
 var denyAllowIndex;
-function setDenyAllow(){
+function setDenyAllow() {
 	var denyAllow = $("#denyAllow").val();
 	var denyId = $("#denyId").val();
 	var allowId = $("#allowId").val();
-	
+
 	$("#denyAllowValue").val(denyAllow);
-	$("#denyIdValue").val(denyId);
-	$("#allowIdValue").val(allowId);
-	
+	if (denyId != null) {
+		$("#denyIdValue").val(denyId);
+	}
+	if (allowId != null) {
+		$("#allowIdValue").val(allowId);
+	}
 	checkDenyAllow(denyAllow);
-	
+
 	form.render();
 	denyAllowIndex = layer.open({
 		type: 1,
@@ -782,15 +785,15 @@ function setDenyAllow(){
 	});
 }
 
-function setDenyAllowOver(){
+function setDenyAllowOver() {
 	var denyAllow = $("#denyAllowValue").val();
 	var denyId = $("#denyIdValue").val();
 	var allowId = $("#allowIdValue").val();
-	
+
 	$("#denyAllow").val(denyAllow);
 	$("#denyId").val(denyId);
 	$("#allowId").val(allowId);
-	
+
 	layer.close(denyAllowIndex)
 }
 

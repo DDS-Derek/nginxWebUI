@@ -274,46 +274,6 @@ public class ServerController extends BaseController {
 		return renderSuccess();
 	}
 
-	@Mapping("preview")
-	public JsonResult preview(String id, String type) {
-		NgxBlock ngxBlock = null;
-		if (type.equals("server")) {
-			Server server = sqlHelper.findById(id, Server.class);
-			ngxBlock = confService.bulidBlockServer(server);
-		} else if (type.equals("upstream")) {
-			Upstream upstream = sqlHelper.findById(id, Upstream.class);
-			ngxBlock = confService.buildBlockUpstream(upstream);
-		} else if (type.equals("http")) {
-			List<Http> httpList = sqlHelper.findAll(new Sort("seq", Direction.ASC), Http.class);
-			ngxBlock = new NgxBlock();
-			ngxBlock.addValue("http");
-			for (Http http : httpList) {
-				if (http.getEnable() == null || !http.getEnable()) {
-					continue;
-				}
-
-				NgxParam ngxParam = new NgxParam();
-				ngxParam.addValue(http.getName().trim() + " " + http.getValue().trim());
-				ngxBlock.addEntry(ngxParam);
-			}
-		} else if (type.equals("stream")) {
-			List<Stream> streamList = sqlHelper.findAll(new Sort("seq", Direction.ASC), Stream.class);
-			ngxBlock = new NgxBlock();
-			ngxBlock.addValue("stream");
-			for (Stream stream : streamList) {
-				NgxParam ngxParam = new NgxParam();
-				ngxParam.addValue(stream.getName() + " " + stream.getValue());
-				ngxBlock.addEntry(ngxParam);
-			}
-		}
-		NgxConfig ngxConfig = new NgxConfig();
-		ngxConfig.addEntry(ngxBlock);
-
-		String conf = ToolUtils.handleConf(new NgxDumper(ngxConfig).dump());
-
-		return renderSuccess(conf);
-	}
-
 	@Mapping("setOrder")
 	public JsonResult setOrder(String id, Integer count) {
 		serverService.setSeq(id, count);
