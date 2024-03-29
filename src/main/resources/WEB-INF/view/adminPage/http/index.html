@@ -39,6 +39,9 @@ input[name='param']{
 							<button type="button" class="layui-btn layui-btn-sm" onclick="guide()">${httpStr.guide}</button>
 						</div>
 						<div class="layui-inline">
+							<button type="button" class="layui-btn layui-btn-sm" onclick="denyAllow()">设置黑白名单</button>
+						</div>
+						<div class="layui-inline">
 							<button type="button" class="layui-btn layui-btn-sm" onclick="selectTemplateAsHttp()">${upstreamStr.selectTemplateAsParam}</button>
 						</div>	
 						<div class="layui-inline">
@@ -256,6 +259,48 @@ input[name='param']{
 					<button type="button" class="layui-btn" onclick="layer.closeAll()">${commonStr.close}</button>
 				</div>
 			</form>
+		</div>
+		
+		<div class="layui-form" id="denyAllowDiv" style="padding: 15px; display: none">
+			<div class="layui-form-item">
+				<label class="layui-form-label">${serverStr.denyAllowModel}</label>
+				<div class="layui-input-inline" style="width: 250px;">
+					<select id="denyAllowValue" lay-filter="denyAllowValue">
+						<option value="0">${serverStr.normalMode}</option>
+						<option value="1">${serverStr.blackMode}</option>
+						<option value="2">${serverStr.whiteMode}</option>
+						<option value="3">${serverStr.blackWhiteMode}</option>
+					</select>
+				</div>
+			</div>
+			
+			<div class="layui-form-item" id="denyDiv">
+				<label class="layui-form-label">${serverStr.blacklist}</label>
+				<div class="layui-input-block">
+					<select id="denyIdValue">
+						<#list denyAllowList as denyAllow>
+						<option value="${denyAllow.id}">${denyAllow.name}</option>
+						</#list>
+					</select>
+				</div>
+			</div>
+			
+			<div class="layui-form-item" id="allowDiv">
+				<label class="layui-form-label">${serverStr.whitelist}</label>
+				<div class="layui-input-block">
+					<select id="allowIdValue">
+						<#list denyAllowList as denyAllow>
+						<option value="${denyAllow.id}">${denyAllow.name}</option>
+						</#list>
+					</select>
+				</div>
+			</div>
+			
+			
+			<div class="layui-form-item center">
+				<button type="button" class="layui-btn layui-btn-normal" onclick="setDenyAllowOver()">${commonStr.ok}</button>
+				<button type="button" class="layui-btn" onclick="layer.close(denyAllowIndex)">${commonStr.close}</button>
+			</div>
 		</div>
 		
 	</div>

@@ -1,6 +1,8 @@
 package com.cym.controller.adminPage;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.noear.solon.annotation.Controller;
 import org.noear.solon.annotation.Inject;
@@ -114,6 +116,27 @@ public class HttpController extends BaseController {
 	@Mapping("setOrder")
 	public JsonResult setOrder(String id, Integer count) {
 		httpService.setSeq(id, count);
+		return renderSuccess();
+	}
+
+	@Mapping("getDenyAllow")
+	public JsonResult getDenyAllow() {
+
+		Map<String, String> map = new HashMap<>();
+		map.put("denyAllow", settingService.get("denyAllow"));
+		map.put("denyId", settingService.get("denyId"));
+		map.put("allowId", settingService.get("allowId"));
+
+		return renderSuccess(map);
+	}
+
+	@Mapping("setDenyAllow")
+	public JsonResult setDenyAllow(String denyAllow, String denyId, String allowId) {
+
+		settingService.set("denyAllow", denyAllow);
+		settingService.set("denyId", denyId);
+		settingService.set("allowId", allowId);
+
 		return renderSuccess();
 	}
 
