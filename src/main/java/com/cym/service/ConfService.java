@@ -322,7 +322,17 @@ public class ConfService {
 
 		if (denyAllowValue == 3) {
 			// 黑白名单
-			DenyAllow denyAllow = sqlHelper.findById(denyId, DenyAllow.class);
+			DenyAllow denyAllow = sqlHelper.findById(allowId, DenyAllow.class);
+			if (denyAllow != null) {
+				String[] ips = denyAllow.getIp().split("\n");
+				for (String ip : ips) {
+					NgxParam ngxParam = new NgxParam();
+					ngxParam.addValue("allow " + ip.trim());
+					ngxBlockHttp.addEntry(ngxParam);
+				}
+			}
+
+			denyAllow = sqlHelper.findById(denyId, DenyAllow.class);
 			if (denyAllow != null) {
 				String[] ips = denyAllow.getIp().split("\n");
 				for (String ip : ips) {
@@ -332,15 +342,6 @@ public class ConfService {
 				}
 			}
 
-			denyAllow = sqlHelper.findById(allowId, DenyAllow.class);
-			if (denyAllow != null) {
-				String[] ips = denyAllow.getIp().split("\n");
-				for (String ip : ips) {
-					NgxParam ngxParam = new NgxParam();
-					ngxParam.addValue("allow " + ip.trim());
-					ngxBlockHttp.addEntry(ngxParam);
-				}
-			}
 		}
 	}
 
@@ -485,7 +486,17 @@ public class ConfService {
 
 			if (server.getDenyAllow() == 3) {
 				// 黑白名单
-				DenyAllow denyAllow = sqlHelper.findById(server.getDenyId(), DenyAllow.class);
+				DenyAllow denyAllow = sqlHelper.findById(server.getAllowId(), DenyAllow.class);
+				if (denyAllow != null) {
+					String[] ips = denyAllow.getIp().split("\n");
+					for (String ip : ips) {
+						ngxParam = new NgxParam();
+						ngxParam.addValue("allow " + ip.trim());
+						ngxBlockServer.addEntry(ngxParam);
+					}
+				}
+
+				denyAllow = sqlHelper.findById(server.getDenyId(), DenyAllow.class);
 				if (denyAllow != null) {
 					String[] ips = denyAllow.getIp().split("\n");
 					for (String ip : ips) {
@@ -495,15 +506,6 @@ public class ConfService {
 					}
 				}
 
-				denyAllow = sqlHelper.findById(server.getAllowId(), DenyAllow.class);
-				if (denyAllow != null) {
-					String[] ips = denyAllow.getIp().split("\n");
-					for (String ip : ips) {
-						ngxParam = new NgxParam();
-						ngxParam.addValue("allow " + ip.trim());
-						ngxBlockServer.addEntry(ngxParam);
-					}
-				}
 			}
 
 			// 自定义参数
