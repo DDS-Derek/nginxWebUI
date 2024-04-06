@@ -180,7 +180,6 @@ public class AppFilter implements Filter {
 					httpResponse = HttpRequest.post(url).body(body).execute();
 				}
 				
-				System.out.println(httpResponse.header("Content-Type"));
 				ctx.charset("utf-8");
 				ctx.headerSet("Content-Type", httpResponse.header("Content-Type"));
 				ctx.headerSet("content-disposition",httpResponse.header("content-disposition")); // 设置文件名
