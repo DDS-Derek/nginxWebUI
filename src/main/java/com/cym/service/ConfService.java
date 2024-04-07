@@ -534,7 +534,7 @@ public class ConfService {
 					}
 				}
 
-				if (location.getType() == 0 || location.getType() == 2) { // location或负载均衡
+				if (location.getType() == 0 || location.getType() == 2) { // 动态代理或负载均衡
 
 					if (location.getType() == 0) {
 						ngxParam = new NgxParam();
@@ -640,8 +640,10 @@ public class ConfService {
 						ngxBlockLocation.addEntry(ngxParam);
 					}
 
-				} else if (location.getType() == 3) { // 空白location
-
+				} else if (location.getType() == 4) { // 重定向
+					ngxParam = new NgxParam();
+					ngxParam.addValue("return 301 " + location.getReturnUrl() + "$request_uri");
+					ngxBlockLocation.addEntry(ngxParam);
 				}
 
 				// 自定义参数
