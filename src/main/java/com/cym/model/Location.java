@@ -25,7 +25,7 @@ public class Location extends BaseModel {
 	 */
 	String path;
 	/**
-	 * 代理类型 0:动态代理(默认) 1:静态代理 2:负载均衡 3:空白代理 4重定向
+	 * 代理类型 0:动态代理(默认) 1:静态代理 2:负载均衡 3:空白代理 4:重定向
 	 */
 	@InitValue("0")
 	Integer type;
