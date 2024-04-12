@@ -322,7 +322,17 @@ public class ConfService {
 
 		if (denyAllowValue == 3) {
 			// 黑白名单
-			DenyAllow denyAllow = sqlHelper.findById(denyId, DenyAllow.class);
+			DenyAllow denyAllow = sqlHelper.findById(allowId, DenyAllow.class);
+			if (denyAllow != null) {
+				String[] ips = denyAllow.getIp().split("\n");
+				for (String ip : ips) {
+					NgxParam ngxParam = new NgxParam();
+					ngxParam.addValue("allow " + ip.trim());
+					ngxBlockHttp.addEntry(ngxParam);
+				}
+			}
+
+			denyAllow = sqlHelper.findById(denyId, DenyAllow.class);
 			if (denyAllow != null) {
 				String[] ips = denyAllow.getIp().split("\n");
 				for (String ip : ips) {
@@ -332,15 +342,6 @@ public class ConfService {
 				}
 			}
 
-			denyAllow = sqlHelper.findById(allowId, DenyAllow.class);
-			if (denyAllow != null) {
-				String[] ips = denyAllow.getIp().split("\n");
-				for (String ip : ips) {
-					NgxParam ngxParam = new NgxParam();
-					ngxParam.addValue("allow " + ip.trim());
-					ngxBlockHttp.addEntry(ngxParam);
-				}
-			}
 		}
 	}
 
@@ -485,7 +486,17 @@ public class ConfService {
 
 			if (server.getDenyAllow() == 3) {
 				// 黑白名单
-				DenyAllow denyAllow = sqlHelper.findById(server.getDenyId(), DenyAllow.class);
+				DenyAllow denyAllow = sqlHelper.findById(server.getAllowId(), DenyAllow.class);
+				if (denyAllow != null) {
+					String[] ips = denyAllow.getIp().split("\n");
+					for (String ip : ips) {
+						ngxParam = new NgxParam();
+						ngxParam.addValue("allow " + ip.trim());
+						ngxBlockServer.addEntry(ngxParam);
+					}
+				}
+
+				denyAllow = sqlHelper.findById(server.getDenyId(), DenyAllow.class);
 				if (denyAllow != null) {
 					String[] ips = denyAllow.getIp().split("\n");
 					for (String ip : ips) {
@@ -495,15 +506,6 @@ public class ConfService {
 					}
 				}
 
-				denyAllow = sqlHelper.findById(server.getAllowId(), DenyAllow.class);
-				if (denyAllow != null) {
-					String[] ips = denyAllow.getIp().split("\n");
-					for (String ip : ips) {
-						ngxParam = new NgxParam();
-						ngxParam.addValue("allow " + ip.trim());
-						ngxBlockServer.addEntry(ngxParam);
-					}
-				}
 			}
 
 			// 自定义参数
@@ -532,7 +534,7 @@ public class ConfService {
 					}
 				}
 
-				if (location.getType() == 0 || location.getType() == 2) { // location或负载均衡
+				if (location.getType() == 0 || location.getType() == 2) { // 动态代理或负载均衡
 
 					if (location.getType() == 0) {
 						ngxParam = new NgxParam();
@@ -638,8 +640,10 @@ public class ConfService {
 						ngxBlockLocation.addEntry(ngxParam);
 					}
 
-				} else if (location.getType() == 3) { // 空白location
-
+				} else if (location.getType() == 4) { // 重定向
+					ngxParam = new NgxParam();
+					ngxParam.addValue("return 301 " + location.getReturnUrl() + "$request_uri");
+					ngxBlockLocation.addEntry(ngxParam);
 				}
 
 				// 自定义参数

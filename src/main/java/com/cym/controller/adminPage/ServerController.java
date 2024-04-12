@@ -139,8 +139,7 @@ public class ServerController extends BaseController {
 				str.add("<span class='path'>" + location.getPath() + "</span>"//
 						+ "<a class='descrBtn' href='javascript:editLocationDescr(\"" + location.getId() + "\")'>" + descr + "</a>"//
 						+ "<br>"//
-						+ "<span class='value'>"//
-						+ location.getRootPath() + "</span>");
+						+ "<span class='value'>" + location.getRootPath() + "</span>");
 			} else if (location.getType() == 2) {
 				Upstream upstream = sqlHelper.findById(location.getUpstreamId(), Upstream.class);
 				if (upstream != null) {
@@ -149,6 +148,11 @@ public class ServerController extends BaseController {
 							+ "<br>"//
 							+ "<span class='value'>http://" + upstream.getName() + (location.getUpstreamPath() != null ? location.getUpstreamPath() : "") + "</span>");
 				}
+			} else if (location.getType() == 4) {
+				str.add("<span class='path'>" + location.getPath() + "</span>"//
+						+ "<a class='descrBtn' href='javascript:editLocationDescr(\"" + location.getId() + "\")'>" + descr + "</a>"//
+						+ "<br>"//
+						+ "<span class='value'>" + location.getReturnUrl() + "</span>");
 			} else if (location.getType() == 3) {
 				str.add("<span class='path'>" + location.getPath() + "</span>" //
 						+ "<a class='descrBtn' href='javascript:editLocationDescr(\"" + location.getId() + "\")'>" + descr + "</a>");
@@ -202,7 +206,7 @@ public class ServerController extends BaseController {
 
 	@Mapping("del")
 	public JsonResult del(String id) {
-		
+
 		serverService.deleteById(id);
 
 		return renderSuccess();

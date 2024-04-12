@@ -89,6 +89,7 @@ function checkType(type, id) {
 		$("#" + id + " span[name='upstreamSelectSpan']").hide();
 		$("#" + id + " span[name='blankSpan']").hide();
 		$("#" + id + " span[name='headerSpan']").show();
+		$("#" + id + " span[name='returnSpan']").hide();
 	}
 	if (type == 1) {
 		$("#" + id + " span[name='valueSpan']").hide();
@@ -96,6 +97,7 @@ function checkType(type, id) {
 		$("#" + id + " span[name='upstreamSelectSpan']").hide();
 		$("#" + id + " span[name='blankSpan']").hide();
 		$("#" + id + " span[name='headerSpan']").hide();
+		$("#" + id + " span[name='returnSpan']").hide();
 	}
 	if (type == 2) {
 		$("#" + id + " span[name='valueSpan']").hide();
@@ -103,6 +105,7 @@ function checkType(type, id) {
 		$("#" + id + " span[name='upstreamSelectSpan']").show();
 		$("#" + id + " span[name='blankSpan']").hide();
 		$("#" + id + " span[name='headerSpan']").show();
+		$("#" + id + " span[name='returnSpan']").hide();
 	}
 	if (type == 3) {
 		$("#" + id + " span[name='valueSpan']").hide();
@@ -110,6 +113,15 @@ function checkType(type, id) {
 		$("#" + id + " span[name='upstreamSelectSpan']").hide();
 		$("#" + id + " span[name='blankSpan']").show();
 		$("#" + id + " span[name='headerSpan']").hide();
+		$("#" + id + " span[name='returnSpan']").hide();
+	}
+	if (type == 4) {
+		$("#" + id + " span[name='valueSpan']").hide();
+		$("#" + id + " span[name='rootPathSpan']").hide();
+		$("#" + id + " span[name='upstreamSelectSpan']").hide();
+		$("#" + id + " span[name='blankSpan']").hide();
+		$("#" + id + " span[name='headerSpan']").hide();
+		$("#" + id + " span[name='returnSpan']").show();
 	}
 }
 
@@ -324,7 +336,8 @@ function addOver() {
 		location.websocket = $(this).find("input[name='websocket']").prop("checked") ? 1 : 0;
 		location.cros = $(this).find("input[name='cros']").prop("checked") ? 1 : 0;
 		location.headerHost = $(this).find("select[name='headerHost']").val();
-
+		location.returnUrl = $(this).find("input[name='returnUrl']").val();
+		
 		locations.push(location);
 	})
 
@@ -466,7 +479,8 @@ function edit(id, clone) {
 					$("#" + uuid + " select[name='upstreamId']").val(location.upstreamId);
 					$("#" + uuid + " input[name='upstreamPath']").val(location.upstreamPath);
 					$("#" + uuid + " select[name='headerHost']").val(location.headerHost);
-
+					$("#" + uuid + " input[name='returnUrl']").val(location.returnUrl);
+					
 					if (location.header == 1) {
 						$("#" + uuid + " input[name='header']").prop("checked", true);
 					} else {
@@ -600,6 +614,7 @@ function buildHtml(uuid, location, upstreamSelect) {
 							<option ${location.type == '0' ? 'selected' : ''} value="0">${serverStr.serverType0}</option>
 							<option ${location.type == '1' ? 'selected' : ''} value="1">${serverStr.serverType1}</option>
 							<option ${location.type == '2' ? 'selected' : ''} value="2">${serverStr.serverType2}</option>
+							<option ${location.type == '4' ? 'selected' : ''} value="4">${serverStr.serverType4}</option>
 							<option ${location.type == '3' ? 'selected' : ''} value="3">${serverStr.serverType3}</option>
 						</select>
 					</div>
@@ -641,7 +656,7 @@ function buildHtml(uuid, location, upstreamSelect) {
 					
 					</span>
 					
-					<span  name="headerSpan" style="padding-left:7px;">
+					<span name="headerSpan" style="padding-left:7px;">
 						<div class="layui-inline">
 							<input type="checkbox" name="websocket" title="${serverStr.websocket}" lay-skin="primary"> 
 						</div>
@@ -659,6 +674,12 @@ function buildHtml(uuid, location, upstreamSelect) {
 								<option ${location.headerHost == '$host:$server_port' ? 'selected' : ''}>$host:$server_port</option>
 								
 							</select>
+						</div>
+					</span>
+					
+					<span name="returnSpan">
+						<div class="layui-inline">
+							<input type="text"  style="width: 277px;" name="returnUrl" id="returnUrl_${uuid}" class="layui-input long" value=""  placeholder="${serverStr.example}：https://www.baidu.com">
 						</div>
 					</span>
 				</td> 
