@@ -56,7 +56,8 @@ public class CertController extends BaseController {
 	Boolean isInApply = false;
 
 	String acmeDnsServer = "http://acme.nginxwebui.cn:7890";
-
+	String acmeDnsAuth = "http://auth.nginxwebui.cn:7890";
+	
 	@Mapping("")
 	public ModelAndView index(ModelAndView modelAndView, Page page, String keywords) {
 		page = certService.getPage(keywords, page);
@@ -364,7 +365,7 @@ public class CertController extends BaseController {
 				if (StrUtil.isEmpty(cert.getFulldomain())) {
 
 					Map<String, Object> paramMap = new HashMap<>();
-					String rs = HttpUtil.post(acmeDnsServer + "/register", paramMap);
+					String rs = HttpUtil.post(acmeDnsAuth + "/register", paramMap);
 					logger.info(rs);
 
 					JSONObject jsonObject = JSONUtil.parseObj(rs);
