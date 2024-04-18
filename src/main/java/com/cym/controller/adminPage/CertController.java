@@ -56,7 +56,7 @@ public class CertController extends BaseController {
 	Boolean isInApply = false;
 
 	String acmeDnsServer = "http://acme.nginxwebui.cn:7890";
-	
+
 	@Mapping("")
 	public ModelAndView index(ModelAndView modelAndView, Page page, String keywords) {
 		page = certService.getPage(keywords, page);
@@ -242,7 +242,6 @@ public class CertController extends BaseController {
 					return renderError(m.get("certStr.error6"));
 				}
 
-				envs = getDnsEnv(cert);
 				cmd += homeConfig.acmeSh + " --issue --dns dns_acmedns" + domain + keylength + " --server letsencrypt";
 			}
 		} else if (type.equals("renew")) {
@@ -297,53 +296,51 @@ public class CertController extends BaseController {
 		return null;
 	}
 
-	private String[] getDnsEnv(Cert cert) {
-		List<String> list = new ArrayList<>();
-		list.add("ACMEDNS_BASE_URL=" + acmeDnsServer);
-		list.add("ACMEDNS_USERNAME=" + cert.getUsername());
-		list.add("ACMEDNS_PASSWORD=" + cert.getPassword());
-		list.add("ACMEDNS_SUBDOMAIN=" + cert.getSubdomain());
-
-		return list.toArray(new String[] {});
-	}
 
 	private String[] getEnv(Cert cert) {
 		List<String> list = new ArrayList<>();
 		list.add("HOME=" + homeConfig.home); // 指定acme证书存放目录
 
-		if (cert.getDnsType().equals("ali")) {
-			list.add("Ali_Key=" + cert.getAliKey());
-			list.add("Ali_Secret=" + cert.getAliSecret());
+		if (cert.getType() == 0) {
+			if (cert.getDnsType().equals("ali")) {
+				list.add("Ali_Key=" + cert.getAliKey());
+				list.add("Ali_Secret=" + cert.getAliSecret());
+			}
+			if (cert.getDnsType().equals("dp")) {
+				list.add("DP_Id=" + cert.getDpId());
+				list.add("DP_Key=" + cert.getDpKey());
+			}
+			if (cert.getDnsType().equals("tencent")) {
+				list.add("Tencent_SecretId=" + cert.getTencentSecretId());
+				list.add("Tencent_SecretKey=" + cert.getTencentSecretKey());
+			}
+			if (cert.getDnsType().equals("aws")) {
+				list.add("AWS_ACCESS_KEY_ID=" + cert.getAwsAccessKeyId());
+				list.add("AWS_SECRET_ACCESS_KEY=" + cert.getAwsSecretAccessKey());
+			}
+			if (cert.getDnsType().equals("ipv64")) {
+				list.add("IPv64_Token=" + cert.getIpv64Token());
+			}
+			if (cert.getDnsType().equals("cf")) {
+				list.add("CF_Email=" + cert.getCfEmail());
+				list.add("CF_Key=" + cert.getCfKey());
+			}
+			if (cert.getDnsType().equals("gd")) {
+				list.add("GD_Key=" + cert.getGdKey());
+				list.add("GD_Secret=" + cert.getGdSecret());
+			}
+			if (cert.getDnsType().equals("hw")) {
+				list.add("HUAWEICLOUD_Username=" + cert.getHwUsername());
+				list.add("HUAWEICLOUD_Password=" + cert.getHwPassword());
+				list.add("HUAWEICLOUD_DomainName=" + cert.getHwDomainName());
+			}
+		} else if (cert.getType() == 2) {
+			list.add("ACMEDNS_BASE_URL=" + acmeDnsServer);
+			list.add("ACMEDNS_USERNAME=" + cert.getUsername());
+			list.add("ACMEDNS_PASSWORD=" + cert.getPassword());
+			list.add("ACMEDNS_SUBDOMAIN=" + cert.getSubdomain());
 		}
-		if (cert.getDnsType().equals("dp")) {
-			list.add("DP_Id=" + cert.getDpId());
-			list.add("DP_Key=" + cert.getDpKey());
-		}
-		if (cert.getDnsType().equals("tencent")) {
-			list.add("Tencent_SecretId=" + cert.getTencentSecretId());
-			list.add("Tencent_SecretKey=" + cert.getTencentSecretKey());
-		}
-		if (cert.getDnsType().equals("aws")) {
-			list.add("AWS_ACCESS_KEY_ID=" + cert.getAwsAccessKeyId());
-			list.add("AWS_SECRET_ACCESS_KEY=" + cert.getAwsSecretAccessKey());
-		}
-		if (cert.getDnsType().equals("ipv64")) {
-			list.add("IPv64_Token=" + cert.getIpv64Token());
-		}
-		if (cert.getDnsType().equals("cf")) {
-			list.add("CF_Email=" + cert.getCfEmail());
-			list.add("CF_Key=" + cert.getCfKey());
-		}
-		if (cert.getDnsType().equals("gd")) {
-			list.add("GD_Key=" + cert.getGdKey());
-			list.add("GD_Secret=" + cert.getGdSecret());
-		}
-		if (cert.getDnsType().equals("hw")) {
-			list.add("HUAWEICLOUD_Username=" + cert.getHwUsername());
-			list.add("HUAWEICLOUD_Password=" + cert.getHwPassword());
-			list.add("HUAWEICLOUD_DomainName=" + cert.getHwDomainName());
-		}
-
+		
 		return list.toArray(new String[] {});
 	}
 
