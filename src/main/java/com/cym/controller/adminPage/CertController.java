@@ -243,7 +243,7 @@ public class CertController extends BaseController {
 				}
 
 				envs = getDnsEnv(cert);
-				cmd += homeConfig.acmeSh + " --issue --dns dns_acmedns" + domain + keylength;
+				cmd += homeConfig.acmeSh + " --issue --dns dns_acmedns" + domain + keylength + " --server letsencrypt";
 			}
 		} else if (type.equals("renew")) {
 			// 续签,以第一个域名为证书名
