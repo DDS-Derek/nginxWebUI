@@ -381,7 +381,8 @@ public class CertController extends BaseController {
 				List<CertCode> certCodes = new ArrayList<CertCode>();
 
 				CertCode certCode = new CertCode();
-				certCode.setDomain("_acme-challenge." + cert.getDomain());
+				
+				certCode.setDomain("_acme-challenge." + cert.getDomain().replace("*.", ""));
 				certCode.setType("CNAME");
 				certCode.setValue(cert.getFulldomain());
 				certCodes.add(certCode);
