@@ -56,7 +56,7 @@ public class CertController extends BaseController {
 	Boolean isInApply = false;
 
 	String acmeDnsAuth = "http://auth.nginxwebui.cn";
-	
+
 	@Mapping("")
 	public ModelAndView index(ModelAndView modelAndView, Page page, String keywords) {
 		page = certService.getPage(keywords, page);
@@ -296,7 +296,6 @@ public class CertController extends BaseController {
 		return null;
 	}
 
-
 	private String[] getEnv(Cert cert) {
 		List<String> list = new ArrayList<>();
 		list.add("HOME=" + homeConfig.home); // 指定acme证书存放目录
@@ -340,7 +339,7 @@ public class CertController extends BaseController {
 			list.add("ACMEDNS_PASSWORD=" + cert.getPassword());
 			list.add("ACMEDNS_SUBDOMAIN=" + cert.getSubdomain());
 		}
-		
+
 		return list.toArray(new String[] {});
 	}
 
@@ -352,7 +351,7 @@ public class CertController extends BaseController {
 			List<CertCode> certCodes = new ArrayList<CertCode>();
 
 			CertCode certCode = new CertCode();
-			certCode.setDomain("_acme-challenge." + cert.getDomain().replace("*.", ""));
+			certCode.setDomain(buildDomain( cert.getDomain()));
 			certCode.setType("CNAME");
 			certCode.setValue(cert.getFulldomain());
 			certCodes.add(certCode);
@@ -382,7 +381,7 @@ public class CertController extends BaseController {
 
 				CertCode certCode = new CertCode();
 				
-				certCode.setDomain("_acme-challenge." + cert.getDomain().replace("*.", ""));
+				certCode.setDomain(buildDomain( cert.getDomain())  "_acme-challenge." + cert.getDomain().replace("*.", ""));
 				certCode.setType("CNAME");
 				certCode.setValue(cert.getFulldomain());
 				certCodes.add(certCode);
@@ -394,6 +393,15 @@ public class CertController extends BaseController {
 		}
 
 		return renderError(m.get("certStr.error7"));
+	}
+
+	private static String buildDomain(String domain) {
+		domain = domain.replace("*", "");
+		if (domain.startsWith(".")) {
+			domain = domain.substring(1);
+		}
+
+		return "_acme-challenge." + domain;
 	}
 
 	@Mapping("download")
