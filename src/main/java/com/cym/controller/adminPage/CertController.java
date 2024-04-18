@@ -55,7 +55,7 @@ public class CertController extends BaseController {
 
 	Boolean isInApply = false;
 
-	String acmeDnsServer = "http://acme.nginxwebui.cn:7890";
+//	String acmeDnsServer = "http://acme.nginxwebui.cn:7890";
 	String acmeDnsAuth = "http://auth.nginxwebui.cn:7890";
 	
 	@Mapping("")
@@ -336,7 +336,7 @@ public class CertController extends BaseController {
 				list.add("HUAWEICLOUD_DomainName=" + cert.getHwDomainName());
 			}
 		} else if (cert.getType() == 2) {
-			list.add("ACMEDNS_BASE_URL=" + acmeDnsServer);
+			list.add("ACMEDNS_BASE_URL=" + acmeDnsAuth);
 			list.add("ACMEDNS_USERNAME=" + cert.getUsername());
 			list.add("ACMEDNS_PASSWORD=" + cert.getPassword());
 			list.add("ACMEDNS_SUBDOMAIN=" + cert.getSubdomain());
