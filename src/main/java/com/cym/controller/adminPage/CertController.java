@@ -55,7 +55,6 @@ public class CertController extends BaseController {
 
 	Boolean isInApply = false;
 
-//	String acmeDnsServer = "http://acme.nginxwebui.cn:7890";
 	String acmeDnsAuth = "http://auth.nginxwebui.cn:7890";
 	
 	@Mapping("")
