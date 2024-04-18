@@ -351,7 +351,7 @@ public class CertController extends BaseController {
 			List<CertCode> certCodes = new ArrayList<CertCode>();
 
 			CertCode certCode = new CertCode();
-			certCode.setDomain(buildDomain( cert.getDomain()));
+			certCode.setDomain(buildDomain(cert.getDomain()));
 			certCode.setType("CNAME");
 			certCode.setValue(cert.getFulldomain());
 			certCodes.add(certCode);
@@ -380,8 +380,8 @@ public class CertController extends BaseController {
 				List<CertCode> certCodes = new ArrayList<CertCode>();
 
 				CertCode certCode = new CertCode();
-				
-				certCode.setDomain(buildDomain( cert.getDomain())  "_acme-challenge." + cert.getDomain().replace("*.", ""));
+
+				certCode.setDomain(buildDomain(cert.getDomain()));
 				certCode.setType("CNAME");
 				certCode.setValue(cert.getFulldomain());
 				certCodes.add(certCode);
