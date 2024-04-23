@@ -28,7 +28,7 @@ public class TimeExeUtils {
 	 */
 	public String execCMD(String cmd, String[] envs, long timeout) {
 		logger.info(cmd);
-		
+
 		Process process = null;
 		StringBuilder sbStd = new StringBuilder();
 
@@ -42,6 +42,7 @@ public class TimeExeUtils {
 		try {
 			process = Runtime.getRuntime().exec(new String[] { "/bin/sh", "-c", cmd }, allEnvs);
 
+			// 输出正常信息
 			BufferedReader brStd = new BufferedReader(new InputStreamReader(process.getInputStream()));
 			String line = null;
 
@@ -58,7 +59,7 @@ public class TimeExeUtils {
 						process.exitValue();
 						break;
 					} catch (IllegalThreadStateException e) {
-						//System.err.println(e.getMessage());
+						System.err.println(e.getMessage());
 					}
 				}
 
@@ -73,9 +74,17 @@ public class TimeExeUtils {
 				try {
 					TimeUnit.MILLISECONDS.sleep(500);
 				} catch (InterruptedException e) {
-					//System.err.println(e.getMessage());
+					System.err.println(e.getMessage());
 				}
 			}
+
+			// 输出错误信息
+			BufferedReader brErr = new BufferedReader(new InputStreamReader(process.getErrorStream()));
+			while (brErr.readLine() != null) {
+				line = brErr.readLine();
+				logger.info(line);
+			}
+			
 		} catch (IOException e) {
 			logger.error(e.getMessage(), e);
 		} finally {
