@@ -351,7 +351,7 @@ public class CertController extends BaseController {
 			List<CertCode> certCodes = new ArrayList<CertCode>();
 
 			CertCode certCode = new CertCode();
-			certCode.setDomain(buildDomain(cert.getDomain()));
+			certCode.setDomain("_acme-challenge");
 			certCode.setType("CNAME");
 			certCode.setValue(cert.getFulldomain());
 			certCodes.add(certCode);
@@ -381,7 +381,7 @@ public class CertController extends BaseController {
 
 				CertCode certCode = new CertCode();
 
-				certCode.setDomain(buildDomain(cert.getDomain()));
+				certCode.setDomain("_acme-challenge");
 				certCode.setType("CNAME");
 				certCode.setValue(cert.getFulldomain());
 				certCodes.add(certCode);
@@ -395,14 +395,14 @@ public class CertController extends BaseController {
 		return renderError(m.get("certStr.error7"));
 	}
 
-	private static String buildDomain(String domain) {
-		domain = domain.replace("*", "");
-		if (domain.startsWith(".")) {
-			domain = domain.substring(1);
-		}
-
-		return "_acme-challenge." + domain;
-	}
+//	private static String buildDomain(String domain) {
+//		domain = domain.replace("*", "");
+//		if (domain.startsWith(".")) {
+//			domain = domain.substring(1);
+//		}
+//
+//		return "_acme-challenge." + domain;
+//	}
 
 	@Mapping("download")
 	public DownloadedFile download(String id) throws IOException {
