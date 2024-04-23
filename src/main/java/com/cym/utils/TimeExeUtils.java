@@ -35,16 +35,8 @@ public class TimeExeUtils {
 		Process process = null;
 		StringBuilder sbStd = new StringBuilder();
 
-//		String[] allEnvs = ArrayUtil.addAll(System.getenv() //
-//				.entrySet()//
-//				.stream()//
-//				.map(r -> String.format("%s=%s", r.getKey(), r.getValue()))//
-//				.toArray(String[]::new), envs);
-
 		long start = System.currentTimeMillis();
 		try {
-			// process = Runtime.getRuntime().exec(new String[] { "/bin/sh", "-c", cmd },
-			// allEnvs);
 
 			ProcessBuilder processBuilder = new ProcessBuilder("/bin/sh", "-c", cmd);
 			Map<String, String> environmentMap = processBuilder.environment();
