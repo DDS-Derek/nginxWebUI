@@ -251,7 +251,7 @@ public class CertController extends BaseController {
 			cmd += homeConfig.acmeSh + " --renew --force " + ecc + " -d " + domain;
 		}
 
-		String rs = timeExeUtils.execCMD(cmd, envs, 5 * 60 * 1000);
+		String rs = timeExeUtils.execCMD(cmd, envs, 3 * 60 * 1000);
 
 		if (rs.contains("Your cert is in")) {
 			// 申请成功, 定位证书
