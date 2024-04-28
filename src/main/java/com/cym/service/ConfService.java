@@ -426,6 +426,27 @@ public class ConfService {
 			ngxParam.addValue(value);
 			ngxBlockServer.addEntry(ngxParam);
 
+			// 监控ipv6
+			if (server.getIpv6() == 1) {
+				ngxParam = new NgxParam();
+				value = "listen [::]:" + replaceIp(server.getListen());
+				if (server.getDef() == 1) {
+					value += " default";
+				}
+				if (server.getProxyProtocol() == 1) {
+					value += " proxy_protocol";
+				}
+
+				if (server.getSsl() == 1) {
+					value += " ssl";
+					if (server.getHttp2() == 1) { // http2旧版写法
+						value += " http2";
+					}
+				}
+				ngxParam.addValue(value);
+				ngxBlockServer.addEntry(ngxParam);
+			}
+
 			if (server.getSsl() == 1 && server.getHttp2() == 2) { // http2新版写法
 				ngxParam = new NgxParam();
 				ngxParam.addValue("http2 on");
@@ -675,6 +696,23 @@ public class ConfService {
 			ngxParam.addValue(value);
 			ngxBlockServer.addEntry(ngxParam);
 
+			// 监控ipv6
+			if (server.getIpv6() == 1) {
+				ngxParam = new NgxParam();
+				value = "listen [::]:" + replaceIp(server.getListen());
+				if (server.getProxyProtocol() == 1) {
+					value += " proxy_protocol";
+				}
+				if (server.getProxyType() == 2) {
+					value += " udp";
+				}
+				if (server.getSsl() != null && server.getSsl() == 1) {
+					value += " ssl";
+				}
+				ngxParam.addValue(value);
+				ngxBlockServer.addEntry(ngxParam);
+			}
+
 			// 指向负载均衡
 			Upstream upstream = sqlHelper.findById(server.getProxyUpstreamId(), Upstream.class);
 			if (upstream != null) {
@@ -739,6 +777,20 @@ public class ConfService {
 					}
 					ngxParam.addValue(reValue);
 					ngxBlockServer.addEntry(ngxParam);
+
+					// ipv6
+					if (server.getIpv6() == 1) {
+						ngxParam = new NgxParam();
+						reValue = "listen [::]:" + replaceIp(server.getRewriteListen());
+						if (server.getDef() == 1) {
+							reValue += " default";
+						}
+						if (server.getProxyProtocol() == 1) {
+							reValue += " proxy_protocol";
+						}
+						ngxParam.addValue(reValue);
+						ngxBlockServer.addEntry(ngxParam);
+					}
 				}
 
 				String port = "";
@@ -759,6 +811,20 @@ public class ConfService {
 
 			}
 		}
+	}
+
+	/**
+	 * 替换掉listen中的ip
+	 * @param listen
+	 * @return
+	 */
+	private String replaceIp(String listen) {
+
+		if (listen.contains(":")) {
+			return listen.split(":")[1];
+		}
+
+		return listen;
 	}
 
 	/**
