@@ -769,12 +769,6 @@ public class ConfService {
 				if (StrUtil.isNotEmpty(server.getRewriteListen())) {
 					ngxParam = new NgxParam();
 					String reValue = "listen " + server.getRewriteListen();
-					if (server.getDef() == 1) {
-						reValue += " default";
-					}
-					if (server.getProxyProtocol() == 1) {
-						reValue += " proxy_protocol";
-					}
 					ngxParam.addValue(reValue);
 					ngxBlockServer.addEntry(ngxParam);
 
@@ -782,12 +776,6 @@ public class ConfService {
 					if (server.getIpv6() == 1) {
 						ngxParam = new NgxParam();
 						reValue = "listen [::]:" + replaceIp(server.getRewriteListen());
-						if (server.getDef() == 1) {
-							reValue += " default";
-						}
-						if (server.getProxyProtocol() == 1) {
-							reValue += " proxy_protocol";
-						}
 						ngxParam.addValue(reValue);
 						ngxBlockServer.addEntry(ngxParam);
 					}
