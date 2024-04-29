@@ -781,12 +781,7 @@ public class ConfService {
 					}
 				}
 
-				String port = "";
-				if (server.getListen().contains(":")) {
-					port = server.getListen().split(":")[1];
-				} else {
-					port = server.getListen();
-				}
+				String port = replaceIp(server.getListen()); 
 
 				NgxBlock ngxBlock = new NgxBlock();
 				ngxBlock.addValue("if ($scheme = http)");
