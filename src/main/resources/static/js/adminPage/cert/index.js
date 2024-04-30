@@ -167,7 +167,7 @@ function add() {
 	$("#makeTime").val("");
 	$("#endTime").val("");
 
-	checkType(0);
+	checkType(2);
 	checkDnsType('ali');
 
 	form.render();
