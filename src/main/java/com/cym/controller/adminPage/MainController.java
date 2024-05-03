@@ -75,7 +75,7 @@ public class MainController extends BaseController {
 	@Mapping("/adminPage/main/autoUpdate")
 	public JsonResult autoUpdate(String url) {
 		File jar = JarUtil.getCurrentFile();
-		String path = jar.getParent() + "/nginxWebUI.jar.update";
+		String path = jar.getParent();
 		LOG.info("download:" + path);
 		HttpUtil.downloadFile(url, path);
 		updateUtils.run(path);
