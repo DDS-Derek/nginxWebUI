@@ -32,8 +32,8 @@ public class UpdateUtils {
 	public void run(String path) {
 		ThreadUtil.safeSleep(2000);
 
-		String newPath = path.replace(".update", "");
-		FileUtil.rename(new File(path), newPath, true);
+//		String newPath = path.replace(".update", "");
+//		FileUtil.rename(new File(path), newPath, true);
 
 		String param = " --server.port=" + port + " --project.home=" + home;
 
@@ -46,9 +46,9 @@ public class UpdateUtils {
 
 		String cmd = null;
 		if (SystemTool.isWindows()) {
-			cmd = "java -jar -Dfile.encoding=UTF-8 " + newPath + param;
+			cmd = "java -jar -Dfile.encoding=UTF-8 " + path + param;
 		} else {
-			cmd = "nohup java -jar -Dfile.encoding=UTF-8 " + newPath + param + " > /dev/null &";
+			cmd = "nohup java -jar -Dfile.encoding=UTF-8 " + path + param + " > /dev/null &";
 		}
 
 		LOG.info(cmd);

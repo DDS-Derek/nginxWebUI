@@ -2,6 +2,7 @@ package com.cym.controller.adminPage;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URI;
 import java.util.List;
 
 import org.noear.solon.annotation.Controller;
@@ -78,7 +79,9 @@ public class MainController extends BaseController {
 		String path = jar.getParent();
 		LOG.info("download:" + path);
 		HttpUtil.downloadFile(url, path);
-		updateUtils.run(path);
+
+		String fileName = url.split("/")[url.split("/").length - 1];
+		updateUtils.run(path + File.separator + fileName);
 		return renderSuccess();
 	}
 
