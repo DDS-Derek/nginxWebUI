@@ -40,7 +40,7 @@ import cn.hutool.http.HttpUtil;
  * @author CYM
  *
  */
-@Mapping("/api/main")
+@Mapping("/api/upload")
 @Controller
 public class UploadController extends BaseController {
 	Logger logger = LoggerFactory.getLogger(this.getClass());

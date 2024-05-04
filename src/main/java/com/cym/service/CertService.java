@@ -71,7 +71,7 @@ public class CertService {
 	}
 
 	public List<Cert> findAll() {
-		return sqlHelper.findAll(new Sort("id", Sort.Direction.ASC), Cert.class);
+		return sqlHelper.findAll(new Sort(Cert::getId, Sort.Direction.ASC), Cert.class);
 	}
 
 	public Page getPage(String keywords, Page page) {
