@@ -16,6 +16,7 @@ import com.cym.utils.JarUtil;
 import com.cym.utils.SystemTool;
 
 import cn.hutool.core.io.FileUtil;
+import cn.hutool.core.thread.ThreadUtil;
 import cn.hutool.core.util.RuntimeUtil;
 
 @EnableScheduling
@@ -62,12 +63,7 @@ public class NginxWebUI {
 				logger.info("杀掉旧进程:" + pid);
 				if (SystemTool.isWindows()) {
 					RuntimeUtil.exec("taskkill /F /PID " + pid);
-					try {
-						// win下等待1秒,否则文件不会被释放
-						Thread.sleep(1000);
-					} catch (InterruptedException e) {
-						e.printStackTrace();
-					}
+					ThreadUtil.safeSleep(1000); // win下等待1秒,否则文件不会被释放
 				} else if (SystemTool.isLinux()) {
 					RuntimeUtil.exec("kill -9 " + pid);
 				}

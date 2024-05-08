@@ -32,7 +32,8 @@ public class UpdateUtils {
 
 	public void run(String path) {
 		ThreadUtil.safeSleep(2000);
-		// linux更新, 可以去掉版本号
+		
+		// linux更新,去掉版本号并覆盖源文件
 		if(!SystemUtil.getOsInfo().isWindows()) {
 			String jarPath = JarUtil.getCurrentFile().getParent() + File.separator + "nginxWebUI.jar";
 			FileUtil.rename(new File(path), jarPath, true);
