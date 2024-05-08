@@ -7,6 +7,7 @@ import org.noear.solon.annotation.Controller;
 import org.noear.solon.annotation.Inject;
 import org.noear.solon.annotation.Mapping;
 import org.noear.solon.annotation.Param;
+import org.noear.solon.core.handle.DownloadedFile;
 
 import com.cym.controller.adminPage.CertController;
 import com.cym.model.Cert;
@@ -168,7 +169,7 @@ public class CertApiController extends BaseController {
 	 * 
 	 */
 	@Mapping("download")
-	public void download(String id) throws IOException {
-		certController.download(id);
+	public DownloadedFile download(String id) throws IOException {
+		return certController.download(id);
 	}
 }
