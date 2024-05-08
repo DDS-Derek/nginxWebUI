@@ -32,14 +32,6 @@ public class CertApiController extends BaseController {
 	@Inject
 	CertService certService;
 
-//	/**
-//	 * 获取证书列表
-//	 *
-//	 */
-//	@Mapping("getAll")
-//	public JsonResult<List<Cert>> getAll() {
-//		return renderSuccess(certService.findAll());
-//	}
 
 	/**
 	 * 获取证书分页列表
@@ -126,22 +118,6 @@ public class CertApiController extends BaseController {
 		return certController.del(id);
 	}
 
-//	/**
-//	 * 删除全部证书
-//	 *
-//	 */
-//	@Mapping("delAll")
-//	public JsonResult delAll() {
-//		List<Cert> certs = certService.findAll();
-//		String id = "";
-//		for(Cert cert : certs) {
-//			if(!StrUtil.isEmpty(id)) {
-//				id += ",";
-//			}
-//			id += cert.getId();
-//		}
-//		return certController.del(id);
-//	}
 
 	/**
 	 * 执行申请
