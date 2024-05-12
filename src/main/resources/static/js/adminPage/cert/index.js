@@ -444,34 +444,10 @@ function issue(id) {
 			success: function(data) {
 				layer.closeAll();
 				if (data.success) {
-					if (data.obj == null) {
-						layer.alert(certStr.applySuccess, function(index) {
-							layer.close(index);
-							location.reload();
-						});
-					} else {
-						var html = ``;
-						for (let i = 0; i < data.obj.length; i++) {
-							var map = data.obj[i]
-							html += `
-								<tr>
-									<td>${map.domain} <input type="hidden" name="domains" value="${map.domain}"> </td>
-									<td>${map.type} <input type="hidden" name="types" value="${map.type}"> </td>
-									<td>${map.value} <input type="hidden" name="values" value="${map.value}"> </td>
-								</tr>
-							`;
-						}
-						$("#notice").html(html);
-
-						layer.open({
-							type: 1,
-							title: certStr.hostRecords,
-							area: ['900px', '400px'], // 宽高
-							content: $('#txtDiv')
-						});
-
-					}
-
+					layer.alert(certStr.applySuccess, function(index) {
+						layer.close(index);
+						location.reload();
+					});
 				} else {
 					layer.open({
 						type: 0,
