@@ -123,6 +123,9 @@ public class InitConfig {
 		if (settingService.get("denyAllow") == null) {
 			settingService.set("denyAllow", "0");
 		}
+		if (settingService.get("denyAllowStream") == null) {
+			settingService.set("denyAllowStream", "0");
+		}
 
 		if (SystemTool.isLinux()) {
 			// 查找ngx_stream_module模块
