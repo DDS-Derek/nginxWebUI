@@ -3,6 +3,8 @@ package com.cym.service;
 import java.io.File;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
@@ -278,6 +280,16 @@ public class ConfService {
 
 			confExt.setConf(conf);
 
+			// fileList 排序
+			Collections.sort(confExt.getFileList(), new Comparator<ConfFile>() {
+
+				@Override
+				public int compare(ConfFile o1, ConfFile o2) {
+					return o1.getName().compareTo(o2.getName()); 
+				}
+
+			});
+
 			return confExt;
 		} catch (Exception e) {
 			logger.error(e.getMessage(), e);
@@ -350,7 +362,7 @@ public class ConfService {
 				}
 			}
 		}
-		
+
 		if (denyAllowValue != 0) {
 			String filename = addConfFile(nginxPath, confExt, "deny_" + id + ".conf", strs);
 			NgxParam ngxParam = new NgxParam();
@@ -358,7 +370,6 @@ public class ConfService {
 			ngxBlock.addEntry(ngxParam);
 		}
 	}
-
 
 	public NgxBlock buildBlockUpstream(Upstream upstream) {
 		NgxParam ngxParam = null;
