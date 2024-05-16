@@ -55,7 +55,7 @@ public class ConfController extends BaseController {
 	MainController mainController;
 	@Inject
 	VersionConfig versionConfig;
-	
+
 	String aesKey = "aes";
 
 	@Mapping("")
@@ -149,7 +149,6 @@ public class ConfController extends BaseController {
 		}
 		return jsonObject.toStringPretty();
 	}
-	
 
 	/**
 	 * 检查数据库内部配置
@@ -165,7 +164,7 @@ public class ConfController extends BaseController {
 		settingService.set("nginxExe", nginxExe);
 		String nginxDir = ToolUtils.handleConf(settingService.get("nginxDir"));
 		settingService.set("nginxDir", nginxDir);
-		
+
 		String rs = null;
 		String cmd = null;
 
@@ -181,7 +180,7 @@ public class ConfController extends BaseController {
 			FileUtil.writeFromStream(inputStream, homeConfig.home + "temp/conf.zip");
 			ZipUtil.unzip(homeConfig.home + "temp/conf.zip", homeConfig.home + "temp/");
 			FileUtil.del(homeConfig.home + "temp/conf.zip");
-			
+
 			cmd = nginxExe + " -t -c " + fileTemp;
 			if (StrUtil.isNotEmpty(nginxDir)) {
 				cmd += " -p " + nginxDir;
@@ -221,22 +220,23 @@ public class ConfController extends BaseController {
 			settingService.set("nginxDir", nginxDir);
 		}
 
+		String confDir = ToolUtils.handlePath(new File(nginxPath).getParent()) + "/conf.d/";
+		String tempDir = homeConfig.home + "temp" + "/conf.d/";
+
 		JSONObject jsonObject = JSONUtil.parseObj(json);
 		String nginxContent = Base64.decodeStr(jsonObject.getStr("nginxContent"), CharsetUtil.CHARSET_UTF_8);
 
 		List<String> subContent = jsonObject.getJSONArray("subContent").toList(String.class);
 		for (int i = 0; i < subContent.size(); i++) {
 			String content = Base64.decodeStr(subContent.get(i), CharsetUtil.CHARSET_UTF_8);
+			content = content.replace("include " + confDir, "include " + tempDir);
 			subContent.set(i, content);
 		}
 
 		// 替换分解域名include路径中的目标conf.d为temp/conf.d
-		String confDir = ToolUtils.handlePath(new File(nginxPath).getParent()) + "/conf.d/";
-		String tempDir = homeConfig.home + "temp" + "/conf.d/";
 		List<String> subName = jsonObject.getJSONArray("subName").toList(String.class);
 		for (String sn : subName) {
-			nginxContent = nginxContent.replace("include " + confDir + sn, //
-					"include " + tempDir + sn);
+			nginxContent = nginxContent.replace("include " + confDir + sn, "include " + tempDir + sn);
 		}
 
 		FileUtil.del(homeConfig.home + "temp");
@@ -253,7 +253,7 @@ public class ConfController extends BaseController {
 			FileUtil.writeFromStream(inputStream, homeConfig.home + "temp/conf.zip");
 			ZipUtil.unzip(homeConfig.home + "temp/conf.zip", homeConfig.home + "temp/");
 			FileUtil.del(homeConfig.home + "temp/conf.zip");
-			
+
 			cmd = nginxExe + " -t -c " + fileTemp;
 			if (StrUtil.isNotEmpty(nginxDir)) {
 				cmd += " -p " + nginxDir;
@@ -378,17 +378,17 @@ public class ConfController extends BaseController {
 
 		// 检查命令格式
 		switch (cmd) {
-			case "net start nginx":
-			case "service nginx start":
-			case "systemctl start nginx":
-			case "net stop nginx":
-			case "service nginx stop":
-			case "systemctl stop nginx":
-			case "taskkill /f /im nginx.exe":
-			case "pkill nginx":
-				return true;
-			default:
-				break;
+		case "net start nginx":
+		case "service nginx start":
+		case "systemctl start nginx":
+		case "net stop nginx":
+		case "service nginx stop":
+		case "systemctl stop nginx":
+		case "taskkill /f /im nginx.exe":
+		case "pkill nginx":
+			return true;
+		default:
+			break;
 		}
 
 		String dir = "";

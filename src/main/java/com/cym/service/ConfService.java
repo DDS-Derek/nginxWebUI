@@ -110,7 +110,7 @@ public class ConfService {
 			}
 
 			// 黑白名单
-			buildDenyAllow(ngxBlockHttp, "http", "httpDenyAllow", nginxPath, confExt);
+			buildDenyAllow(ngxBlockHttp, "http", "http", nginxPath, confExt);
 
 			// 添加upstream
 			NgxParam ngxParam;
@@ -215,7 +215,7 @@ public class ConfService {
 			}
 
 			// 黑白名单
-			buildDenyAllow(ngxBlockStream, "stream", "streamDenyAllow", nginxPath, confExt);
+			buildDenyAllow(ngxBlockStream, "stream", "stream", nginxPath, confExt);
 
 			// 添加upstream
 			upstreams = upstreamService.getListByProxyType(1);
@@ -352,71 +352,13 @@ public class ConfService {
 		}
 		
 		if (denyAllowValue != 0) {
-			String filename = addConfFile(nginxPath, confExt, id + ".conf", strs);
+			String filename = addConfFile(nginxPath, confExt, "deny_" + id + ".conf", strs);
 			NgxParam ngxParam = new NgxParam();
 			ngxParam.addValue("include " + filename);
 			ngxBlock.addEntry(ngxParam);
 		}
 	}
 
-//	public void setDenyAllow(NgxBlock ngxBlockServer, Server server, String nginxPath, ConfExt confExt) {
-//		if (server.getDenyAllow() == 1) {
-//			// 黑名单
-//			NgxParam ngxParam = new NgxParam();
-//			ngxParam.addValue("allow all");
-//			ngxBlockServer.addEntry(ngxParam);
-//
-//			DenyAllow denyAllow = sqlHelper.findById(server.getDenyId(), DenyAllow.class);
-//			if (denyAllow != null) {
-//				String[] ips = denyAllow.getIp().split("\n");
-//				for (String ip : ips) {
-//					ngxParam = new NgxParam();
-//					ngxParam.addValue("deny " + ip.trim());
-//					ngxBlockServer.addEntry(ngxParam);
-//				}
-//			}
-//		}
-//		if (server.getDenyAllow() == 2) {
-//			// 白名单
-//			DenyAllow denyAllow = sqlHelper.findById(server.getAllowId(), DenyAllow.class);
-//			if (denyAllow != null) {
-//				String[] ips = denyAllow.getIp().split("\n");
-//				for (String ip : ips) {
-//					NgxParam ngxParam = new NgxParam();
-//					ngxParam.addValue("allow " + ip.trim());
-//					ngxBlockServer.addEntry(ngxParam);
-//				}
-//			}
-//
-//			NgxParam ngxParam = new NgxParam();
-//			ngxParam.addValue("deny all");
-//			ngxBlockServer.addEntry(ngxParam);
-//		}
-//
-//		if (server.getDenyAllow() == 3) {
-//			// 黑白名单
-//			DenyAllow denyAllow = sqlHelper.findById(server.getAllowId(), DenyAllow.class);
-//			if (denyAllow != null) {
-//				String[] ips = denyAllow.getIp().split("\n");
-//				for (String ip : ips) {
-//					NgxParam ngxParam = new NgxParam();
-//					ngxParam.addValue("allow " + ip.trim());
-//					ngxBlockServer.addEntry(ngxParam);
-//				}
-//			}
-//
-//			denyAllow = sqlHelper.findById(server.getDenyId(), DenyAllow.class);
-//			if (denyAllow != null) {
-//				String[] ips = denyAllow.getIp().split("\n");
-//				for (String ip : ips) {
-//					NgxParam ngxParam = new NgxParam();
-//					ngxParam.addValue("deny " + ip.trim());
-//					ngxBlockServer.addEntry(ngxParam);
-//				}
-//			}
-//
-//		}
-//	}
 
 	public NgxBlock buildBlockUpstream(Upstream upstream) {
 		NgxParam ngxParam = null;
