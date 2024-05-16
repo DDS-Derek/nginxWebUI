@@ -108,7 +108,7 @@ public class MainController extends BaseController {
 				ngxBlock.addEntry(ngxParam);
 			}
 
-			confService.buildDenyAllow(ngxBlock);
+			confService.buildDenyAllow(ngxBlock, "http");
 		} else if (type.equals("stream")) {
 			List<Stream> streamList = sqlHelper.findAll(new Sort("seq", Direction.ASC), Stream.class);
 			ngxBlock = new NgxBlock();
@@ -118,6 +118,8 @@ public class MainController extends BaseController {
 				ngxParam.addValue(stream.getName() + " " + stream.getValue());
 				ngxBlock.addEntry(ngxParam);
 			}
+
+			confService.buildDenyAllow(ngxBlock, "Stream");
 		}
 		NgxConfig ngxConfig = new NgxConfig();
 		ngxConfig.addEntry(ngxBlock);

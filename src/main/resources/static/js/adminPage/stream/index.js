@@ -199,3 +199,71 @@ function addGiudeOver(){
 		}
 	});
 }
+
+
+
+function setDenyAllow() {
+
+	$.ajax({
+		type: 'POST',
+		url: ctx + '/adminPage/stream/getDenyAllow',
+		dataType: 'json',
+		success: function(data) {
+			closeLoad();
+			if (data.success) {
+				var map = data.obj;
+
+				$("#denyAllowValue").val(map.denyAllow);
+				if (map.denyId != null) {
+					$("#denyIdValue").val(map.denyId);
+				}
+				if (map.allowId != null) {
+					$("#allowIdValue").val(map.allowId);
+				}
+				checkDenyAllow(map.denyAllow);
+
+				form.render();
+				layer.open({
+					type: 1,
+					title: serverStr.denyAllowModel,
+					area: ['650px', '500px'], // 宽高
+					content: $('#denyAllowDiv')
+				});
+			} else {
+				layer.msg(data.msg)
+			}
+		},
+		error: function() {
+			closeLoad();
+			layer.alert(commonStr.errorInfo);
+		}
+	});
+}
+
+function setDenyAllowOver() {
+	var denyAllow = $("#denyAllowValue").val();
+	var denyId = $("#denyIdValue").val();
+	var allowId = $("#allowIdValue").val();
+
+	$.ajax({
+		type: 'POST',
+		url: ctx + '/adminPage/stream/setDenyAllow',
+		data: {
+			denyAllow: denyAllow,
+			denyId: denyId,
+			allowId: allowId
+		},
+		dataType: 'json',
+		success: function(data) {
+			if (data.success) {
+				location.reload();
+			} else {
+				layer.msg(data.msg)
+			}
+		},
+		error: function() {
+			closeLoad();
+			layer.alert(commonStr.errorInfo);
+		}
+	});
+}
