@@ -1,6 +1,7 @@
 package com.cym.controller.adminPage;
 
 import java.io.File;
+import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.List;
@@ -33,6 +34,7 @@ import cn.hutool.core.io.resource.ClassPathResource;
 import cn.hutool.core.util.CharsetUtil;
 import cn.hutool.core.util.RuntimeUtil;
 import cn.hutool.core.util.StrUtil;
+import cn.hutool.core.util.ZipUtil;
 import cn.hutool.json.JSONArray;
 import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
@@ -174,9 +176,12 @@ public class ConfController extends BaseController {
 			ConfExt confExt = confService.buildConf(false, true);
 			FileUtil.writeString(confExt.getConf(), fileTemp, CharsetUtil.CHARSET_UTF_8);
 
-			ClassPathResource resource = new ClassPathResource("mime.types");
-			FileUtil.writeFromStream(resource.getStream(), homeConfig.home + "temp/mime.types");
-
+			ClassPathResource resource = new ClassPathResource("conf.zip");
+			InputStream inputStream = resource.getStream();
+			FileUtil.writeFromStream(inputStream, homeConfig.home + "temp/conf.zip");
+			ZipUtil.unzip(homeConfig.home + "temp/conf.zip", homeConfig.home + "temp/");
+			FileUtil.del(homeConfig.home + "temp/conf.zip");
+			
 			cmd = nginxExe + " -t -c " + fileTemp;
 			if (StrUtil.isNotEmpty(nginxDir)) {
 				cmd += " -p " + nginxDir;
@@ -243,9 +248,12 @@ public class ConfController extends BaseController {
 		String cmd = null;
 
 		try {
-			ClassPathResource resource = new ClassPathResource("mime.types");
-			FileUtil.writeFromStream(resource.getStream(), homeConfig.home + "temp/mime.types");
-
+			ClassPathResource resource = new ClassPathResource("conf.zip");
+			InputStream inputStream = resource.getStream();
+			FileUtil.writeFromStream(inputStream, homeConfig.home + "temp/conf.zip");
+			ZipUtil.unzip(homeConfig.home + "temp/conf.zip", homeConfig.home + "temp/");
+			FileUtil.del(homeConfig.home + "temp/conf.zip");
+			
 			cmd = nginxExe + " -t -c " + fileTemp;
 			if (StrUtil.isNotEmpty(nginxDir)) {
 				cmd += " -p " + nginxDir;

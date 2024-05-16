@@ -306,20 +306,16 @@ public class ConfService {
 			allowId = server.getAllowId();
 		}
 
-		NgxBlock ngxBlockDeny = new NgxBlock();
+		List<String> strs = new ArrayList<>();
 		if (denyAllowValue == 1) {
 			// 黑名单
-			NgxParam ngxParam = new NgxParam();
-			ngxParam.addValue("allow all");
-			ngxBlockDeny.addEntry(ngxParam);
+			strs.add("allow all;");
 
 			DenyAllow denyAllow = sqlHelper.findById(denyId, DenyAllow.class);
 			if (denyAllow != null) {
 				String[] ips = denyAllow.getIp().split("\n");
 				for (String ip : ips) {
-					ngxParam = new NgxParam();
-					ngxParam.addValue("deny " + ip.trim());
-					ngxBlockDeny.addEntry(ngxParam);
+					strs.add("deny " + ip.trim() + ";");
 				}
 			}
 		}
@@ -329,15 +325,11 @@ public class ConfService {
 			if (denyAllow != null) {
 				String[] ips = denyAllow.getIp().split("\n");
 				for (String ip : ips) {
-					NgxParam ngxParam = new NgxParam();
-					ngxParam.addValue("allow " + ip.trim());
-					ngxBlockDeny.addEntry(ngxParam);
+					strs.add("allow " + ip.trim() + ";");
 				}
 			}
 
-			NgxParam ngxParam = new NgxParam();
-			ngxParam.addValue("deny all");
-			ngxBlockDeny.addEntry(ngxParam);
+			strs.add("deny all;");
 		}
 
 		if (denyAllowValue == 3) {
@@ -346,9 +338,7 @@ public class ConfService {
 			if (denyAllow != null) {
 				String[] ips = denyAllow.getIp().split("\n");
 				for (String ip : ips) {
-					NgxParam ngxParam = new NgxParam();
-					ngxParam.addValue("allow " + ip.trim());
-					ngxBlockDeny.addEntry(ngxParam);
+					strs.add("allow " + ip.trim() + ";");
 				}
 			}
 
@@ -356,18 +346,17 @@ public class ConfService {
 			if (denyAllow != null) {
 				String[] ips = denyAllow.getIp().split("\n");
 				for (String ip : ips) {
-					NgxParam ngxParam = new NgxParam();
-					ngxParam.addValue("deny " + ip.trim());
-					ngxBlockDeny.addEntry(ngxParam);
+					strs.add("deny " + ip.trim() + ";");
 				}
 			}
-
 		}
-
-		String filename = addConfFile(nginxPath, confExt, "denyAllow." + id + ".conf", ngxBlockDeny);
-		NgxParam ngxParam = new NgxParam();
-		ngxParam.addValue("include " + filename);
-		ngxBlock.addEntry(ngxParam);
+		
+		if (denyAllowValue != 0) {
+			String filename = addConfFile(nginxPath, confExt, id + ".conf", strs);
+			NgxParam ngxParam = new NgxParam();
+			ngxParam.addValue("include " + filename);
+			ngxBlock.addEntry(ngxParam);
+		}
 	}
 
 //	public void setDenyAllow(NgxBlock ngxBlockServer, Server server, String nginxPath, ConfExt confExt) {
@@ -910,6 +899,27 @@ public class ConfService {
 		}
 	}
 
+	private String addConfFile(String nginxPath, ConfExt confExt, String name, List<String> strs) {
+		name = name.replace(" ", "_").replaceAll("[!@#$%^&*()_+=\\{\\}\\[\\]\"<>,/;':\\\\|`~]+", "_");
+
+		boolean hasSameName = false;
+		for (ConfFile confFile : confExt.getFileList()) {
+			if (confFile.getName().equals(name)) {
+				confFile.setConf(confFile.getConf() + "\n" + buildStr(strs));
+				hasSameName = true;
+			}
+		}
+
+		if (!hasSameName) {
+			ConfFile confFile = new ConfFile();
+			confFile.setName(name);
+			confFile.setConf(buildStr(strs));
+			confExt.getFileList().add(confFile);
+		}
+
+		return new File(nginxPath).getParent().replace("\\", "/") + "/conf.d/" + name;
+	}
+
 	private String addConfFile(String nginxPath, ConfExt confExt, String name, NgxBlock ngxBlockServer) {
 		name = name.replace(" ", "_").replaceAll("[!@#$%^&*()_+=\\{\\}\\[\\]\"<>,/;':\\\\|`~]+", "_");
 
@@ -939,6 +949,11 @@ public class ConfService {
 		return ToolUtils.handleConf(new NgxDumper(ngxConfig).dump());
 	}
 
+	private String buildStr(List<String> strs) {
+
+		return StrUtil.join("\n", strs);
+	}
+
 	public void replace(String nginxPath, String nginxContent, List<String> subContent, List<String> subName, Boolean isReplace, String adminName) {
 
 		String beforeConf = null;
@@ -954,17 +969,17 @@ public class ConfService {
 
 		// 写入主文件
 		FileUtil.writeString(nginxContent, nginxPath.replace(" ", "_"), StandardCharsets.UTF_8);
-		String decompose = settingService.get("decompose");
+//		String decompose = settingService.get("decompose");
 
-		if ("true".equals(decompose)) {
-			// 写入conf.d文件
-			if (subContent != null) {
-				for (int i = 0; i < subContent.size(); i++) {
-					String tagert = (new File(nginxPath).getParent().replace("\\", "/") + "/conf.d/" + subName.get(i)).replace(" ", "_");
-					FileUtil.writeString(subContent.get(i), tagert, StandardCharsets.UTF_8); // 清空
-				}
+//		if ("true".equals(decompose)) {
+		// 写入conf.d文件
+		if (subContent != null && subName != null) {
+			for (int i = 0; i < subContent.size(); i++) {
+				String tagert = (new File(nginxPath).getParent().replace("\\", "/") + "/conf.d/" + subName.get(i)).replace(" ", "_");
+				FileUtil.writeString(subContent.get(i), tagert, StandardCharsets.UTF_8); // 清空
 			}
 		}
+//		}
 
 		// 备份文件
 		if (isReplace) {

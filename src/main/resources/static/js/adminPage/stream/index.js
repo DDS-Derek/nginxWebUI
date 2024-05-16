@@ -8,7 +8,28 @@ $(function() {
 
 		form.render();
 	});	
+	
+	form.on('select(denyAllowValue)', function(data) {
+		checkDenyAllow(data.value);
+	});
 })
+
+function checkDenyAllow(value) {
+	$("#denyDiv").hide();
+	$("#allowDiv").hide();
+
+	if (value == 1) {
+		$("#denyDiv").show();
+	}
+	if (value == 2) {
+		$("#allowDiv").show();
+	}
+	if (value == 3) {
+		$("#denyDiv").show();
+		$("#allowDiv").show();
+	}
+}
+
 
 function search() {
 	$("input[name='curr']").val(1);
@@ -213,12 +234,12 @@ function setDenyAllow() {
 			if (data.success) {
 				var map = data.obj;
 
-				$("#denyAllowValue").val(map.denyAllow);
+				$("#denyAllowValue").val(map.denyAllowStream);
 				if (map.denyId != null) {
-					$("#denyIdValue").val(map.denyId);
+					$("#denyIdValue").val(map.denyIdStream);
 				}
 				if (map.allowId != null) {
-					$("#allowIdValue").val(map.allowId);
+					$("#allowIdValue").val(map.allowIdStream);
 				}
 				checkDenyAllow(map.denyAllow);
 
