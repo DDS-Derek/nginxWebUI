@@ -3,6 +3,7 @@ package com.cym.controller.adminPage;
 import java.io.File;
 import java.io.IOException;
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.noear.solon.annotation.Controller;
@@ -14,6 +15,7 @@ import org.noear.solon.core.handle.UploadedFile;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.cym.ext.ConfExt;
 import com.cym.model.Http;
 import com.cym.model.Server;
 import com.cym.model.Stream;
@@ -87,10 +89,14 @@ public class MainController extends BaseController {
 
 	@Mapping("/adminPage/main/preview")
 	public JsonResult preview(String id, String type) {
+		ConfExt confExt = new ConfExt();
+		confExt.setFileList(new ArrayList<>());
+		String nginxPath = settingService.get("nginxPath");
+
 		NgxBlock ngxBlock = null;
 		if (type.equals("server")) {
 			Server server = sqlHelper.findById(id, Server.class);
-			ngxBlock = confService.bulidBlockServer(server);
+			ngxBlock = confService.bulidBlockServer(server, nginxPath, confExt);
 		} else if (type.equals("upstream")) {
 			Upstream upstream = sqlHelper.findById(id, Upstream.class);
 			ngxBlock = confService.buildBlockUpstream(upstream);
@@ -108,7 +114,7 @@ public class MainController extends BaseController {
 				ngxBlock.addEntry(ngxParam);
 			}
 
-			confService.buildDenyAllow(ngxBlock, "http");
+			confService.buildDenyAllow(ngxBlock, "http", "httpDenyAllow", nginxPath, confExt);
 		} else if (type.equals("stream")) {
 			List<Stream> streamList = sqlHelper.findAll(new Sort("seq", Direction.ASC), Stream.class);
 			ngxBlock = new NgxBlock();
@@ -119,7 +125,7 @@ public class MainController extends BaseController {
 				ngxBlock.addEntry(ngxParam);
 			}
 
-			confService.buildDenyAllow(ngxBlock, "Stream");
+			confService.buildDenyAllow(ngxBlock, "stream", "streamDenyAllow", nginxPath, confExt);
 		}
 		NgxConfig ngxConfig = new NgxConfig();
 		ngxConfig.addEntry(ngxBlock);
