@@ -1,8 +1,11 @@
 package com.cym.service;
 
 import java.io.File;
+import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
@@ -44,7 +47,10 @@ import com.github.odiszapc.nginxparser.NgxParam;
 
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.io.FileUtil;
+import cn.hutool.core.io.resource.ClassPathResource;
+import cn.hutool.core.util.CharsetUtil;
 import cn.hutool.core.util.StrUtil;
+import cn.hutool.core.util.ZipUtil;
 
 @Component
 public class ConfService {
@@ -76,10 +82,10 @@ public class ConfService {
 		ConfExt confExt = new ConfExt();
 		confExt.setFileList(new ArrayList<>());
 
-		String nginxPath = settingService.get("nginxPath");
-		if (check) {
-			nginxPath = homeConfig.home + "temp/nginx.conf";
-		}
+//		String nginxPath = settingService.get("nginxPath");
+//		if (check) {
+//			nginxPath = homeConfig.home + "temp/nginx.conf";
+//		}
 		try {
 
 			NgxConfig ngxConfig = new NgxConfig();
@@ -110,7 +116,7 @@ public class ConfService {
 			}
 
 			// 黑白名单
-			buildDenyAllow(ngxBlockHttp);
+			buildDenyAllow(ngxBlockHttp, "http", "http", confExt);
 
 			// 添加upstream
 			NgxParam ngxParam;
@@ -152,7 +158,7 @@ public class ConfService {
 				hasHttp = true;
 
 				if (decompose) {
-					String filename = addConfFile(nginxPath, confExt, "upstreams." + upstream.getName() + ".conf", ngxBlockServer);
+					String filename = addConfFile(confExt, "upstreams." + upstream.getName() + ".conf", ngxBlockServer);
 
 					ngxParam = new NgxParam();
 					ngxParam.addValue("include " + filename);
@@ -171,7 +177,7 @@ public class ConfService {
 					continue;
 				}
 
-				NgxBlock ngxBlockServer = bulidBlockServer(server);
+				NgxBlock ngxBlockServer = bulidBlockServer(server, confExt);
 				hasHttp = true;
 
 				// 是否需要分解
@@ -182,7 +188,7 @@ public class ConfService {
 						name = server.getServerName();
 					}
 
-					String filename = addConfFile(nginxPath, confExt, name + ".conf", ngxBlockServer);
+					String filename = addConfFile(confExt, name + ".conf", ngxBlockServer);
 
 					ngxParam = new NgxParam();
 					ngxParam.addValue("include " + filename);
@@ -214,13 +220,16 @@ public class ConfService {
 				hasStream = true;
 			}
 
+			// 黑白名单
+			buildDenyAllow(ngxBlockStream, "stream", "stream", confExt);
+
 			// 添加upstream
 			upstreams = upstreamService.getListByProxyType(1);
 			for (Upstream upstream : upstreams) {
 				NgxBlock ngxBlockServer = buildBlockUpstream(upstream);
 
 				if (decompose) {
-					String filename = addConfFile(nginxPath, confExt, "upstreams." + upstream.getName() + ".conf", ngxBlockServer);
+					String filename = addConfFile(confExt, "upstreams." + upstream.getName() + ".conf", ngxBlockServer);
 
 					ngxParam = new NgxParam();
 					ngxParam.addValue("include " + filename);
@@ -239,7 +248,7 @@ public class ConfService {
 					continue;
 				}
 
-				NgxBlock ngxBlockServer = bulidBlockServer(server);
+				NgxBlock ngxBlockServer = bulidBlockServer(server, confExt);
 
 				if (decompose) {
 					String type = "";
@@ -251,7 +260,7 @@ public class ConfService {
 						type = "udp";
 					}
 
-					String filename = addConfFile(nginxPath, confExt, type + "." + server.getListen() + ".conf", ngxBlockServer);
+					String filename = addConfFile(confExt, type + "." + server.getListen() + ".conf", ngxBlockServer);
 
 					ngxParam = new NgxParam();
 					ngxParam.addValue("include " + filename);
@@ -275,6 +284,16 @@ public class ConfService {
 
 			confExt.setConf(conf);
 
+			// fileList 排序
+			Collections.sort(confExt.getFileList(), new Comparator<ConfFile>() {
+
+				@Override
+				public int compare(ConfFile o1, ConfFile o2) {
+					return o1.getName().compareTo(o2.getName());
+				}
+
+			});
+
 			return confExt;
 		} catch (Exception e) {
 			logger.error(e.getMessage(), e);
@@ -283,23 +302,36 @@ public class ConfService {
 		return null;
 	}
 
-	public void buildDenyAllow(NgxBlock ngxBlockHttp) {
-		Integer denyAllowValue = Integer.parseInt(settingService.get("denyAllow"));
-		String denyId = settingService.get("denyId");
-		String allowId = settingService.get("allowId");
+	public void buildDenyAllow(NgxBlock ngxBlock, String type, String id, ConfExt confExt) {
+		Integer denyAllowValue = null;
+		String denyId = null;
+		String allowId = null;
+
+		if (type.equals("http")) {
+			denyAllowValue = Integer.parseInt(settingService.get("denyAllow"));
+			denyId = settingService.get("denyId");
+			allowId = settingService.get("allowId");
+		} else if (type.equals("stream")) {
+			denyAllowValue = Integer.parseInt(settingService.get("denyAllowStream"));
+			denyId = settingService.get("denyIdStream");
+			allowId = settingService.get("allowIdStream");
+		} else if (type.equals("server")) {
+			Server server = sqlHelper.findById(id, Server.class);
+			denyAllowValue = server.getDenyAllow();
+			denyId = server.getDenyId();
+			allowId = server.getAllowId();
+		}
+
+		List<String> strs = new ArrayList<>();
 		if (denyAllowValue == 1) {
 			// 黑名单
-			NgxParam ngxParam = new NgxParam();
-			ngxParam.addValue("allow all");
-			ngxBlockHttp.addEntry(ngxParam);
+			strs.add("allow all;");
 
 			DenyAllow denyAllow = sqlHelper.findById(denyId, DenyAllow.class);
 			if (denyAllow != null) {
 				String[] ips = denyAllow.getIp().split("\n");
 				for (String ip : ips) {
-					ngxParam = new NgxParam();
-					ngxParam.addValue("deny " + ip.trim());
-					ngxBlockHttp.addEntry(ngxParam);
+					strs.add("deny " + ip.trim() + ";");
 				}
 			}
 		}
@@ -309,15 +341,11 @@ public class ConfService {
 			if (denyAllow != null) {
 				String[] ips = denyAllow.getIp().split("\n");
 				for (String ip : ips) {
-					NgxParam ngxParam = new NgxParam();
-					ngxParam.addValue("allow " + ip.trim());
-					ngxBlockHttp.addEntry(ngxParam);
+					strs.add("allow " + ip.trim() + ";");
 				}
 			}
 
-			NgxParam ngxParam = new NgxParam();
-			ngxParam.addValue("deny all");
-			ngxBlockHttp.addEntry(ngxParam);
+			strs.add("deny all;");
 		}
 
 		if (denyAllowValue == 3) {
@@ -326,9 +354,7 @@ public class ConfService {
 			if (denyAllow != null) {
 				String[] ips = denyAllow.getIp().split("\n");
 				for (String ip : ips) {
-					NgxParam ngxParam = new NgxParam();
-					ngxParam.addValue("allow " + ip.trim());
-					ngxBlockHttp.addEntry(ngxParam);
+					strs.add("allow " + ip.trim() + ";");
 				}
 			}
 
@@ -336,12 +362,16 @@ public class ConfService {
 			if (denyAllow != null) {
 				String[] ips = denyAllow.getIp().split("\n");
 				for (String ip : ips) {
-					NgxParam ngxParam = new NgxParam();
-					ngxParam.addValue("deny " + ip.trim());
-					ngxBlockHttp.addEntry(ngxParam);
+					strs.add("deny " + ip.trim() + ";");
 				}
 			}
+		}
 
+		if (denyAllowValue != 0) {
+			String filename = addConfFile(confExt, "deny_" + id + ".conf", strs);
+			NgxParam ngxParam = new NgxParam();
+			ngxParam.addValue("include " + filename);
+			ngxBlock.addEntry(ngxParam);
 		}
 	}
 
@@ -384,7 +414,7 @@ public class ConfService {
 		return ngxBlockServer;
 	}
 
-	public NgxBlock bulidBlockServer(Server server) {
+	public NgxBlock bulidBlockServer(Server server, ConfExt confExt) {
 		NgxParam ngxParam = null;
 
 		NgxBlock ngxBlockServer = new NgxBlock();
@@ -426,6 +456,27 @@ public class ConfService {
 			ngxParam.addValue(value);
 			ngxBlockServer.addEntry(ngxParam);
 
+			// 监控ipv6
+			if (server.getIpv6() == 1) {
+				ngxParam = new NgxParam();
+				value = "listen [::]:" + replaceIp(server.getListen());
+				if (server.getDef() == 1) {
+					value += " default";
+				}
+				if (server.getProxyProtocol() == 1) {
+					value += " proxy_protocol";
+				}
+
+				if (server.getSsl() == 1) {
+					value += " ssl";
+					if (server.getHttp2() == 1) { // http2旧版写法
+						value += " http2";
+					}
+				}
+				ngxParam.addValue(value);
+				ngxBlockServer.addEntry(ngxParam);
+			}
+
 			if (server.getSsl() == 1 && server.getHttp2() == 2) { // http2新版写法
 				ngxParam = new NgxParam();
 				ngxParam.addValue("http2 on");
@@ -451,62 +502,7 @@ public class ConfService {
 			setServerSsl(server, ngxBlockServer);
 
 			// IP黑白名单
-			if (server.getDenyAllow() == 1) {
-				// 黑名单
-				ngxParam = new NgxParam();
-				ngxParam.addValue("allow all");
-				ngxBlockServer.addEntry(ngxParam);
-
-				DenyAllow denyAllow = sqlHelper.findById(server.getDenyId(), DenyAllow.class);
-				if (denyAllow != null) {
-					String[] ips = denyAllow.getIp().split("\n");
-					for (String ip : ips) {
-						ngxParam = new NgxParam();
-						ngxParam.addValue("deny " + ip.trim());
-						ngxBlockServer.addEntry(ngxParam);
-					}
-				}
-			}
-			if (server.getDenyAllow() == 2) {
-				// 白名单
-				DenyAllow denyAllow = sqlHelper.findById(server.getAllowId(), DenyAllow.class);
-				if (denyAllow != null) {
-					String[] ips = denyAllow.getIp().split("\n");
-					for (String ip : ips) {
-						ngxParam = new NgxParam();
-						ngxParam.addValue("allow " + ip.trim());
-						ngxBlockServer.addEntry(ngxParam);
-					}
-				}
-
-				ngxParam = new NgxParam();
-				ngxParam.addValue("deny all");
-				ngxBlockServer.addEntry(ngxParam);
-			}
-
-			if (server.getDenyAllow() == 3) {
-				// 黑白名单
-				DenyAllow denyAllow = sqlHelper.findById(server.getAllowId(), DenyAllow.class);
-				if (denyAllow != null) {
-					String[] ips = denyAllow.getIp().split("\n");
-					for (String ip : ips) {
-						ngxParam = new NgxParam();
-						ngxParam.addValue("allow " + ip.trim());
-						ngxBlockServer.addEntry(ngxParam);
-					}
-				}
-
-				denyAllow = sqlHelper.findById(server.getDenyId(), DenyAllow.class);
-				if (denyAllow != null) {
-					String[] ips = denyAllow.getIp().split("\n");
-					for (String ip : ips) {
-						ngxParam = new NgxParam();
-						ngxParam.addValue("deny " + ip.trim());
-						ngxBlockServer.addEntry(ngxParam);
-					}
-				}
-
-			}
+			buildDenyAllow(ngxBlockServer, "server", server.getId(), confExt);
 
 			// 自定义参数
 			String type = "server";
@@ -675,6 +671,23 @@ public class ConfService {
 			ngxParam.addValue(value);
 			ngxBlockServer.addEntry(ngxParam);
 
+			// 监控ipv6
+			if (server.getIpv6() == 1) {
+				ngxParam = new NgxParam();
+				value = "listen [::]:" + replaceIp(server.getListen());
+				if (server.getProxyProtocol() == 1) {
+					value += " proxy_protocol";
+				}
+				if (server.getProxyType() == 2) {
+					value += " udp";
+				}
+				if (server.getSsl() != null && server.getSsl() == 1) {
+					value += " ssl";
+				}
+				ngxParam.addValue(value);
+				ngxBlockServer.addEntry(ngxParam);
+			}
+
 			// 指向负载均衡
 			Upstream upstream = sqlHelper.findById(server.getProxyUpstreamId(), Upstream.class);
 			if (upstream != null) {
@@ -685,6 +698,8 @@ public class ConfService {
 
 			// ssl配置
 			setServerSsl(server, ngxBlockServer);
+			// IP黑白名单
+			buildDenyAllow(ngxBlockServer, "server", server.getId(), confExt);
 
 			// 自定义参数
 			String type = "server";
@@ -731,22 +746,19 @@ public class ConfService {
 				if (StrUtil.isNotEmpty(server.getRewriteListen())) {
 					ngxParam = new NgxParam();
 					String reValue = "listen " + server.getRewriteListen();
-					if (server.getDef() == 1) {
-						reValue += " default";
-					}
-					if (server.getProxyProtocol() == 1) {
-						reValue += " proxy_protocol";
-					}
 					ngxParam.addValue(reValue);
 					ngxBlockServer.addEntry(ngxParam);
+
+					// ipv6
+					if (server.getIpv6() == 1) {
+						ngxParam = new NgxParam();
+						reValue = "listen [::]:" + replaceIp(server.getRewriteListen());
+						ngxParam.addValue(reValue);
+						ngxBlockServer.addEntry(ngxParam);
+					}
 				}
 
-				String port = "";
-				if (server.getListen().contains(":")) {
-					port = server.getListen().split(":")[1];
-				} else {
-					port = server.getListen();
-				}
+				String port = replaceIp(server.getListen());
 
 				NgxBlock ngxBlock = new NgxBlock();
 				ngxBlock.addValue("if ($scheme = http)");
@@ -759,6 +771,21 @@ public class ConfService {
 
 			}
 		}
+	}
+
+	/**
+	 * 替换掉listen中的ip
+	 * 
+	 * @param listen
+	 * @return
+	 */
+	private String replaceIp(String listen) {
+
+		if (listen.contains(":")) {
+			return listen.split(":")[1];
+		}
+
+		return listen;
 	}
 
 	/**
@@ -829,7 +856,30 @@ public class ConfService {
 		}
 	}
 
-	private String addConfFile(String nginxPath, ConfExt confExt, String name, NgxBlock ngxBlockServer) {
+	private String addConfFile(ConfExt confExt, String name, List<String> strs) {
+		name = name.replace(" ", "_").replaceAll("[!@#$%^&*()_+=\\{\\}\\[\\]\"<>,/;':\\\\|`~]+", "_");
+
+		boolean hasSameName = false;
+		for (ConfFile confFile : confExt.getFileList()) {
+			if (confFile.getName().equals(name)) {
+				confFile.setConf(confFile.getConf() + "\n" + buildStr(strs));
+				hasSameName = true;
+			}
+		}
+
+		if (!hasSameName) {
+			ConfFile confFile = new ConfFile();
+			confFile.setName(name);
+			confFile.setConf(buildStr(strs));
+			confExt.getFileList().add(confFile);
+		}
+
+//		return new File(nginxPath).getParent().replace("\\", "/") + "/conf.d/" + name;
+
+		return "conf.d/" + name;
+	}
+
+	private String addConfFile(ConfExt confExt, String name, NgxBlock ngxBlockServer) {
 		name = name.replace(" ", "_").replaceAll("[!@#$%^&*()_+=\\{\\}\\[\\]\"<>,/;':\\\\|`~]+", "_");
 
 		boolean hasSameName = false;
@@ -847,7 +897,8 @@ public class ConfService {
 			confExt.getFileList().add(confFile);
 		}
 
-		return new File(nginxPath).getParent().replace("\\", "/") + "/conf.d/" + name;
+//		return new File(nginxPath).getParent().replace("\\", "/") + "/conf.d/" + name;
+		return "conf.d/" + name;
 	}
 
 	private String buildStr(NgxBlock ngxBlockServer) {
@@ -856,6 +907,11 @@ public class ConfService {
 		ngxConfig.addEntry(ngxBlockServer);
 
 		return ToolUtils.handleConf(new NgxDumper(ngxConfig).dump());
+	}
+
+	private String buildStr(List<String> strs) {
+
+		return StrUtil.join("\n", strs);
 	}
 
 	public void replace(String nginxPath, String nginxContent, List<String> subContent, List<String> subName, Boolean isReplace, String adminName) {
@@ -873,17 +929,19 @@ public class ConfService {
 
 		// 写入主文件
 		FileUtil.writeString(nginxContent, nginxPath.replace(" ", "_"), StandardCharsets.UTF_8);
-		String decompose = settingService.get("decompose");
 
-		if ("true".equals(decompose)) {
-			// 写入conf.d文件
-			if (subContent != null) {
-				for (int i = 0; i < subContent.size(); i++) {
-					String tagert = (new File(nginxPath).getParent().replace("\\", "/") + "/conf.d/" + subName.get(i)).replace(" ", "_");
-					FileUtil.writeString(subContent.get(i), tagert, StandardCharsets.UTF_8); // 清空
-				}
+		// 写入conf.d文件
+		if (subContent != null && subName != null) {
+			for (int i = 0; i < subContent.size(); i++) {
+				String tagert = (new File(nginxPath).getParent().replace("\\", "/") + "/conf.d/" + subName.get(i)).replace(" ", "_");
+				FileUtil.writeString(subContent.get(i), tagert, StandardCharsets.UTF_8); // 清空
 			}
 		}
+		
+		// 写入周边配置文件
+		ClassPathResource resource = new ClassPathResource("conf.zip");
+		InputStream inputStream = resource.getStream();
+		ZipUtil.unzip(inputStream, new File(new File(nginxPath).getParent().replace("\\", "/")), CharsetUtil.defaultCharset());
 
 		// 备份文件
 		if (isReplace) {
