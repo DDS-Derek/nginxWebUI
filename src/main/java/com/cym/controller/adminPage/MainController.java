@@ -91,12 +91,12 @@ public class MainController extends BaseController {
 	public JsonResult preview(String id, String type) {
 		ConfExt confExt = new ConfExt();
 		confExt.setFileList(new ArrayList<>());
-		String nginxPath = settingService.get("nginxPath");
+		//String nginxPath = settingService.get("nginxPath");
 
 		NgxBlock ngxBlock = null;
 		if (type.equals("server")) {
 			Server server = sqlHelper.findById(id, Server.class);
-			ngxBlock = confService.bulidBlockServer(server, nginxPath, confExt);
+			ngxBlock = confService.bulidBlockServer(server, confExt);
 		} else if (type.equals("upstream")) {
 			Upstream upstream = sqlHelper.findById(id, Upstream.class);
 			ngxBlock = confService.buildBlockUpstream(upstream);
@@ -114,7 +114,7 @@ public class MainController extends BaseController {
 				ngxBlock.addEntry(ngxParam);
 			}
 
-			confService.buildDenyAllow(ngxBlock, "http", "httpDenyAllow", nginxPath, confExt);
+			confService.buildDenyAllow(ngxBlock, "http", "httpDenyAllow", confExt);
 		} else if (type.equals("stream")) {
 			List<Stream> streamList = sqlHelper.findAll(new Sort("seq", Direction.ASC), Stream.class);
 			ngxBlock = new NgxBlock();
@@ -125,7 +125,7 @@ public class MainController extends BaseController {
 				ngxBlock.addEntry(ngxParam);
 			}
 
-			confService.buildDenyAllow(ngxBlock, "stream", "streamDenyAllow", nginxPath, confExt);
+			confService.buildDenyAllow(ngxBlock, "stream", "streamDenyAllow", confExt);
 		}
 		NgxConfig ngxConfig = new NgxConfig();
 		ngxConfig.addEntry(ngxBlock);

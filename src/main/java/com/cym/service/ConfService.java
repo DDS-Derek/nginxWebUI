@@ -78,10 +78,10 @@ public class ConfService {
 		ConfExt confExt = new ConfExt();
 		confExt.setFileList(new ArrayList<>());
 
-		String nginxPath = settingService.get("nginxPath");
-		if (check) {
-			nginxPath = homeConfig.home + "temp/nginx.conf";
-		}
+//		String nginxPath = settingService.get("nginxPath");
+//		if (check) {
+//			nginxPath = homeConfig.home + "temp/nginx.conf";
+//		}
 		try {
 
 			NgxConfig ngxConfig = new NgxConfig();
@@ -112,7 +112,7 @@ public class ConfService {
 			}
 
 			// 黑白名单
-			buildDenyAllow(ngxBlockHttp, "http", "http", nginxPath, confExt);
+			buildDenyAllow(ngxBlockHttp, "http", "http", confExt);
 
 			// 添加upstream
 			NgxParam ngxParam;
@@ -154,7 +154,7 @@ public class ConfService {
 				hasHttp = true;
 
 				if (decompose) {
-					String filename = addConfFile(nginxPath, confExt, "upstreams." + upstream.getName() + ".conf", ngxBlockServer);
+					String filename = addConfFile(confExt, "upstreams." + upstream.getName() + ".conf", ngxBlockServer);
 
 					ngxParam = new NgxParam();
 					ngxParam.addValue("include " + filename);
@@ -173,7 +173,7 @@ public class ConfService {
 					continue;
 				}
 
-				NgxBlock ngxBlockServer = bulidBlockServer(server, nginxPath, confExt);
+				NgxBlock ngxBlockServer = bulidBlockServer(server, confExt);
 				hasHttp = true;
 
 				// 是否需要分解
@@ -184,7 +184,7 @@ public class ConfService {
 						name = server.getServerName();
 					}
 
-					String filename = addConfFile(nginxPath, confExt, name + ".conf", ngxBlockServer);
+					String filename = addConfFile(confExt, name + ".conf", ngxBlockServer);
 
 					ngxParam = new NgxParam();
 					ngxParam.addValue("include " + filename);
@@ -217,7 +217,7 @@ public class ConfService {
 			}
 
 			// 黑白名单
-			buildDenyAllow(ngxBlockStream, "stream", "stream", nginxPath, confExt);
+			buildDenyAllow(ngxBlockStream, "stream", "stream", confExt);
 
 			// 添加upstream
 			upstreams = upstreamService.getListByProxyType(1);
@@ -225,7 +225,7 @@ public class ConfService {
 				NgxBlock ngxBlockServer = buildBlockUpstream(upstream);
 
 				if (decompose) {
-					String filename = addConfFile(nginxPath, confExt, "upstreams." + upstream.getName() + ".conf", ngxBlockServer);
+					String filename = addConfFile(confExt, "upstreams." + upstream.getName() + ".conf", ngxBlockServer);
 
 					ngxParam = new NgxParam();
 					ngxParam.addValue("include " + filename);
@@ -244,7 +244,7 @@ public class ConfService {
 					continue;
 				}
 
-				NgxBlock ngxBlockServer = bulidBlockServer(server, nginxPath, confExt);
+				NgxBlock ngxBlockServer = bulidBlockServer(server, confExt);
 
 				if (decompose) {
 					String type = "";
@@ -256,7 +256,7 @@ public class ConfService {
 						type = "udp";
 					}
 
-					String filename = addConfFile(nginxPath, confExt, type + "." + server.getListen() + ".conf", ngxBlockServer);
+					String filename = addConfFile(confExt, type + "." + server.getListen() + ".conf", ngxBlockServer);
 
 					ngxParam = new NgxParam();
 					ngxParam.addValue("include " + filename);
@@ -285,7 +285,7 @@ public class ConfService {
 
 				@Override
 				public int compare(ConfFile o1, ConfFile o2) {
-					return o1.getName().compareTo(o2.getName()); 
+					return o1.getName().compareTo(o2.getName());
 				}
 
 			});
@@ -298,7 +298,7 @@ public class ConfService {
 		return null;
 	}
 
-	public void buildDenyAllow(NgxBlock ngxBlock, String type, String id, String nginxPath, ConfExt confExt) {
+	public void buildDenyAllow(NgxBlock ngxBlock, String type, String id, ConfExt confExt) {
 		Integer denyAllowValue = null;
 		String denyId = null;
 		String allowId = null;
@@ -364,7 +364,7 @@ public class ConfService {
 		}
 
 		if (denyAllowValue != 0) {
-			String filename = addConfFile(nginxPath, confExt, "deny_" + id + ".conf", strs);
+			String filename = addConfFile(confExt, "deny_" + id + ".conf", strs);
 			NgxParam ngxParam = new NgxParam();
 			ngxParam.addValue("include " + filename);
 			ngxBlock.addEntry(ngxParam);
@@ -410,7 +410,7 @@ public class ConfService {
 		return ngxBlockServer;
 	}
 
-	public NgxBlock bulidBlockServer(Server server, String nginxPath, ConfExt confExt) {
+	public NgxBlock bulidBlockServer(Server server, ConfExt confExt) {
 		NgxParam ngxParam = null;
 
 		NgxBlock ngxBlockServer = new NgxBlock();
@@ -498,7 +498,7 @@ public class ConfService {
 			setServerSsl(server, ngxBlockServer);
 
 			// IP黑白名单
-			buildDenyAllow(ngxBlockServer, "server", server.getId(), nginxPath, confExt);
+			buildDenyAllow(ngxBlockServer, "server", server.getId(), confExt);
 
 			// 自定义参数
 			String type = "server";
@@ -695,7 +695,7 @@ public class ConfService {
 			// ssl配置
 			setServerSsl(server, ngxBlockServer);
 			// IP黑白名单
-			buildDenyAllow(ngxBlockServer, "server", server.getId(), nginxPath, confExt);
+			buildDenyAllow(ngxBlockServer, "server", server.getId(), confExt);
 
 			// 自定义参数
 			String type = "server";
@@ -852,7 +852,7 @@ public class ConfService {
 		}
 	}
 
-	private String addConfFile(String nginxPath, ConfExt confExt, String name, List<String> strs) {
+	private String addConfFile(ConfExt confExt, String name, List<String> strs) {
 		name = name.replace(" ", "_").replaceAll("[!@#$%^&*()_+=\\{\\}\\[\\]\"<>,/;':\\\\|`~]+", "_");
 
 		boolean hasSameName = false;
@@ -870,10 +870,12 @@ public class ConfService {
 			confExt.getFileList().add(confFile);
 		}
 
-		return new File(nginxPath).getParent().replace("\\", "/") + "/conf.d/" + name;
+//		return new File(nginxPath).getParent().replace("\\", "/") + "/conf.d/" + name;
+
+		return "conf.d/" + name;
 	}
 
-	private String addConfFile(String nginxPath, ConfExt confExt, String name, NgxBlock ngxBlockServer) {
+	private String addConfFile(ConfExt confExt, String name, NgxBlock ngxBlockServer) {
 		name = name.replace(" ", "_").replaceAll("[!@#$%^&*()_+=\\{\\}\\[\\]\"<>,/;':\\\\|`~]+", "_");
 
 		boolean hasSameName = false;
@@ -891,7 +893,8 @@ public class ConfService {
 			confExt.getFileList().add(confFile);
 		}
 
-		return new File(nginxPath).getParent().replace("\\", "/") + "/conf.d/" + name;
+//		return new File(nginxPath).getParent().replace("\\", "/") + "/conf.d/" + name;
+		return "conf.d/" + name;
 	}
 
 	private String buildStr(NgxBlock ngxBlockServer) {

@@ -90,7 +90,7 @@ public class InitConfig {
 		}
 
 		// 释放基础nginx配置文件
-		if (!FileUtil.exist(homeConfig.home + "nginx.conf")) {
+		if (!FileUtil.exist(homeConfig.home + "fastcgi.conf")) {
 			ClassPathResource resource = new ClassPathResource("conf.zip");
 			InputStream inputStream = resource.getStream();
 			FileUtil.writeFromStream(inputStream, homeConfig.home + "conf.zip");
