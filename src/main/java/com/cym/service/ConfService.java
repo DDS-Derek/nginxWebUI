@@ -925,9 +925,7 @@ public class ConfService {
 
 		// 写入主文件
 		FileUtil.writeString(nginxContent, nginxPath.replace(" ", "_"), StandardCharsets.UTF_8);
-//		String decompose = settingService.get("decompose");
 
-//		if ("true".equals(decompose)) {
 		// 写入conf.d文件
 		if (subContent != null && subName != null) {
 			for (int i = 0; i < subContent.size(); i++) {
@@ -935,7 +933,6 @@ public class ConfService {
 				FileUtil.writeString(subContent.get(i), tagert, StandardCharsets.UTF_8); // 清空
 			}
 		}
-//		}
 
 		// 备份文件
 		if (isReplace) {

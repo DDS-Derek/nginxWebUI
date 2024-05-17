@@ -6,6 +6,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.noear.solon.annotation.Controller;
 import org.noear.solon.annotation.Inject;
@@ -171,10 +172,19 @@ public class ConfController extends BaseController {
 		FileUtil.del(homeConfig.home + "temp");
 		String fileTemp = homeConfig.home + "temp/nginx.conf";
 
+		
+		ConfExt confExt = confService.buildConf(false, true);
+		
+		String nginxContent = confExt.getConf();
+		List<String> subContent = confExt.getFileList().stream().map(ConfFile::getConf).collect(Collectors.toList());
+		List<String> subName = confExt.getFileList().stream().map(ConfFile::getName).collect(Collectors.toList());
+	
+		confService.replace(fileTemp, nginxContent, subContent, subName, false, null);
+		
 		try {
-			ConfExt confExt = confService.buildConf(false, true);
-			FileUtil.writeString(confExt.getConf(), fileTemp, CharsetUtil.CHARSET_UTF_8);
-
+//			ConfExt confExt = confService.buildConf(false, true);
+//			FileUtil.writeString(confExt.getConf(), fileTemp, CharsetUtil.CHARSET_UTF_8);
+			
 			ClassPathResource resource = new ClassPathResource("conf.zip");
 			InputStream inputStream = resource.getStream();
 			FileUtil.writeFromStream(inputStream, homeConfig.home + "temp/conf.zip");
@@ -220,24 +230,16 @@ public class ConfController extends BaseController {
 			settingService.set("nginxDir", nginxDir);
 		}
 
-		String confDir = ToolUtils.handlePath(new File(nginxPath).getParent()) + "/conf.d/";
-		String tempDir = homeConfig.home + "temp" + "/conf.d/";
-
 		JSONObject jsonObject = JSONUtil.parseObj(json);
 		String nginxContent = Base64.decodeStr(jsonObject.getStr("nginxContent"), CharsetUtil.CHARSET_UTF_8);
-
 		List<String> subContent = jsonObject.getJSONArray("subContent").toList(String.class);
-		for (int i = 0; i < subContent.size(); i++) {
+		List<String> subName = jsonObject.getJSONArray("subName").toList(String.class);
+		
+		for (int i = 0; i < subContent.size(); i++) { //解码
 			String content = Base64.decodeStr(subContent.get(i), CharsetUtil.CHARSET_UTF_8);
-			content = content.replace("include " + confDir, "include " + tempDir);
 			subContent.set(i, content);
 		}
 
-		// 替换分解域名include路径中的目标conf.d为temp/conf.d
-		List<String> subName = jsonObject.getJSONArray("subName").toList(String.class);
-		for (String sn : subName) {
-			nginxContent = nginxContent.replace("include " + confDir + sn, "include " + tempDir + sn);
-		}
 
 		FileUtil.del(homeConfig.home + "temp");
 		String fileTemp = homeConfig.home + "temp/nginx.conf";
