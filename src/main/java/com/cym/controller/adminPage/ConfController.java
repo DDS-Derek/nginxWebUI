@@ -172,24 +172,18 @@ public class ConfController extends BaseController {
 		FileUtil.del(homeConfig.home + "temp");
 		String fileTemp = homeConfig.home + "temp/nginx.conf";
 
-		
 		ConfExt confExt = confService.buildConf(false, true);
-		
+
 		String nginxContent = confExt.getConf();
 		List<String> subContent = confExt.getFileList().stream().map(ConfFile::getConf).collect(Collectors.toList());
 		List<String> subName = confExt.getFileList().stream().map(ConfFile::getName).collect(Collectors.toList());
-	
+
 		confService.replace(fileTemp, nginxContent, subContent, subName, false, null);
-		
+
 		try {
-//			ConfExt confExt = confService.buildConf(false, true);
-//			FileUtil.writeString(confExt.getConf(), fileTemp, CharsetUtil.CHARSET_UTF_8);
-			
 			ClassPathResource resource = new ClassPathResource("conf.zip");
 			InputStream inputStream = resource.getStream();
-			FileUtil.writeFromStream(inputStream, homeConfig.home + "temp/conf.zip");
-			ZipUtil.unzip(homeConfig.home + "temp/conf.zip", homeConfig.home + "temp/");
-			FileUtil.del(homeConfig.home + "temp/conf.zip");
+			ZipUtil.unzip(inputStream, new File(homeConfig.home + "temp/"), CharsetUtil.defaultCharset());
 
 			cmd = nginxExe + " -t -c " + fileTemp;
 			if (StrUtil.isNotEmpty(nginxDir)) {
@@ -234,12 +228,11 @@ public class ConfController extends BaseController {
 		String nginxContent = Base64.decodeStr(jsonObject.getStr("nginxContent"), CharsetUtil.CHARSET_UTF_8);
 		List<String> subContent = jsonObject.getJSONArray("subContent").toList(String.class);
 		List<String> subName = jsonObject.getJSONArray("subName").toList(String.class);
-		
-		for (int i = 0; i < subContent.size(); i++) { //解码
+
+		for (int i = 0; i < subContent.size(); i++) { // 解码
 			String content = Base64.decodeStr(subContent.get(i), CharsetUtil.CHARSET_UTF_8);
 			subContent.set(i, content);
 		}
-
 
 		FileUtil.del(homeConfig.home + "temp");
 		String fileTemp = homeConfig.home + "temp/nginx.conf";
@@ -252,9 +245,7 @@ public class ConfController extends BaseController {
 		try {
 			ClassPathResource resource = new ClassPathResource("conf.zip");
 			InputStream inputStream = resource.getStream();
-			FileUtil.writeFromStream(inputStream, homeConfig.home + "temp/conf.zip");
-			ZipUtil.unzip(homeConfig.home + "temp/conf.zip", homeConfig.home + "temp/");
-			FileUtil.del(homeConfig.home + "temp/conf.zip");
+			ZipUtil.unzip(inputStream, new File(homeConfig.home + "temp/"), CharsetUtil.defaultCharset());
 
 			cmd = nginxExe + " -t -c " + fileTemp;
 			if (StrUtil.isNotEmpty(nginxDir)) {
