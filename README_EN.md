@@ -34,9 +34,6 @@ After the deployment of this project, the configuration of nginx no longer need 
 
 ```
 Video course: https://www.bilibili.com/video/BV18A4y1D7GZ
-Demo address: http://test.nginxwebui.cn:7070
-User: admin
-password: admin
 ```
 
 #### Technical note

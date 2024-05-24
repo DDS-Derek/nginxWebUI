@@ -35,9 +35,6 @@ nginx本身功能复杂, nginxWebUI并不能涵盖nginx所有功能, 但能覆�
 
 ```
 视频教程: https://www.bilibili.com/video/BV18A4y1D7GZ
-演示地址: http://test.nginxwebui.cn:7070
-用户名: admin
-密码: admin
 ```
 
 
