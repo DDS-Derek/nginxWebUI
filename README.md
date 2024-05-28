@@ -292,12 +292,10 @@ systemctl start nginxwebui.service
 
 如果忘记了登录密码或没有保存两步验证二维码，可按如下教程重置密码和关闭两步验证.
 
-1.停止nginxWebUI进程或停止docker容器运行
-
-2.使用找回密码参数运行nginxWebUI.jar, docker用户需单独下载nginxWebUI.jar运行此命令
+1.jar安装方式, 执行命令
 
 ```
-java -jar nginxWebUI.jar --project.home=/home/nginxWebUI/ --project.findPass=true
+java -jar /home/nginxWebUI/nginxWebUI.jar --project.home=/home/nginxWebUI/ --project.findPass=true
 ```
 
 --project.home 为项目文件所在目录, 使用docker容器时为映射目录
@@ -306,3 +304,16 @@ java -jar nginxWebUI.jar --project.home=/home/nginxWebUI/ --project.findPass=tru
 
 运行成功后即可重置并打印出全部用户名密码并关闭两步验证
 
+2.docker安装方式, 首先执行进入docker容器的命令, 其中{ID}为容器的id
+
+```
+docker exec -it {ID} /bin/sh
+```
+
+再执行命令
+
+```
+java -jar /home/nginxWebUI.jar --project.findPass=true
+```
+
+运行成功后即可重置并打印出全部用户名密码并关闭两步验证

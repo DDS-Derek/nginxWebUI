@@ -288,12 +288,11 @@ The interface invocation requires adding a token to the HTTP request header. To 
 
 If you forget your login password or don't save the two-step verification QR code, you can reset your password and turn off two-step verification by following the tutorial below.
 
-1.Stop the nginxWebUI process or stop the docker container.
+1.jar installation, execute the command
 
-2.Run the nginxWebUI.jar using the retrieve password parameter. docker users need to download the nginxWebUI.jar separately to run this command
 
 ```
-java -jar nginxWebUI.jar --project.home=/home/nginxWebUI/ --project.findPass=true
+java -jar /home/nginxWebUI/nginxWebUI.jar --project.home=/home/nginxWebUI/ --project.findPass=true
 ```
 
 --project.home Project profile directory or docker mapping directory
@@ -302,4 +301,16 @@ java -jar nginxWebUI.jar --project.home=/home/nginxWebUI/ --project.findPass=tru
 
 After the operation is successful, all user names and passwords can be reset printed and two steps verify will disabled.
 
+2.docker installation, first execute the command to enter the docker container, where {ID} is the id of the container
 
+```
+docker exec -it {ID} /bin/sh
+```
+
+Then execute the command
+
+```
+java -jar /home/nginxWebUI.jar --project.findPass=true
+```
+
+After the operation is successful, all user names and passwords can be reset printed and two steps verify will disabled.
