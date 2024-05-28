@@ -9,6 +9,9 @@ import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 
 import cn.hutool.db.Db;
+import cn.hutool.db.GlobalDbConfig;
+import cn.hutool.db.ds.pooled.DbConfig;
+import cn.hutool.log.level.Level;
 
 @Component
 public class DataSourceEmbed {
@@ -28,6 +31,9 @@ public class DataSourceEmbed {
 
 	@Init
 	public void init() {
+		// 不打印sql到日志
+		GlobalDbConfig.setShowSql(false, true, true, Level.INFO);
+		
 		// 创建dataSource
 		if (databaseType.equalsIgnoreCase("sqlite") || databaseType.equalsIgnoreCase("h2")) {
 
@@ -49,6 +55,7 @@ public class DataSourceEmbed {
 			dbConfig.setDriverClassName("com.mysql.cj.jdbc.Driver");
 			dataSource = new HikariDataSource(dbConfig);
 		}
+		
 		
 	}
 
