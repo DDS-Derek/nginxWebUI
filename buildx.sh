@@ -35,7 +35,6 @@ docker buildx build \
     --cache-to "type=local,dest=/tmp/.buildx-cache" \
     --platform "$arch" \
     --tag ${repo}:${ver} \
-    --tag ${repo}:latest \
     --push \
     .
 
