@@ -25,12 +25,23 @@ public class NginxWebUI {
 	static Logger logger = LoggerFactory.getLogger(NginxWebUI.class);
 
 	public static void main(String[] args) {
-		try {
-			// 尝试杀掉旧版本
-			killSelf(args);
+		boolean findPass = false;
+		if (args != null) {
+			for (String arg : args) {
+				if (arg.equals("--project.findPass=true")) {
+					findPass = true;
+				}
+			}
+		}
 
-			// 删掉多余的jar
-			removeJar();
+		try {
+			if (!findPass) {
+				// 尝试杀掉旧版本
+				killSelf(args);
+
+				// 删掉多余的jar
+				removeJar();
+			}
 		} catch (Exception e) {
 			logger.error(e.getMessage(), e);
 		}
@@ -101,10 +112,9 @@ public class NginxWebUI {
 	private static void removeJar() {
 		File[] list = new File(JarUtil.getCurrentFilePath()).getParentFile().listFiles();
 		for (File file : list) {
-			logger.info("文件:" + file);
 			if (file.getName().startsWith("nginxWebUI") && file.getName().endsWith(".jar") && !file.getPath().equals(JarUtil.getCurrentFilePath())) {
 				FileUtil.del(file);
-				logger.info("删除文件:" + file);
+				logger.info("删除旧文件:" + file);
 			}
 		}
 	}
