@@ -36,8 +36,8 @@ docker buildx build \
     --platform "$arch" \
     --tag ${repo}:${ver} \
     --tag ${repo}:latest \
-    --tag registry.cn-hangzhou.aliyuncs.com/cym19871102/${repo}:${ver} \
-    --tag registry.cn-hangzhou.aliyuncs.com/cym19871102/${repo}:latest \
+    --tag registry.cn-hangzhou.aliyuncs.com/${repo}:${ver} \
+    --tag registry.cn-hangzhou.aliyuncs.com/${repo}:latest \
     --push \
     .
 
