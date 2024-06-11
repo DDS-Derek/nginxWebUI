@@ -9,7 +9,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.cym</groupId>
 	<artifactId>nginxWebUI</artifactId>
-	<version>4.1.4</version>
+	<version>4.1.5</version>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -150,7 +150,7 @@
 				<executions>
 					<execution>
 						<!--如果不需要在执行编译时启动smart-doc，则将phase注释掉-->
-						<phase>compile</phase>
+						<!-- <phase>compile</phase> -->
 						<goals>
 							<goal>html</goal>
 						</goals>
