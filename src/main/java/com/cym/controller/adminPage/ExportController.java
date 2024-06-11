@@ -57,7 +57,7 @@ public class ExportController extends BaseController {
 	}
 
 	@Mapping(value = "dataImport")
-	public void dataImport(UploadedFile file, Context context) throws IOException {
+	public String dataImport(UploadedFile file, Context context) throws IOException {
 		if (file != null) {
 			File tempFile = new File(homeConfig.home + "temp" + File.separator + file.getName().replace("..", ""));
 			FileUtil.mkdir(tempFile.getParentFile());
@@ -69,7 +69,9 @@ public class ExportController extends BaseController {
 			confService.setAsycPack(asycPack);
 			
 		}
-		context.redirect("/adminPage/export?over=true");
+		//context.redirect("/adminPage/export?over=true");
+		
+		return "<script>window.parent.finisheUpload();</script> ";
 	}
 
 	@Mapping("logExport")
