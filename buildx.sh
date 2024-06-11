@@ -11,7 +11,7 @@ set -o pipefail
 ## 基本信息
 arch="linux/amd64,linux/arm64"
 ver=$(cat pom.xml | grep -A1 nginxWebUI | grep version | grep -oP "\d+\.\d+\.\d+")
-echo "构建镜像：$repo"
+echo "构建镜像：nginxwebui"
 echo "构建架构：$arch"
 echo "构建版本：$ver"
 
