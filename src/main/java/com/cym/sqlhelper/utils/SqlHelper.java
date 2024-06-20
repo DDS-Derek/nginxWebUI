@@ -502,7 +502,7 @@ public class SqlHelper extends SqlUtils {
 			sql += " WHERE " + conditionWrapper.build(values);
 		}
 		if (sort != null) {
-			sql += " " + sort;
+			sql += " " + sort.toString();
 		} else {
 			sql += " ORDER BY CAST(id AS UNSIGNED) DESC";
 		}
@@ -553,7 +553,7 @@ public class SqlHelper extends SqlUtils {
 			sql += " WHERE " + conditionWrapper.build(values);
 		}
 		if (sort != null) {
-			sql += " " + sort;
+			sql += " " + sort.toString();
 		} else {
 			sql += " ORDER BY CAST(id AS UNSIGNED) DESC";
 		}
