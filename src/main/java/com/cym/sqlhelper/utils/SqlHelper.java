@@ -423,7 +423,7 @@ public class SqlHelper extends SqlUtils {
 		if (sort != null) {
 			sql += " " + sort.toString();
 		} else {
-			sql += " ORDER BY CAST(id AS UNSIGNED) DESC";
+			sql += " ORDER BY CAST(id AS SIGNED) DESC";
 		}
 		sql += " LIMIT " + (page.getCurr() - 1) * page.getLimit() + "," + page.getLimit();
 
@@ -504,7 +504,7 @@ public class SqlHelper extends SqlUtils {
 		if (sort != null) {
 			sql += " " + sort.toString();
 		} else {
-			sql += " ORDER BY CAST(id AS UNSIGNED) DESC";
+			sql += " ORDER BY CAST(id AS SIGNED) DESC";
 		}
 		sql += " limit 1";
 
@@ -555,7 +555,7 @@ public class SqlHelper extends SqlUtils {
 		if (sort != null) {
 			sql += " " + sort.toString();
 		} else {
-			sql += " ORDER BY CAST(id AS UNSIGNED) DESC";
+			sql += " ORDER BY CAST(id AS SIGNED) DESC";
 		}
 
 		logQuery(formatSql(sql), values.toArray());
