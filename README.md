@@ -188,8 +188,8 @@ services:
         target: "/home/nginxWebUI"
     environment:
       BOOT_OPTIONS: "--server.port=8080"
-    privileged: true
     network_mode: "host"
+    restart: always
 
 或者
 
@@ -203,8 +203,8 @@ services:
         target: "/home/nginxWebUI"
     environment:
       BOOT_OPTIONS: "--server.port=8080"
-    privileged: true
     network_mode: "host"
+    restart: always
 ```
 
 
