@@ -853,7 +853,7 @@ public class SqlHelper extends SqlUtils {
 	 * @param clazz
 	 * @return
 	 */
-	private <T> List<T> buildObjects(List<Map<String, Object>> queryForList, Class<T> clazz) {
+	public <T> List<T> buildObjects(List<Map<String, Object>> queryForList, Class<T> clazz) {
 		List<T> list = new ArrayList<T>();
 		try {
 
