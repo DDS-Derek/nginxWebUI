@@ -76,11 +76,9 @@ $(function() {
 		}
 	});
 
-	// 判断屏幕分辨率, 给table加上lay-size="sm"
-	//if (document.body.clientWidth <= 1600) {
-		//$(".layui-table").attr("lay-size", "sm");
-		//$(".layui-btn").addClass("layui-btn-sm");
-	//}
+
+	// 翻译layui原生字符
+	translateLayui();
 })
 
 // 关闭AJAX相应的缓存
@@ -270,21 +268,80 @@ function closeLoad() {
 
 // 显示使用流程
 function showHelp() {
-	
+
 	var src = ctx + "/img/向导.png";
-	var width = document.body.clientWidth - 100; 
-	var height = width / 2.5; 
-	
+	var width = document.body.clientWidth - 100;
+	var height = width / 2.5;
+
 	var imgHtml = `<img src='${src}' style="width: ${width}px;height: ${height}px;" />`;
 	//弹出层
 	layer.open({
 		type: 1,
 		offset: 'auto',
 		area: [width + 'px', height + 'px'],
-		title : false,
+		title: false,
 		content: imgHtml, //捕获的元素，注意：最好该指定的元素要存放在body最外层，否则可能被其它的相对元素所影响  
 		cancel: function() {
 			//layer.msg('捕获就是从页面已经存在的元素上，包裹layer的结构', { time: 5000, icon: 6 });  
 		}
 	});
+}
+
+
+function translateLayui() {
+	$.ajax({
+		type: 'POST',
+		url: ctx + '/adminPage/login/getLayuiWord',
+		data: {
+			lang: $("#lang").val()
+		},
+		dataType: 'json',
+		success: function(data) {
+			if (data.success && data.obj != null) {
+				var map = data.obj;
+
+				translateLayuiWord("layui-laypage-count", map);
+				translateLayuiWord("layui-laypage-prev", map);
+				translateLayuiWord("layui-laypage-next", map);
+				translateLayuiWord("layui-laypage-skip", map);
+				translateLayuiWordAll("layui-laypage-limits", map);
+				$("input[placeholder='请选择']").attr("placeholder", "123");
+				
+				form.render();
+			} else {
+				layer.msg(data.msg);
+			}
+		},
+		error: function() {
+			layer.alert(commonStr.errorInfo);
+		}
+	});
+
+}
+
+
+function translateLayuiWord(clazz, map) {
+	var html = $("." + clazz).html();
+	if (html != null) {
+		for (var key in map) {
+			html = html.replace(key, map[key]);
+		}
+
+		$("." + clazz).html(html);
+	}
+
+}
+
+
+function translateLayuiWordAll(clazz, map) {
+	var html = $("." + clazz).html();
+	if (html != null) {
+		for (var key in map) {
+			var regExp = new RegExp(key, "g")
+			html = html.replace(regExp, map[key]);
+
+		}
+
+		$("." + clazz).html(html);
+	}
 }
