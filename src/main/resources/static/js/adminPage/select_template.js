@@ -7,7 +7,7 @@ $(function() {
 			if (data.success) {
 				var list = data.obj;
 
-				if (list.size == 0) {
+				if (list.length == 0) {
 					$("#selectTemplateId").append(`<option value="">${commonStr.pleaseSelect}</option>`);
 				} else {
 					for (var i = 0; i < list.length; i++) {
