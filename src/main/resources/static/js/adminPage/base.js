@@ -305,11 +305,8 @@ function translateLayui() {
 				translateLayuiWord("layui-laypage-next", map);
 				translateLayuiWord("layui-laypage-skip", map);
 				translateLayuiWordAll("layui-laypage-limits", map);
-				$("input[placeholder='请选择']").attr("placeholder", "123");
 				
 				form.render();
-			} else {
-				layer.msg(data.msg);
 			}
 		},
 		error: function() {
@@ -337,9 +334,8 @@ function translateLayuiWordAll(clazz, map) {
 	var html = $("." + clazz).html();
 	if (html != null) {
 		for (var key in map) {
-			var regExp = new RegExp(key, "g")
+			var regExp = new RegExp(key, "g");
 			html = html.replace(regExp, map[key]);
-
 		}
 
 		$("." + clazz).html(html);
