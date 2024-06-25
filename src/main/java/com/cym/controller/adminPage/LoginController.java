@@ -341,11 +341,11 @@ public class LoginController extends BaseController {
 			if (settingService.get("lang").equals("en_US")) {
 				map = new LinkedHashMap<String, String>();
 				map.put("条/页", "per page");
-				map.put("共", "");
-				map.put("条", "in all");
-				map.put("上一页", "previous page");
-				map.put("下一页", "next page");
-				map.put("到第", "to page");
+				map.put("共", "Total");
+				map.put("条", "");
+				map.put("上一页", "Previous page");
+				map.put("下一页", "Next page");
+				map.put("到第", "Go to page");
 				map.put("页", "");
 				map.put("确定", "OK");
 			}

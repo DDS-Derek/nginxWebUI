@@ -23,6 +23,10 @@ $(function() {
 		curr: page.curr, // 起始页
 		limit: page.limit, // 每页记录数
 		layout: ['count', 'prev', 'page', 'next', 'skip', 'limit'],
+		first: 'first',
+		last: 'last',
+		prev: 'prev',
+		next: 'next',
 		jump: function(obj, first) {
 			// 首次不执行
 			if (!first) {
@@ -78,7 +82,7 @@ $(function() {
 
 
 	// 翻译layui原生字符
-	translateLayui();
+	//translateLayui();
 })
 
 // 关闭AJAX相应的缓存
@@ -316,7 +320,7 @@ function translateLayui() {
 
 }
 
-
+/*
 function translateLayuiWord(clazz, map) {
 	var html = $("." + clazz).html();
 	if (html != null) {
@@ -341,3 +345,4 @@ function translateLayuiWordAll(clazz, map) {
 		$("." + clazz).html(html);
 	}
 }
+*/
