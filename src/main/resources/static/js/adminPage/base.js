@@ -15,7 +15,6 @@ $(function() {
 	element = layui.element;
 	form = layui.form;
 	laypage = layui.laypage;
-
 	// 执行一个laypage实例
 	laypage.render({
 		elem: 'pageInfo', // 渲染节点
@@ -23,10 +22,17 @@ $(function() {
 		curr: page.curr, // 起始页
 		limit: page.limit, // 每页记录数
 		layout: ['count', 'prev', 'page', 'next', 'skip', 'limit'],
-		first: 'first',
-		last: 'last',
-		prev: 'prev',
-		next: 'next',
+		// 翻译
+		first: pageStr.first,
+		last: pageStr.last,
+		prev: pageStr.prev,
+		next: pageStr.next,
+		skipText: [pageStr.skipTextStart, pageStr.skipTextEnd, pageStr.skipTextConfirm],
+		countText: [pageStr.countTextStart, pageStr.countTextEnd],
+		limitTemplet: function(item) {
+			return item + pageStr.limitTemplet;
+		},
+		// 跳转事件
 		jump: function(obj, first) {
 			// 首次不执行
 			if (!first) {
@@ -309,7 +315,7 @@ function translateLayui() {
 				translateLayuiWord("layui-laypage-next", map);
 				translateLayuiWord("layui-laypage-skip", map);
 				translateLayuiWordAll("layui-laypage-limits", map);
-				
+
 				form.render();
 			}
 		},
