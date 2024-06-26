@@ -325,30 +325,3 @@ function translateLayui() {
 	});
 
 }
-
-/*
-function translateLayuiWord(clazz, map) {
-	var html = $("." + clazz).html();
-	if (html != null) {
-		for (var key in map) {
-			html = html.replace(key, map[key]);
-		}
-
-		$("." + clazz).html(html);
-	}
-
-}
-
-
-function translateLayuiWordAll(clazz, map) {
-	var html = $("." + clazz).html();
-	if (html != null) {
-		for (var key in map) {
-			var regExp = new RegExp(key, "g");
-			html = html.replace(regExp, map[key]);
-		}
-
-		$("." + clazz).html(html);
-	}
-}
-*/
