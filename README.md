@@ -13,8 +13,6 @@ QQ技术交流群2: 560797506
 
 官网地址: [https://www.nginxwebui.cn](https://www.nginxwebui.cn)
 
-专业版地址: [https://pro.nginxwebui.cn](https://pro.nginxwebui.cn)
-
 Gitee: [https://gitee.com/cym1102/nginxWebUI](https://gitee.com/cym1102/nginxWebUI)
 
 Github: [https://github.com/cym1102/nginxWebUI](https://github.com/cym1102/nginxWebUI)
@@ -45,6 +43,8 @@ nginx本身功能复杂, nginxWebUI并不能涵盖nginx所有功能, 但能覆�
 
 
 #### 专业版与开源版区别
+
+专业版地址: [https://pro.nginxwebui.cn](https://pro.nginxwebui.cn)
 
 | 功能         | 开源版        | 专业版        |
 | ----------- | ----------- | ----------- |
