@@ -56,10 +56,10 @@ After the deployment of this project, the configuration of nginx no longer need 
 | Node data collection    | √  | × |
 | Node status statistics       | √  | × |
 | Cache configuration         | √  | × |
-| nginx日志采集    | √  | × |
-| nginx日志查看    | √  | × |
-| nginx日志统计    | √  | × |
-| nginx流量统计    | √  | × |
+| nginx log collection    | √  | × |
+| nginx log view    | √  | × |
+| nginx log statistics    | √  | × |
+| nginx traffic statistics    | √  | × |
 
 
 #### Technical note
