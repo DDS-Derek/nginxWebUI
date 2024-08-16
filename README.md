@@ -46,7 +46,7 @@ nginx本身功能复杂, nginxWebUI并不能涵盖nginx所有功能, 但能覆�
 
 专业版地址: [https://pro.nginxwebui.cn](https://pro.nginxwebui.cn)
 
-| 功能         | 开源版        | 专业版        |
+| 功能         | 专业版        | 开源版        |
 | ----------- | ----------- | ----------- |
 | 基本参数配置       | √  | √ |
 | http参数配置      | √  | √ |
