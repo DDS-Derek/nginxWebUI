@@ -272,16 +272,16 @@ public class ConfController extends BaseController {
 		nginxExe = ToolUtils.handlePath(nginxExe);
 		nginxDir = ToolUtils.handlePath(nginxDir);
 
-		if (StrUtil.isNotEmpty(nginxPath) && notFile(nginxPath)) {
+		if (StrUtil.isNotEmpty(nginxPath) && !isFile(nginxPath)) {
 			nginxPath = null;
 		}
-		if (StrUtil.isNotEmpty(nginxDir) && notFile(nginxDir)) {
+		if (StrUtil.isNotEmpty(nginxDir) && !isFile(nginxDir)) {
 			nginxDir = null;
 		}
-		if (!nginxExe.endsWith("nginx") //
-				&& !nginxExe.endsWith("openresty") //
-				&& !nginxExe.endsWith("nginx.exe") //
-				&& !nginxExe.endsWith("openrestys.exe")) {
+		if (!isFile(nginxExe) && !isSafeCmd(nginxExe)) {
+			nginxExe = null;
+		}
+		if (isFile(nginxExe) && !isSafeEnd(nginxExe)) {
 			nginxExe = null;
 		}
 
@@ -291,11 +291,11 @@ public class ConfController extends BaseController {
 		}
 		if (nginxExe != null) {
 			settingService.set("nginxExe", nginxExe);
-			System.out.println("nginxExe -> "+ nginxExe);
+			System.out.println("nginxExe -> " + nginxExe);
 		}
 		if (nginxDir != null) {
 			settingService.set("nginxDir", nginxDir);
-			System.out.println("nginxDir -> "+ nginxDir);
+			System.out.println("nginxDir -> " + nginxDir);
 		}
 
 		Map<String, String> map = new HashMap<>();
@@ -306,8 +306,22 @@ public class ConfController extends BaseController {
 		return renderSuccess(map);
 	}
 
-	private boolean notFile(String path) {
-		return !FileUtil.isDirectory(path) && !FileUtil.isFile(path);
+	private boolean isSafeEnd(String nginxExe) {
+		return nginxExe.endsWith("nginx") //
+				|| nginxExe.endsWith("openresty") //
+				|| nginxExe.endsWith("nginx.exe") //
+				|| nginxExe.endsWith("openrestys.exe");
+	}
+
+	private boolean isSafeCmd(String nginxExe) {
+		return nginxExe.equals("nginx") //
+				|| nginxExe.equals("openresty") //
+				|| nginxExe.equals("nginx.exe") //
+				|| nginxExe.equals("openrestys.exe");
+	}
+
+	private boolean isFile(String path) {
+		return FileUtil.isDirectory(path) || FileUtil.isFile(path);
 	}
 
 	@Mapping(value = "reload")
