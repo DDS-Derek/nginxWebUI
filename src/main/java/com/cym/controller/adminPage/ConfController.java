@@ -331,7 +331,8 @@ public class ConfController extends BaseController {
 		}
 
 		// 仅执行nginx相关的命令，而不是其他的恶意命令
-		if (!isAvailableCmd(cmd)) {
+		cmd = buildRealCmd(cmd);
+		if (StrUtil.isEmpty(cmd)) {
 			return renderSuccess(m.get("confStr.notAvailableCmd"));
 		}
 
@@ -359,17 +360,12 @@ public class ConfController extends BaseController {
 		}
 	}
 
-	// 仅执行nginx相关的命令，而不是其他的恶意命令
-	private boolean isAvailableCmd(String cmd) {
-		// 过滤数据库中的路径
-		String nginxPath = ToolUtils.handleConf(settingService.get("nginxPath"));
-		settingService.set("nginxPath", nginxPath);
-		String nginxExe = ToolUtils.handleConf(settingService.get("nginxExe"));
-		settingService.set("nginxExe", nginxExe);
-		String nginxDir = ToolUtils.handleConf(settingService.get("nginxDir"));
-		settingService.set("nginxDir", nginxDir);
+	private String buildRealCmd(String cmd) {
+		String dir = "";
+		if (StrUtil.isNotEmpty(settingService.get("nginxDir"))) {
+			dir = " -p " + settingService.get("nginxDir");
+		}
 
-		// 检查命令格式
 		switch (cmd) {
 		case "net start nginx":
 		case "service nginx start":
@@ -379,26 +375,57 @@ public class ConfController extends BaseController {
 		case "systemctl stop nginx":
 		case "taskkill /f /im nginx.exe":
 		case "pkill nginx":
-			return true;
-		default:
-			break;
+			return cmd;
+
+		case "stopNormal":
+			return settingService.get("nginxExe") + " -s stop" + dir;
+		case "startNormal":
+			return settingService.get("nginxExe") + " -c " + settingService.get("nginxPath") + dir;
 		}
 
-		String dir = "";
-		if (StrUtil.isNotEmpty(settingService.get("nginxDir"))) {
-			dir = " -p " + settingService.get("nginxDir");
-		}
-
-		if (cmd.equals(settingService.get("nginxExe") + " -s stop" + dir)) {
-			return true;
-		}
-
-		if (cmd.equals(settingService.get("nginxExe") + " -c " + settingService.get("nginxPath") + dir)) {
-			return true;
-		}
-
-		return false;
+		return null;
 	}
+
+//	// 仅执行nginx相关的命令，而不是其他的恶意命令
+//	private boolean isAvailableCmd(String cmd) {
+//		// 过滤数据库中的路径
+//		String nginxPath = ToolUtils.handleConf(settingService.get("nginxPath"));
+//		settingService.set("nginxPath", nginxPath);
+//		String nginxExe = ToolUtils.handleConf(settingService.get("nginxExe"));
+//		settingService.set("nginxExe", nginxExe);
+//		String nginxDir = ToolUtils.handleConf(settingService.get("nginxDir"));
+//		settingService.set("nginxDir", nginxDir);
+//
+//		// 检查命令格式
+//		switch (cmd) {
+//		case "net start nginx":
+//		case "service nginx start":
+//		case "systemctl start nginx":
+//		case "net stop nginx":
+//		case "service nginx stop":
+//		case "systemctl stop nginx":
+//		case "taskkill /f /im nginx.exe":
+//		case "pkill nginx":
+//			return true;
+//		default:
+//			break;
+//		}
+//
+//		String dir = "";
+//		if (StrUtil.isNotEmpty(settingService.get("nginxDir"))) {
+//			dir = " -p " + settingService.get("nginxDir");
+//		}
+//
+//		if (cmd.equals(settingService.get("nginxExe") + " -s stop" + dir)) {
+//			return true;
+//		}
+//
+//		if (cmd.equals(settingService.get("nginxExe") + " -c " + settingService.get("nginxPath") + dir)) {
+//			return true;
+//		}
+//
+//		return false;
+//	}
 
 	@Mapping(value = "getLastCmd")
 	public JsonResult getLastCmd(String type) {
