@@ -1,8 +1,9 @@
 package com.cym.controller.adminPage;
 
 import java.io.File;
-import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -31,11 +32,10 @@ import com.cym.utils.ToolUtils;
 
 import cn.hutool.core.codec.Base64;
 import cn.hutool.core.io.FileUtil;
-import cn.hutool.core.io.resource.ClassPathResource;
+import cn.hutool.core.io.file.PathUtil;
 import cn.hutool.core.util.CharsetUtil;
 import cn.hutool.core.util.RuntimeUtil;
 import cn.hutool.core.util.StrUtil;
-import cn.hutool.core.util.ZipUtil;
 import cn.hutool.json.JSONArray;
 import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
@@ -269,20 +269,45 @@ public class ConfController extends BaseController {
 	@Mapping(value = "saveCmd")
 	public JsonResult saveCmd(String nginxPath, String nginxExe, String nginxDir) {
 		nginxPath = ToolUtils.handlePath(nginxPath);
-		settingService.set("nginxPath", nginxPath);
-
 		nginxExe = ToolUtils.handlePath(nginxExe);
-		settingService.set("nginxExe", nginxExe);
-
 		nginxDir = ToolUtils.handlePath(nginxDir);
-		settingService.set("nginxDir", nginxDir);
+
+		if (StrUtil.isNotEmpty(nginxPath) && notFile(nginxPath)) {
+			nginxPath = null;
+		}
+		if (StrUtil.isNotEmpty(nginxDir) && notFile(nginxDir)) {
+			nginxDir = null;
+		}
+		if (!nginxExe.endsWith("nginx") //
+				&& !nginxExe.endsWith("openresty") //
+				&& !nginxExe.endsWith("nginx.exe") //
+				&& !nginxExe.endsWith("openrestys.exe")) {
+			nginxExe = null;
+		}
+
+		if (nginxPath != null) {
+			settingService.set("nginxPath", nginxPath);
+			System.out.println("nginxPath -> " + nginxPath);
+		}
+		if (nginxExe != null) {
+			settingService.set("nginxExe", nginxExe);
+			System.out.println("nginxExe -> "+ nginxExe);
+		}
+		if (nginxDir != null) {
+			settingService.set("nginxDir", nginxDir);
+			System.out.println("nginxDir -> "+ nginxDir);
+		}
 
 		Map<String, String> map = new HashMap<>();
 		map.put("nginxPath", nginxPath);
 		map.put("nginxExe", nginxExe);
 		map.put("nginxDir", nginxDir);
-
+		System.out.println("");
 		return renderSuccess(map);
+	}
+
+	private boolean notFile(String path) {
+		return !FileUtil.isDirectory(path) && !FileUtil.isFile(path);
 	}
 
 	@Mapping(value = "reload")
@@ -308,7 +333,7 @@ public class ConfController extends BaseController {
 			String rs = RuntimeUtil.execForStr(cmd);
 
 			cmd = "<span class='blue'>" + cmd + "</span>";
-			if (!rs.contains("[error]")) {
+			if (!rs.contains("[error]") && !rs.contains("[emerg]")) {
 				return renderSuccess(cmd + "<br>" + m.get("confStr.reloadSuccess") + "<br>" + rs.replace("\n", "<br>"));
 			} else {
 				if (rs.contains("The system cannot find the file specified") || rs.contains("nginx.pid") || rs.contains("PID")) {

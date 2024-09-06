@@ -283,11 +283,10 @@ function saveCmd() {
 		dataType: 'json',
 		success: function(data) {
 			if (data.success) {
-				var map = data.obj;
-				$("#nginxExe").val(map.nginxExe);
-				$("#nginxDir").val(map.nginxDir);
-				$("#nginxPath").val(map.nginxPath);
-
+				//var map = data.obj;
+				//$("#nginxExe").val(map.nginxExe);
+				//$("#nginxDir").val(map.nginxDir);
+				//$("#nginxPath").val(map.nginxPath);
 			}
 		},
 		error: function() {
