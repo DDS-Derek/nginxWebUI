@@ -278,10 +278,10 @@ public class ConfController extends BaseController {
 		if (StrUtil.isNotEmpty(nginxDir) && !isFile(nginxDir)) {
 			nginxDir = null;
 		}
-		if (!isFile(nginxExe) && !isSafeCmd(nginxExe)) {
+		if (StrUtil.isNotEmpty(nginxExe) && !isFile(nginxExe) && !isSafeCmd(nginxExe)) {
 			nginxExe = null;
 		}
-		if (isFile(nginxExe) && !isSafeEnd(nginxExe)) {
+		if (StrUtil.isNotEmpty(nginxExe) && isFile(nginxExe) && !isSafeEnd(nginxExe)) {
 			nginxExe = null;
 		}
 
