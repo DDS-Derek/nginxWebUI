@@ -11,7 +11,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.cym</groupId>
 	<artifactId>nginxWebUI</artifactId>
-	<version>4.2.3</version>
+	<version>4.2.4</version>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -29,7 +29,7 @@
 		<easy-captcha.version>1.6.2</easy-captcha.version>
 		<jackson-annotations.version>2.13.1</jackson-annotations.version>
 		<maven-model.version>3.0</maven-model.version>
-		<expiringmap.version>0.5.10</expiringmap.version>
+		<expiringmap.version>0.5.11</expiringmap.version>
 	</properties>
 
 	<dependencies>
