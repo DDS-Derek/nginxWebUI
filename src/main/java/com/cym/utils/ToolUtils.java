@@ -29,7 +29,7 @@ public class ToolUtils {
 		}
 		return path.replace("\\", "/") // 替换反斜杠
 				.replace("//", "/") // 替换双斜杠
-				.replaceAll("[\\s?<>\\[\\]\\(\\)\\?{}$^~|\"#&;'`]", "");// 删除空格和特殊字符
+				.replaceAll("[\\s?<>|\"#&;'`]", ""); // 删除空格和特殊字符
 	}
 
 	/**
