@@ -76,7 +76,7 @@ public class Location extends BaseModel {
 	/**
 	 * 是否携带Host参数 0否 1是(默认)
 	 */
-	@InitValue("1")
+	@InitValue("0")
 	Integer header;
 	/**
 	 * Host参数类型 $host(默认) $http_host $host:$proxy_port $host:$server_port
