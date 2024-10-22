@@ -4,7 +4,8 @@ import java.io.IOException;
 import java.util.*;
 
 import cn.hutool.json.JSONArray;
-import com.alibaba.fastjson.JSONObject;
+//import com.alibaba.fastjson.JSONObject;
+import cn.hutool.json.JSONObject;
 import com.beust.jcommander.internal.Lists;
 import org.noear.solon.annotation.Component;
 import org.noear.solon.annotation.Inject;
@@ -268,6 +269,7 @@ public class ServerService {
 					location.setType(1);
 				}
 				location.setLocationParamJson(getParamJsonFromLocationBlock(locationBlockTemp));
+				location.setHeader(0);
 				locations.add(location);
 			}
 
