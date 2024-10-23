@@ -134,7 +134,6 @@
 			<artifactId>expiringmap</artifactId>
 			<version>${expiringmap.version}</version>
 		</dependency>
-
 	</dependencies>
 
 	<build>
