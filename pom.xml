@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>org.noear</groupId>
 		<artifactId>solon-parent</artifactId>
-		<version>2.4.5</version>
+		<version>3.0.3</version>
 	</parent>
 
 	<modelVersion>4.0.0</modelVersion>
@@ -40,16 +40,21 @@
 
 		<dependency>
 			<groupId>org.noear</groupId>
-			<artifactId>solon.boot.undertow</artifactId>
+			<artifactId>solon-view-freemarker</artifactId>
 		</dependency>
 
 		<dependency>
 			<groupId>org.noear</groupId>
-			<artifactId>solon.logging.logback</artifactId>
+			<artifactId>solon-boot-undertow</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.noear</groupId>
+			<artifactId>solon-logging-logback</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.noear</groupId>
-			<artifactId>solon.scheduling.simple</artifactId>
+			<artifactId>solon-scheduling-simple</artifactId>
 		</dependency>
 
 		<dependency>
@@ -137,6 +142,7 @@
 	</dependencies>
 
 	<build>
+		<finalName>${project.artifactId}</finalName>
 		<plugins>
 			<plugin>
 				<groupId>com.github.shalousun</groupId>
@@ -160,40 +166,12 @@
 			</plugin>
 
 			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
+				<groupId>org.noear</groupId>
+				<artifactId>solon-maven-plugin</artifactId>
 				<configuration>
-					<compilerArgument>-parameters</compilerArgument>
-					<source>1.8</source>
-					<target>1.8</target>
-					<encoding>UTF-8</encoding>
+					<!-- 指定启动主类 -->
+					<mainClass>com.cym.NginxWebUI</mainClass>
 				</configuration>
-			</plugin>
-
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-assembly-plugin</artifactId>
-				<configuration>
-					<finalName>${project.name}-${project.version}</finalName>
-					<appendAssemblyId>false</appendAssemblyId>
-					<descriptorRefs>
-						<descriptorRef>jar-with-dependencies</descriptorRef>
-					</descriptorRefs>
-					<archive>
-						<manifest>
-							<mainClass>com.cym.NginxWebUI</mainClass>
-						</manifest>
-					</archive>
-				</configuration>
-				<executions>
-					<execution>
-						<id>make-assembly</id>
-						<phase>package</phase>
-						<goals>
-							<goal>single</goal>
-						</goals>
-					</execution>
-				</executions>
 			</plugin>
 		</plugins>
 	</build>
