@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>org.noear</groupId>
 		<artifactId>solon-parent</artifactId>
-		<version>2.4.5</version>
+		<version>3.0.3</version>
 	</parent>
 
 	<modelVersion>4.0.0</modelVersion>
@@ -40,16 +40,21 @@
 
 		<dependency>
 			<groupId>org.noear</groupId>
-			<artifactId>solon.boot.undertow</artifactId>
+			<artifactId>solon-view-freemarker</artifactId>
 		</dependency>
 
 		<dependency>
 			<groupId>org.noear</groupId>
-			<artifactId>solon.logging.logback</artifactId>
+			<artifactId>solon-boot-undertow</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.noear</groupId>
+			<artifactId>solon-logging-logback</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.noear</groupId>
-			<artifactId>solon.scheduling.simple</artifactId>
+			<artifactId>solon-scheduling-simple</artifactId>
 		</dependency>
 
 		<dependency>
