@@ -142,7 +142,6 @@
 	</dependencies>
 
 	<build>
-		<finalName>${project.artifactId}</finalName>
 		<plugins>
 			<plugin>
 				<groupId>com.github.shalousun</groupId>
@@ -165,14 +164,41 @@
 				</executions>
 			</plugin>
 
-			<!-- todo: 简化打包配置 -->
 			<plugin>
-				<groupId>org.noear</groupId>
-				<artifactId>solon-maven-plugin</artifactId>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
 				<configuration>
-					<!-- 指定启动主类 -->
-					<mainClass>com.cym.NginxWebUI</mainClass>
+					<compilerArgument>-parameters</compilerArgument>
+					<source>1.8</source>
+					<target>1.8</target>
+					<encoding>UTF-8</encoding>
 				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<configuration>
+					<finalName>${project.name}-${project.version}</finalName>
+					<appendAssemblyId>false</appendAssemblyId>
+					<descriptorRefs>
+						<descriptorRef>jar-with-dependencies</descriptorRef>
+					</descriptorRefs>
+					<archive>
+						<manifest>
+							<mainClass>com.cym.NginxWebUI</mainClass>
+						</manifest>
+					</archive>
+				</configuration>
+				<executions>
+					<execution>
+						<id>make-assembly</id>
+						<phase>package</phase>
+						<goals>
+							<goal>single</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>
