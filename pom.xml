@@ -165,6 +165,7 @@
 				</executions>
 			</plugin>
 
+			<!-- todo: 简化打包配置 -->
 			<plugin>
 				<groupId>org.noear</groupId>
 				<artifactId>solon-maven-plugin</artifactId>

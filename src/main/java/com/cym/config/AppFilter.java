@@ -63,10 +63,16 @@ public class AppFilter implements Filter {
 
 	@Override
 	public void doFilter(Context ctx, FilterChain chain) throws Throwable {
+		//todo: 原异常处理改为正常的上抛了
 		try {
 			doFilterDo(ctx, chain);
 		} catch (StatusException e) {
+			//4xx 相关状态异常
 			ctx.status(e.getCode());
+
+			if (404 != e.getCode()) {
+				logger.error(e.getMessage(), e);
+			}
 		} catch (Throwable e) {
 			logger.error(e.getMessage(), e);
 		}
@@ -178,6 +184,7 @@ public class AppFilter implements Filter {
 				} else {
 					// 普通请求
 					Admin admin = new BaseController().getAdmin();
+					//todo: ctx.paramsMap() 已取消，复用 ctx.paramMap()
 					String body = buldBody(ctx.paramMap(), remote, admin);
 
 					httpResponse = HttpRequest.post(url).body(body).execute();

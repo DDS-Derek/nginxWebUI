@@ -83,6 +83,7 @@ public class LogController extends BaseController {
 	@Mapping("down")
 	public File down(String id) throws IOException {
 		Log log = sqlHelper.findById(id, Log.class);
+		//todo: 简化下载处理
 		return new File(log.getPath());
 	}
 
