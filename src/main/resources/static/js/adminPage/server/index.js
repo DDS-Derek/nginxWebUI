@@ -602,6 +602,7 @@ function buildHtml(uuid, location, upstreamSelect) {
 		location = {
 			path: "/",
 			type: "0",
+			enable: 1,
 			locationParamJson: ""
 		};
 	}
@@ -612,7 +613,7 @@ function buildHtml(uuid, location, upstreamSelect) {
 	var str = `<tr id='${uuid}'>
 				<td>
 					<div class="layui-inline" >
-						<input type="checkbox" name="enable" lay-filter="enable" value="${location.id}" lay-text="ON|OFF" lay-skin="switch" ${checked}> 
+						<input type="checkbox" name="enable" value="${location.id}" lay-skin="switch" ${checked}> 
 					</div>
 				</td>
 				<td>
