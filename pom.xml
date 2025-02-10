@@ -143,7 +143,7 @@
 				<executions>
 					<execution>
 						<!--如果不需要在执行编译时启动smart-doc，则将phase注释掉-->
-						 <phase>compile</phase>
+						<!-- <phase>compile</phase> -->
 						<goals>
 							<goal>html</goal>
 						</goals>
