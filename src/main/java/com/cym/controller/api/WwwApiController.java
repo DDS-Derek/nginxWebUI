@@ -35,8 +35,8 @@ public class WwwApiController extends BaseController {
 	 * 获取静态网页分页列表
 	 * 
 	 */
-	@Mapping("getPage")
-	public JsonResult<Page<Cert>> getPage() {
+	@Mapping("getList")
+	public JsonResult<List<Www>> getList() {
 		List<Www> wwws = sqlHelper.findAll(new Sort("dir", Direction.ASC), Www.class);
 
 		return renderSuccess(wwws);
@@ -46,7 +46,7 @@ public class WwwApiController extends BaseController {
 	 * 添加或编辑静态网页
 	 * 
 	 * @param www     静态网页
-	 * @param dirTemp zip文件目录
+	 * @param dirTemp zip文件路径
 	 * 
 	 */
 	@Mapping("addOver")
@@ -66,7 +66,7 @@ public class WwwApiController extends BaseController {
 	}
 
 	/**
-	 * 删除静态网页
+	 * 删除静态网页路径
 	 * 
 	 * @param id 静态网页id
 	 * 
