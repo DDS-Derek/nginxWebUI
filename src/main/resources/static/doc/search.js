@@ -266,11 +266,11 @@ api[10].list.push({
 });
 api[10].list.push({
     order: '3',
-    desc: '清空静态网页',
+    desc: '清空静态网页路径',
 });
 api[10].list.push({
     order: '4',
-    desc: '删除静态网页路径',
+    desc: '删除静态网页',
 });
 api[10].list.push({
     order: '5',

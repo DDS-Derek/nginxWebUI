@@ -55,7 +55,7 @@ public class WwwApiController extends BaseController {
 	}
 
 	/**
-	 * 清空静态网页
+	 * 清空静态网页路径
 	 * 
 	 * @param id 静态网页id
 	 * 
@@ -66,7 +66,7 @@ public class WwwApiController extends BaseController {
 	}
 
 	/**
-	 * 删除静态网页路径
+	 * 删除静态网页
 	 * 
 	 * @param id 静态网页id
 	 * 
