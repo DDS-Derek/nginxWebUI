@@ -353,7 +353,7 @@ function diffUsingJS() {
 }
 
 function runCmd(type) {
-
+	layer.load();
 	$.ajax({
 		type: 'POST',
 		url: ctx + '/adminPage/conf/getLastCmd',
@@ -362,7 +362,7 @@ function runCmd(type) {
 		},
 		dataType: 'json',
 		success: function(data) {
-			//debugger;
+			layer.closeAll();
 			if (data.success) {
 				$("#nginxStop").hide();
 				$("#nginxStart").hide();
@@ -408,7 +408,7 @@ function runCmd(type) {
 			}
 		},
 		error: function() {
-
+			layer.closeAll();
 		}
 	});
 
@@ -434,7 +434,7 @@ function runCmdOver() {
 		}
 	})
 
-
+	layer.load();
 	$.ajax({
 		type: 'POST',
 		url: ctx + '/adminPage/conf/runCmd',
@@ -458,7 +458,7 @@ function runCmdOver() {
 			}, 3000);
 		},
 		error: function() {
-
+			layer.closeAll();
 		}
 	});
 }
