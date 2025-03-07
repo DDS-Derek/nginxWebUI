@@ -165,7 +165,7 @@ public class InitConfig {
 			}
 
 			// 异步重启nginx, 拿到pid
-			ThreadUtil.execAsync(new Runnable() {
+			ThreadUtil.execute(new Runnable() {
 
 				@Override
 				public void run() {
@@ -183,7 +183,6 @@ public class InitConfig {
 					}
 				}
 			});
-
 		}
 
 		// 展示logo
