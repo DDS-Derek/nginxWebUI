@@ -174,13 +174,13 @@ public class InitConfig {
 					String nginxDir = settingService.get("nginxDir");
 					String nginxPath = settingService.get("nginxPath");
 					if (StrUtil.isNotEmpty(nginxExe) && StrUtil.isNotEmpty(nginxPath)) {
-						RuntimeUtil.exec("/bin/sh", "-c", "pkill -9 nginx");
+						RuntimeUtil.execForStr("/bin/sh", "-c", "pkill -9 nginx");
 
 						String cmd = nginxExe + " -c " + nginxPath;
 						if (StrUtil.isNotEmpty(nginxDir)) {
 							cmd += " -p " + nginxDir;
 						}
-						RuntimeUtil.exec("/bin/sh", "-c", cmd);
+						RuntimeUtil.execForStr("/bin/sh", "-c", cmd);
 						
 						logger.info("完成启动nginx");
 					}
