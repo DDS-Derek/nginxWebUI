@@ -169,27 +169,30 @@ public class InitConfig {
 
 				@Override
 				public void run() {
-					logger.info("准备启动nginx");
+
 					String nginxExe = settingService.get("nginxExe");
 					String nginxDir = settingService.get("nginxDir");
 					String nginxPath = settingService.get("nginxPath");
 					if (StrUtil.isNotEmpty(nginxExe) && StrUtil.isNotEmpty(nginxPath)) {
-						RuntimeUtil.execForStr("/bin/sh", "-c", "pkill -9 nginx");
-
+						runCmd("pkill -9 nginx");
 						String cmd = nginxExe + " -c " + nginxPath;
 						if (StrUtil.isNotEmpty(nginxDir)) {
 							cmd += " -p " + nginxDir;
 						}
-						RuntimeUtil.execForStr("/bin/sh", "-c", cmd);
-						
-						logger.info("完成启动nginx");
+						runCmd(cmd);
 					}
 				}
+
 			});
 		}
 
 		// 展示logo
 		showLogo();
+	}
+
+	private void runCmd(String cmd) {
+		logger.info("run: " + cmd);
+		RuntimeUtil.execForStr("/bin/sh", "-c", cmd);
 	}
 
 	private boolean hasNginx() {
