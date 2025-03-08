@@ -169,6 +169,7 @@ public class InitConfig {
 
 				@Override
 				public void run() {
+					logger.info("准备启动nginx");
 					String nginxExe = settingService.get("nginxExe");
 					String nginxDir = settingService.get("nginxDir");
 					String nginxPath = settingService.get("nginxPath");
@@ -180,6 +181,8 @@ public class InitConfig {
 							cmd += " -p " + nginxDir;
 						}
 						RuntimeUtil.exec("/bin/sh", "-c", cmd);
+						
+						logger.info("完成启动nginx");
 					}
 				}
 			});
