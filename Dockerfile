@@ -15,11 +15,12 @@ RUN    apk add --update --no-cache \
        logrotate \
        tini \
        acme.sh \
-	&& apk search -q '^nginx-mod-' | xargs apk add
     && fc-cache -f -v \
     && ln -sf /usr/share/zoneinfo/${TZ} /etc/localtime \
     && echo "${TZ}" > /etc/timezone \
     && rm -rf /var/cache/apk/* /tmp/*
+	
+RUN  apk search -q '^nginx-mod-' | xargs apk add
 COPY target/nginxWebUI-*.jar /home/nginxWebUI.jar
 COPY entrypoint.sh /usr/local/bin/entrypoint.sh
 RUN ["chmod", "+x", "/usr/local/bin/entrypoint.sh"]
