@@ -136,6 +136,12 @@ Parameter description (both non-required)
 
 --spring.datasource.password=pass  Databases password
 
+--initAdmin=admin  Initial user name
+
+--initPass=admin  Initial user password
+
+--initApi=true  Initial user enables the api permission
+
 Note that the Linux command ends with an & to indicate that the project is running in the background
 
 #### docker installation instructions 
