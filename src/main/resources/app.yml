@@ -44,3 +44,7 @@ spring:
     url: 
     username: 
     password: 
+
+initAdmin: admin
+initPass: admin
+initApi: true
