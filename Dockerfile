@@ -5,7 +5,6 @@ ENV LANG=zh_CN.UTF-8 \
 # RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories \
 RUN    apk add --update --no-cache \
        nginx \
-       nginx-mod-* \
        openjdk8-jre \
        net-tools \
        curl \
@@ -16,6 +15,7 @@ RUN    apk add --update --no-cache \
        logrotate \
        tini \
        acme.sh \
+	&& apk search -q '^nginx-mod-' | xargs apk add
     && fc-cache -f -v \
     && ln -sf /usr/share/zoneinfo/${TZ} /etc/localtime \
     && echo "${TZ}" > /etc/timezone \
