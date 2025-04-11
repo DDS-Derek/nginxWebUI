@@ -22,66 +22,70 @@
 						<div class="layui-inline">
 							<button type="button" class="layui-btn layui-btn-sm layui-btn-normal" onclick="add()">添加节点</button>
 						</div>
+						
+						<input type="hidden" name="curr" value="${page.curr}">
+						<input type="hidden" name="limit" value="${page.limit}">
 					</div>
-				</form>
+				
 
-				<table class="layui-table" lay-size="sm">
-					<thead>
-						<tr>
-							<th>CDN域名</th>
-							<th>Https</th>
-							<th>自动部署</th>
-							<th>部署证书</th>
-							<th>上次部署时间</th>
-							<th>证书到期日期</th>
-							<th>${commonStr.operation}</th>
-						</tr>
-					</thead>
-					<tbody>
-						<#list page.records as ext>
-						<tr>
-							<td>${ext.cdnNode.domain}</td>
-							<td>ON</td>
-							<td>
-							<#if ext.cdnNode.autoDeploy == 0>
-								否
-							</#if>
-							<#if ext.cdnNode.autoDeploy == 1>
-								是
-							</#if>
-							</td>
-							<td>${ext.cert.domain}</td>
-							
-							<td>
-								<#if ext.cdnNode.deployTime!=null>
-									${ext.cdnNode.deployTime?number_to_datetime?string('yyyy-MM-dd HH:mm:ss')} 
+					<table class="layui-table" lay-size="sm">
+						<thead>
+							<tr>
+								<th>CDN域名</th>
+								<th>Https</th>
+								<th>自动部署</th>
+								<th>部署证书</th>
+								<th>上次部署时间</th>
+								<th>证书到期日期</th>
+								<th>${commonStr.operation}</th>
+							</tr>
+						</thead>
+						<tbody>
+							<#list page.records as ext>
+							<tr>
+								<td>${ext.cdnNode.domain}</td>
+								<td>ON</td>
+								<td>
+								<#if ext.cdnNode.autoDeploy == 0>
+									否
 								</#if>
-							</td>
-							<td>
-								<#if ext.cert.makeTime!=null>
-									${certStr.signTime} : ${ext.cert.makeTime?number_to_datetime?string('yyyy-MM-dd HH:mm:ss')} 
+								<#if ext.cdnNode.autoDeploy == 1>
+									是
 								</#if>
-								<br>
-								<#if ext.cert.endTime!=null>
-									${certStr.endTime} : ${ext.cert.endTime?number_to_datetime?string('yyyy-MM-dd HH:mm:ss')} 
-								</#if>
-							</td>
-							<td>
-								<div class="layui-inline">
-									<button type="button" class="layui-btn layui-btn-sm " onclick="deploy('${ext.cdnNode.id}')">立即部署</button>
-								</div>
-								<div class="layui-inline">
-									<button type="button" class="layui-btn layui-btn-sm " onclick="edit('${ext.cdnNode.id}')">编辑</button>
-								</div>
-								<div class="layui-inline">
-									<button type="button" class="layui-btn layui-btn-danger layui-btn-sm " onclick="del('${ext.cdnNode.id}')">${commonStr.del}</button>
-								</div>
-							</td>
-						</tr>
-						</#list>
-					</tbody>
-				</table>
-				<div id="pageInfo"></div>
+								</td>
+								<td>${ext.cert.domain}</td>
+								
+								<td>
+									<#if ext.cdnNode.deployTime!=null>
+										${ext.cdnNode.deployTime?number_to_datetime?string('yyyy-MM-dd HH:mm:ss')} 
+									</#if>
+								</td>
+								<td>
+									<#if ext.cert.makeTime!=null>
+										${certStr.signTime} : ${ext.cert.makeTime?number_to_datetime?string('yyyy-MM-dd HH:mm:ss')} 
+									</#if>
+									<br>
+									<#if ext.cert.endTime!=null>
+										${certStr.endTime} : ${ext.cert.endTime?number_to_datetime?string('yyyy-MM-dd HH:mm:ss')} 
+									</#if>
+								</td>
+								<td>
+									<div class="layui-inline">
+										<button type="button" class="layui-btn layui-btn-sm " onclick="deploy('${ext.cdnNode.id}')">立即部署</button>
+									</div>
+									<div class="layui-inline">
+										<button type="button" class="layui-btn layui-btn-sm " onclick="edit('${ext.cdnNode.id}')">编辑</button>
+									</div>
+									<div class="layui-inline">
+										<button type="button" class="layui-btn layui-btn-danger layui-btn-sm " onclick="del('${ext.cdnNode.id}')">${commonStr.del}</button>
+									</div>
+								</td>
+							</tr>
+							</#list>
+						</tbody>
+					</table>
+					<div id="pageInfo"></div>
+				</form>
 			</div>
 		</div>
 	</div>

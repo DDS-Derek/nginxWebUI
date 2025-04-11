@@ -37,8 +37,8 @@ solon:
         maxHistory: "7"
 spring:
   database:
-    type: h2
+    type: mysql
   datasource:
-    url: 
-    username: 
-    password: 
+    url: jdbc:mysql://192.168.1.51:3306/nginxwebui
+    username: root
+    password: root
