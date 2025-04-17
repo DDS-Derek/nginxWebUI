@@ -2,14 +2,10 @@ package com.cym.sqlhelper.utils;
 
 import java.io.Reader;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.Map.Entry;
-import java.util.Set;
 
+import com.cym.config.SQLConstants;
 import org.h2.jdbc.JdbcClob;
 import org.noear.solon.annotation.Component;
 import org.noear.solon.annotation.Inject;
@@ -31,6 +27,7 @@ public class JdbcTemplate {
 	
 	public List<Map<String, Object>> queryForList(String formatSql, Object... array) {
 		try {
+//			System.out.println(">>>queryForList sql:"+formatSql+" array:"+ Arrays.toString(array));
 			List<Entity> list = Db.use(dataSourceEmbed.getDataSource()).query(formatSql, array);
 
 			List<Map<String, Object>> mapList = new ArrayList<>();
@@ -77,7 +74,7 @@ public class JdbcTemplate {
 		entity.setTableName(StrUtil.toUnderlineCase(clazz.getSimpleName()));
 		entity.set("id", uuid);
 		Db.use(dataSourceEmbed.getDataSource()).insert(entity);
-		List<Entity> list = Db.use(dataSourceEmbed.getDataSource()).query("select * from `" + StrUtil.toUnderlineCase(clazz.getSimpleName()) + "` where id='" + uuid + "'");
+		List<Entity> list = Db.use(dataSourceEmbed.getDataSource()).query("select * from " + SQLConstants.TABLE_PREFIX + StrUtil.toUnderlineCase(clazz.getSimpleName()) + SQLConstants.TABLE_SUFFIX + " where id='" + uuid + "'");
 
 		for (Entity entityOne : list) {
 			set = entityOne.getFieldNames();
@@ -109,6 +106,7 @@ public class JdbcTemplate {
 
 	public void execute(String formatSql, Object... array) {
 		try {
+//			System.out.println(">>>execute sql:"+formatSql);
 			Db.use(dataSourceEmbed.getDataSource()).execute(formatSql, array);
 		} catch (SQLException e) {
 			logger.error(e.getMessage(), e);
