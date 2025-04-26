@@ -8,11 +8,9 @@ import javax.script.SimpleBindings;
 import cn.hutool.script.ScriptUtil;
 
 public class SQLConstants {
-    public static String SUFFIX = "`";
-
-    public static String ORDER_TYPE_INT = "SIGNED";
-
-    public static String LIMIT_SCRIPT = "(function() { return \" LIMIT \" + offset + \",\" + limit;})();";
+    public static String SUFFIX = null;
+    public static String ORDER_TYPE_INT = null;
+    public static String LIMIT_SCRIPT = null;
 
     public static String cutPage(Integer curr,Integer limit) {
         Map<String, Object> params = new HashMap<>();

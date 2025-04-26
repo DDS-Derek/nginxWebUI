@@ -23,24 +23,6 @@ public class DataSourceEmbed {
 	@Inject("${spring.datasource.password}")
 	String password;
 
-//	@Inject("${spring.database.tablePrefix:`}")
-//	String TABLE_PREFIX = "`";
-//	@Inject("${spring.database.tableSuffix:`}")
-//	String TABLE_SUFFIX = "`";
-//
-//	@Inject("${spring.database.columnPrefix:`}")
-//	String COLUMN_PREFIX = "`";
-//	@Inject("${spring.database.columnSuffix:`}")
-//	String COLUMN_SUFFIX = "`";
-//
-//	@Inject("${spring.database.idColumn:`id`}")
-//	String ID_COLUMN = "`id`";
-//
-//	@Inject("${spring.database.orderTypeInt:SIGNED}")
-//	String ORDER_TYPE_INT = "SIGNED";
-//
-//	@Inject("${spring.database.limitScript:(function() { return \" LIMIT \" + offset + \",\" + limit;})();}")
-//	String LIMIT_SCRIPT = "(function() { return \" LIMIT \" + offset + \",\" + limit;})();";
 
 	HikariDataSource dataSource;
 
