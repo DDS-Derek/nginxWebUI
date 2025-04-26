@@ -85,12 +85,12 @@ public class SqlHelper extends SqlUtils {
 
 				Field[] fields = ReflectUtil.getFields(object.getClass());
 				for (Field field : fields) {
-					fieldsPart.add(SQLConstants.COLUMN_PREFIX + StrUtil.toUnderlineCase(field.getName()) + SQLConstants.COLUMN_SUFFIX);
+					fieldsPart.add(SQLConstants.SUFFIX + StrUtil.toUnderlineCase(field.getName()) + SQLConstants.SUFFIX);
 					placeHolder.add("?");
 					paramValues.add(ReflectUtil.getFieldValue(object, field));
 				}
 
-				sql = "INSERT INTO " + SQLConstants.TABLE_PREFIX + StrUtil.toUnderlineCase(object.getClass().getSimpleName()) + SQLConstants.TABLE_SUFFIX + " (" + StrUtil.join(",", fieldsPart) + ") VALUES (" + StrUtil.join(",", placeHolder) + ")";
+				sql = "INSERT INTO " + SQLConstants.SUFFIX + StrUtil.toUnderlineCase(object.getClass().getSimpleName()) + SQLConstants.SUFFIX + " (" + StrUtil.join(",", fieldsPart) + ") VALUES (" + StrUtil.join(",", placeHolder) + ")";
 
 				logQuery(formatSql(sql), paramValues.toArray());
 				jdbcTemplate.execute(formatSql(sql), paramValues.toArray());
@@ -109,13 +109,13 @@ public class SqlHelper extends SqlUtils {
 
 				for (Field field : fields) {
 					if (!field.getName().equals("id") && ReflectUtil.getFieldValue(object, field) != null) {
-						fieldsPart.add(SQLConstants.COLUMN_PREFIX + StrUtil.toUnderlineCase(field.getName()) + SQLConstants.COLUMN_SUFFIX + "=?");
+						fieldsPart.add(SQLConstants.SUFFIX + StrUtil.toUnderlineCase(field.getName()) + SQLConstants.SUFFIX + "=?");
 						paramValues.add(ReflectUtil.getFieldValue(object, field));
 					}
 				}
 				paramValues.add(id);
 
-				String sql = "UPDATE " + SQLConstants.TABLE_PREFIX + StrUtil.toUnderlineCase(object.getClass().getSimpleName()) + SQLConstants.TABLE_SUFFIX + " SET " + StrUtil.join(",", fieldsPart) + " WHERE id = ?";
+				String sql = "UPDATE " + SQLConstants.SUFFIX + StrUtil.toUnderlineCase(object.getClass().getSimpleName()) + SQLConstants.SUFFIX + " SET " + StrUtil.join(",", fieldsPart) + " WHERE id = ?";
 
 				logQuery(formatSql(sql), paramValues.toArray());
 				jdbcTemplate.execute(formatSql(sql), paramValues.toArray());
@@ -201,13 +201,13 @@ public class SqlHelper extends SqlUtils {
 
 			List<Object> params = new ArrayList<Object>();
 			for (Field field : fields) {
-				fieldsPart.add(SQLConstants.COLUMN_PREFIX + StrUtil.toUnderlineCase(field.getName()) + SQLConstants.COLUMN_SUFFIX);
+				fieldsPart.add(SQLConstants.SUFFIX + StrUtil.toUnderlineCase(field.getName()) + SQLConstants.SUFFIX);
 				placeHolder.add("?");
 				params.add(ReflectUtil.getFieldValue(object, field));
 			}
 
 			if (sqls == null) {
-				sqls = "INSERT INTO " + SQLConstants.TABLE_PREFIX + StrUtil.toUnderlineCase(object.getClass().getSimpleName()) + SQLConstants.TABLE_SUFFIX + " (" + StrUtil.join(",", fieldsPart) + ") VALUES (" + StrUtil.join(",", placeHolder) + ")";
+				sqls = "INSERT INTO " + SQLConstants.SUFFIX + StrUtil.toUnderlineCase(object.getClass().getSimpleName()) + SQLConstants.SUFFIX + " (" + StrUtil.join(",", fieldsPart) + ") VALUES (" + StrUtil.join(",", placeHolder) + ")";
 			}
 
 			jdbcTemplate.execute(formatSql(sqls), params.toArray());
@@ -242,12 +242,12 @@ public class SqlHelper extends SqlUtils {
 		List<String> paramValues = new ArrayList<String>();
 		for (Entry<String, Object> entry : update.getSets().entrySet()) {
 			if (entry.getKey() != null && entry.getValue() != null) {
-				fieldsPart.add(SQLConstants.COLUMN_PREFIX + StrUtil.toUnderlineCase(entry.getKey()) + SQLConstants.COLUMN_SUFFIX + "=?");
+				fieldsPart.add(SQLConstants.SUFFIX + StrUtil.toUnderlineCase(entry.getKey()) + SQLConstants.SUFFIX + "=?");
 				paramValues.add(entry.getValue().toString());
 			}
 		}
 
-		String sql = "UPDATE " + SQLConstants.TABLE_PREFIX + StrUtil.toUnderlineCase(clazz.getSimpleName()) + SQLConstants.TABLE_SUFFIX + " SET " + StrUtil.join(",", fieldsPart);
+		String sql = "UPDATE " + SQLConstants.SUFFIX + StrUtil.toUnderlineCase(clazz.getSimpleName()) + SQLConstants.SUFFIX + " SET " + StrUtil.join(",", fieldsPart);
 		if (conditionWrapper != null && conditionWrapper.notEmpty()) {
 			sql += " WHERE " + conditionWrapper.build(paramValues);
 		}
@@ -262,7 +262,7 @@ public class SqlHelper extends SqlUtils {
 	 * @param object
 	 */
 	public void addCountById(String id, String property, Long count, Class<?> clazz) {
-		String sql = "UPDATE " + SQLConstants.TABLE_PREFIX + StrUtil.toUnderlineCase(clazz.getSimpleName()) + SQLConstants.TABLE_SUFFIX + " SET " + SQLConstants.COLUMN_PREFIX + property + SQLConstants.COLUMN_SUFFIX + " = CAST(" + SQLConstants.COLUMN_PREFIX + property + SQLConstants.COLUMN_SUFFIX + " AS DECIMAL(30,10)) + ? WHERE " + SQLConstants.ID_COLUMN + " =  ?";
+		String sql = "UPDATE " + SQLConstants.SUFFIX + StrUtil.toUnderlineCase(clazz.getSimpleName()) + SQLConstants.SUFFIX + " SET " + SQLConstants.SUFFIX + property + SQLConstants.SUFFIX + " = CAST(" + SQLConstants.SUFFIX + property + SQLConstants.SUFFIX + " AS DECIMAL(30,10)) + ? WHERE id =  ?";
 		Object[] params = new Object[] { count, id };
 		logQuery(formatSql(sql), params);
 		jdbcTemplate.execute(formatSql(sql), params);
@@ -294,13 +294,13 @@ public class SqlHelper extends SqlUtils {
 
 		for (Field field : fields) {
 			if (!field.getName().equals("id")) {
-				fieldsPart.add(SQLConstants.COLUMN_PREFIX + StrUtil.toUnderlineCase(field.getName()) + SQLConstants.COLUMN_SUFFIX + "=?");
+				fieldsPart.add(SQLConstants.SUFFIX + StrUtil.toUnderlineCase(field.getName()) + SQLConstants.SUFFIX + "=?");
 				paramValues.add(ReflectUtil.getFieldValue(object, field));
 			}
 		}
 		paramValues.add(ReflectUtil.getFieldValue(object, "id"));
 
-		String sql = "UPDATE " + SQLConstants.TABLE_PREFIX + StrUtil.toUnderlineCase(object.getClass().getSimpleName()) + SQLConstants.TABLE_SUFFIX + " SET " + StrUtil.join(",", fieldsPart) + " WHERE id = ?";
+		String sql = "UPDATE " + SQLConstants.SUFFIX + StrUtil.toUnderlineCase(object.getClass().getSimpleName()) + SQLConstants.SUFFIX + " SET " + StrUtil.join(",", fieldsPart) + " WHERE id = ?";
 
 		logQuery(formatSql(sql), paramValues.toArray());
 		jdbcTemplate.execute(formatSql(sql), paramValues.toArray());
@@ -353,7 +353,7 @@ public class SqlHelper extends SqlUtils {
 	 */
 	public void deleteByQuery(ConditionWrapper conditionWrapper, Class<?> clazz) {
 		List<String> values = new ArrayList<String>();
-		String sql = "DELETE FROM " + SQLConstants.TABLE_PREFIX + StrUtil.toUnderlineCase(clazz.getSimpleName()) + SQLConstants.TABLE_SUFFIX;
+		String sql = "DELETE FROM " + SQLConstants.SUFFIX + StrUtil.toUnderlineCase(clazz.getSimpleName()) + SQLConstants.SUFFIX;
 		if (conditionWrapper != null && conditionWrapper.notEmpty()) {
 			sql += " WHERE " + conditionWrapper.build(values);
 		}
@@ -417,7 +417,7 @@ public class SqlHelper extends SqlUtils {
 		// 查询出一共的条数
 		Long count = findCountByQuery(conditionWrapper, clazz);
 
-		String sql = "SELECT * FROM " + SQLConstants.TABLE_PREFIX + StrUtil.toUnderlineCase(clazz.getSimpleName()) + SQLConstants.TABLE_SUFFIX;
+		String sql = "SELECT * FROM " + SQLConstants.SUFFIX + StrUtil.toUnderlineCase(clazz.getSimpleName()) + SQLConstants.SUFFIX;
 		if (conditionWrapper != null && conditionWrapper.notEmpty()) {
 			sql += " WHERE " + conditionWrapper.build(values);
 		}
@@ -499,7 +499,7 @@ public class SqlHelper extends SqlUtils {
 	public <T> T findOneByQuery(ConditionWrapper conditionWrapper, Sort sort, Class<T> clazz) {
 		List<String> values = new ArrayList<String>();
 		List<T> list = new ArrayList<T>();
-		String sql = "SELECT * FROM " + SQLConstants.TABLE_PREFIX + StrUtil.toUnderlineCase(clazz.getSimpleName()) + SQLConstants.TABLE_SUFFIX;
+		String sql = "SELECT * FROM " + SQLConstants.SUFFIX + StrUtil.toUnderlineCase(clazz.getSimpleName()) + SQLConstants.SUFFIX;
 		if (conditionWrapper != null && conditionWrapper.notEmpty()) {
 			sql += " WHERE " + conditionWrapper.build(values);
 		}
@@ -550,7 +550,7 @@ public class SqlHelper extends SqlUtils {
 	public <T> List<T> findListByQuery(ConditionWrapper conditionWrapper, Sort sort, Class<T> clazz) {
 		List<String> values = new ArrayList<String>();
 
-		String sql = "SELECT * FROM " + SQLConstants.TABLE_PREFIX + StrUtil.toUnderlineCase(clazz.getSimpleName()) + SQLConstants.TABLE_SUFFIX;
+		String sql = "SELECT * FROM " + SQLConstants.SUFFIX + StrUtil.toUnderlineCase(clazz.getSimpleName()) + SQLConstants.SUFFIX;
 		if (conditionWrapper != null && conditionWrapper.notEmpty()) {
 			sql += " WHERE " + conditionWrapper.build(values);
 		}
@@ -808,7 +808,7 @@ public class SqlHelper extends SqlUtils {
 	 */
 	public Long findCountByQuery(ConditionWrapper conditionWrapper, Class<?> clazz) {
 		List<String> values = new ArrayList<String>();
-		String sql = "SELECT COUNT(*) FROM " + SQLConstants.TABLE_PREFIX + StrUtil.toUnderlineCase(clazz.getSimpleName()) + SQLConstants.TABLE_SUFFIX;
+		String sql = "SELECT COUNT(*) FROM " + SQLConstants.SUFFIX + StrUtil.toUnderlineCase(clazz.getSimpleName()) + SQLConstants.SUFFIX;
 		if (conditionWrapper != null && conditionWrapper.notEmpty()) {
 			sql += " WHERE " + conditionWrapper.build(values);
 		}

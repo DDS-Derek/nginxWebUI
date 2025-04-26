@@ -1,31 +1,16 @@
 package com.cym.config;
 
-import cn.hutool.script.ScriptRuntimeException;
-import cn.hutool.script.ScriptUtil;
-
-import javax.script.SimpleBindings;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.script.SimpleBindings;
+
+import cn.hutool.script.ScriptUtil;
+
 public class SQLConstants {
-    // Table names
-    public static String TABLE_PREFIX = "`";
-    public static String TABLE_SUFFIX = "`";
-//    public static String TABLE_PREFIX = "\"";
-//    public static String TABLE_SUFFIX = "\"";
-    
-    // Column names
-    public static String COLUMN_PREFIX = "`";
-    public static String COLUMN_SUFFIX = "`";
-//    public static String COLUMN_PREFIX = "\"";
-//    public static String COLUMN_SUFFIX = "\"";
-    
-    // Common columns
-    public static String ID_COLUMN = "`id`";
-//    public static String ID_COLUMN = "\"id\"";
+    public static String SUFFIX = "`";
 
     public static String ORDER_TYPE_INT = "SIGNED";
-//    public static String ORDER_TYPE_INT = "BIGINT";
 
     public static String LIMIT_SCRIPT = "(function() { return \" LIMIT \" + offset + \",\" + limit;})();";
 

@@ -266,7 +266,7 @@ public class InitConfig {
 			Table table = clazz.getAnnotation(Table.class);
 			if (table != null) {
 				try {
-					List<Map<String, Object>> list = jdbcTemplate.queryForList("SELECT * FROM " + SQLConstants.TABLE_PREFIX + StrUtil.toUnderlineCase(clazz.getSimpleName()) + SQLConstants.TABLE_SUFFIX);
+					List<Map<String, Object>> list = jdbcTemplate.queryForList("SELECT * FROM " + SQLConstants.SUFFIX + StrUtil.toUnderlineCase(clazz.getSimpleName()) + SQLConstants.SUFFIX);
 
 					map.put(clazz.getName(), sqlHelper.buildObjects(list, clazz));
 				} catch (Exception e) {

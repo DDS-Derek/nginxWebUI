@@ -50,11 +50,7 @@ public class DataSourceEmbed {
 		// 创建dataSource
 		if (databaseType.equalsIgnoreCase("sqlite") || databaseType.equalsIgnoreCase("h2")) {
 
-			SQLConstants.TABLE_SUFFIX = "`";
-			SQLConstants.TABLE_PREFIX = "`";
-			SQLConstants.COLUMN_SUFFIX = "`";
-			SQLConstants.COLUMN_PREFIX = "`";
-			SQLConstants.ID_COLUMN = "`id`";
+			SQLConstants.SUFFIX = "`";
 			SQLConstants.ORDER_TYPE_INT = "SIGNED";
 			SQLConstants.LIMIT_SCRIPT = "(function() { return \" LIMIT \" + offset + \",\" + limit;})();";
 
@@ -68,11 +64,7 @@ public class DataSourceEmbed {
 			dataSource = new HikariDataSource(dbConfig);
 		} else if (databaseType.equalsIgnoreCase("mysql")) {
 
-			SQLConstants.TABLE_SUFFIX = "`";
-			SQLConstants.TABLE_PREFIX = "`";
-			SQLConstants.COLUMN_SUFFIX = "`";
-			SQLConstants.COLUMN_PREFIX = "`";
-			SQLConstants.ID_COLUMN = "`id`";
+			SQLConstants.SUFFIX = "`";
 			SQLConstants.ORDER_TYPE_INT = "SIGNED";
 			SQLConstants.LIMIT_SCRIPT = "(function() { return \" LIMIT \" + offset + \",\" + limit;})();";
 
@@ -85,11 +77,7 @@ public class DataSourceEmbed {
 			dataSource = new HikariDataSource(dbConfig);
 		} else if (databaseType.equalsIgnoreCase("postgresql")) {
 
-			SQLConstants.TABLE_SUFFIX = "\"";
-			SQLConstants.TABLE_PREFIX = "\"";
-			SQLConstants.COLUMN_SUFFIX = "\"";
-			SQLConstants.COLUMN_PREFIX = "\"";
-			SQLConstants.ID_COLUMN = "id";
+			SQLConstants.SUFFIX = "\"";
 			SQLConstants.ORDER_TYPE_INT = "BIGINT";
 			SQLConstants.LIMIT_SCRIPT = "(function() { return \" LIMIT \" + limit + \" offset \" + offset; })();";
 

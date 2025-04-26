@@ -78,7 +78,7 @@ public abstract class ConditionWrapper {
 
 	public String buildColumn(String column, Class<?> clazz) {
 
-		return SQLConstants.COLUMN_PREFIX + StrUtil.toUnderlineCase(column) + SQLConstants.COLUMN_SUFFIX;
+		return SQLConstants.SUFFIX + StrUtil.toUnderlineCase(column) + SQLConstants.SUFFIX;
 	}
 
 	public String buildIn(Object value) {

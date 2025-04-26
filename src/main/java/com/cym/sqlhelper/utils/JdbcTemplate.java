@@ -74,7 +74,7 @@ public class JdbcTemplate {
 		entity.setTableName(StrUtil.toUnderlineCase(clazz.getSimpleName()));
 		entity.set("id", uuid);
 		Db.use(dataSourceEmbed.getDataSource()).insert(entity);
-		List<Entity> list = Db.use(dataSourceEmbed.getDataSource()).query("select * from " + SQLConstants.TABLE_PREFIX + StrUtil.toUnderlineCase(clazz.getSimpleName()) + SQLConstants.TABLE_SUFFIX + " where id='" + uuid + "'");
+		List<Entity> list = Db.use(dataSourceEmbed.getDataSource()).query("select * from " + SQLConstants.SUFFIX + StrUtil.toUnderlineCase(clazz.getSimpleName()) + SQLConstants.SUFFIX + " where id='" + uuid + "'");
 
 		for (Entity entityOne : list) {
 			set = entityOne.getFieldNames();
