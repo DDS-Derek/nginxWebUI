@@ -195,29 +195,6 @@ public class InitConfig {
 				}
 
 			});
-		} else {
-			// 异步重启nginx, 重建pid
-			ThreadUtil.execute(new Runnable() {
-
-				@Override
-				public void run() {
-
-					String nginxExe = settingService.get("nginxExe");
-					String nginxDir = settingService.get("nginxDir");
-					String nginxPath = settingService.get("nginxPath");
-					if (StrUtil.isNotEmpty(nginxExe) && StrUtil.isNotEmpty(nginxPath)) {
-						RuntimeUtil.exec("cmd /c start taskkill /f /im nginx.exe");
-						ThreadUtil.safeSleep(2000);
-						
-						String cmd = nginxExe + " -c " + nginxPath;
-						if (StrUtil.isNotEmpty(nginxDir)) {
-							cmd += " -p " + nginxDir;
-						}
-						RuntimeUtil.exec("cmd /c start " + cmd);
-					}
-				}
-
-			});
 		}
 
 		// 展示logo
