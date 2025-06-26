@@ -68,7 +68,7 @@ public class DataSourceEmbed {
 			dbConfig.setUsername(username);
 			dbConfig.setPassword(password);
 			dbConfig.setMaximumPoolSize(1);
-			dbConfig.setDriverClassName(databaseType);
+			dbConfig.setDriverClassName("org.postgresql.Driver");
 			dataSource = new HikariDataSource(dbConfig);
 		}
 	}

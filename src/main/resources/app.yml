@@ -1,5 +1,5 @@
 server:
-  port: 18080
+  port: 8080
   request:
     maxBodySize: 20mb
     maxFileSize: 2048mb
@@ -39,7 +39,7 @@ solon:
         maxHistory: "7"
 spring:
   database:
-    type: sqlite
+    type: postgresql
   datasource:
     url: 
     username: 
