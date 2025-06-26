@@ -9,6 +9,8 @@ import com.cym.service.AdminService;
 import com.cym.sqlhelper.bean.Page;
 import com.cym.sqlhelper.utils.SqlHelper;
 
+import cn.hutool.core.util.StrUtil;
+
 /**
  * Author: D.Yang Email: koyangslash@gmail.com Date: 16/10/9 Time: 下午1:37
  * Describe: 基础控制器
@@ -57,9 +59,9 @@ public class BaseController {
 	}
 
 	public void setPage(Page page) {
-		Integer limit = Context.current().sessionAsInt("limit");
-		if (limit != null) {
-			page.setLimit(limit);
+		String limit = (String) Context.current().session("limit");
+		if (StrUtil.isNotEmpty(limit)) {
+			page.setLimit(Integer.parseInt(limit));
 		}
 	}
 
