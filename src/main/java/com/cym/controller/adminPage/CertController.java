@@ -224,6 +224,8 @@ public class CertController extends BaseController {
 					dnsType = "dns_tencent";
 				} else if (cert.getDnsType().equals("cf")) {
 					dnsType = "dns_cf";
+				} else if (cert.getDnsType().equals("cfToken")) {
+					dnsType = "dns_cf";
 				} else if (cert.getDnsType().equals("gd")) {
 					dnsType = "dns_gd";
 				} else if (cert.getDnsType().equals("hw")) {
@@ -322,6 +324,11 @@ public class CertController extends BaseController {
 			if (cert.getDnsType().equals("cf")) {
 				list.add("CF_Email=" + cert.getCfEmail());
 				list.add("CF_Key=" + cert.getCfKey());
+			}
+			if (cert.getDnsType().equals("cfToken")) {
+				list.add("CF_Token=" + cert.getCfToken());
+				list.add("CF_Account_ID=" + cert.getCfAccountId());
+				list.add("CF_Zone_ID=" + cert.getCfZoneId());
 			}
 			if (cert.getDnsType().equals("gd")) {
 				list.add("GD_Key=" + cert.getGdKey());
