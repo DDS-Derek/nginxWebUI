@@ -66,6 +66,7 @@ public class ServerController extends BaseController {
 
 	@Mapping("")
 	public ModelAndView index(ModelAndView modelAndView, Page page, String keywords) {
+		setPage(page);
 		page = serverService.search(page, keywords);
 
 		List<ServerExt> exts = new ArrayList<ServerExt>();

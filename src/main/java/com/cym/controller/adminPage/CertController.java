@@ -59,6 +59,7 @@ public class CertController extends BaseController {
 
 	@Mapping("")
 	public ModelAndView index(ModelAndView modelAndView, Page page, String keywords) {
+		setPage(page);
 		page = certService.getPage(keywords, page);
 
 		for (Cert cert : (List<Cert>) page.getRecords()) {
