@@ -1161,6 +1161,6 @@ function editLocationDescr(id) {
 
 
 function showLocation(id){
-	$("#" + id + "_location").removeAttr('style');
+	$("#" + id + "_str").removeAttr('style');
 	$("#" + id + "_a").hide();
 }
