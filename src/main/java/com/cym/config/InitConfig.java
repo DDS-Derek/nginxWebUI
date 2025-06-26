@@ -95,7 +95,8 @@ public class InitConfig {
 			for (Admin admin : admins) {
 				String randomPass = RandomUtil.randomString(8);
 
-				//System.out.println(m.get("adminStr.name") + ":" + admin.getName() + " " + m.get("adminStr.pass") + ":" + randomPass);
+				// System.out.println(m.get("adminStr.name") + ":" + admin.getName() + " " +
+				// m.get("adminStr.pass") + ":" + randomPass);
 				admin.setAuth(false); // 关闭二次验证
 				admin.setPass(EncodePassUtils.encode(randomPass));
 				sqlHelper.updateById(admin);
@@ -190,6 +191,27 @@ public class InitConfig {
 							cmd += " -p " + nginxDir;
 						}
 						runCmd(cmd);
+					}
+				}
+
+			});
+		} else {
+			// 异步重启nginx, 拿到pid
+			ThreadUtil.execute(new Runnable() {
+
+				@Override
+				public void run() {
+
+					String nginxExe = settingService.get("nginxExe");
+					String nginxDir = settingService.get("nginxDir");
+					String nginxPath = settingService.get("nginxPath");
+					if (StrUtil.isNotEmpty(nginxExe) && StrUtil.isNotEmpty(nginxPath)) {
+						RuntimeUtil.execForStr("taskkill /f /im nginx.exe");
+						String cmd = nginxExe + " -c " + nginxPath;
+						if (StrUtil.isNotEmpty(nginxDir)) {
+							cmd += " -p " + nginxDir;
+						}
+						RuntimeUtil.execForStr(cmd);
 					}
 				}
 
