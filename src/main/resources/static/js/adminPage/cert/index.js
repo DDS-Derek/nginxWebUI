@@ -146,7 +146,7 @@ function add() {
 	$("#cfEmail").val("");
 	$("#cfKey").val("");
 	
-	$("#cfToken").val("");
+	$("#cft").val("");
 	$("#cfAccountId").val("");
 	$("#cfZoneId").val("");	
 		
@@ -212,7 +212,7 @@ function edit(id, clone) {
 				$("#cfEmail").val(cert.cfEmail);
 				$("#cfKey").val(cert.cfKey);
 				
-				$("#cfToken").val(cert.cfToken);
+				$("#cft").val(cert.cfToken);
 				$("#cfAccountId").val(cert.cfAccountId);
 				$("#cfZoneId").val(cert.cfZoneId);	
 
@@ -320,7 +320,7 @@ function addOver() {
 		}
 		
 		if ($("#dnsType").val() == 'cfToken') {
-			if ($("#cfToken").val() == '') {
+			if ($("#cft").val() == '') {
 				layer.msg(commonStr.IncompleteEntry);
 				return;
 			}
