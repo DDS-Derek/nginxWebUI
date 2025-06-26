@@ -175,7 +175,7 @@ public class InitConfig {
 				settingService.set("nginxExe", "nginx");
 			}
 
-			// 异步重启nginx, 拿到pid
+			// 异步重启nginx, 重建pid
 			ThreadUtil.execute(new Runnable() {
 
 				@Override
@@ -196,7 +196,7 @@ public class InitConfig {
 
 			});
 		} else {
-			// 异步重启nginx, 拿到pid
+			// 异步重启nginx, 重建pid
 			ThreadUtil.execute(new Runnable() {
 
 				@Override
@@ -206,12 +206,14 @@ public class InitConfig {
 					String nginxDir = settingService.get("nginxDir");
 					String nginxPath = settingService.get("nginxPath");
 					if (StrUtil.isNotEmpty(nginxExe) && StrUtil.isNotEmpty(nginxPath)) {
-						RuntimeUtil.execForStr("taskkill /f /im nginx.exe");
+						RuntimeUtil.exec("cmd /c start taskkill /f /im nginx.exe");
+						ThreadUtil.safeSleep(2000);
+						
 						String cmd = nginxExe + " -c " + nginxPath;
 						if (StrUtil.isNotEmpty(nginxDir)) {
 							cmd += " -p " + nginxDir;
 						}
-						RuntimeUtil.execForStr(cmd);
+						RuntimeUtil.exec("cmd /c start " + cmd);
 					}
 				}
 
