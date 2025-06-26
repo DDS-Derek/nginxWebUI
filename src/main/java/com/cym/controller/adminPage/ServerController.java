@@ -34,6 +34,7 @@ import com.cym.service.UpstreamService;
 import com.cym.sqlhelper.bean.Page;
 import com.cym.sqlhelper.bean.Sort;
 import com.cym.sqlhelper.bean.Sort.Direction;
+import com.cym.sqlhelper.utils.ConditionAndWrapper;
 import com.cym.utils.BaseController;
 import com.cym.utils.JsonResult;
 import com.cym.utils.SnowFlakeUtils;
@@ -82,8 +83,13 @@ public class ServerController extends BaseController {
 			}
 
 			serverExt.setServer(server);
+			serverExt.setOverflow(false);
+
 			if (server.getProxyType() == 0) {
 				serverExt.setLocationStr(buildLocationStr(server.getId()));
+				if (sqlHelper.findCountByQuery(new ConditionAndWrapper().eq("serverId", server.getId()), Location.class) > 5) {
+					serverExt.setOverflow(true);
+				}
 			} else {
 				Upstream upstream = sqlHelper.findById(server.getProxyUpstreamId(), Upstream.class);
 				serverExt.setLocationStr(m.get("serverStr.server") + ": " + (upstream != null ? upstream.getName() : ""));
