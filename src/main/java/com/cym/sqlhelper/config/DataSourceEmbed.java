@@ -30,7 +30,7 @@ public class DataSourceEmbed {
 	public void init() {
 
 		// 创建dataSource
-		if (databaseType.equalsIgnoreCase("sqlite") || databaseType.equalsIgnoreCase("h2")) {
+		if (databaseType.equalsIgnoreCase("sqlite")) {
 
 			SQLConstants.SUFFIX = "`";
 			SQLConstants.ORDER_TYPE_INT = "SIGNED";

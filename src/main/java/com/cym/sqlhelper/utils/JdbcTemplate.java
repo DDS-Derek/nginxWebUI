@@ -2,16 +2,20 @@ package com.cym.sqlhelper.utils;
 
 import java.io.Reader;
 import java.sql.SQLException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Set;
 
-import com.cym.config.SQLConstants;
-import org.h2.jdbc.JdbcClob;
 import org.noear.solon.annotation.Component;
 import org.noear.solon.annotation.Inject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.cym.config.SQLConstants;
 import com.cym.sqlhelper.config.DataSourceEmbed;
 
 import cn.hutool.core.util.StrUtil;
@@ -34,11 +38,11 @@ public class JdbcTemplate {
 			for (Entity entity : list) {
 				Map<String, Object> map = new HashMap<>();
 				for (Map.Entry entry : entity.entrySet()) {
-					if (entry.getValue() instanceof JdbcClob) {
-						map.put(entry.getKey().toString(), clobToStr((JdbcClob) entry.getValue()));
-					} else {
+//					if (entry.getValue() instanceof JdbcClob) {
+//						map.put(entry.getKey().toString(), clobToStr((JdbcClob) entry.getValue()));
+//					} else {
 						map.put(entry.getKey().toString(), entry.getValue());
-					}
+//					}
 
 				}
 				mapList.add(map);
@@ -51,21 +55,21 @@ public class JdbcTemplate {
 		}
 	}
 
-	public String clobToStr(JdbcClob jdbcClob) {
-		try {
-			StringBuilder builder = new StringBuilder();
-			Reader rd = jdbcClob.getCharacterStream();
-			char[] str = new char[1];
-			while (rd.read(str) != -1) {
-				builder.append(new String(str));
-			}
-			return builder.toString();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		return null;
-	}
+//	public String clobToStr(JdbcClob jdbcClob) {
+//		try {
+//			StringBuilder builder = new StringBuilder();
+//			Reader rd = jdbcClob.getCharacterStream();
+//			char[] str = new char[1];
+//			while (rd.read(str) != -1) {
+//				builder.append(new String(str));
+//			}
+//			return builder.toString();
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//
+//		return null;
+//	}
 
 	public Set<String> queryForColumn(Class clazz) throws SQLException {
 		Set<String> set = new HashSet<>();

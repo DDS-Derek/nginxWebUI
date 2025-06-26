@@ -85,9 +85,9 @@ public class InitConfig {
 	@Init
 	public void start() throws Throwable {
 		// h2转sqlite
-		if ((databaseType.equalsIgnoreCase("sqlite") || databaseType.equalsIgnoreCase("h2")) && FileUtil.exist(homeConfig.home + "h2.mv.db")) {
-			transferSql();
-		}
+//		if ((databaseType.equalsIgnoreCase("sqlite") || databaseType.equalsIgnoreCase("h2")) && FileUtil.exist(homeConfig.home + "h2.mv.db")) {
+//			transferSql();
+//		}
 
 		// 找回密码
 		if (findPass) {
