@@ -104,6 +104,7 @@ function checkDnsType(value) {
 	$("#tencent").hide();
 	$("#aws").hide();
 	$("#cf").hide();
+	$("#cfToken").hide();
 	$("#gd").hide();
 	$("#hw").hide();
 	$("#ipv64").hide();
@@ -144,6 +145,11 @@ function add() {
 	$("#awsSecretAccessKey").val("");
 	$("#cfEmail").val("");
 	$("#cfKey").val("");
+	
+	$("#cfToken").val("");
+	$("#cfAccountId").val("");
+	$("#cfZoneId").val("");	
+		
 	$("#gdKey").val("");
 	$("#gdSecret").val("");
 	$("#ipv64Token").val("");
@@ -205,6 +211,10 @@ function edit(id, clone) {
 				$("#awsSecretAccessKey").val(cert.awsSecretAccessKey);
 				$("#cfEmail").val(cert.cfEmail);
 				$("#cfKey").val(cert.cfKey);
+				
+				$("#cfToken").val(cert.cfToken);
+				$("#cfAccountId").val(cert.cfAccountId);
+				$("#cfZoneId").val(cert.cfZoneId);	
 
 				$("#gdKey").val(cert.gdKey);
 				$("#gdSecret").val(cert.gdSecret);
@@ -308,6 +318,14 @@ function addOver() {
 				return;
 			}
 		}
+		
+		if ($("#dnsType").val() == 'cfToken') {
+			if ($("#cfToken").val() == '') {
+				layer.msg(commonStr.IncompleteEntry);
+				return;
+			}
+		}
+				
 		if ($("#dnsType").val() == 'gd') {
 			if ($("#gdKey").val() == '' || $("#gdSecret").val() == '') {
 				layer.msg(commonStr.IncompleteEntry);
