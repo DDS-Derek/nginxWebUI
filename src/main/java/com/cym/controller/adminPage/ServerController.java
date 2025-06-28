@@ -87,7 +87,7 @@ public class ServerController extends BaseController {
 
 			if (server.getProxyType() == 0) {
 				serverExt.setLocationStr(buildLocationStr(server.getId()));
-				if (sqlHelper.findCountByQuery(new ConditionAndWrapper().eq("serverId", server.getId()), Location.class) > 5) {
+				if (sqlHelper.findCountByQuery(new ConditionAndWrapper().eq("enable", 1).eq("serverId", server.getId()), Location.class) > 5) { 
 					serverExt.setOverflow(true);
 				}
 			} else {
