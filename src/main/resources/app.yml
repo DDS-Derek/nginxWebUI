@@ -39,11 +39,11 @@ solon:
         maxHistory: "7"
 spring:
   database:
-    type: sqlite
+    type: postgresql
   datasource:
-    url: 
-    username: 
-    password: 
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: postgres
+    password: root
 
 initAdmin: 
 initPass: 
