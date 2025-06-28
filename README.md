@@ -132,9 +132,9 @@ Windows: java -jar -Dfile.encoding=UTF-8 D:/home/nginxWebUI/nginxWebUI.jar --ser
 
 --project.home 项目配置文件目录，存放数据库文件，证书文件，日志等, 默认为/home/nginxWebUI/
 
---spring.database.type=mysql 使用其他数据库，不填为使用本地sqlite数据库，可选mysql
+--spring.database.type=mysql 使用其他数据库，不填为使用本地sqlite数据库，可选mysql, postgresql
 
---spring.datasource.url=jdbc:mysql://ip:port/nginxwebui 数据库url
+--spring.datasource.url=jdbc:mysql://ip:port/nginxwebui 数据库url 
 
 --spring.datasource.username=root  数据库用户
 

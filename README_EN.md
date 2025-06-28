@@ -128,7 +128,7 @@ Parameter description (both non-required)
 
 --project.home Project profile directory for database files, certificate files, logs, etc. Default is /home/nginxwebui/
 
---spring.database.type=mysql Use other databases, not filled with native h2, options include mysql
+--spring.database.type=mysql Use other databases, not filled with native sqlite, options include mysql postgresql
 
 --spring.datasource.url=jdbc:mysql://ip:port/nginxwebui Databases url
 
