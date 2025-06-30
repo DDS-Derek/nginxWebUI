@@ -290,8 +290,8 @@ public class CertController extends BaseController {
 	private String getPem(String rs) {
 		String[] lines = rs.split("\n");
 		for (String line : lines) {
-			if (line.contains("And the full chain certs is there:")) {
-				return line.split("And the full chain certs is there:")[1].trim().replace("\\", "/").replace("//", "/");
+			if (line.contains("And the full-chain cert is in:")) {
+				return line.split("And the full-chain cert is in:")[1].trim().replace("\\", "/").replace("//", "/");
 			}
 		}
 
