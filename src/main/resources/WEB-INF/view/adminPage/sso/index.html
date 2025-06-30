@@ -47,114 +47,88 @@
 	<div class="layui-body">
 		<!-- 内容主体区域 -->
 		<form id="addForm" style="margin-top: 48px">
-			<input type="hidden" name="id" id="id">
-
 
 			<div class="layui-form-item">
 				<label class="layui-form-label">code请求地址</label>
 				<div class="layui-input-block">
-					<input type="text" name="name" id="name" class="layui-input">
+					<input type="text" name="codeUrl" id="codeUrl" class="layui-input"  value="${codeUrl}">
 				</div>
 			</div>
 
 			<div class="layui-form-item">
 				<label class="layui-form-label">token获取地址</label>
 				<div class="layui-input-block">
-					<input type="text" name="name" id="name" class="layui-input">
+					<input type="text" name="tokenUrl" id="tokenUrl" class="layui-input"  value="${tokenUrl}">
 				</div>
 			</div>
 
 			<div class="layui-form-item">
 				<label class="layui-form-label">userinfo获取地址</label>
 				<div class="layui-input-block">
-					<input type="text" name="name" id="name" class="layui-input">
+					<input type="text" name="userinfoUrl" id="userinfoUrl" class="layui-input" value="${userinfoUrl}">
 				</div>
 			</div>
 
 
 			<div class="layui-form-item">
 				<label class="layui-form-label">用户属性键</label>
-				<p>jsonpath表达式获取用户唯一信息，例如：$.a.b</p>
+				<p style="font-size: 10px;">jsonpath表达式获取用户唯一信息，例如：$.a.b; 所得值需等于《用户名》</p>
 				<div class="layui-input-block">
-					<input type="text" name="name" id="name" class="layui-input">
+					<input type="text" name="jsonpath" id="jsonpath" class="layui-input" value="${jsonpath}">
 				</div>
 			</div>
 
 			<div class="layui-form-item">
 				<label class="layui-form-label">clientID</label>
 				<div class="layui-input-block">
-					<input type="text" name="name" id="name" class="layui-input">
+					<input type="text" name="clientID" id="clientID" class="layui-input" value="${clientID}">
 				</div>
 			</div>
 
 			<div class="layui-form-item">
 				<label class="layui-form-label">clientSecret</label>
 				<div class="layui-input-block">
-					<input type="text" name="name" id="name" class="layui-input">
+					<input type="text" name="clientSecret" id="clientSecret" class="layui-input" value="${clientSecret}">
 				</div>
 			</div>
 
 			<div class="layui-form-item">
 				<label class="layui-form-label">callback地址</label>
-				<p>SSO Server会携带code访问下方地址(下方地址?code=xxxxxxx)，例如：http://host/callback?code=xxxxxxx</p>
 				<div class="layui-input-block">
-					<input type="text" name="name" id="name" class="layui-input">
+					<input id="callbackUrl" name="callbackUrl" class="layui-input">
 				</div>
 			</div>
 
 
 			<div class="layui-form-item center">
-				<button type="button" class="layui-btn layui-btn-normal" onclick="addOver()">提交</button>
-				<button type="button" class="layui-btn" onclick="layer.closeAll()">清空</button>
+				<button type="button" class="layui-btn layui-btn-normal" onclick="save()">提交</button>
 			</div>
 		</form>
 
 	</div>
 </div>
 
-<div style="height: 0px; width: 0px; overflow: hidden;">
-	<div id="diffoutput"></div>
+<script type="application/javascript">
 
-	<div id="cmdForm" style="padding: 15px;display: none;">
-		<div class="layui-form">
-			<div class="layui-form-item" id="nginxStop">
-				<div class="layui-input-inline">
-					<input type="radio" name="cmd" lang="cmdStop" id="stopNormal"><br>
-					<input type="radio" name="cmd" lang="cmdStop" title="pkill nginx"><br>
-					<input type="radio" name="cmd" lang="cmdStop" title="taskkill /f /im nginx.exe"><br>
-					<input type="radio" name="cmd" lang="cmdStop" title="systemctl stop nginx"><br>
-					<input type="radio" name="cmd" lang="cmdStop" title="service nginx stop"><br>
-					<input type="radio" name="cmd" lang="cmdStop" title="net stop nginx"><br>
-				</div>
-			</div>
+	const href = location.href.split('/');
+	const host = href[0]+"//"+href[2];
+	document.getElementById("callbackUrl").value=host+"/adminPage/sso/code";//host+"/adminPage/sso/code?code=xxxxxxx";
 
-			<div class="layui-form-item" id="nginxStart">
-				<div class="layui-input-inline">
-					<input type="radio" name="cmd" lang="cmdStart" id="startNormal"><br>
-					<input type="radio" name="cmd" lang="cmdStart" title="systemctl start nginx"><br>
-					<input type="radio" name="cmd" lang="cmdStart" title="service nginx start"><br>
-					<input type="radio" name="cmd" lang="cmdStart" title="net start nginx"><br>
-
-				</div>
-			</div>
-
-			<div class="layui-form-item" style="text-align: center;">
-				<button type="button" class="layui-btn layui-btn-normal" onclick="runCmdOver()">${commonStr.submit}</button>
-				<button type="button" class="layui-btn" onclick="layer.closeAll()">${commonStr.close}</button>
-			</div>
-		</div>
-	</div>
-</div>
-
-
-
-<#include '/adminPage/script.html'/>
-<#include '/adminPage/select_root.html'/>
-<script src="${ctx}/lib/auto-line-number/auto-line-number.js" type="text/javascript"></script>
-<script src="${ctx}/lib/jsdifflib/difflib.js" type="text/javascript"></script>
-<script src="${ctx}/lib/jsdifflib/diffview.js" type="text/javascript"></script>
-<script src="${ctx}/lib/base64/base64.js" type="text/javascript"></script>
-<script src="${ctx}/js/adminPage/conf/index.js?v=${jsrandom}" type="text/javascript"></script>
+	async function save(){
+		const form = document.getElementById('addForm');
+		const formData = new FormData(form);
+		const response = await fetch('/adminPage/sso/save', {
+			method: 'POST',
+			body: formData
+		});
+		const data = await response.json();
+		if (data.success) {
+			alert("成功")
+		}else {
+			alert(data.msg)
+		}
+	}
+</script>
 </body>
 
 
