@@ -328,8 +328,12 @@ public class CertController extends BaseController {
 			}
 			if (cert.getDnsType().equals("cfToken")) {
 				list.add("CF_Token=" + cert.getCfToken());
-				list.add("CF_Account_ID=" + cert.getCfAccountId());
-				list.add("CF_Zone_ID=" + cert.getCfZoneId());
+				if (StrUtil.isNotEmpty(cert.getCfAccountId())) {
+					list.add("CF_Account_ID=" + cert.getCfAccountId());
+				}
+				if (StrUtil.isNotEmpty(cert.getCfZoneId())) {
+					list.add("CF_Zone_ID=" + cert.getCfZoneId());
+				}
 			}
 			if (cert.getDnsType().equals("gd")) {
 				list.add("GD_Key=" + cert.getGdKey());
