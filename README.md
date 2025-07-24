@@ -282,7 +282,7 @@ Restart=always
 WantedBy=multi-user.target
 ```
 
-之后执行
+2. 之后执行
 
 ```
 systemctl daemon-reload
