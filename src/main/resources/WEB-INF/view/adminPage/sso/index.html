@@ -139,9 +139,9 @@ input[type='radio'] {
 		});
 		const data = await response.json();
 		if (data.success) {
-			alert("成功")
+			layer.msg(ssoStr.success)
 		}else {
-			alert(data.msg)
+			layer.msg(data.msg)
 		}
 	}
 
