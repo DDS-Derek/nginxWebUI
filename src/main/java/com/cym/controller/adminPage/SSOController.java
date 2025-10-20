@@ -64,15 +64,15 @@ public class SSOController extends BaseController {
 	}
 
 	@Mapping("save")
-	public JsonResult save(String codeUrl, String tokenUrl, String userinfoUrl, String jsonpath, String clientID, String clientSecret,String callbackUrl) {
+	public JsonResult save(String codeUrl, String tokenUrl, String userinfoUrl, String jsonpath, String clientID, String clientSecret, String callbackUrl) {
 
-		settingService.set("sso_codeUrl",codeUrl);
-		settingService.set("sso_tokenUrl",tokenUrl);
-		settingService.set("sso_userinfoUrl",userinfoUrl);
-		settingService.set("sso_jsonpath",jsonpath);
-		settingService.set("sso_clientID",clientID);
-		settingService.set("sso_clientSecret",clientSecret);
-		settingService.set("sso_callbackUrl",callbackUrl);
+		settingService.set("sso_codeUrl", codeUrl);
+		settingService.set("sso_tokenUrl", tokenUrl);
+		settingService.set("sso_userinfoUrl", userinfoUrl);
+		settingService.set("sso_jsonpath", jsonpath);
+		settingService.set("sso_clientID", clientID);
+		settingService.set("sso_clientSecret", clientSecret);
+		settingService.set("sso_callbackUrl", callbackUrl);
 
 		return renderSuccess();
 	}
@@ -80,42 +80,36 @@ public class SSOController extends BaseController {
 	@Mapping("redirect")
 	public void redirect(Context ctx) {
 
+		String codeUrl = settingService.get("sso_codeUrl");
+		String clientID = settingService.get("sso_clientID");
+		String callbackUrl = settingService.get("sso_callbackUrl");
 
-		String codeUrl= settingService.get("sso_codeUrl");
-		String clientID=settingService.get("sso_clientID");
-		String callbackUrl=settingService.get("sso_callbackUrl");
-
-	  	String url = codeUrl+ "?client_id="+clientID+"&response_type=code&redirect_uri="+callbackUrl+"&oauth_timestamp="+System.currentTimeMillis()+"&state=";
+		String url = codeUrl + "?client_id=" + clientID + "&response_type=code&redirect_uri=" + callbackUrl + "&oauth_timestamp=" + System.currentTimeMillis() + "&state=";
 
 		ctx.redirect(url);
 	}
 
 	@Mapping("code")
-	public void code(String code,Context ctx) {
+	public void code(String code, Context ctx) {
 
-		String tokenUrl=settingService.get("sso_tokenUrl");
-		String userinfoUrl=settingService.get("sso_userinfoUrl");
-		String jsonpath=settingService.get("sso_jsonpath");
-		String clientID=settingService.get("sso_clientID");
-		String clientSecret=settingService.get("sso_clientSecret");
-		String callbackUrl=settingService.get("sso_callbackUrl");
+		String tokenUrl = settingService.get("sso_tokenUrl");
+		String userinfoUrl = settingService.get("sso_userinfoUrl");
+		String jsonpath = settingService.get("sso_jsonpath");
+		String clientID = settingService.get("sso_clientID");
+		String clientSecret = settingService.get("sso_clientSecret");
+		String callbackUrl = settingService.get("sso_callbackUrl");
 
-
-		String getTokenUrl = tokenUrl + "?grant_type=authorization_code&oauth_timestamp="+System.currentTimeMillis()+"&client_id="+clientID+"&client_secret="+clientSecret
-				+"&code="+code+"&redirect_uri="+callbackUrl;
+		String getTokenUrl = tokenUrl + "?grant_type=authorization_code&oauth_timestamp=" + System.currentTimeMillis() + "&client_id=" + clientID + "&client_secret=" + clientSecret + "&code=" + code
+				+ "&redirect_uri=" + callbackUrl;
 
 		String post = HttpUtil.post(getTokenUrl, "");
 
 		JSONObject entries = JSONUtil.parseObj(post);
 		String accessToken = entries.getStr("access_token");
 
-		String userInfoUrl = userinfoUrl+"?access_token="+accessToken;
+		String userInfoUrl = userinfoUrl + "?access_token=" + accessToken;
 
 		String userinfoStr = HttpUtil.get(userInfoUrl);
-
-//
-//
-//		JSONObject jsonObject = JSONUtil.parseObj(userinfoStr);
 
 		String read = JsonPath.read(userinfoStr, jsonpath);
 
@@ -128,8 +122,6 @@ public class SSOController extends BaseController {
 		Context.current().sessionSet("isLogin", true);
 		Context.current().sessionSet("admin", admin);
 		Context.current().sessionRemove("imgCode"); // 立刻销毁验证码
-
-
 
 		ctx.redirect("/adminPage/monitor");
 	}

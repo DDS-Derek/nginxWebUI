@@ -171,7 +171,7 @@ public class AppFilter implements Filter {
 		if (ctx.path().toLowerCase().contains("adminPage/login".toLowerCase())) {
 			return true;
 		}
-		if (ctx.path().toLowerCase().contains("adminPage/sso".toLowerCase())) {
+		if (ctx.path().toLowerCase().contains("adminPage/sso/code".toLowerCase())) {
 			return true;
 		}
 
