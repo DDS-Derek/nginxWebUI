@@ -33,6 +33,8 @@ docker buildx build \
     --cache-from "type=local,src=/tmp/.buildx-cache" \
     --cache-to "type=local,dest=/tmp/.buildx-cache" \
     --platform "$arch" \
+    --tag cym1102/nginxwebui:${ver} \
+    --tag cym1102/nginxwebui:latest \
     --tag registry.cn-hangzhou.aliyuncs.com/cym19871102/nginxwebui:${ver} \
     --tag registry.cn-hangzhou.aliyuncs.com/cym19871102/nginxwebui:latest \
     --push \
