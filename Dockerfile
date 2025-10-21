@@ -13,6 +13,7 @@ RUN    apk add --update --no-cache \
 	   nginx-mod-http-headers-more \
 	   nginx-mod-http-js \
 	   nginx-mod-http-keyval \
+	   nginx-mod-http-lua \
 	   nginx-mod-http-brotli \
 	   nginx-mod-rtmp \
 	   nginx-mod-mail \
