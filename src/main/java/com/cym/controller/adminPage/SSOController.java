@@ -112,7 +112,7 @@ public class SSOController extends BaseController {
 
 		Admin admin = sqlHelper.findOneByQuery(new ConditionAndWrapper().eq(Admin::getName, read), Admin.class);
 		if (admin == null) {
-			ctx.outputAsJson(JSONUtil.toJsonPrettyStr(renderError("用户不存在")));
+			ctx.outputAsJson(JSONUtil.toJsonPrettyStr(renderError(m.get("ssoStr.userNotExist")))); 
 			return;
 		}
 
