@@ -75,11 +75,11 @@ public class InitConfig {
 	@Inject("${spring.database.type}")
 	String databaseType;
 
-	@Inject("${init.initAdmin:}")
+	@Inject("${init.admin}")
 	String initAdmin;
-	@Inject("${init.initPass:}")
+	@Inject("${init.pass}")
 	String initPass;
-	@Inject("${init.initApi:false}")
+	@Inject("${init.api}")
 	Boolean initApi;
 
 	@Init
