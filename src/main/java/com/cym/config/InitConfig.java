@@ -84,10 +84,6 @@ public class InitConfig {
 
 	@Init
 	public void start() throws Throwable {
-		// h2转sqlite
-//		if ((databaseType.equalsIgnoreCase("sqlite") || databaseType.equalsIgnoreCase("h2")) && FileUtil.exist(homeConfig.home + "h2.mv.db")) {
-//			transferSql();
-//		}
 
 		// 找回密码
 		if (findPass) {
@@ -95,8 +91,6 @@ public class InitConfig {
 			for (Admin admin : admins) {
 				String randomPass = RandomUtil.randomString(8);
 
-				// System.out.println(m.get("adminStr.name") + ":" + admin.getName() + " " +
-				// m.get("adminStr.pass") + ":" + randomPass);
 				admin.setAuth(false); // 关闭二次验证
 				admin.setPass(EncodePassUtils.encode(randomPass));
 				sqlHelper.updateById(admin);
