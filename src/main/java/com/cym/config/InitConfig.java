@@ -75,11 +75,11 @@ public class InitConfig {
 	@Inject("${spring.database.type}")
 	String databaseType;
 
-	@Inject("${initAdmin}")
+	@Inject("${init.initAdmin:}")
 	String initAdmin;
-	@Inject("${initPass}")
+	@Inject("${init.initPass:}")
 	String initPass;
-	@Inject("${initApi}")
+	@Inject("${init.initApi:false}")
 	Boolean initApi;
 
 	@Init
@@ -105,6 +105,9 @@ public class InitConfig {
 		}
 
 		// 初始化管理员账号
+		logger.info("initAdmin:" + initAdmin);
+		logger.info("initPass:" + initPass);
+		logger.info("initApi:" + initApi);
 		if (StrUtil.isNotBlank(initAdmin) && StrUtil.isNotBlank(initPass)) {
 			addAdmin();
 		}
@@ -293,6 +296,7 @@ public class InitConfig {
 
 	private void addAdmin() {
 		Long adminCount = sqlHelper.findAllCount(Admin.class);
+		logger.info("adminCount:" + adminCount); 
 		if (adminCount > 0) {
 			return;
 		}

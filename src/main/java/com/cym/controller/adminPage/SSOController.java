@@ -88,7 +88,7 @@ public class SSOController extends BaseController {
 
 		ctx.redirect(url);
 	}
-
+	
 	@Mapping("code")
 	public void code(String code, Context ctx) {
 
